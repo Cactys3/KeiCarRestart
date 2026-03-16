@@ -29,6 +29,12 @@ class_name Equipment
 @export var revies: float = 0.0
 @export var thorns: float = 0.0
 @export var inaccuracy: float = 0.0
+func _ready() -> void:
+	flash()
+	movespeed = 20
+	attackspeed = 1
+	damage = 10
+	weight = 1
 func get_stat(stat: String) -> float:
 	## other implementations are hard because variables may be accessed before they are ready or smth i forget.
 	if stat == GlobalStats.HP:
@@ -87,8 +93,6 @@ func get_stat(stat: String) -> float:
 		return (GlobalStats.get_base_stat(GlobalStats.INACCURACY) + inaccuracy) * GlobalStats.get_base_stat(GlobalStats.INACCURACY)
 	return 0.0
 ## Flashing stuff
-func _ready() -> void:
-	flash()
 func flash():
 	visible = false
 	await get_tree().create_timer(0.1).timeout

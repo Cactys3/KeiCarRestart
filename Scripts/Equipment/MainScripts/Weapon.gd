@@ -91,13 +91,14 @@ var bullets: Array[Projectile]
 const attacksperX: int = 10
 
 @export var MeleeDamageFactor: float = 1
-@export var projectile: Projectile
+@export var projectile: PackedScene
 ## Offset that additional projectiles are given when firing multiple, should be different for different weapons and also scale with inaccuracy
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
 var cooldown_timer: float = 0
 var attacking: bool = false
 func _ready() -> void:
+	super()
 	cooldown_timer = 0
 ## Calls Process_Cooldown
 func _process(delta: float) -> void:
@@ -161,7 +162,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	if projectile == null || !is_instance_valid(projectile):
 		push_error("projectile null in attachment script")
 		return null
-	var new_bullet:Projectile = projectile.get_instance()
+	var new_bullet:Projectile = projectile.instantiate()
 	new_bullet.visible = false
 	new_bullet.setup(null, new_direction)
 	if (AimType == AimTypes.Spinning): #handle aim types special cases
@@ -267,7 +268,7 @@ func ProcessUnique(_delta: float) -> void:
 	pass
 ## rotates this weapon towards the new position, TODO: lerp calculated with weight
 func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
-	var speed = rotation_speed * _delta * (10 / max(get_stat(GlobalStats.WEIGHT), 0.1)) ## TODO: Stat: weight
+	var speed = rotation_speed * _delta * (10 / max(get_stat(GlobalStats.WEIGHT), 1)) ## TODO: Stat: weight
 	var angle = (new_position - global_position).normalized().angle()
 	rotation = lerp_angle(rotation, angle, speed)
  #TODO: try global_position instead of player.global_position for how weapon aiming looks

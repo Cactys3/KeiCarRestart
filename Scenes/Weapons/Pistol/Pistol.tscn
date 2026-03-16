@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ckgv6nwrdpxjw" path="res://Art/Weapons/Pistol/Pistol.png" id="1_sk53q"]
 [ext_resource type="Script" uid="uid://bmgo7hj8e8i3" path="res://Scripts/Equipment/MainScripts/Weapon.gd" id="1_un5uw"]
+[ext_resource type="PackedScene" uid="uid://c5n35stv668tp" path="res://Scenes/Weapons/Pistol/9mm.tscn" id="2_iu145"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_buxis"]
 atlas = ExtResource("1_sk53q")
@@ -21,7 +22,8 @@ animations = [{
 [node name="Pistol" type="Area2D" unique_id=2126900765 node_paths=PackedStringArray("visual")]
 script = ExtResource("1_un5uw")
 visual = NodePath("AnimatedSprite2D")
-AimType = 3
+AimType = 2
+projectile = ExtResource("2_iu145")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=458110560]
 sprite_frames = SubResource("SpriteFrames_20ebm")
