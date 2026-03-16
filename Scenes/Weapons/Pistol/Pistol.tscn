@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cjkad8i0d5u2g"]
+
+[ext_resource type="Texture2D" uid="uid://ckgv6nwrdpxjw" path="res://Art/Weapons/Pistol/Pistol.png" id="1_sk53q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buxis"]
+atlas = ExtResource("1_sk53q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_20ebm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_buxis")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Pistol" type="Area2D" unique_id=2126900765]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=458110560]
+sprite_frames = SubResource("SpriteFrames_20ebm")

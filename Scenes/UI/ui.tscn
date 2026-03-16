@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhfq62xt07h37"]
+
+[ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="1_pigai"]
+
+[node name="UI" type="Node2D"]
+position = Vector2(-54, -89)
+script = ExtResource("1_pigai")

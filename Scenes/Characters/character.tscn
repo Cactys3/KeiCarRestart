@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://dbfx0pgjmmdgy"]
+
+[ext_resource type="Script" uid="uid://d2q8eeh4e5ai8" path="res://Scripts/character_scripts/webfisher.gd" id="1_ieu52"]
+[ext_resource type="Texture2D" uid="uid://dwa5l83b0wca6" path="res://Art/Characters/DefaultCharacter/DefaultCharacter.png" id="2_7qr7h"]
+[ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_owm7s"]
+[ext_resource type="Texture2D" uid="uid://dvur2jw4hot5w" path="res://Art/Characters/WebFishingCat.png" id="3_y3rn3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv3ih"]
+atlas = ExtResource("2_7qr7h")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipqrv"]
+atlas = ExtResource("2_7qr7h")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c36b5"]
+atlas = ExtResource("2_7qr7h")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l7j3"]
+atlas = ExtResource("2_7qr7h")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ono3w"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihhfk"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoeg4"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unlva"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7rix"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbf84"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpi01"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vevi1"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tvp78"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv3ih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipqrv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c36b5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l7j3")
+}],
+"loop": true,
+"name": &"Default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ono3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihhfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoeg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unlva")
+}],
+"loop": true,
+"name": &"Neutral_Rod",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7rix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbf84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpi01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vevi1")
+}],
+"loop": true,
+"name": &"Neutral_Rodless",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qr7h"]
+size = Vector2(9, 26)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mknkr"]
+radius = 30.0
+
+[node name="Character" type="CharacterBody2D" unique_id=1197695872 node_paths=PackedStringArray("pickup_range", "anim") groups=["player"]]
+collision_layer = 2
+collision_mask = 64
+platform_on_leave = 2
+script = ExtResource("1_ieu52")
+character_name = "WebFisherman"
+pickup_range = NodePath("pickup_range/CollisionShape2D")
+anim = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=564162239 node_paths=PackedStringArray("Target")]
+sprite_frames = SubResource("SpriteFrames_tvp78")
+animation = &"Default"
+autoplay = "Default"
+script = ExtResource("3_owm7s")
+Target = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2066742228]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_7qr7h")
+
+[node name="pickup_range" type="Area2D" parent="." unique_id=672138494 groups=["xp_range"]]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickup_range" unique_id=559864833 groups=["xp_range"]]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_mknkr")

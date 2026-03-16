@@ -1,0 +1,261 @@
+extends Node
+class_name GameManager
+
+const LEVEL_UP_UI = preload("uid://cykl0goweao0i")
+
+## Single Instance Object
+static var instance: GameManager
+## Managers
+@export var ui_man: UIManager 
+@export var shop_man: ShopManager
+@export var player: Character
+## Parents
+@export var xp_parent: Node2D
+@export var enemy_parent: Node2D
+@export var weapon_parent: Node2D
+@export var projectile_parent: Node2D
+
+var weapon_count: int:
+	get():
+		return player.weapon_count
+	set(value):
+		player.weapon_count = value
+var weapon_limit: int = 10
+var upgrade_count: int:
+	get():
+		return active_upgrades.size()
+var upgrade_limit: int = 10
+var weapon_limit_reached: bool:
+	get():
+		return has_weapon_room()
+var upgrade_limit_reached: bool:
+	get():
+		return has_upgrade_room()
+var active_upgrades: Array[Upgrade]
+var upgrades_affecting_stats: Array[Upgrade]
+
+var xp_to_next_level: float = 100
+var xp_gained_since_last_level: float = 0
+var xp_modifier_per_level: float = 1.1
+var xp_from_past_levels: float = 0
+var starting_money: float = 15
+var xp_gain_modifier: float:
+	get():
+		print(max(0.1, 1 + (player.xp_gain - 1) / 100))
+		return max(0.1, 1 + (player.xp_gain - 1) / 100)
+var money_gain_modifier: float:
+	get():
+		return max(0.1, 1 + (player.money_gain - 1) / 100)
+
+var revives_used: int = 0
+var max_hp: float:
+	get():
+		return player.maxhealth
+var max_shield: float:
+	get():
+		return player.maxshield
+var shield: float = 0:
+	set(value):
+		shield = value
+		if max_shield > 0:
+			ui_man.set_shield(str(value), value / max_shield)
+		else:
+			ui_man.set_shield("0", 0)
+var hp: float = 0:
+	set(value):
+		hp = value
+		if max_hp > 0:
+			ui_man.set_hp(str(value), hp / max_hp)
+		else:
+			ui_man.set_hp(str(value), 0)
+var level: float = 1: ## level
+	set(value): #TODO: maybe send to instancemanager and make game harder by level
+		level = value
+		ui_man.set_level(str(int(value)))
+	get(): # calculate level based on total xp
+		return level 
+var xp: float = 0: ## Current (total?) XP Gained
+	set(value):
+		var xp_just_added: float = 0
+		if (value > xp): ## Factor in xp_gain only when adding xp, not subtracting xp
+			xp_just_added = (value - xp) * xp_gain_modifier
+		else:
+			xp_just_added = (value - xp) 
+		xp_gained_since_last_level += (xp_just_added)
+		xp = xp + xp_just_added
+		ui_man.set_xp(str(int(xp)), xp_gained_since_last_level / xp_to_next_level)
+		while xp_gained_since_last_level > xp_to_next_level:
+			xp_from_past_levels += xp_to_next_level
+			xp_gained_since_last_level -= xp_to_next_level
+			xp_to_next_level *= xp_modifier_per_level
+			level += 1
+			emit_signal("level_up")
+			#print("Gained Level Costing: " + str(int(xp_to_next_level)) + " XP Leftover: " + str(int(xp_gained_since_last_level) - int(xp_to_next_level)))
+var money: float = 0: ## Current Money Held
+	set(value):
+		if value > money: ## Factor in money_gain when adding money
+			#print("new money: " + str((value - money)) + " * " + str(money_gain_modifier))
+			money = money + (value - money) * money_gain_modifier
+		else:
+			money = value
+		ui_man.set_money(money)
+var difficulty: float:
+	get():
+		return GlobalStats.get_stat(GlobalStats.DIFFICULTY)
+var luck: float:
+	get():
+		return GlobalStats.get_stat(GlobalStats.LUCK)
+
+var paused: bool = false ## Is Game Instance Paused or Not
+var level_up_queue: int = 0
+var leveling_up: bool = false
+## Signals
+## For GameManager Systems
+signal pause_game(value: bool)
+signal level_up()
+## For UI Methods
+signal toggle_inventory() #TODO: add bool value to keep track of toggle state?
+signal toggle_esc()
+signal set_xp(value: float)
+signal set_money(value: float)
+signal set_level(value: float)
+signal set_hp(value: float)
+#signal add_upgrade_inventory(upgrade: Upgrade)
+## For Upgrade Mechanics
+signal EnemyDamaged(enemy: Enemy, attack: Attack)
+signal EnemyKilled(enemy: Enemy, attack: Attack)
+signal BossKilled(boss: Boss, attack: Attack)
+signal PlayerDamaged(player: Character, attack: Attack)
+signal PlayerRevived(player: Character)
+signal PlayerKilled(player: Character, attack: Attack)
+signal RoundEnded(round_number: int)
+
+func setup(new_player: Character, starting_weapon: int):
+	player = new_player
+	call_deferred("setup_deffered", starting_weapon)
+	connect("level_up", create_level_up_instance)
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	EnemyKilled.connect(enemy_killed)
+	PlayerDamaged.connect(player_damaged)
+func setup_deffered(starting_weapon: int):
+	player.initialize_stats()
+	level = 1
+	xp = 0
+	money = starting_money
+	get_tree().paused = false
+	call_deferred("setup_weapon", starting_weapon)
+## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
+func setup_weapon(starting_weapon: int):
+	var weapon: Weapon = ShopManager.get_weapon(starting_weapon)
+	player.add_weapon(weapon) ## TODO: start here
+	ui_man.add_weapon(weapon)
+func _ready() -> void:
+	# Ensure only one instance exists
+	if instance != null:
+		printerr("Error: Only one instance of gamemanager is allowed in the scene!")
+		queue_free() 
+		return
+	instance = self  
+func _process(_delta: float) -> void:
+	if GameInstance.is_game_over:
+		return
+	if !leveling_up && level_up_queue > 0:
+		create_level_up_instance()
+func pause(value: bool):
+	if paused != value:
+		paused = value
+		emit_signal("pause_game", value)
+		if paused:
+			#Engine.time_scale = 1.0
+			get_tree().paused = true
+		else:
+			#Engine.time_scale = 0.0
+			get_tree().paused = false
+
+
+## Activates Upgrade 
+func add_upgrade(upgrade: Upgrade) -> void:
+	upgrade.activate()
+	active_upgrades.append(upgrade)
+## Equips Weapon
+func add_weapon(weapon: Weapon) -> void:
+	player.add_weapon(weapon)
+## Equips Weapon or Activates Upgrade 
+func add_equipment(equipment: Equipment) -> void:
+	pass
+## Deactivates Upgrade 
+func remove_upgrade(upgrade: Upgrade) -> void:
+	upgrade.deactivate()
+	active_upgrades.erase(upgrade)
+## Removes Weapon
+func remove_weapon(weapon: Weapon) -> void:
+	player.remove_weapon(weapon)
+## Removes Weapon or Deactivates Upgrade 
+func remove_equipment(equipment: Equipment) -> void:
+	pass
+
+
+func create_level_up_instance():
+	if leveling_up:
+		level_up_queue += 1
+		return
+	leveling_up = true
+	var level_pause: UIManager.PauseItem = UIManager.PauseItem.new(Callable(), UIManager.PauseItem.PauseTypes.ui, false, false, ui_man.level_up_parent)
+	ui_man.pause(level_pause)
+	## get 3 random things w/ variable references
+	var array: Array[LevelUpData] = []
+	var one = LevelUpData.get_random_level_up_option(array)
+	array.append(one)
+	var two = LevelUpData.get_random_level_up_option(array)
+	array.append(two)
+	var three = LevelUpData.get_random_level_up_option(array)
+	array.append(three)
+	## setup LevelUpInstance with those random things and their details (color, name, etc)
+	var level_instance = LEVEL_UP_UI.instantiate()
+	level_instance.set_pause(level_pause)
+	#level_instance.position = Vector2(0, 0)
+	ui_man.level_up_parent.add_child(level_instance)
+	level_instance.add_choice(one)
+	level_instance.add_choice(two)
+	level_instance.add_choice(three)
+	var choice: LevelUpData = await level_instance.get_choice()
+	choice.carryout_level_up()
+	level_instance.free_instance()
+	level_up_queue -= 1
+	leveling_up = false
+
+
+func add_xp(added_xp: float):
+	xp += added_xp
+## Calculates and returns revives left for player
+func can_revive() -> int:
+	return (player.max_revies - revives_used) > 1
+func use_revive():
+	revives_used += 1
+## Signal Connections
+func enemy_killed(enemy: Enemy, attack: Attack):
+	if player.lifesteal > 0 && hp < max_hp:
+		hp += player.lifesteal
+func player_damaged(playah: Character, attack: Attack):
+	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage"):
+		attack.attacker.damage(Attack.new(player.thorns, player.position, 0, null, null, 0, 0, 0))
+
+func has_upgrade_room():
+	return upgrade_count <= upgrade_limit
+func has_weapon_room():
+	return weapon_count <= weapon_limit
+
+func get_random_equipped_weapon() -> Weapon:
+	return player.get_random_weapon()
+func get_random_equipped_upgrade() -> Upgrade:
+	if active_upgrades.size() > 0:
+		return active_upgrades.get(randi_range(0, active_upgrades.size() - 1))
+	else:
+		return null
+func get_random_equipped_upgrade_except(avoided_upgrades: Array[Upgrade]) -> Upgrade:
+	var upgrades: Array[Upgrade] = active_upgrades.duplicate()
+	upgrades.shuffle()
+	for upgrade in upgrades:
+		if !avoided_upgrades.has(upgrade):
+			return upgrade
+	return null

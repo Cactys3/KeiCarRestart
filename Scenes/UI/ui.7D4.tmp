@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhfq62xt07h37"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/UIManager.gd" id="1_pigai"]
+[ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="2_aeob6"]
+
+[node name="UI" type="Node2D" node_paths=PackedStringArray("shop", "inventory")]
+script = ExtResource("1_pigai")
+shop = NodePath("Shop")
+inventory = NodePath("Inventory")
+
+[node name="Inventory" parent="." instance=ExtResource("2_aeob6")]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 150.0
+offset_bottom = 200.0
+mouse_filter = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Shop" parent="." instance=ExtResource("2_aeob6")]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = 0.0
+offset_right = 300.0
+offset_bottom = 200.0
+mouse_filter = 0
+metadata/_edit_use_anchors_ = true

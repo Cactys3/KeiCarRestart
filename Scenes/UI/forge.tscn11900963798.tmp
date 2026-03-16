@@ -1,0 +1,117 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxdeumld7epke"]
+
+[ext_resource type="Texture2D" uid="uid://qo3jcyvbqi4e" path="res://Art/Hell/UI/Forge_Hell.png" id="1_sye38"]
+[ext_resource type="Script" uid="uid://e16j8gnfxht2" path="res://Scripts/UI/forge.gd" id="1_w8kvo"]
+[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/stats_visual.tscn" id="2_pli00"]
+[ext_resource type="Texture2D" uid="uid://wv5ai6loeonk" path="res://Art/Hell/UI/Forge_Anvil_Hell.png" id="3_fpotv"]
+[ext_resource type="PackedScene" uid="uid://cp4jxbjxcilvh" path="res://Scenes/UI/forge_option.tscn" id="4_johy7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pli00"]
+texture = ExtResource("1_sye38")
+
+[node name="Forge" type="Control" node_paths=PackedStringArray("default_item_parent", "description_stats")]
+texture_filter = 1
+layout_mode = 3
+anchor_right = 0.13000001
+anchor_bottom = 0.23200001
+offset_right = 0.7999573
+offset_bottom = -0.120025635
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w8kvo")
+default_item_parent = NodePath("Parent")
+description_stats = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/StatsDisplay")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+offset_right = 500.0
+offset_bottom = 500.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_pli00")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Top" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Offset" type="Control" parent="PanelContainer/VBoxContainer/Top"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Top"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.8745098, 0.44313726, 0.14901961, 1)
+theme_override_font_sizes/font_size = 64
+text = "Forge"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/Top"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_fpotv")
+stretch_mode = 5
+
+[node name="Offset3" type="Control" parent="PanelContainer/VBoxContainer/Top"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Bottom" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="OffsetBox" type="HBoxContainer" parent="PanelContainer/VBoxContainer/Bottom"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Offset4" type="Control" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+
+[node name="Items" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="ForgeOption" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox/Items" instance=ExtResource("4_johy7")]
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+
+[node name="ForgeOption2" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox/Items" instance=ExtResource("4_johy7")]
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+
+[node name="ForgeOption3" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox/Items" instance=ExtResource("4_johy7")]
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+
+[node name="Offset2" type="Control" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="StatsDisplay" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox" instance=ExtResource("2_pli00")]
+layout_mode = 2
+size_flags_horizontal = 3
+button_color = Color(0.5647059, 0, 0, 1)
+button_text_color = Color(0.8745098, 0.44313726, 0.14901961, 1)
+text_color = Color(0.9843137, 0.9490196, 0.21176471, 1)
+
+[node name="Offset3" type="Control" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+
+[node name="offset" type="Control" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="Parent" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
