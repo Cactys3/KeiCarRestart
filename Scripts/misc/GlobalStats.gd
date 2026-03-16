@@ -35,7 +35,8 @@ static var statsfactor = StatsList.new(1)
 
 ## Likely resets everything in preparation for a new run
 static func setup():
-	pass
+	statsbase = StatsList.new(0)
+	statsfactor = StatsList.new(1)
 
 static func get_base_stat(stat: String) -> float:
 	return statsbase[stat]
@@ -80,6 +81,13 @@ class StatsList:
 			DIFFICULTY: default_value,
 			REVIES: default_value,
 			THORNS: default_value}
+	func _get(key: StringName):
+		return list.get(key)
+	func _set(key: StringName, value) -> bool:
+		if list.has(key):
+			list[key] = value
+			return true
+		return false
 	var list = {
 		HP: 0.0,
 		STANCE: 0.0,

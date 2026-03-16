@@ -3,12 +3,8 @@
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scenes/Instances/InstanceRoot.gd" id="1_eeah7"]
 [ext_resource type="PackedScene" uid="uid://dxv17gll2bx2l" path="res://Scenes/Instances/Hell/HellPuddle.tscn" id="2_qrryo"]
 [ext_resource type="Texture2D" uid="uid://ctekysqm3q8wt" path="res://Art/Weapons/PlayingCard/Projectile_PlayingCard.png" id="3_eeah7"]
-[ext_resource type="PackedScene" uid="uid://cytotq02c1x2a" path="res://Scenes/ProximityInteractables/proximity_shop.tscn" id="3_qq1a1"]
-[ext_resource type="PackedScene" uid="uid://le5tbb8urp88" path="res://Scenes/ProximityInteractables/proximity_forge.tscn" id="3_u5ql4"]
-[ext_resource type="PackedScene" uid="uid://lv3mxqogfmmp" path="res://Scenes/ProximityInteractables/proximity_permanent_shop.tscn" id="6_627tp"]
 [ext_resource type="PackedScene" uid="uid://bqo1xj4v5qth7" path="res://Scenes/ProximityInteractables/StatScroll.tscn" id="7_afe04"]
 [ext_resource type="PackedScene" uid="uid://bg44j5ewrjpf2" path="res://Scenes/Instances/Hell/HellTree.tscn" id="8_okq7h"]
-[ext_resource type="PackedScene" uid="uid://cu6nvv3r8tgkl" path="res://Scenes/UI/NewInventory.tscn" id="8_qq1a1"]
 [ext_resource type="PackedScene" uid="uid://bj2nfedstjwtm" path="res://Scenes/Instances/Hell/HellSpikes.tscn" id="9_e6ktq"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
@@ -17,9 +13,6 @@
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
 [ext_resource type="Script" uid="uid://b6808ricdvjjh" path="res://Scripts/UI/relative_to_game.gd" id="17_afe04"]
-[ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="17_gf2b2"]
-[ext_resource type="PackedScene" uid="uid://bwuwo8e451bxt" path="res://Scenes/UI/shop_inventory.tscn" id="18_85yrk"]
-[ext_resource type="PackedScene" uid="uid://cwomrgi81thyq" path="res://Scenes/UI/weapon_crafting_inventory.tscn" id="20_41mr8"]
 [ext_resource type="Script" uid="uid://xirmq1j15ex1" path="res://Scripts/managers/WindowManager.gd" id="27_fwf5d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_41mr8"]
@@ -104,12 +97,6 @@ position = Vector2(-81.44444, -23)
 collision_layer = 64
 collision_mask = 2
 
-[node name="ProximityForge" parent="Window640/Offset/EventParentBackground/StaticBody2D" unique_id=1906497209 instance=ExtResource("3_u5ql4")]
-position = Vector2(4.666677, 1.3333359)
-
-[node name="ProximityShop" parent="Window640/Offset/EventParentBackground/StaticBody2D" unique_id=1863887412 instance=ExtResource("3_qq1a1")]
-position = Vector2(4.1111374, 47)
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Window640/Offset/EventParentBackground/StaticBody2D" unique_id=1189905832]
 position = Vector2(-5.333326, 100.333336)
 polygon = PackedVector2Array(20, 20, 0, 15, 0, -15, 20, -20)
@@ -117,9 +104,6 @@ polygon = PackedVector2Array(20, 20, 0, 15, 0, -15, 20, -20)
 [node name="Sprite2D" type="Sprite2D" parent="Window640/Offset/EventParentBackground/StaticBody2D/CollisionPolygon2D" unique_id=1665734954]
 position = Vector2(10.444397, -2.670288e-05)
 texture = ExtResource("3_eeah7")
-
-[node name="ProximityPermanentShop" parent="Window640/Offset/EventParentBackground" unique_id=1495076092 instance=ExtResource("6_627tp")]
-position = Vector2(105.66667, -4.3333335)
 
 [node name="StatScroll" parent="Window640/Offset/EventParentBackground" unique_id=977085131 instance=ExtResource("7_afe04")]
 position = Vector2(-77, -89.33333)
@@ -203,7 +187,7 @@ projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
 position = Vector2(960, 0)
 script = ExtResource("12_e4e03")
 
-[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("stats", "tutorial", "TutorialOrStatsButton", "money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "you_lose", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "top_level_labels_parent", "AIOman", "cheat_inventory", "hud")]
+[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("stats", "tutorial", "TutorialOrStatsButton", "money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "you_lose", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "top_level_labels_parent", "hud")]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -233,8 +217,6 @@ static_ui_parent = NodePath("StaticHUDParent")
 misc_parent = NodePath("MiscParent")
 relative_to_game_parent = NodePath("RelativeToGameParent")
 top_level_labels_parent = NodePath("TopLevelLabelsParent")
-AIOman = NodePath("TabMenuParent/AIO")
-cheat_inventory = NodePath("TabMenuParent/Cheat Inventory")
 hud = NodePath("StaticHUDParent/hud")
 
 [node name="RelativeToGameParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=943559020]
@@ -509,7 +491,7 @@ offset_right = 1429.0
 offset_bottom = 329.0
 mouse_filter = 1
 
-[node name="AIO" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=952354051 instance=ExtResource("8_qq1a1")]
+[node name="AIO" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=952354051]
 layout_mode = 1
 offset_left = -153.0
 offset_top = 47.0
@@ -517,7 +499,7 @@ offset_right = -153.0
 offset_bottom = 47.0
 mouse_filter = 1
 
-[node name="Cheat Inventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=186344923 instance=ExtResource("17_gf2b2")]
+[node name="Cheat Inventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=186344923]
 layout_mode = 1
 offset_left = 14.0
 offset_top = 520.0
@@ -526,7 +508,7 @@ offset_bottom = 1148.0
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="ShopInventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1771192255 instance=ExtResource("18_85yrk")]
+[node name="ShopInventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1771192255]
 layout_mode = 1
 offset_left = -744.0
 offset_top = 517.0
@@ -534,7 +516,7 @@ offset_right = -294.0
 offset_bottom = 1117.0
 mouse_filter = 1
 
-[node name="weapon_crafting_inventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1959191111 instance=ExtResource("20_41mr8")]
+[node name="weapon_crafting_inventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1959191111]
 layout_mode = 1
 offset_left = -287.0
 offset_top = 520.0

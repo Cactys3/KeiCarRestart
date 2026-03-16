@@ -177,6 +177,7 @@ func pause(value: bool):
 func add_upgrade(upgrade: Upgrade) -> void:
 	upgrade.activate()
 	active_upgrades.append(upgrade)
+	ui_man.add_upgrade(upgrade)
 ## Equips Weapon
 func add_weapon(weapon: Weapon) -> void:
 	player.add_weapon(weapon)

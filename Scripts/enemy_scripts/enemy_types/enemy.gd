@@ -94,7 +94,6 @@ var wet_movement_reduction: float = 0
 @export var anim: AnimatedSprite2D 
 const XP = preload("res://Scenes/Misc/xp_blip.tscn")
 const ITEM_DROP = preload("uid://d3v2pdpqpmvpe")
-@onready var FORGE_ITEM = load("uid://xn3lii5356op")
 
 var player: Character
 var attack_on_cd: bool = true

@@ -204,6 +204,8 @@ func add_weapon(new_weapon: Weapon):
 		call_deferred("reparent", new_weapon)
 	else:
 		call_deferred("add_child", new_weapon)
+	new_weapon.active = true
+	new_weapon.player = self
 func remove_weapon(weapon_sought: Weapon) -> bool:
 	if weapon_sought && weapon_list.has(weapon_sought):
 		weapon_list.erase(weapon_sought)
@@ -230,6 +232,7 @@ func remove_weapon(weapon_sought: Weapon) -> bool:
 				index += 1
 				weapon.change_slot(index, temp_count)
 		remove_child(weapon_sought)
+		weapon_sought.active = false
 		return true
 	return false
 func get_random_weapon() -> Weapon:

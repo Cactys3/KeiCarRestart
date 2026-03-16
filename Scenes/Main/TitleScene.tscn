@@ -44,10 +44,10 @@ horizontal_alignment = 1
 
 [node name="Quickstart" type="Button" parent="Always_Active" unique_id=3074576]
 custom_minimum_size = Vector2(400, 150)
-offset_left = 1298.0
-offset_top = 1300.0
-offset_right = 1838.0
-offset_bottom = 1450.0
+offset_left = -1316.0
+offset_top = -332.0
+offset_right = -660.0
+offset_bottom = -149.0
 theme_override_font_sizes/font_size = 128
 text = "Quickstart"
 

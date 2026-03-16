@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cjkad8i0d5u2g"]
 
 [ext_resource type="Texture2D" uid="uid://ckgv6nwrdpxjw" path="res://Art/Weapons/Pistol/Pistol.png" id="1_sk53q"]
+[ext_resource type="Script" uid="uid://bmgo7hj8e8i3" path="res://Scripts/Equipment/MainScripts/Weapon.gd" id="1_un5uw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_buxis"]
 atlas = ExtResource("1_sk53q")
@@ -17,7 +18,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Pistol" type="Area2D" unique_id=2126900765]
+[node name="Pistol" type="Area2D" unique_id=2126900765 node_paths=PackedStringArray("visual")]
+script = ExtResource("1_un5uw")
+visual = NodePath("AnimatedSprite2D")
+AimType = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=458110560]
 sprite_frames = SubResource("SpriteFrames_20ebm")

@@ -106,18 +106,19 @@ func _process(delta: float) -> void:
 			QueuedAttacks.erase(event)
 			if is_instance_valid(event.attackee) && is_instance_valid(event.attacker):
 				event.attacker.attack_body(event.attackee, event.clone)
-	process_cooldown(delta)
-	match AimType:
-		AimTypes.DynamicAtMouse:
-			ProcessDynamicAtMouse(delta)
-		AimTypes.AlwaysAtMouse:
-			ProcessAlwaysAtMouse(delta)
-		AimTypes.StaticSlot:
-			ProcessStaticSlot(delta)
-		AimTypes.Spinning:
-			ProcessSpinning(delta)
-		_:
-			ProcessUnique(delta)
+	if active:
+		process_cooldown(delta)
+		match AimType:
+			AimTypes.DynamicAtMouse:
+				ProcessDynamicAtMouse(delta)
+			AimTypes.AlwaysAtMouse:
+				ProcessAlwaysAtMouse(delta)
+			AimTypes.StaticSlot:
+				ProcessStaticSlot(delta)
+			AimTypes.Spinning:
+				ProcessSpinning(delta)
+			_:
+				ProcessUnique(delta)
 ## Should handle cooldown and calling attack()
 ## this is meant to be overridden by classes that inherit it
 func process_cooldown(delta: float) -> void: 

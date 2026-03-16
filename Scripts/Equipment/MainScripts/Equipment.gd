@@ -86,14 +86,12 @@ func get_stat(stat: String) -> float:
 	elif stat == GlobalStats.INACCURACY:
 		return (GlobalStats.get_base_stat(GlobalStats.INACCURACY) + inaccuracy) * GlobalStats.get_base_stat(GlobalStats.INACCURACY)
 	return 0.0
-
 ## Flashing stuff
-func _init() -> void:
-	visible = false
 func _ready() -> void:
 	flash()
 func flash():
-	await get_tree().create_timer(0.05).timeout
+	visible = false
+	await get_tree().create_timer(0.1).timeout
 	visible = true
 
 ## Data Fields
@@ -106,6 +104,7 @@ func flash():
 @export var border_color: Color = Color.WHITE
 @export var item_image: Texture2D = preload("res://Art/UI/MissingTexture.png")
 @export var item_rarity: item_rarities
+## is this weapon or upgrade equipped
 var active: bool = false
 ## unset, upgrade, projectile, weapon
 enum item_types{unset, upgrade, projectile, weapon}

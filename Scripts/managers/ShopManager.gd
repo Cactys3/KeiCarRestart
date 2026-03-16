@@ -14,7 +14,7 @@ static var unlocked_projectiles_indicies: Array [int] = []
 static var unlocked_weapon_indicies: Array [int] = []
 static var unlocked_upgrade_indicies: Array [int] = []
 const upgrade_list: Array [PackedScene] = []
-const weapon_list: Array [PackedScene] = []
+const weapon_list: Array [PackedScene] = [PISTOL]
 const projectile_list: Array [PackedScene] = []
 ## Weapon Indexes
 const pistol_index: int = 0

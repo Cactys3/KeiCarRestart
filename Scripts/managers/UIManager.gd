@@ -192,6 +192,12 @@ func toggle_you_win(value: bool) -> void:
 func toggle_you_lose(value: bool) -> void:
 	you_lose.visible = value
 
+func add_weapon(weapon: Weapon):
+	pass
+func add_upgrade(upgrade: Upgrade):
+	pass
+
+
 
 func _on_tutorial_or_stats_pressed() -> void:
 	tutorial_or_stats = !tutorial_or_stats
