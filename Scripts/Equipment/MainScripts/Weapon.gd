@@ -3,9 +3,97 @@ extends Equipment
 class_name Weapon
 
 
-
+@export_category("New Settings")
 ## NEW STUFF
+@export var homing: bool = false
+@export var homing_speed: float = 0
+@export var projectile_acceleration: float = 0
+@export var mult_proj_delay_total_time: float = 2
+enum multiple_projectiles_aim_types {delay, spread}
+## Does it fire multiple projectiles one after another with a delay or at the same time with an angle/position spread
+@export var multiple_projectiles_aim_type: multiple_projectiles_aim_types = multiple_projectiles_aim_types.spread
 
+var hp_stat:
+	get():
+		return get_stat(GlobalStats.HP)
+var stance_stat:
+	get():
+		return get_stat(GlobalStats.STANCE)
+var movespeed_stat:
+	get():
+		return get_stat(GlobalStats.MOVESPEED)
+var xp_stat:
+	get():
+		return get_stat(GlobalStats.XP)
+var mogul_stat:
+	get():
+		return get_stat(GlobalStats.MOGUL)
+var luck_stat:
+	get():
+		return get_stat(GlobalStats.LUCK)
+var damage_stat:
+	get():
+		return get_stat(GlobalStats.DAMAGE)
+var range_stat:
+	get():
+		return get_stat(GlobalStats.RANGE)
+var weight_stat:
+	get():
+		return get_stat(GlobalStats.WEIGHT)
+var attackspeed_stat:
+	get():
+		return get_stat(GlobalStats.ATTACKSPEED)
+var velocity_stat:
+	get():
+		return get_stat(GlobalStats.VELOCITY)
+var count_stat:
+	get():
+		return get_stat(GlobalStats.COUNT)
+var piercing_stat:
+	get():
+		return get_stat(GlobalStats.PIERCING)
+var duration_stat:
+	get():
+		return get_stat(GlobalStats.DURATION)
+var buildup_stat:
+	get():
+		return get_stat(GlobalStats.BUILDUP)
+var size_stat:
+	get():
+		return get_stat(GlobalStats.SIZE)
+var critchance_stat:
+	get():
+		return get_stat(GlobalStats.CRITCHANCE)
+var critdamage_stat:
+	get():
+		return get_stat(GlobalStats.CRITDAMAGE)
+var ghostly_stat:
+	get():
+		return get_stat(GlobalStats.GHOSTLY)
+var regen_stat:
+	get():
+		return get_stat(GlobalStats.REGEN)
+var magnetize_stat:
+	get():
+		return get_stat(GlobalStats.MAGNETIZE)
+var lifesteal_stat:
+	get():
+		return get_stat(GlobalStats.LIFESTEAL)
+var shield_stat:
+	get():
+		return get_stat(GlobalStats.SHIELD)
+var difficulty_stat:
+	get():
+		return get_stat(GlobalStats.DIFFICULTY)
+var revies_stat:
+	get():
+		return get_stat(GlobalStats.REVIES)
+var thorns_stat:
+	get():
+		return get_stat(GlobalStats.THORNS)
+var inaccuracy_stat:
+	get():
+		return get_stat(GlobalStats.INACCURACY)
 
 ## Frame
 
@@ -42,7 +130,7 @@ func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #T
 
 ## Do anything that needs to be done to utilize a stat change
 func apply_stats() -> void: 
-	var size: float = GlobalStats.calculate_scale(get_stat(GlobalStats.SIZE))
+	var size: float = GlobalStats.calculate_scale(size_stat)
 	scale = Vector2(size, size)
 class AttackEvent:
 	var attackee: Node
@@ -55,14 +143,11 @@ class AttackEvent:
 
 
 ## Handle
-
-@export_category("Generic Settings")
+@export_category("Handle Settings")
 @export var visual: AnimatedSprite2D
 ## Can ignore the ready_to_fire variable and assume always ready to fire = true
 @export var always_ready_to_fire: bool = false
-@export_category("Aim Settings")
 @export var AimType: AimTypes = AimTypes.default
-@export_category("Orbit Settings")
 @export var orbit_distance: float = 55
 
 var rotation_speed: float = 20
@@ -86,9 +171,13 @@ static var UnqiueAimCount
 var ready_to_fire: bool = false #Tells attach if it can call Attack()
 
 ## Attachemnt
+@export_category("Attachment Settings")
+
 var bullets: Array[Projectile]
 ## Determines what attackspeed is, attacksperX = 2 means attackspeed is how many attacks every 2 seconds
 const attacksperX: int = 10
+
+var stopwatch: Timer
 
 @export var MeleeDamageFactor: float = 1
 @export var projectile: PackedScene
@@ -100,6 +189,8 @@ var attacking: bool = false
 func _ready() -> void:
 	super()
 	cooldown_timer = 0
+	stopwatch = Timer.new()
+	add_child(stopwatch)
 ## Calls Process_Cooldown
 func _process(delta: float) -> void:
 	if !QueuedAttacks.is_empty():
@@ -140,31 +231,48 @@ func attack():
 func create_projectiles():
 	## Create the first bullet by default
 	## Randomize Direction Based on inaccuracy
-	var direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), get_stat(GlobalStats.INACCURACY))
+	var direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
 	var proj: Projectile = init_projectile(global_position, direction)
 	## Create any extra bullets using @export values to offset them by angle and position
 	var proj_offset: int = 0
-	if proj.can_spawn_multiple:
-		for i:int in get_stat(GlobalStats.COUNT) - 1:
+	## Delay Stuff
+	var time_inbetween_projectiles: float = mult_proj_delay_total_time / count_stat
+	if !proj.can_spawn_multiple:
+		## Add 0.5 seconds between shots if projectile normally can't shoot multiple TODO: should probably just not allow making multiple but this might be funny?
+		time_inbetween_projectiles += 0.5
+	stopwatch.wait_time = time_inbetween_projectiles
+	proj_offset = 0
+	
+	if proj.can_spawn_multiple && count_stat > 1:
+		for i:int in count_stat - 1:
+			## Get Attachment Position (default projectile position)
+			var projectile_position: Vector2 = global_position
+			var projectile_direction: Vector2 = (Vector2(cos(rotation), sin(rotation)))
 			if i % 2 == 0:
 				proj_offset += 1
 			MultipleProjectileOffset *= -1
 			MultipleProjectileAngleOffset *= -1
-			## Get Attachment Position (default projectile position)
-			var projectile_position: Vector2 = global_position
-			## Offset it by position + [1 unit to the Left of default position] * [Positive offset to keep it left, negative to make it right] * [magnitude offset]
-			projectile_position += (Vector2(-sin(rotation), cos(rotation)) * MultipleProjectileOffset * proj_offset)
-			## Get Direction offset by inaccuracy
-			var projectile_direction: Vector2 = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), get_stat(GlobalStats.INACCURACY))
+			## Spread Type
+			if (multiple_projectiles_aim_type == multiple_projectiles_aim_types.spread):
+				## Offset it by position + [1 unit to the Left of default position] * [Positive offset to keep it left, negative to make it right] * [magnitude offset]
+				projectile_position += (Vector2(-sin(rotation), cos(rotation)) * MultipleProjectileOffset * proj_offset)
+				## Get Direction offset by inaccuracy
+				projectile_direction = get_inaccurate_direction(Vector2(cos(rotation + deg_to_rad(proj_offset * MultipleProjectileAngleOffset)), sin(rotation + deg_to_rad(proj_offset * MultipleProjectileAngleOffset))), inaccuracy_stat)
+			## Delay Type
+			else:
+				stopwatch.start()
+				await stopwatch.timeout
+				projectile_position += (Vector2(-sin(rotation), cos(rotation)))
+				projectile_direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
 			init_projectile(projectile_position, projectile_direction)
 ## Initializes and returns one projectile in the style of this attachment
 func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
 	if projectile == null || !is_instance_valid(projectile):
 		push_error("projectile null in attachment script")
 		return null
-	var new_bullet:Projectile = projectile.instantiate()
+	var new_bullet: Projectile = projectile.instantiate()
 	new_bullet.visible = false
-	new_bullet.setup(null, new_direction)
+	new_bullet.setup_projectile(null, new_direction, homing, homing_speed, false, piercing_stat, duration_stat + 5, damage_stat, velocity_stat, buildup_stat, weight_stat, size_stat, projectile_acceleration)
 	if (AimType == AimTypes.Spinning): #handle aim types special cases
 		player.add_child(new_bullet)
 	else:
@@ -179,13 +287,13 @@ func projectile_died(pos: Vector2, is_clone: bool):
 ## Calculate and return cooldown between attacks
 func get_cooldown() -> float:
 	## Minimum: atttack 0.1 times per X
-	return attacksperX / max(0.1, get_stat(GlobalStats.ATTACKSPEED)) ## TODO: Stat: Attackspeed 
+	return attacksperX / max(0.1, attackspeed_stat) ## TODO: Stat: Attackspeed 
 ## Send altered values because it's a melee hitbox
 func make_attack() -> Attack:
-	var knockback: float = get_stat(GlobalStats.WEIGHT) * get_stat(GlobalStats.DAMAGE) ## TODO: Stat: knockback
+	var knockback: float = weight_stat * damage_stat ## TODO: Stat: knockback
 	## MeleeDamageFactor goes inside crit calculation
-	var damage: float = GlobalStats.calculate_damage(get_stat(GlobalStats.DAMAGE) * MeleeDamageFactor, get_stat(GlobalStats.CRITCHANCE), get_stat(GlobalStats.CRITDAMAGE)) ## TODO: Stat: damage, critchance, critdamage
-	var new_attack: Attack = Attack.new(damage, player.global_position, get_stat(GlobalStats.BUILDUP), StatusEffects.new(), self, 0, 0, knockback)
+	var damage: float = GlobalStats.calculate_damage(damage_stat * MeleeDamageFactor, critchance_stat, critdamage_stat) ## TODO: Stat: damage, critchance, critdamage
+	var new_attack: Attack = Attack.new(damage, player.global_position, buildup_stat, StatusEffects.new(), self, 0, 0, knockback)
 	 #TODO: determine how to calculate knockback
 	return new_attack
 func get_inaccurate_direction(direction: Vector2, inaccuracy: float) -> Vector2:
@@ -210,7 +318,7 @@ func ProcessDynamicAtMouse(delta: float) -> void:
 	var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
 	global_position = GetOrbitPosition((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
-	var nearest_enemy: Node2D = get_enemy_nearby(get_stat(GlobalStats.RANGE))
+	var nearest_enemy: Node2D = get_enemy_nearby(range_stat)
 	if nearest_enemy != null:
 		RotateTowardsPosition(nearest_enemy.global_position, delta)
 		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
@@ -233,7 +341,7 @@ func ProcessAlwaysAtMouse(delta: float) -> void:
 	var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
 	global_position = GetOrbitPositionAtMouse((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
-	var nearest_enemy: Node2D = get_enemy_nearby(get_stat(GlobalStats.RANGE))
+	var nearest_enemy: Node2D = get_enemy_nearby(range_stat)
 	if nearest_enemy != null:
 		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
 			ready_to_fire = true
@@ -248,7 +356,7 @@ func ProcessStaticSlot(delta: float) -> void:
 		temp_count = 4
 	global_position = GetOrbitPosition((TAU * (weapon_slot / temp_count)))#weapon_count)))
 	#Rotate Towards Object
-	var nearest_enemy = get_enemy_nearby(get_stat(GlobalStats.RANGE))
+	var nearest_enemy = get_enemy_nearby(range_stat)
 	if nearest_enemy != null:
 		#Rotate towards Enemy if exists
 		RotateTowardsPosition(nearest_enemy.global_position, delta)
@@ -268,7 +376,7 @@ func ProcessUnique(_delta: float) -> void:
 	pass
 ## rotates this weapon towards the new position, TODO: lerp calculated with weight
 func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
-	var speed = rotation_speed * _delta * (10 / max(get_stat(GlobalStats.WEIGHT), 1)) ## TODO: Stat: weight
+	var speed = rotation_speed * _delta * (10 / max(weight_stat, 1)) ## TODO: Stat: weight
 	var angle = (new_position - global_position).normalized().angle()
 	rotation = lerp_angle(rotation, angle, speed)
  #TODO: try global_position instead of player.global_position for how weapon aiming looks

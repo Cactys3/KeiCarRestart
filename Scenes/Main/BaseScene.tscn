@@ -491,39 +491,6 @@ offset_right = 1429.0
 offset_bottom = 329.0
 mouse_filter = 1
 
-[node name="AIO" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=952354051]
-layout_mode = 1
-offset_left = -153.0
-offset_top = 47.0
-offset_right = -153.0
-offset_bottom = 47.0
-mouse_filter = 1
-
-[node name="Cheat Inventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=186344923]
-layout_mode = 1
-offset_left = 14.0
-offset_top = 520.0
-offset_right = 464.0
-offset_bottom = 1148.0
-mouse_filter = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="ShopInventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1771192255]
-layout_mode = 1
-offset_left = -744.0
-offset_top = 517.0
-offset_right = -294.0
-offset_bottom = 1117.0
-mouse_filter = 1
-
-[node name="weapon_crafting_inventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1959191111]
-layout_mode = 1
-offset_left = -287.0
-offset_top = 520.0
-offset_right = 13.0
-offset_bottom = 820.0
-mouse_filter = 1
-
 [node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1841136718]
 layout_mode = 1
 anchors_preset = 15

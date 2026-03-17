@@ -29,13 +29,13 @@ const REVIES = "revies"
 const THORNS = "thorns"
 const INACCURACY = "inaccuracy"
 ## Stats Added to Stat Getters
-static var statsbase = StatsList.new(0)
+static var statsbase = StatsList.new(1)
 ## Stats Multiplied to Stat Getters
 static var statsfactor = StatsList.new(1)
 
 ## Likely resets everything in preparation for a new run
 static func setup():
-	statsbase = StatsList.new(0)
+	statsbase = StatsList.new(40)
 	statsfactor = StatsList.new(1)
 
 static func get_base_stat(stat: String) -> float:
@@ -45,7 +45,7 @@ static func get_factor_stat(stat: String) -> float:
 ## Calculates the stat
 static func get_stat(stat: String) -> float:
 	return get_base_stat(stat) * get_factor_stat(stat)
-
+## add stats
 static func increase_stats_base(stat: String, value: float):
 	statsbase[stat] += value
 static func increase_stats_factor(stat: String, value: float):
@@ -118,11 +118,7 @@ class StatsList:
 		THORNS: 0.0}
 
 
-
-
-
 ## STOLEN FROM STATS.GD
-
 ## Round original_stat to have 'digits' digits at max
 static func round_to_digits(original_stat: float, digits: int) -> String:
 	var number: String = str(snapped(original_stat, 0.01))
