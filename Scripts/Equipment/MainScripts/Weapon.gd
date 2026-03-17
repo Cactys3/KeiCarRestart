@@ -150,13 +150,13 @@ class AttackEvent:
 @export var AimType: AimTypes = AimTypes.default
 @export var orbit_distance: float = 55
 
-var rotation_speed: float = 20
+@export var rotation_speed: float = 20
 var weapon_slot: float = 1
 var weapon_count: float = 1
 
 var player: Character
-var spinning_offset: float = 0
-var spinning_speed: float = 3
+@export var spinning_offset: float = 0
+@export var spinning_speed: float = 3
 
 var current_angle: float = 0  #Stores the angle for smooth circular motion
 enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Unique}

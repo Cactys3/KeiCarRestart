@@ -38,59 +38,59 @@ func _ready() -> void:
 func get_stat(stat: String) -> float:
 	## other implementations are hard because variables may be accessed before they are ready or smth i forget.
 	if stat == GlobalStats.HP:
-		return (GlobalStats.get_base_stat(GlobalStats.HP) + hp) * GlobalStats.get_base_stat(GlobalStats.HP)
+		return (GlobalStats.get_base_stat(GlobalStats.HP) + hp) * GlobalStats.get_factor_stat(GlobalStats.HP)
 	elif stat == GlobalStats.STANCE:
-		return (GlobalStats.get_base_stat(GlobalStats.STANCE) + stance) * GlobalStats.get_base_stat(GlobalStats.STANCE)
+		return (GlobalStats.get_base_stat(GlobalStats.STANCE) + stance) * GlobalStats.get_factor_stat(GlobalStats.STANCE)
 	elif stat == GlobalStats.MOVESPEED:
-		return (GlobalStats.get_base_stat(GlobalStats.MOVESPEED) + movespeed) * GlobalStats.get_base_stat(GlobalStats.MOVESPEED)
+		return (GlobalStats.get_base_stat(GlobalStats.MOVESPEED) + movespeed) * GlobalStats.get_factor_stat(GlobalStats.MOVESPEED)
 	elif stat == GlobalStats.XP:
-		return (GlobalStats.get_base_stat(GlobalStats.XP) + xp) * GlobalStats.get_base_stat(GlobalStats.XP)
+		return (GlobalStats.get_base_stat(GlobalStats.XP) + xp) * GlobalStats.get_factor_stat(GlobalStats.XP)
 	elif stat == GlobalStats.MOGUL:
-		return (GlobalStats.get_base_stat(GlobalStats.MOGUL) + mogul) * GlobalStats.get_base_stat(GlobalStats.MOGUL)
+		return (GlobalStats.get_base_stat(GlobalStats.MOGUL) + mogul) * GlobalStats.get_factor_stat(GlobalStats.MOGUL)
 	elif stat == GlobalStats.LUCK:
-		return (GlobalStats.get_base_stat(GlobalStats.LUCK) + luck) * GlobalStats.get_base_stat(GlobalStats.LUCK)
+		return (GlobalStats.get_base_stat(GlobalStats.LUCK) + luck) * GlobalStats.get_factor_stat(GlobalStats.LUCK)
 	elif stat == GlobalStats.DAMAGE:
-		return (GlobalStats.get_base_stat(GlobalStats.DAMAGE) + damage) * GlobalStats.get_base_stat(GlobalStats.DAMAGE)
+		return (GlobalStats.get_base_stat(GlobalStats.DAMAGE) + damage) * GlobalStats.get_factor_stat(GlobalStats.DAMAGE)
 	elif stat == GlobalStats.RANGE:
-		return (GlobalStats.get_base_stat(GlobalStats.RANGE) + _range) * GlobalStats.get_base_stat(GlobalStats.RANGE)
+		return (GlobalStats.get_base_stat(GlobalStats.RANGE) + _range) * GlobalStats.get_factor_stat(GlobalStats.RANGE)
 	elif stat == GlobalStats.WEIGHT:
-		return (GlobalStats.get_base_stat(GlobalStats.WEIGHT) + weight) * GlobalStats.get_base_stat(GlobalStats.WEIGHT)
+		return (GlobalStats.get_base_stat(GlobalStats.WEIGHT) + weight) * GlobalStats.get_factor_stat(GlobalStats.WEIGHT)
 	elif stat == GlobalStats.ATTACKSPEED:
-		return (GlobalStats.get_base_stat(GlobalStats.ATTACKSPEED) + attackspeed) * GlobalStats.get_base_stat(GlobalStats.ATTACKSPEED)
+		return (GlobalStats.get_base_stat(GlobalStats.ATTACKSPEED) + attackspeed) * GlobalStats.get_factor_stat(GlobalStats.ATTACKSPEED)
 	elif stat == GlobalStats.VELOCITY:
-		return (GlobalStats.get_base_stat(GlobalStats.VELOCITY) + velocity) * GlobalStats.get_base_stat(GlobalStats.VELOCITY)
+		return (GlobalStats.get_base_stat(GlobalStats.VELOCITY) + velocity) * GlobalStats.get_factor_stat(GlobalStats.VELOCITY)
 	elif stat == GlobalStats.COUNT:
-		return (GlobalStats.get_base_stat(GlobalStats.COUNT) + count) * GlobalStats.get_base_stat(GlobalStats.COUNT)
+		return (GlobalStats.get_base_stat(GlobalStats.COUNT) + count) * GlobalStats.get_factor_stat(GlobalStats.COUNT)
 	elif stat == GlobalStats.PIERCING:
-		return (GlobalStats.get_base_stat(GlobalStats.PIERCING) + piercing) * GlobalStats.get_base_stat(GlobalStats.PIERCING)
+		return (GlobalStats.get_base_stat(GlobalStats.PIERCING) + piercing) * GlobalStats.get_factor_stat(GlobalStats.PIERCING)
 	elif stat == GlobalStats.DURATION:
-		return (GlobalStats.get_base_stat(GlobalStats.DURATION) + duration) * GlobalStats.get_base_stat(GlobalStats.DURATION)
+		return (GlobalStats.get_base_stat(GlobalStats.DURATION) + duration) * GlobalStats.get_factor_stat(GlobalStats.DURATION)
 	elif stat == GlobalStats.BUILDUP:
-		return (GlobalStats.get_base_stat(GlobalStats.BUILDUP) + buildup) * GlobalStats.get_base_stat(GlobalStats.BUILDUP)
+		return (GlobalStats.get_base_stat(GlobalStats.BUILDUP) + buildup) * GlobalStats.get_factor_stat(GlobalStats.BUILDUP)
 	elif stat == GlobalStats.SIZE:
-		return (GlobalStats.get_base_stat(GlobalStats.SIZE) + size) * GlobalStats.get_base_stat(GlobalStats.SIZE)
+		return (GlobalStats.get_base_stat(GlobalStats.SIZE) + size) * GlobalStats.get_factor_stat(GlobalStats.SIZE)
 	elif stat == GlobalStats.CRITCHANCE:
-		return (GlobalStats.get_base_stat(GlobalStats.CRITCHANCE) + critchance) * GlobalStats.get_base_stat(GlobalStats.CRITCHANCE)
+		return (GlobalStats.get_base_stat(GlobalStats.CRITCHANCE) + critchance) * GlobalStats.get_factor_stat(GlobalStats.CRITCHANCE)
 	elif stat == GlobalStats.CRITDAMAGE:
-		return (GlobalStats.get_base_stat(GlobalStats.CRITDAMAGE) + critdamage) * GlobalStats.get_base_stat(GlobalStats.CRITDAMAGE)
+		return (GlobalStats.get_base_stat(GlobalStats.CRITDAMAGE) + critdamage) * GlobalStats.get_factor_stat(GlobalStats.CRITDAMAGE)
 	elif stat == GlobalStats.GHOSTLY:
-		return (GlobalStats.get_base_stat(GlobalStats.GHOSTLY) + ghostly) * GlobalStats.get_base_stat(GlobalStats.GHOSTLY)
+		return (GlobalStats.get_base_stat(GlobalStats.GHOSTLY) + ghostly) * GlobalStats.get_factor_stat(GlobalStats.GHOSTLY)
 	elif stat == GlobalStats.REGEN:
-		return (GlobalStats.get_base_stat(GlobalStats.REGEN) + regen) * GlobalStats.get_base_stat(GlobalStats.REGEN)
+		return (GlobalStats.get_base_stat(GlobalStats.REGEN) + regen) * GlobalStats.get_factor_stat(GlobalStats.REGEN)
 	elif stat == GlobalStats.MAGNETIZE:
-		return (GlobalStats.get_base_stat(GlobalStats.MAGNETIZE) + magnetize) * GlobalStats.get_base_stat(GlobalStats.MAGNETIZE)
+		return (GlobalStats.get_base_stat(GlobalStats.MAGNETIZE) + magnetize) * GlobalStats.get_factor_stat(GlobalStats.MAGNETIZE)
 	elif stat == GlobalStats.LIFESTEAL:
-		return (GlobalStats.get_base_stat(GlobalStats.LIFESTEAL) + lifesteal) * GlobalStats.get_base_stat(GlobalStats.LIFESTEAL)
+		return (GlobalStats.get_base_stat(GlobalStats.LIFESTEAL) + lifesteal) * GlobalStats.get_factor_stat(GlobalStats.LIFESTEAL)
 	elif stat == GlobalStats.SHIELD:
-		return (GlobalStats.get_base_stat(GlobalStats.SHIELD) + shield) * GlobalStats.get_base_stat(GlobalStats.SHIELD)
+		return (GlobalStats.get_base_stat(GlobalStats.SHIELD) + shield) * GlobalStats.get_factor_stat(GlobalStats.SHIELD)
 	elif stat == GlobalStats.DIFFICULTY:
-		return (GlobalStats.get_base_stat(GlobalStats.DIFFICULTY) + difficulty) * GlobalStats.get_base_stat(GlobalStats.DIFFICULTY)
+		return (GlobalStats.get_base_stat(GlobalStats.DIFFICULTY) + difficulty) * GlobalStats.get_factor_stat(GlobalStats.DIFFICULTY)
 	elif stat == GlobalStats.REVIES:
-		return (GlobalStats.get_base_stat(GlobalStats.REVIES) + revies) * GlobalStats.get_base_stat(GlobalStats.REVIES)
+		return (GlobalStats.get_base_stat(GlobalStats.REVIES) + revies) * GlobalStats.get_factor_stat(GlobalStats.REVIES)
 	elif stat == GlobalStats.THORNS:
-		return (GlobalStats.get_base_stat(GlobalStats.THORNS) + thorns) * GlobalStats.get_base_stat(GlobalStats.THORNS)
+		return (GlobalStats.get_base_stat(GlobalStats.THORNS) + thorns) * GlobalStats.get_factor_stat(GlobalStats.THORNS)
 	elif stat == GlobalStats.INACCURACY:
-		return (GlobalStats.get_base_stat(GlobalStats.INACCURACY) + inaccuracy) * GlobalStats.get_base_stat(GlobalStats.INACCURACY)
+		return (GlobalStats.get_base_stat(GlobalStats.INACCURACY) + inaccuracy) * GlobalStats.get_factor_stat(GlobalStats.INACCURACY)
 	return 0.0
 ## Flashing stuff
 func flash():

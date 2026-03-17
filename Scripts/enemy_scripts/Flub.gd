@@ -5,11 +5,7 @@ extends Enemy
 @export var dashtime: float
 @export var walkspeed_modifier: float
 @export var dash_modifier: float
-@export var dash_range: float:
-	get():
-		if is_instance_valid(stats):
-			return dash_range + stats.get_stat(StatsResource.RANGE)
-		return dash_range
+@export var dash_range: float
 var charging: bool = false
 var dashing: bool = false
 var on_cooldown: bool = true

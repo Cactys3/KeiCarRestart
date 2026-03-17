@@ -34,37 +34,37 @@ var curr_speed: float
 ## Stat Variables
 var maxspeed: float:
 	get():
-		return maxspeed
+		return maxspeed + GlobalStats.get_stat(GlobalStats.MOVESPEED)
 var maxhealth: float:
 	get():
-		return maxhealth
+		return maxhealth + GlobalStats.get_stat(GlobalStats.HP)
 var maxshield: float:
 	get():
-		return maxshield
+		return maxshield + GlobalStats.get_stat(GlobalStats.SHIELD)
 var stance: float:
 	get():
-		return stance
+		return stance + GlobalStats.get_stat(GlobalStats.STANCE)
 var size: float:
 	get():
-		return size
+		return size + GlobalStats.get_stat(GlobalStats.SIZE)
 var xp_gain: float:
 	get():
-		return xp_gain
+		return xp_gain + GlobalStats.get_stat(GlobalStats.XP)
 var money_gain: float:
 	get():
-		return money_gain
+		return money_gain + GlobalStats.get_stat(GlobalStats.MOGUL)
 var regen: float:
 	get():
-		return regen
+		return regen + GlobalStats.get_stat(GlobalStats.REGEN)
 var lifesteal: float:
 	get():
-		return lifesteal
+		return lifesteal + GlobalStats.get_stat(GlobalStats.LIFESTEAL)
 var thorns: float:
 	get():
-		return thorns
+		return thorns + GlobalStats.get_stat(GlobalStats.THORNS)
 var max_revies: float:
 	get():
-		return max_revies
+		return max_revies + GlobalStats.get_stat(GlobalStats.REVIES)
 func _init() -> void:
 	visible = false
 func _ready() -> void:

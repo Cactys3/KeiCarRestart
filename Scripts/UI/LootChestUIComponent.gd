@@ -1,7 +1,6 @@
 extends Control
 @onready var parent_parent: Control = $ParentParent
 @onready var title_label: Label = $ParentParent/TitleLabel
-@onready var stats_display: StatsDisplay = $ParentParent/Parent/StatsDisplay
 @onready var image: Sprite2D = $ParentParent/Parent/ImageBackground/Image
 @onready var image_label: Label = $ParentParent/Parent/ImageBackground/ImageLabel
 @onready var accept_button: Button = $ParentParent/AcceptButton
@@ -22,7 +21,3 @@ func set_text(new_title: String, label: String):
 	image_label.text = label
 func set_images(new_image: Texture2D):
 	image.texture = new_image
-func set_stats(stats: StatsResource):
-	stats_display.setup_substats(stats, stats.parent_object_name)
-func remove_stats():
-	stats_display.visible = false

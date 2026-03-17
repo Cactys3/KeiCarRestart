@@ -25,7 +25,7 @@ var initial_direction: Vector2
 var collision_counter: float = 0
 var dead: bool = false
 signal died(pos: Vector2, cloned: bool)
-
+@export var can_spawn_multiple: bool = true
 @export var status: StatusEffects
 
 func _init() -> void:
