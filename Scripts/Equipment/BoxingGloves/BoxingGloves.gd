@@ -17,8 +17,9 @@ const MaxPunchTime = 0.3
 var left_or_right: bool = false
 ## Override: Do a left/right punch
 func create_projectile():
-	projectiles_left_in_ammo -= 1
+	## Melee Attack
 	if left_or_right:
+		print("L")
 		anim.speed_scale = PunchFrameRate
 		anim.play(AttackLeft)
 		left_collision.disabled = false
@@ -27,6 +28,7 @@ func create_projectile():
 		anim.play(Idle)
 		left_collision.disabled = true
 	else:
+		print("R")
 		anim.speed_scale = PunchFrameRate
 		anim.play(AttackRight)
 		right_collision.disabled = false
@@ -35,10 +37,12 @@ func create_projectile():
 		anim.play(Idle)
 		right_collision.disabled = true
 	left_or_right = !left_or_right
-	#var direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
-	#var proj: Projectile = init_projectile(global_position, direction)
+	## Ranged Attack
+	super()
 ## Override: Do a left + right punch
 func create_last_projectile():
+	print("B")
+	## Melee Attack
 	projectiles_left_in_ammo -= 1
 	anim.speed_scale = PunchFrameRate
 	anim.play(AttackBoth)
@@ -49,8 +53,8 @@ func create_last_projectile():
 	anim.play(Idle)
 	right_collision.disabled = true
 	left_collision.disabled = true
-	#var direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
-	#var proj: Projectile = init_projectile(global_position, direction)
+	## Ranged Attack
+	super.create_projectile()
 ## Override to calculate time_one_projectile_takes_to_create
 func _time_one_projectile_takes_to_create() -> float:
 	#print("Frames: ", float(anim.sprite_frames.get_frame_count(AttackLeft)), " at fps: ",  float(PunchFrameRate), " is: ", float(anim.sprite_frames.get_frame_count(AttackLeft)) / float(PunchFrameRate))

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bbw0s4nlfy63s"]
 
 [ext_resource type="Script" uid="uid://bsgbnenow5c2h" path="res://Scripts/Equipment/BoxingGloves/BoxingGloves.gd" id="1_rw4pg"]
+[ext_resource type="PackedScene" uid="uid://c5n35stv668tp" path="res://Scenes/Weapons/Pistol/9mm.tscn" id="2_8up8s"]
 [ext_resource type="Texture2D" uid="uid://dyinr3i8jtc2p" path="res://Art/Weapons/BoxingGloves/BoxingGloves.png" id="2_37iyi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8up8s"]
@@ -203,11 +204,16 @@ size = Vector2(54, 28)
 [node name="BoxingGloves" type="Area2D" unique_id=1038994020 node_paths=PackedStringArray("anim")]
 script = ExtResource("1_rw4pg")
 anim = NodePath("AnimatedSprite2D")
+projectile = ExtResource("2_8up8s")
 AimType = 2
 damage = 40.0
 attackcooldown = 1.5
 attackspeed = 10.0
+velocity = 20.0
 ammo = 5.0
+count = 2.0
+duration = 5.0
+buildup = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=134956421]
 rotation = 1.5707964

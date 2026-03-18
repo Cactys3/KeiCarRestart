@@ -186,7 +186,8 @@ func process_cooldown(delta: float) -> void:
 	if between_attacks_cooldown_timer > get_cooldown_between_attacks():
 		if between_projectiles_cooldown_timer > get_cooldown_between_projectiles():
 			if (ready_to_fire || always_ready_to_fire):# || Input.is_action_pressed("left_click"):
-				#print("attack!")
+				print("between projects: ", between_attacks_cooldown_timer, " / ", get_cooldown_between_attacks())
+				print("between projects: ", between_projectiles_cooldown_timer, " / ", get_cooldown_between_projectiles())
 				attack()
 		else:
 			#print("between projects: ", between_projectiles_cooldown_timer, " / ", get_cooldown_between_projectiles())
@@ -273,7 +274,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 func projectile_died(pos: Vector2, is_clone: bool):
 	pass
 func get_cooldown_between_projectiles() -> float:
-	print("get_cooldown_between_projectiles ", attacksperX / max(0.1, attackspeed_stat), " attacksperX: ", attacksperX, ", attackspeed: ", attackspeed_stat)
+	#print("get_cooldown_between_projectiles ", attacksperX / max(0.1, attackspeed_stat), " attacksperX: ", attacksperX, ", attackspeed: ", attackspeed_stat)
 	return (attacksperX / max(0.1, attackspeed_stat))
 ## Calculate and return cooldown between attacks
 func get_cooldown_between_attacks() -> float:
@@ -287,8 +288,10 @@ func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new(damage, player.global_position, buildup_stat, StatusEffects.new(), self, 0, 0, knockback)
 	 #TODO: determine how to calculate knockback
 	return new_attack
-func get_inaccurate_direction(direction: Vector2, inaccuracy: float) -> Vector2:
-	return direction.rotated(deg_to_rad(randf_range(-inaccuracy / 3, inaccuracy / 3)))
+func get_inaccurate_direction(direction: Vector2, given_inaccuracy: float) -> Vector2:
+	if given_inaccuracy == 0:
+		return direction
+	return direction.rotated(deg_to_rad(randf_range(-given_inaccuracy / 3, given_inaccuracy / 3)))
 ## Returns nearest enemy or null
 func get_nearest_enemy() -> Variant:
 	var nearest_enemy = null
