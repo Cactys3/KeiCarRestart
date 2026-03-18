@@ -48,15 +48,15 @@ var xp_gain_modifier: float:
 		return max(0.1, 1 + (player.xp_gain - 1) / 100)
 var money_gain_modifier: float:
 	get():
-		return max(0.1, 1 + (player.money_gain - 1) / 100)
+		return max(0.1, 1 + (player.mogul - 1) / 100)
 
 var revives_used: int = 0
 var max_hp: float:
 	get():
-		return player.maxhealth
+		return player.health
 var max_shield: float:
 	get():
-		return player.maxshield
+		return player.shield
 var shield: float = 0:
 	set(value):
 		shield = value
@@ -97,7 +97,6 @@ var xp: float = 0: ## Current (total?) XP Gained
 var money: float = 0: ## Current Money Held
 	set(value):
 		if value > money: ## Factor in money_gain when adding money
-			#print("new money: " + str((value - money)) + " * " + str(money_gain_modifier))
 			money = money + (value - money) * money_gain_modifier
 		else:
 			money = value
@@ -133,14 +132,14 @@ signal PlayerRevived(player: Character)
 signal PlayerKilled(player: Character, attack: Attack)
 signal RoundEnded(round_number: int)
 
-func setup(new_player: Character, starting_weapon: int):
+func setup(new_player: Character, starting_weapon: String):
 	player = new_player
 	call_deferred("setup_deffered", starting_weapon)
 	connect("level_up", create_level_up_instance)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	EnemyKilled.connect(enemy_killed)
 	PlayerDamaged.connect(player_damaged)
-func setup_deffered(starting_weapon: int):
+func setup_deffered(starting_weapon: String):
 	player.initialize_stats()
 	level = 1
 	xp = 0
@@ -148,7 +147,7 @@ func setup_deffered(starting_weapon: int):
 	get_tree().paused = false
 	call_deferred("setup_weapon", starting_weapon)
 ## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
-func setup_weapon(starting_weapon: int):
+func setup_weapon(starting_weapon: String):
 	var weapon: Weapon = ShopManager.get_weapon(starting_weapon)
 	add_weapon(weapon)
 	add_weapon(weapon)

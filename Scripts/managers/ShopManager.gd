@@ -1,65 +1,72 @@
 extends Node
 class_name ShopManager
-
 ## Weapons
-const PISTOL = preload("uid://cjkad8i0d5u2g")
-
-## Upgrades
+const PISTOL = "Pistol"
+const BOXING_GLOVES = "Boxing Glove"
 
 ## Projectiles
-const _9_MM = preload("uid://c5n35stv668tp")
+const _9_MM = "9mm"
+## Weapon Scenes
+const PISTOL_SCENE = preload("uid://cjkad8i0d5u2g")
+const BOXING_GLOVES_SCENE = preload("uid://bbw0s4nlfy63s")
+
+## Upgrades Scenes
+
+## Projectiles
+const _9_MM_SCENE = preload("uid://c5n35stv668tp")
 
 ## Arrays
-static var unlocked_projectiles_indicies: Array [int] = []
-static var unlocked_weapon_indicies: Array [int] = []
-static var unlocked_upgrade_indicies: Array [int] = []
-const upgrade_list: Array [PackedScene] = []
-const weapon_list: Array [PackedScene] = [PISTOL]
-const projectile_list: Array [PackedScene] = []
-## Weapon Indexes
-const pistol_index: int = 0
-
-## Projectile Indexes
-const nine_mm_index: int = 0
+static var unlocked_projectiles_indicies: Array [String] = []
+static var unlocked_weapon_indicies: Array [String] = []
+static var unlocked_upgrade_indicies: Array [String] = []
+const upgrade_list: Dictionary [String, PackedScene] = {}
+const weapon_list: Dictionary [String, PackedScene] = {
+	PISTOL: PISTOL_SCENE,
+	BOXING_GLOVES: BOXING_GLOVES_SCENE}
+const projectile_list: Dictionary [String, PackedScene] = {
+	_9_MM: _9_MM_SCENE}
 
 ## Upgrade Indexes
 
 ## Returns Random Projectile
 static func get_rand_projectile() -> Projectile:
-	return projectile_list.get(get_random_unlocked_weapon_index()).duplicate()
+	return projectile_list.get(get_random_unlocked_weapon_key()).instantiate()
 ## Returns Random Weapon
 static func get_rand_weapon() -> Weapon:
-		return get_weapon(get_random_unlocked_weapon_index())
+		return weapon_list.get(get_random_unlocked_weapon_key()).instantiate()
 ## Returns Random Upgrade
 static func get_rand_upgrade() -> Upgrade:
-	return (upgrade_list.get(get_random_unlocked_upgrade_index())).instantiate()
-## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
-static func get_projectile(num: int) -> Projectile:
-	if num < projectile_list.size() && num > -1:
-		return projectile_list.get(num).instantiate()
-	return projectile_list.get(get_random_unlocked_projectile_index()).instantiate()
-## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
-static func get_weapon(num: int) -> Weapon:
-	if num < weapon_list.size() && num > -1:
-		return weapon_list.get(num).instantiate()
-	return weapon_list.get(get_random_unlocked_weapon_index()).instantiate()
-## 1 = DamageBuff
-static func get_upgrade(num: int) -> Upgrade:
-	if num < upgrade_list.size() && num > -1:
-		return upgrade_list.get(num).instantiate()
-	return upgrade_list.get(get_random_unlocked_upgrade_index()).instantiate()
+	return upgrade_list.get(get_random_unlocked_upgrade_key()).instantiate()
+##
+static func get_projectile(key: String) -> Projectile:
+	if projectile_list.has(key):
+		return projectile_list.get(key).instantiate()
+	printerr("Requesting non-existent projectile: ", key)
+	return null
+##
+static func get_weapon(key: String) -> Weapon:
+	if weapon_list.has(key):
+		return weapon_list.get(key).instantiate()
+	printerr("Requesting non-existent weapon: ", key)
+	return null
+## 
+static func get_upgrade(key: String) -> Upgrade:
+	if upgrade_list.has(key):
+		return upgrade_list.get(key).instantiate()
+	printerr("Requesting non-existent upgrade: ", key)
+	return null
 ## Returns random unlocked projectile's index
-static func get_random_unlocked_projectile_index() -> int:
-	return randi_range(0, projectile_list.size() - 1) #TODO: Check if attachment is unlocked?
-static func get_random_unlocked_weapon_index() -> int:
-	return randi_range(0, projectile_list.size() - 1) #TODO: Check if attachment is unlocked?
-static func get_random_unlocked_upgrade_index() -> int:
-	return randi_range(0, upgrade_list.size() - 1) #TODO: Check if item is unlocked?
-static func get_all_unlocked_weapon_indices() -> Array[int]:
+static func get_random_unlocked_projectile_key() -> String:
+	return unlocked_weapon_indicies.pick_random() #TODO: Check if attachment is unlocked?
+static func get_random_unlocked_weapon_key() -> String:
+	return unlocked_projectiles_indicies.pick_random() #TODO: Check if attachment is unlocked?
+static func get_random_unlocked_upgrade_key() -> String:
+	return unlocked_upgrade_indicies.pick_random() #TODO: Check if item is unlocked?
+static func get_all_unlocked_weapon_keys() -> Array[String]:
 	return unlocked_weapon_indicies
-static func get_all_unlocked_upgrade_indices() -> Array[int]:
+static func get_all_unlocked_upgrade_keys() -> Array[String]:
 	return unlocked_upgrade_indicies
-static func get_all_unlocked_projectiles_indices() -> Array[int]:
+static func get_all_unlocked_projectiles_keys() -> Array[String]:
 	return unlocked_projectiles_indicies
 ## TODO: Implement
 static func get_rand_upgrade_except(avoided_items: Array[Equipment]) -> Upgrade:

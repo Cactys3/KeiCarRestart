@@ -26,14 +26,15 @@ var DARKFOREST: duple = duple.new("DARKFOREST", "res://Scenes/Instances/DarkFore
 var WEBFISHER: duple = duple.new("WebFisher", "res://Scenes/Characters/Character.tscn")
 var LILY: duple = duple.new("Lily", "res://Scenes/Characters/Lily.tscn")
 ## Weapons
-var PISTOL: duple_int = duple_int.new("PISTOL", ShopManager.pistol_index)
+var PISTOL: duple = duple.new("Pistol", ShopManager.PISTOL)
+var BOXING_GLOVE: duple = duple.new("Boxing Glove", ShopManager.BOXING_GLOVES)
 ## Choice Variables
 var character: int ## Chosen character
 var map: int ## Chosen map
 var weapon: int ## Chosen weapon
 var characters: Array[duple] = [WEBFISHER, LILY]
 var maps: Array[duple] = [TEST, DARKFOREST]
-var weapons: Array[duple_int] = [PISTOL]
+var weapons: Array[duple] = [PISTOL, BOXING_GLOVE]
 
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
 
@@ -135,7 +136,7 @@ func setup_instance(base_scene) -> GameInstance:
 	#print("Creating instance with Map: " + maps[map].key + ", Char: " + characters[character].key)
 	var game_instance: GameInstance = get_instance()
 	var chosen_character: Character = get_character()
-	var chosen_weapon: int = get_weapon()
+	var chosen_weapon: String = get_weapon()
 	base_scene.add_child(game_instance)
 	base_scene.setup_instance(game_instance)
 	game_instance.setup(chosen_character, chosen_weapon, null)
@@ -146,7 +147,7 @@ func get_instance() -> GameInstance:
 	return load(maps[map].value).instantiate()
 func get_character() -> Character:
 	return load(characters[character].value).instantiate()
-func get_weapon() -> int:
+func get_weapon() -> String:
 	return weapons[weapon].value
 func set_map(index: int):
 	if maps.size() > index:
@@ -174,7 +175,7 @@ func set_visible(nodes: Array[Control]):
 func _quickstart():
 	character = 1
 	map = 1
-	weapon = 0
+	weapon = 1
 	press_start_game()
 ## Setup the achievements visual based on Save Data
 func setup_achievements():
@@ -252,12 +253,6 @@ class duple:
 	var key: String
 	var value: String
 	func _init(new_key: String, new_value: String):
-		key = new_key
-		value = new_value
-class duple_int:
-	var key: String
-	var value: int
-	func _init(new_key: String, new_value: int):
 		key = new_key
 		value = new_value
 

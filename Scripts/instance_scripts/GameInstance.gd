@@ -123,7 +123,7 @@ func _ready() -> void:
 		return
 	instance = self  
 ## Sets up the GameInstance by giving parameter values (character should be resource so can change default values?)
-func setup(new_character: Character, new_weapon: int, run_modifiers) -> void:
+func setup(new_character: Character, new_weapon: String, run_modifiers) -> void:
 	character_parent.add_child(new_character)
 	camera.reparent(new_character)
 	TITLE_SCENE = load("res://Scenes/Main/TitleScene.tscn")

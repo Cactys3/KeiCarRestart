@@ -28,14 +28,60 @@ const DIFFICULTY = "difficulty"
 const REVIES = "revies"
 const THORNS = "thorns"
 const INACCURACY = "inaccuracy"
+## Default Stats (for those that aren't 0)
+const HP_DEFAULT = 100
+const MOVESPEED_DEFAULT = 30
+const XP_DEFAULT = 1
+const MOGUL_DEFAULT = 1
+const LUCK_DEFAULT = 1
+const RANGE_DEFAULT = 60
+const ATTACKSPEED_DEFAULT = 2
+const VELOCITY_DEFAULT = 30
+const COUNT_DEFAULT = 1
+const PIERCING_DEFAULT = 0
+const DURATION_DEFAULT = 5
+const BUILDUP_DEFAULT = 1
+const SIZE_DEFAULT = 1
+const CRITDAMAGE_DEFAULT = 1.5
+const REGEN_DEFAULT = 3
+const MAGNETIZE_DEFAULT = 20
+const DIFFICULTY_DEFAULT = 1
 ## Stats Added to Stat Getters
-static var statsbase = StatsList.new(1)
+static var statsbase = StatsList.new(0)
 ## Stats Multiplied to Stat Getters
 static var statsfactor = StatsList.new(1)
 
 ## Likely resets everything in preparation for a new run
 static func setup():
-	statsbase = StatsList.new(40)
+	statsbase = StatsList.new(0)
+	statsbase.list = {
+		HP: HP_DEFAULT,
+		STANCE: 0.0,
+		MOVESPEED: MOVESPEED_DEFAULT,
+		XP: XP_DEFAULT,
+		MOGUL:MOGUL_DEFAULT,
+		LUCK: LUCK_DEFAULT, 
+		DAMAGE: 0.0,
+		RANGE: RANGE_DEFAULT,
+		WEIGHT: 0.0,
+		ATTACKSPEED: ATTACKSPEED_DEFAULT,
+		VELOCITY: VELOCITY_DEFAULT,
+		INACCURACY: 0.0,
+		COUNT: COUNT_DEFAULT,
+		PIERCING: PIERCING_DEFAULT,
+		DURATION: DURATION_DEFAULT,
+		BUILDUP: BUILDUP_DEFAULT,
+		SIZE: SIZE_DEFAULT, 
+		CRITCHANCE: 0.0,
+		CRITDAMAGE: CRITDAMAGE_DEFAULT,
+		GHOSTLY: 0.0,
+		REGEN: REGEN_DEFAULT,
+		MAGNETIZE: MAGNETIZE_DEFAULT,
+		LIFESTEAL: 0.0,
+		SHIELD: 0.0,
+		DIFFICULTY: DIFFICULTY_DEFAULT,
+		REVIES: 0.0,
+		THORNS: 0.0}
 	statsfactor = StatsList.new(1)
 
 static func get_base_stat(stat: String) -> float:

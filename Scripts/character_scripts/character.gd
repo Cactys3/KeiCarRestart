@@ -12,6 +12,40 @@ var game_man: GameManager:
 @export var knockback_modifier:float = 1
 @export var can_be_knockbacked:bool = true
 @export var can_be_stunned:bool = true
+## Stats
+@export var movespeed: float = 30:
+	get():
+		return movespeed + GlobalStats.get_stat(GlobalStats.MOVESPEED)
+@export var health: float = 100:
+	get():
+		return health + GlobalStats.get_stat(GlobalStats.HP)
+@export var shield: float = 20:
+	get():
+		return shield + GlobalStats.get_stat(GlobalStats.SHIELD)
+@export var stance: float = 0:
+	get():
+		return stance + GlobalStats.get_stat(GlobalStats.STANCE)
+@export var size: float = 1:
+	get():
+		return size + GlobalStats.get_stat(GlobalStats.SIZE)
+@export var xp_gain: float = 1:
+	get():
+		return xp_gain + GlobalStats.get_stat(GlobalStats.XP)
+@export var mogul: float = 1:
+	get():
+		return mogul + GlobalStats.get_stat(GlobalStats.MOGUL)
+@export var regen: float = 3:
+	get():
+		return regen + GlobalStats.get_stat(GlobalStats.REGEN)
+@export var lifesteal: float = 0:
+	get():
+		return lifesteal + GlobalStats.get_stat(GlobalStats.LIFESTEAL)
+@export var thorns: float = 0:
+	get():
+		return thorns + GlobalStats.get_stat(GlobalStats.THORNS)
+@export var revives: float = 0:
+	get():
+		return revives + GlobalStats.get_stat(GlobalStats.REVIES)
 ## Variables
 var default_pickup_radius: float = 30
 var regen_stopwatch: float = 0
@@ -20,42 +54,9 @@ var shield_cooldown: float = 3
 ## States
 var stunning:bool = false
 var stun_time_left: float = 0
-## Current Variables
+## Current Stats
 var curr_speed: float
-## Stat Variables
-var maxspeed: float:
-	get():
-		return maxspeed + GlobalStats.get_stat(GlobalStats.MOVESPEED)
-var maxhealth: float:
-	get():
-		return maxhealth + GlobalStats.get_stat(GlobalStats.HP)
-var maxshield: float:
-	get():
-		return maxshield + GlobalStats.get_stat(GlobalStats.SHIELD)
-var stance: float:
-	get():
-		return stance + GlobalStats.get_stat(GlobalStats.STANCE)
-var size: float:
-	get():
-		return size + GlobalStats.get_stat(GlobalStats.SIZE)
-var xp_gain: float:
-	get():
-		return xp_gain + GlobalStats.get_stat(GlobalStats.XP)
-var money_gain: float:
-	get():
-		return money_gain + GlobalStats.get_stat(GlobalStats.MOGUL)
-var regen: float:
-	get():
-		return regen + GlobalStats.get_stat(GlobalStats.REGEN)
-var lifesteal: float:
-	get():
-		return lifesteal + GlobalStats.get_stat(GlobalStats.LIFESTEAL)
-var thorns: float:
-	get():
-		return thorns + GlobalStats.get_stat(GlobalStats.THORNS)
-var max_revies: float:
-	get():
-		return max_revies + GlobalStats.get_stat(GlobalStats.REVIES)
+
 func _init() -> void:
 	visible = false
 func _ready() -> void:
@@ -65,9 +66,9 @@ func flash():
 	visible = true
 func initialize_stats() -> void:
 	game_man.revives_used = 0
-	game_man.hp = maxhealth
-	game_man.shield = maxshield
-	curr_speed = maxspeed
+	game_man.hp = health
+	game_man.shield = shield
+	curr_speed = movespeed
 	stat_changed_method()
 func _process(_delta: float) -> void:
 	if GameInstance.is_game_over:
@@ -93,34 +94,33 @@ func _physics_process(delta : float) -> void:
 	time_since_taken_damage += delta
 func handle_regens(delta) -> void:
 	## Regen shield if hasn't taken damage in awhile
-	if time_since_taken_damage >= shield_cooldown && game_man.shield < maxshield:
+	if time_since_taken_damage >= shield_cooldown && game_man.shield < shield:
 		game_man.shield += 5 * delta
 	## Regen happens once every second
 	regen_stopwatch += delta
 	if regen_stopwatch >= 1:
 		regen_stopwatch = 0
-		if regen > 0 && game_man.hp < maxhealth:
+		if regen > 0 && game_man.hp < health:
 			game_man.hp += GlobalStats.calculate_regen(regen)
 func handle_moving(delta) -> void:
-	var moving = false
+	var is_moving = false
 	var directionX := Input.get_axis("left", "right")
 	if !stunning: ## Stun Time prevents the player from inputting movement commands, but doesn't change their current velocity
 		var new_velocity: Vector2
 		if directionX:
 			new_velocity.x = round(directionX) * curr_speed
-			moving = true
+			is_moving = true
 		else:
 			new_velocity.x = 0
 		var directionY := Input.get_axis("up", "down")
 		if directionY:
 			new_velocity.y = round(directionY) * curr_speed
-			moving = true
+			is_moving = true
 		else:
 			new_velocity.y = 0
 		velocity = velocity.move_toward(new_velocity.normalized() * curr_speed, delta * 7000)
-	print("set moving")
-	moving(moving)
-	if moving && face_towards_velocity:
+	moving(is_moving)
+	if is_moving && face_towards_velocity:
 		## if velocity.x = 0, don't change
 		if (sign(velocity.x) > 0):
 			anim.flip_h = true
@@ -187,7 +187,6 @@ func on_gain_xp(new_xp: float, old_xp: float) -> void:
 func on_gain_money(new_money: float, old_money: float) -> void:
 	pass
 func moving(is_moving: bool):
-	print("hello?")
 	if is_moving && is_instance_valid(anim) && anim.sprite_frames.has_animation("move"):
 		anim.play("move")
 	elif anim.sprite_frames.has_animation("idle"):

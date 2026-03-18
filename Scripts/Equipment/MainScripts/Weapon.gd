@@ -82,7 +82,9 @@ var thorns_stat:
 var inaccuracy_stat:
 	get():
 		return get_stat(GlobalStats.INACCURACY)
-@export var visual: AnimatedSprite2D
+@export var anim: AnimatedSprite2D
+## Does this animation flip when facing left vs non-flipped when facing right
+@export var flip_left_right: bool = false
 @export var projectile: PackedScene
 @export_category("Projectile Settings")
 @export var MultipleProjectileOffset: float = 2
@@ -323,11 +325,7 @@ func ProcessAlwaysAtMouse(delta: float) -> void:
 	global_position = GetOrbitPositionAtMouse((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
 	var nearest_enemy: Node2D = get_enemy_nearby(range_stat)
-	if nearest_enemy != null:
-		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
-			ready_to_fire = true
-	else:
-		ready_to_fire = false
+	ready_to_fire = Input.is_action_pressed("left_click")
 	RotateTowardsPosition(get_global_mouse_position(), delta)
 ## Aim at nearest enemy from static slot
 func ProcessStaticSlot(delta: float) -> void:
@@ -360,6 +358,9 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
 	var speed = rotation_speed * _delta * (10 / max(weight_stat, 1)) ## TODO: Stat: weight
 	var angle = (new_position - global_position).normalized().angle()
 	rotation = lerp_angle(rotation, angle, speed)
+	if flip_left_right:
+		## Looks better with angle (desired angle) instead of rotation (current angle)
+		anim.flip_v = cos(angle) < 0
  #TODO: try global_position instead of player.global_position for how weapon aiming looks
 ## Calculates the orbit position for a weapon at given target_angle
 func GetOrbitPosition(target_angle: float) -> Vector2:
