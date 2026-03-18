@@ -11,7 +11,13 @@ class_name Equipment
 @export var damage: float = 0.0
 @export var _range: float = 0.0
 @export var weight: float = 0.0
-@export var attackspeed: float = 0.0
+## Seconds of reload time between attacks
+@export var attackcooldown: float = 0.0
+## projectiles per X (check X in Weapon.gd)
+@export var attackspeed: float = 0.0:
+	set(value):
+		print("changed attackspeed: ", attackspeed, " -> ", value)
+		attackspeed = value
 @export var velocity: float = 0.0
 @export var ammo:  float = 0.0
 @export var count: float = 0.0
@@ -32,10 +38,6 @@ class_name Equipment
 @export var inaccuracy: float = 0.0
 func _ready() -> void:
 	flash()
-	movespeed = 20
-	attackspeed = 1
-	damage = 10
-	weight = 1
 func get_stat(stat: String) -> float:
 	## other implementations are hard because variables may be accessed before they are ready or smth i forget.
 	if stat == GlobalStats.HP:
@@ -56,6 +58,8 @@ func get_stat(stat: String) -> float:
 		return (GlobalStats.get_base_stat(GlobalStats.RANGE) + _range) * GlobalStats.get_factor_stat(GlobalStats.RANGE)
 	elif stat == GlobalStats.WEIGHT:
 		return (GlobalStats.get_base_stat(GlobalStats.WEIGHT) + weight) * GlobalStats.get_factor_stat(GlobalStats.WEIGHT)
+	elif stat == GlobalStats.ATTACKCOOLDOWN:
+		return (GlobalStats.get_base_stat(GlobalStats.ATTACKCOOLDOWN) + attackcooldown) * GlobalStats.get_factor_stat(GlobalStats.ATTACKCOOLDOWN)
 	elif stat == GlobalStats.ATTACKSPEED:
 		return (GlobalStats.get_base_stat(GlobalStats.ATTACKSPEED) + attackspeed) * GlobalStats.get_factor_stat(GlobalStats.ATTACKSPEED)
 	elif stat == GlobalStats.VELOCITY:
@@ -94,7 +98,8 @@ func get_stat(stat: String) -> float:
 		return (GlobalStats.get_base_stat(GlobalStats.THORNS) + thorns) * GlobalStats.get_factor_stat(GlobalStats.THORNS)
 	elif stat == GlobalStats.INACCURACY:
 		return (GlobalStats.get_base_stat(GlobalStats.INACCURACY) + inaccuracy) * GlobalStats.get_factor_stat(GlobalStats.INACCURACY)
-	return 0.0
+	printerr("Stat not found: ", stat)
+	return -999
 ## Flashing stuff
 func flash():
 	visible = false

@@ -28,6 +28,9 @@ var range_stat:
 var weight_stat:
 	get():
 		return get_stat(GlobalStats.WEIGHT)
+var attackcooldown_stat:
+	get():
+		return get_stat(GlobalStats.ATTACKCOOLDOWN)
 var attackspeed_stat:
 	get():
 		return get_stat(GlobalStats.ATTACKSPEED)
@@ -89,6 +92,9 @@ var inaccuracy_stat:
 ## Does this animation flip when facing left vs non-flipped when facing right
 @export var flip_left_right: bool = false
 @export var projectile: PackedScene
+@export var time_one_projectile_takes_to_create: float = 0:
+	get():
+		return _time_one_projectile_takes_to_create()
 @export_category("Projectile Settings")
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
@@ -110,9 +116,6 @@ enum multiple_projectiles_aim_types {delay, spread}
 @export_category("Attachment Settings")
 @export var MeleeDamageFactor: float = 1
 ## Offset that additional projectiles are given when firing multiple, should be different for different weapons and also scale with inaccuracy
-
-
-
 var weapon_slot: float = 1
 var weapon_count: float = 1
 var current_angle: float = 0  #Stores the angle for smooth circular motion
@@ -128,15 +131,12 @@ var projectiles_left_in_ammo: int
 var ready_to_fire: bool = false #Tells attach if it can call Attack()
 var projectiles: Array[Projectile]
 ## Determines what attackspeed is, attacksperX = 2 means attackspeed is how many attacks every 2 seconds
-const attacksperX: int = 10
+const attacksperX: int = 2
 var stopwatch: Timer
 var between_attacks_cooldown_timer: float = 0
 var between_projectiles_cooldown_timer: float = 0
 var attacking: bool = false
 var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used?, to create attack need to use stats which defeats point of queue
-
-
-
 ## Override
 func activate(new_player: Character):
 	super(new_player)
@@ -151,12 +151,10 @@ func deactivate():
 		get_parent().remove_child(self)
 func _ready() -> void:
 	super()
-	reset_attack()
-	stopwatch = Timer.new()
-	add_child(stopwatch)
-func reset_attack():
 	between_attacks_cooldown_timer = 0
 	projectiles_left_in_ammo = ammo_stat
+	stopwatch = Timer.new()
+	add_child(stopwatch)
 ## Calls Process_Cooldown
 func _process(delta: float) -> void:
 	if !QueuedAttacks.is_empty():
@@ -180,31 +178,45 @@ func _process(delta: float) -> void:
 ## Should handle cooldown and calling attack()
 ## this is meant to be overridden by classes that inherit it
 func process_cooldown(delta: float) -> void: 
+	## If attacking, simply wait
 	if attacking:
-		pass
+		#print("attacking")
+		return
 	## if cd between attacks -> if cd between projectiles
-	elif cooldown_timer <= get_cooldown():
-		cooldown_timer += delta
-	elif ready_to_fire || always_ready_to_fire:
-		attacking = true
-		attack() 
+	if between_attacks_cooldown_timer > get_cooldown_between_attacks():
+		if between_projectiles_cooldown_timer > get_cooldown_between_projectiles():
+			if (ready_to_fire || always_ready_to_fire):# || Input.is_action_pressed("left_click"):
+				#print("attack!")
+				attack()
+		else:
+			#print("between projects: ", between_projectiles_cooldown_timer, " / ", get_cooldown_between_projectiles())
+			between_projectiles_cooldown_timer += delta
+	else:
+		between_attacks_cooldown_timer += delta
+		#print("between projects: ", between_attacks_cooldown_timer, " / ", get_cooldown_between_attacks())
 ## await's create_projectiles() and resets attack cooldown
 func attack(): 
-	if projectiles_left_in_ammo <= 1:
-		await create_last_projectile()
-	else:
+	attacking = true
+	if projectiles_left_in_ammo > 1:
 		await create_projectile()
-	## Reset attack values so we can attack again
-	cooldown_timer = 0
-	attacking = false
+		between_projectiles_cooldown_timer = 0
+		attacking = false
+	else:
+		await create_last_projectile()
+		between_attacks_cooldown_timer = 0
+		projectiles_left_in_ammo = ammo_stat
+		attacking = false
+## Create any projectiles but also do any melee attacks
 func create_projectile():
 	## Randomize Direction Based on inaccuracy
+	projectiles_left_in_ammo -= 1
 	var direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
 	var proj: Projectile = init_projectile(global_position, direction)
+## Create any projectiles but also do any melee attacks, also do last ammo attacks
 func create_last_projectile():
+	# remember: projectiles_left_in_ammo
 	create_projectile()
-	reset_attack()
-## Create and setup all the projectiles for an attack from this attachment
+## Previous implementation of Attack(), Create and setup all the projectiles for an attack from this Weapon
 func create_all_projectiles():
 	## Create the first bullet by default
 	## Randomize Direction Based on inaccuracy
@@ -219,7 +231,6 @@ func create_all_projectiles():
 		time_inbetween_projectiles += 0.5
 	stopwatch.wait_time = time_inbetween_projectiles
 	proj_offset = 0
-	
 	if proj.can_spawn_multiple && count_stat > 1:
 		for i:int in count_stat - 1:
 			## Get Attachment Position (default projectile position)
@@ -261,10 +272,13 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 ## Called when projectile originating from this attachment dies
 func projectile_died(pos: Vector2, is_clone: bool):
 	pass
+func get_cooldown_between_projectiles() -> float:
+	print("get_cooldown_between_projectiles ", attacksperX / max(0.1, attackspeed_stat), " attacksperX: ", attacksperX, ", attackspeed: ", attackspeed_stat)
+	return (attacksperX / max(0.1, attackspeed_stat))
 ## Calculate and return cooldown between attacks
-func get_cooldown() -> float:
+func get_cooldown_between_attacks() -> float:
 	## Minimum: atttack 0.1 times per X
-	return attacksperX / max(0.1, attackspeed_stat) ## TODO: Stat: Attackspeed 
+	return attackcooldown_stat
 ## Send altered values because it's a melee hitbox
 func make_attack() -> Attack:
 	var knockback: float = weight_stat * damage_stat ## TODO: Stat: knockback
@@ -417,3 +431,6 @@ class AttackEvent:
 		clone = is_clone
 		attackee = new_attackee
 		attacker = new_attacker
+## Override to calculate time_one_projectile_takes_to_create
+func _time_one_projectile_takes_to_create() -> float:
+	return time_one_projectile_takes_to_create

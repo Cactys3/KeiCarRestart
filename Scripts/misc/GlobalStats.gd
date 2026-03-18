@@ -10,6 +10,7 @@ const LUCK = "luck"
 const DAMAGE = "damage"
 const RANGE = "range"
 const WEIGHT = "weight"
+const ATTACKCOOLDOWN = "attackcooldown"
 const ATTACKSPEED = "attackspeed"
 const VELOCITY = "velocity"
 const AMMO = "ammo"
@@ -36,12 +37,7 @@ const XP_DEFAULT = 1
 const MOGUL_DEFAULT = 1
 const LUCK_DEFAULT = 1
 const RANGE_DEFAULT = 60
-const ATTACKSPEED_DEFAULT = 2
-const VELOCITY_DEFAULT = 30
 const COUNT_DEFAULT = 1
-const PIERCING_DEFAULT = 0
-const DURATION_DEFAULT = 5
-const BUILDUP_DEFAULT = 1
 const SIZE_DEFAULT = 1
 const CRITDAMAGE_DEFAULT = 1.5
 const REGEN_DEFAULT = 3
@@ -51,7 +47,6 @@ const DIFFICULTY_DEFAULT = 1
 static var statsbase = StatsList.new(0)
 ## Stats Multiplied to Stat Getters
 static var statsfactor = StatsList.new(1)
-
 ## Likely resets everything in preparation for a new run
 static func setup():
 	statsbase = StatsList.new(0)
@@ -65,13 +60,14 @@ static func setup():
 		DAMAGE: 0.0,
 		RANGE: RANGE_DEFAULT,
 		WEIGHT: 0.0,
-		ATTACKSPEED: ATTACKSPEED_DEFAULT,
-		VELOCITY: VELOCITY_DEFAULT,
+		ATTACKCOOLDOWN: 0.0,
+		ATTACKSPEED: 0.0,
+		VELOCITY: 0.0,
 		AMMO: 0.0,
 		COUNT: COUNT_DEFAULT,
-		PIERCING: PIERCING_DEFAULT,
-		DURATION: DURATION_DEFAULT,
-		BUILDUP: BUILDUP_DEFAULT,
+		PIERCING: 0.0,
+		DURATION: 0.0,
+		BUILDUP: 0.0,
 		SIZE: SIZE_DEFAULT, 
 		CRITCHANCE: 0.0,
 		CRITDAMAGE: CRITDAMAGE_DEFAULT,
@@ -111,6 +107,7 @@ class StatsList:
 			DAMAGE: default_value,
 			RANGE: default_value,
 			WEIGHT: default_value,
+			ATTACKCOOLDOWN: default_value,
 			ATTACKSPEED: default_value,
 			VELOCITY: default_value,
 			AMMO: default_value,
@@ -147,6 +144,7 @@ class StatsList:
 		DAMAGE: 0.0,
 		RANGE: 0.0,
 		WEIGHT: 0.0,
+		ATTACKCOOLDOWN: 0.0,
 		ATTACKSPEED: 0.0,
 		VELOCITY: 0.0,
 		AMMO: 0.0,

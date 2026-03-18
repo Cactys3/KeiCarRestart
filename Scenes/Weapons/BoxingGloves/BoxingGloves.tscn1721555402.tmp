@@ -204,10 +204,6 @@ size = Vector2(54, 28)
 script = ExtResource("1_rw4pg")
 anim = NodePath("AnimatedSprite2D")
 AimType = 2
-damage = 40.0
-attackcooldown = 1.5
-attackspeed = 10.0
-ammo = 5.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=134956421]
 rotation = 1.5707964
