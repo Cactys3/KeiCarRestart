@@ -34,6 +34,9 @@ var attackspeed_stat:
 var velocity_stat:
 	get():
 		return get_stat(GlobalStats.VELOCITY)
+var ammo_stat:
+	get():
+		return get_stat(GlobalStats.AMMO)
 var count_stat:
 	get():
 		return get_stat(GlobalStats.COUNT)
@@ -108,6 +111,8 @@ enum multiple_projectiles_aim_types {delay, spread}
 @export var MeleeDamageFactor: float = 1
 ## Offset that additional projectiles are given when firing multiple, should be different for different weapons and also scale with inaccuracy
 
+
+
 var weapon_slot: float = 1
 var weapon_count: float = 1
 var current_angle: float = 0  #Stores the angle for smooth circular motion
@@ -119,14 +124,18 @@ static var StaticAimCount
 static var MouseAimCount
 static var SpinAimCount
 static var UnqiueAimCount
+var projectiles_left_in_ammo: int 
 var ready_to_fire: bool = false #Tells attach if it can call Attack()
-var bullets: Array[Projectile]
+var projectiles: Array[Projectile]
 ## Determines what attackspeed is, attacksperX = 2 means attackspeed is how many attacks every 2 seconds
 const attacksperX: int = 10
 var stopwatch: Timer
-var cooldown_timer: float = 0
+var between_attacks_cooldown_timer: float = 0
+var between_projectiles_cooldown_timer: float = 0
 var attacking: bool = false
 var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used?, to create attack need to use stats which defeats point of queue
+
+
 
 ## Override
 func activate(new_player: Character):
@@ -142,9 +151,12 @@ func deactivate():
 		get_parent().remove_child(self)
 func _ready() -> void:
 	super()
-	cooldown_timer = 0
+	reset_attack()
 	stopwatch = Timer.new()
 	add_child(stopwatch)
+func reset_attack():
+	between_attacks_cooldown_timer = 0
+	projectiles_left_in_ammo = ammo_stat
 ## Calls Process_Cooldown
 func _process(delta: float) -> void:
 	if !QueuedAttacks.is_empty():
@@ -170,6 +182,7 @@ func _process(delta: float) -> void:
 func process_cooldown(delta: float) -> void: 
 	if attacking:
 		pass
+	## if cd between attacks -> if cd between projectiles
 	elif cooldown_timer <= get_cooldown():
 		cooldown_timer += delta
 	elif ready_to_fire || always_ready_to_fire:
@@ -177,12 +190,22 @@ func process_cooldown(delta: float) -> void:
 		attack() 
 ## await's create_projectiles() and resets attack cooldown
 func attack(): 
-	await create_projectiles()
+	if projectiles_left_in_ammo <= 1:
+		await create_last_projectile()
+	else:
+		await create_projectile()
 	## Reset attack values so we can attack again
 	cooldown_timer = 0
 	attacking = false
+func create_projectile():
+	## Randomize Direction Based on inaccuracy
+	var direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
+	var proj: Projectile = init_projectile(global_position, direction)
+func create_last_projectile():
+	create_projectile()
+	reset_attack()
 ## Create and setup all the projectiles for an attack from this attachment
-func create_projectiles():
+func create_all_projectiles():
 	## Create the first bullet by default
 	## Randomize Direction Based on inaccuracy
 	var direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)

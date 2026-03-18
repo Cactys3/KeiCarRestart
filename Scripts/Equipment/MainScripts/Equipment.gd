@@ -13,6 +13,7 @@ class_name Equipment
 @export var weight: float = 0.0
 @export var attackspeed: float = 0.0
 @export var velocity: float = 0.0
+@export var ammo:  float = 0.0
 @export var count: float = 0.0
 @export var piercing: float = 0.0
 @export var duration: float = 0.0
@@ -59,6 +60,8 @@ func get_stat(stat: String) -> float:
 		return (GlobalStats.get_base_stat(GlobalStats.ATTACKSPEED) + attackspeed) * GlobalStats.get_factor_stat(GlobalStats.ATTACKSPEED)
 	elif stat == GlobalStats.VELOCITY:
 		return (GlobalStats.get_base_stat(GlobalStats.VELOCITY) + velocity) * GlobalStats.get_factor_stat(GlobalStats.VELOCITY)
+	elif stat == GlobalStats.AMMO:
+		return (GlobalStats.get_base_stat(GlobalStats.AMMO) + ammo) * GlobalStats.get_factor_stat(GlobalStats.AMMO)
 	elif stat == GlobalStats.COUNT:
 		return (GlobalStats.get_base_stat(GlobalStats.COUNT) + count) * GlobalStats.get_factor_stat(GlobalStats.COUNT)
 	elif stat == GlobalStats.PIERCING:

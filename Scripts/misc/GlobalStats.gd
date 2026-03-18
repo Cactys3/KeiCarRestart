@@ -12,6 +12,7 @@ const RANGE = "range"
 const WEIGHT = "weight"
 const ATTACKSPEED = "attackspeed"
 const VELOCITY = "velocity"
+const AMMO = "ammo"
 const COUNT = "count"
 const PIERCING = "piercing"
 const DURATION = "duration"
@@ -66,7 +67,7 @@ static func setup():
 		WEIGHT: 0.0,
 		ATTACKSPEED: ATTACKSPEED_DEFAULT,
 		VELOCITY: VELOCITY_DEFAULT,
-		INACCURACY: 0.0,
+		AMMO: 0.0,
 		COUNT: COUNT_DEFAULT,
 		PIERCING: PIERCING_DEFAULT,
 		DURATION: DURATION_DEFAULT,
@@ -81,7 +82,8 @@ static func setup():
 		SHIELD: 0.0,
 		DIFFICULTY: DIFFICULTY_DEFAULT,
 		REVIES: 0.0,
-		THORNS: 0.0}
+		THORNS: 0.0,
+		INACCURACY: 0.0}
 	statsfactor = StatsList.new(1)
 
 static func get_base_stat(stat: String) -> float:
@@ -111,7 +113,7 @@ class StatsList:
 			WEIGHT: default_value,
 			ATTACKSPEED: default_value,
 			VELOCITY: default_value,
-			INACCURACY: default_value,
+			AMMO: default_value,
 			COUNT: default_value,
 			PIERCING: default_value,
 			DURATION: default_value,
@@ -126,7 +128,8 @@ class StatsList:
 			SHIELD: default_value,
 			DIFFICULTY: default_value,
 			REVIES: default_value,
-			THORNS: default_value}
+			THORNS: default_value,
+			INACCURACY: default_value}
 	func _get(key: StringName):
 		return list.get(key)
 	func _set(key: StringName, value) -> bool:
@@ -146,7 +149,7 @@ class StatsList:
 		WEIGHT: 0.0,
 		ATTACKSPEED: 0.0,
 		VELOCITY: 0.0,
-		INACCURACY: 0.0,
+		AMMO: 0.0,
 		COUNT: 0.0,
 		PIERCING: 0.0,
 		DURATION: 0.0,
@@ -161,7 +164,8 @@ class StatsList:
 		SHIELD: 0.0,
 		DIFFICULTY: 0.0,
 		REVIES: 0.0,
-		THORNS: 0.0}
+		THORNS: 0.0,
+		INACCURACY: 0.0}
 
 
 ## STOLEN FROM STATS.GD
