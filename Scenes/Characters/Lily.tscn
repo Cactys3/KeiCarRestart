@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://s8i7j7l3n6qx"]
+
+[ext_resource type="Script" uid="uid://cu3rjd0ggqilu" path="res://Scripts/character_scripts/Lily.gd" id="1_t5ff5"]
+[ext_resource type="Texture2D" uid="uid://b2d11j5psl1cd" path="res://Art/Characters/Lily/Lily.png" id="2_t5ff5"]
+[ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_g0u0m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5ff5"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xadt"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0u0m"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ktdo"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81j4j"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qime4"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05pbo"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axg3r"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ima8i"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbedk"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emrlv"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ph5vf"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn0ef"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifyw4"]
+atlas = ExtResource("2_t5ff5")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qime4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5ff5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xadt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0u0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ktdo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81j4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qime4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05pbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axg3r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ima8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbedk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emrlv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ph5vf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qn0ef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifyw4")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qr7h"]
+size = Vector2(9, 26)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mknkr"]
+radius = 30.0
+
+[node name="Character" type="CharacterBody2D" unique_id=1197695872 node_paths=PackedStringArray("pickup_range", "anim") groups=["player"]]
+collision_layer = 2
+collision_mask = 64
+platform_on_leave = 2
+script = ExtResource("1_t5ff5")
+character_name = "Lily"
+pickup_range = NodePath("pickup_range/CollisionShape2D")
+anim = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=564162239 node_paths=PackedStringArray("Target")]
+sprite_frames = SubResource("SpriteFrames_qime4")
+animation = &"move"
+autoplay = "idle"
+speed_scale = 1.5
+script = ExtResource("3_g0u0m")
+Target = NodePath(".")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2066742228]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_7qr7h")
+
+[node name="pickup_range" type="Area2D" parent="." unique_id=672138494 groups=["xp_range"]]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickup_range" unique_id=559864833 groups=["xp_range"]]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_mknkr")

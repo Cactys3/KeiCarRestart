@@ -1,12 +1,6 @@
 [gd_scene format=3 uid="uid://bjggm4l8hm8ih"]
 
 [ext_resource type="Script" uid="uid://bfi32j4s2aid2" path="res://Scripts/UI/LootChestUIWeapon.gd" id="1_mmc6l"]
-[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="2_o816x"]
-[ext_resource type="Texture2D" uid="uid://n0k0l26reyna" path="res://Art/UI/ItemBackground.png" id="3_l2j3b"]
-[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="4_0ohb5"]
-[ext_resource type="Texture2D" uid="uid://di1bp3nijrlbe" path="res://Art/ProximityEvents/Chest/Chest_Idle.png" id="5_n7h40"]
-[ext_resource type="Texture2D" uid="uid://cxmo20ocm404" path="res://Art/ProximityEvents/Chest/Chest_Open.png" id="6_gxqvd"]
-[ext_resource type="Texture2D" uid="uid://b2fjcqsv0707w" path="res://Art/ProximityEvents/Chest/Chest_Opening.png" id="7_ij4pl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ilwj1"]
 font_size = 64
@@ -19,171 +13,6 @@ bg_color = Color(0.4627451, 0.25882354, 0.5411765, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyp0k"]
 bg_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gefxl"]
-atlas = ExtResource("5_n7h40")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_11q3v"]
-atlas = ExtResource("5_n7h40")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ul2oa"]
-atlas = ExtResource("5_n7h40")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ia0nt"]
-atlas = ExtResource("5_n7h40")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3dgfb"]
-atlas = ExtResource("5_n7h40")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g0q7v"]
-atlas = ExtResource("5_n7h40")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rnatv"]
-atlas = ExtResource("5_n7h40")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k1ju7"]
-atlas = ExtResource("5_n7h40")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8qhq3"]
-atlas = ExtResource("6_gxqvd")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mj753"]
-atlas = ExtResource("6_gxqvd")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_608t4"]
-atlas = ExtResource("6_gxqvd")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_851lj"]
-atlas = ExtResource("6_gxqvd")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0o1x1"]
-atlas = ExtResource("6_gxqvd")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_27dop"]
-atlas = ExtResource("6_gxqvd")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2asgr"]
-atlas = ExtResource("7_ij4pl")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o2j1a"]
-atlas = ExtResource("7_ij4pl")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qyp0k"]
-atlas = ExtResource("7_ij4pl")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ak1gd"]
-atlas = ExtResource("7_ij4pl")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6ssor"]
-atlas = ExtResource("7_ij4pl")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6yqqh"]
-atlas = ExtResource("7_ij4pl")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xbudq"]
-atlas = ExtResource("7_ij4pl")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ak1gd"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gefxl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_11q3v")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ul2oa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ia0nt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3dgfb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g0q7v")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rnatv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k1ju7")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8qhq3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mj753")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_608t4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_851lj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0o1x1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_27dop")
-}],
-"loop": true,
-"name": &"open",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2asgr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o2j1a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qyp0k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ak1gd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6ssor")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6yqqh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xbudq")
-}],
-"loop": false,
-"name": &"opening",
-"speed": 8.0
-}]
 
 [node name="LootChestUI" type="Control" unique_id=311813716]
 layout_mode = 3
@@ -223,7 +52,7 @@ offset_right = 911.1
 offset_bottom = 305.9
 scale = Vector2(10, 10)
 
-[node name="StatsDisplay" parent="Control2/Control" unique_id=1464429077 instance=ExtResource("2_o816x")]
+[node name="StatsDisplay" parent="Control2/Control" unique_id=1464429077]
 texture_filter = 1
 layout_mode = 0
 offset_left = -50.399998
@@ -279,12 +108,10 @@ metadata/_edit_use_anchors_ = true
 self_modulate = Color(1, 0.29411766, 0.21960784, 1)
 position = Vector2(8.199997, 8.1)
 scale = Vector2(0.4999999, 0.4999999)
-texture = ExtResource("3_l2j3b")
 
 [node name="ProjectileImage" type="Sprite2D" parent="Control2/Control/ProjectileParent" unique_id=72957993]
 texture_filter = 1
 scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("4_0ohb5")
 
 [node name="ProjectileLabel" type="Label" parent="Control2/Control/ProjectileParent" unique_id=2028755130]
 custom_minimum_size = Vector2(50, 50)
@@ -304,12 +131,10 @@ metadata/_edit_use_anchors_ = true
 self_modulate = Color(1, 0.29411766, 0.21960784, 1)
 position = Vector2(8.199997, 8.099997)
 scale = Vector2(0.4999999, 0.4999999)
-texture = ExtResource("3_l2j3b")
 
 [node name="AttachmentImage" type="Sprite2D" parent="Control2/Control/AttachmentParent" unique_id=853939365]
 texture_filter = 1
 scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("4_0ohb5")
 
 [node name="AttachmentLabel" type="Label" parent="Control2/Control/AttachmentParent" unique_id=218914415]
 custom_minimum_size = Vector2(20, 20)
@@ -329,12 +154,10 @@ metadata/_edit_use_anchors_ = true
 self_modulate = Color(1, 0.29411766, 0.21960784, 1)
 position = Vector2(8.199997, 8.1)
 scale = Vector2(0.4999999, 0.4999999)
-texture = ExtResource("3_l2j3b")
 
 [node name="HandleImage" type="Sprite2D" parent="Control2/Control/HandleParent" unique_id=1779970468]
 texture_filter = 1
 scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("4_0ohb5")
 
 [node name="HandleLabel" type="Label" parent="Control2/Control/HandleParent" unique_id=27278169]
 custom_minimum_size = Vector2(50, 50)
@@ -354,12 +177,10 @@ metadata/_edit_use_anchors_ = true
 self_modulate = Color(1, 0.29411766, 0.21960784, 1)
 position = Vector2(8.199997, 8.1)
 scale = Vector2(0.49999997, 0.49999997)
-texture = ExtResource("3_l2j3b")
 
 [node name="WeaponImage" type="Sprite2D" parent="Control2/Control/WeaponParent" unique_id=1353786665]
 texture_filter = 1
 scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("4_0ohb5")
 
 [node name="WeaponLabel" type="Label" parent="Control2/Control/WeaponParent" unique_id=16790235]
 custom_minimum_size = Vector2(50, 50)
@@ -393,8 +214,7 @@ text = "Accept"
 texture_filter = 1
 position = Vector2(960, 825)
 scale = Vector2(25, 25)
-sprite_frames = SubResource("SpriteFrames_ak1gd")
-animation = &"open"
+animation = &""
 
 [connection signal="mouse_entered" from="Control2/Control" to="." method="_mouse_enter"]
 [connection signal="mouse_exited" from="Control2/Control" to="." method="_mouse_exit"]

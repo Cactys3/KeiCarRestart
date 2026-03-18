@@ -5,9 +5,9 @@ class_name Upgrade
 @export var upgrade_name: String
 @export var upgrade_description: String
 
-## enable and apply the functionality of this upgrade
-func activate():
-	pass
-## disable and halt the functionality of this upgrade
+## Override
+func activate(new_player: Character):
+	super(new_player)
+## Override
 func deactivate():
-	pass
+	super()

@@ -99,14 +99,14 @@ func flash():
 	visible = true
 
 ## Data Fields
-
+var player: Character
 ## Generic Fields (always active)
 @export_placeholder("Name Go Here") var item_name: String = "unset"
 @export_multiline var item_description: String = "default description"
 @export var item_type: item_types
 @export var item_color: Color = Color.DARK_SLATE_BLUE
 @export var border_color: Color = Color.WHITE
-@export var item_image: Texture2D = preload("res://Art/UI/MissingTexture.png")
+@export var item_image: Texture2D 
 @export var item_rarity: item_rarities
 ## is this weapon or upgrade equipped
 var active: bool = false
@@ -146,3 +146,11 @@ static func get_type(i: int) -> String:
 		item_types.upgrade:
 			return "upgrade"
 	return "Type: " + str(i)
+
+## enable and apply the functionality of this Equipment
+func activate(new_player: Character):
+	player = new_player
+	active = true
+## disable and halt the functionality of this Equipment
+func deactivate():
+	active = false

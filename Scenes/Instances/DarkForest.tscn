@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://coilw1f24ow0b"]
+
+[ext_resource type="Script" uid="uid://dtvspvuciru3n" path="res://Scripts/instance_scripts/DarkForest.gd" id="1_3vuy2"]
+
+[node name="DarkForest" type="Node2D" unique_id=838992919]
+script = ExtResource("1_3vuy2")

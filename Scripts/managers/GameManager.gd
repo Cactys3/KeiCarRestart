@@ -15,11 +15,14 @@ static var instance: GameManager
 @export var weapon_parent: Node2D
 @export var projectile_parent: Node2D
 
-var weapon_count: int:
-	get():
-		return player.weapon_count
-	set(value):
-		player.weapon_count = value
+# Weapons
+var weapon_list: Array[Weapon]
+var weapon_count: int = 0
+var static_slot_count: int = 0
+var dynamic_at_mouse_count: int = 0
+var always_at_mouse_count: int = 0
+var spin_aim_count: int = 0
+
 var weapon_limit: int = 10
 var upgrade_count: int:
 	get():
@@ -147,8 +150,8 @@ func setup_deffered(starting_weapon: int):
 ## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
 func setup_weapon(starting_weapon: int):
 	var weapon: Weapon = ShopManager.get_weapon(starting_weapon)
-	player.add_weapon(weapon) ## TODO: start here
-	ui_man.add_weapon(weapon)
+	add_weapon(weapon)
+	add_weapon(weapon)
 func _ready() -> void:
 	# Ensure only one instance exists
 	if instance != null:
@@ -161,40 +164,72 @@ func _process(_delta: float) -> void:
 		return
 	if !leveling_up && level_up_queue > 0:
 		create_level_up_instance()
-func pause(value: bool):
-	if paused != value:
-		paused = value
-		emit_signal("pause_game", value)
-		if paused:
-			#Engine.time_scale = 1.0
-			get_tree().paused = true
-		else:
-			#Engine.time_scale = 0.0
-			get_tree().paused = false
 
-
-## Activates Upgrade 
 func add_upgrade(upgrade: Upgrade) -> void:
-	upgrade.activate()
+	upgrade.activate(player)
 	active_upgrades.append(upgrade)
 	ui_man.add_upgrade(upgrade)
-## Equips Weapon
 func add_weapon(weapon: Weapon) -> void:
-	player.add_weapon(weapon)
-## Equips Weapon or Activates Upgrade 
+	weapon_list.append(weapon)
+	var temp_count: int = weapon_count
+	match weapon.AimType:
+		Weapon.AimTypes.StaticSlot:
+			static_slot_count += 1
+			temp_count = static_slot_count
+		Weapon.AimTypes.DynamicAtMouse:
+			dynamic_at_mouse_count += 1
+			temp_count = dynamic_at_mouse_count
+		Weapon.AimTypes.AlwaysAtMouse:
+			always_at_mouse_count += 1
+			temp_count = always_at_mouse_count
+		Weapon.AimTypes.Unique:
+			spin_aim_count += 1
+			temp_count = spin_aim_count
+		_:
+			weapon_count += 1
+			temp_count = weapon_count
+	var index: int = 0
+	for equipped_weapon in weapon_list:
+		if (equipped_weapon.AimType == weapon.AimType):
+			index += 1
+			equipped_weapon.change_slot(index, temp_count)
+	weapon.activate(player)
 func add_equipment(equipment: Equipment) -> void:
 	pass
-## Deactivates Upgrade 
+
 func remove_upgrade(upgrade: Upgrade) -> void:
 	upgrade.deactivate()
 	active_upgrades.erase(upgrade)
-## Removes Weapon
-func remove_weapon(weapon: Weapon) -> void:
-	player.remove_weapon(weapon)
-## Removes Weapon or Deactivates Upgrade 
+func remove_weapon(weapon: Weapon) -> bool:
+	if weapon && weapon_list.has(weapon):
+		weapon_list.erase(weapon)
+		var temp_count: int = weapon_count
+		match weapon.AimType:
+			Weapon.AimTypes.StaticSlot:
+				static_slot_count -= 1
+				temp_count = static_slot_count
+			Weapon.AimTypes.DynamicAtMouse:
+				dynamic_at_mouse_count -= 1
+				temp_count = dynamic_at_mouse_count
+			Weapon.AimTypes.AlwaysAtMouse:
+				always_at_mouse_count -= 1
+				temp_count = always_at_mouse_count
+			Weapon.AimTypes.Unique:
+				spin_aim_count -= 1
+				temp_count = spin_aim_count
+			_:
+				weapon_count -= 1
+				temp_count = weapon_count
+		var index: int = 0
+		for equipped_weapon in weapon_list:
+			if (equipped_weapon.AimType == weapon.AimType):
+				index += 1
+				equipped_weapon.change_slot(index, temp_count)
+		weapon.deactivate()
+		return true
+	return false
 func remove_equipment(equipment: Equipment) -> void:
 	pass
-
 
 func create_level_up_instance():
 	if leveling_up:
@@ -224,15 +259,22 @@ func create_level_up_instance():
 	level_instance.free_instance()
 	level_up_queue -= 1
 	leveling_up = false
-
-
 func add_xp(added_xp: float):
 	xp += added_xp
-## Calculates and returns revives left for player
 func can_revive() -> int:
 	return (player.max_revies - revives_used) > 1
 func use_revive():
 	revives_used += 1
+func pause(value: bool):
+	if paused != value:
+		paused = value
+		emit_signal("pause_game", value)
+		if paused:
+			#Engine.time_scale = 1.0
+			get_tree().paused = true
+		else:
+			#Engine.time_scale = 0.0
+			get_tree().paused = false
 ## Signal Connections
 func enemy_killed(enemy: Enemy, attack: Attack):
 	if player.lifesteal > 0 && hp < max_hp:
@@ -240,14 +282,15 @@ func enemy_killed(enemy: Enemy, attack: Attack):
 func player_damaged(playah: Character, attack: Attack):
 	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage"):
 		attack.attacker.damage(Attack.new(player.thorns, player.position, 0, null, null, 0, 0, 0))
-
 func has_upgrade_room():
 	return upgrade_count <= upgrade_limit
 func has_weapon_room():
 	return weapon_count <= weapon_limit
-
 func get_random_equipped_weapon() -> Weapon:
-	return player.get_random_weapon()
+	if weapon_list.size() > 0:
+		return weapon_list.get(randi_range(0, weapon_list.size() - 1))
+	else:
+		return null
 func get_random_equipped_upgrade() -> Upgrade:
 	if active_upgrades.size() > 0:
 		return active_upgrades.get(randi_range(0, active_upgrades.size() - 1))

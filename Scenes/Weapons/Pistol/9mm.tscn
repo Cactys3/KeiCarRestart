@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://c5n35stv668tp"]
 
 [ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_3se2g"]
-[ext_resource type="Texture2D" uid="uid://dnueduipb01yj" path="res://Art/Weapons/Pistol/Bulletaseprite.png" id="1_ibgsf"]
+[ext_resource type="Texture2D" uid="uid://2eh3ym3n40mg" path="res://Art/Weapons/Pistol/9mm.png" id="2_3se2g"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3se2g"]
-atlas = ExtResource("1_ibgsf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_aje8d"]
+atlas = ExtResource("2_3se2g")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_aje8d"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3se2g")
+"texture": SubResource("AtlasTexture_aje8d")
 }],
 "loop": true,
 "name": &"default",
@@ -28,6 +28,7 @@ script = ExtResource("1_3se2g")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
 sprite_frames = SubResource("SpriteFrames_aje8d")
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1754514067]
 position = Vector2(-1, -0.5)

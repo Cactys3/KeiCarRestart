@@ -2,14 +2,13 @@ extends CharacterBody2D
 class_name Character
 
 const POPUP_TEXT = preload("uid://brldrnbhcexcm")
-
 var game_man: GameManager:
 	get():
 		return GameManager.instance
-
 @export var character_name: String = "Character"
 @export var pickup_range: CollisionShape2D
 @export var anim: AnimatedSprite2D
+@export var face_towards_velocity: bool = true
 @export var knockback_modifier:float = 1
 @export var can_be_knockbacked:bool = true
 @export var can_be_stunned:bool = true
@@ -21,14 +20,6 @@ var shield_cooldown: float = 3
 ## States
 var stunning:bool = false
 var stun_time_left: float = 0
-var moving: bool = false
-## Weapons
-var weapon_list: Array[Weapon]
-var weapon_count: int = 0
-var static_slot_count: int = 0
-var dynamic_at_mouse_count: int = 0
-var always_at_mouse_count: int = 0
-var spin_aim_count: int = 0
 ## Current Variables
 var curr_speed: float
 ## Stat Variables
@@ -89,6 +80,7 @@ func _process(_delta: float) -> void:
 		character_ability(3)
 func _physics_process(delta : float) -> void:
 	if GameInstance.is_game_over:
+		print("game over")
 		move_and_slide()
 		return
 	if stun_time_left > 0:
@@ -110,9 +102,8 @@ func handle_regens(delta) -> void:
 		if regen > 0 && game_man.hp < maxhealth:
 			game_man.hp += GlobalStats.calculate_regen(regen)
 func handle_moving(delta) -> void:
-	var moving_state = moving
+	var moving = false
 	var directionX := Input.get_axis("left", "right")
-	moving = false
 	if !stunning: ## Stun Time prevents the player from inputting movement commands, but doesn't change their current velocity
 		var new_velocity: Vector2
 		if directionX:
@@ -127,10 +118,14 @@ func handle_moving(delta) -> void:
 		else:
 			new_velocity.y = 0
 		velocity = velocity.move_toward(new_velocity.normalized() * curr_speed, delta * 7000)
-	if (moving_state != moving):
-		set_moving_animation(moving)
-	
-	#print(velocity)
+	print("set moving")
+	moving(moving)
+	if moving && face_towards_velocity:
+		## if velocity.x = 0, don't change
+		if (sign(velocity.x) > 0):
+			anim.flip_h = true
+		if (sign(velocity.x) < 0):
+			anim.flip_h = false
 func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
@@ -176,70 +171,6 @@ func die(attack: Attack):
 		else:
 			game_man.PlayerKilled.emit(self, attack)
 			GameInstance.instance.lose()
-func add_weapon(new_weapon: Weapon):
-	weapon_list.append(new_weapon)
-	var temp_count: int = weapon_count
-	match new_weapon.AimType:
-		Weapon.AimTypes.StaticSlot:
-			static_slot_count += 1
-			temp_count = static_slot_count
-		Weapon.AimTypes.DynamicAtMouse:
-			dynamic_at_mouse_count += 1
-			temp_count = dynamic_at_mouse_count
-		Weapon.AimTypes.AlwaysAtMouse:
-			always_at_mouse_count += 1
-			temp_count = always_at_mouse_count
-		Weapon.AimTypes.Unique:
-			spin_aim_count += 1
-			temp_count = spin_aim_count
-		_:
-			weapon_count += 1
-			temp_count = weapon_count
-	var index: int = 0
-	for weapon in weapon_list:
-		if (weapon.AimType == new_weapon.AimType):
-			index += 1
-			weapon.change_slot(index, temp_count)
-	if new_weapon.get_parent():
-		call_deferred("reparent", new_weapon)
-	else:
-		call_deferred("add_child", new_weapon)
-	new_weapon.active = true
-	new_weapon.player = self
-func remove_weapon(weapon_sought: Weapon) -> bool:
-	if weapon_sought && weapon_list.has(weapon_sought):
-		weapon_list.erase(weapon_sought)
-		var temp_count: int = weapon_count
-		match weapon_sought.AimType:
-			Weapon.AimTypes.StaticSlot:
-				static_slot_count -= 1
-				temp_count = static_slot_count
-			Weapon.AimTypes.DynamicAtMouse:
-				dynamic_at_mouse_count -= 1
-				temp_count = dynamic_at_mouse_count
-			Weapon.AimTypes.AlwaysAtMouse:
-				always_at_mouse_count -= 1
-				temp_count = always_at_mouse_count
-			Weapon.AimTypes.Unique:
-				spin_aim_count -= 1
-				temp_count = spin_aim_count
-			_:
-				weapon_count -= 1
-				temp_count = weapon_count
-		var index: int = 0
-		for weapon in weapon_list:
-			if (weapon.AimType == weapon_sought.AimType):
-				index += 1
-				weapon.change_slot(index, temp_count)
-		remove_child(weapon_sought)
-		weapon_sought.active = false
-		return true
-	return false
-func get_random_weapon() -> Weapon:
-	if weapon_list.size() > 0:
-		return weapon_list.get(randi_range(0, weapon_list.size() - 1))
-	else:
-		return null
 ## func reapplies all affects that stats have based on newly checked values
 func stat_changed_method():
 	# hp, size, xp gain, money gain, magentize etc
@@ -255,6 +186,9 @@ func on_gain_xp(new_xp: float, old_xp: float) -> void:
 	pass
 func on_gain_money(new_money: float, old_money: float) -> void:
 	pass
-func set_moving_animation(boolean: bool):
-	if boolean && is_instance_valid(anim) && anim.has_animation("play"):
+func moving(is_moving: bool):
+	print("hello?")
+	if is_moving && is_instance_valid(anim) && anim.sprite_frames.has_animation("move"):
 		anim.play("move")
+	elif anim.sprite_frames.has_animation("idle"):
+		anim.play("idle")

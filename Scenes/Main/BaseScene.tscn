@@ -1,13 +1,8 @@
 [gd_scene format=3 uid="uid://dc0hdlr7wq3lq"]
 
-[ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scenes/Instances/InstanceRoot.gd" id="1_eeah7"]
-[ext_resource type="PackedScene" uid="uid://dxv17gll2bx2l" path="res://Scenes/Instances/Hell/HellPuddle.tscn" id="2_qrryo"]
-[ext_resource type="Texture2D" uid="uid://ctekysqm3q8wt" path="res://Art/Weapons/PlayingCard/Projectile_PlayingCard.png" id="3_eeah7"]
-[ext_resource type="PackedScene" uid="uid://bg44j5ewrjpf2" path="res://Scenes/Instances/Hell/HellTree.tscn" id="8_okq7h"]
-[ext_resource type="PackedScene" uid="uid://bj2nfedstjwtm" path="res://Scenes/Instances/Hell/HellSpikes.tscn" id="9_e6ktq"]
+[ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scripts/instance_scripts/InstanceRoot.gd" id="1_eeah7"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
-[ext_resource type="PackedScene" uid="uid://be77tjldf4rrj" path="res://Scenes/Instances/Fruits_And_Veggies/Flowers_Event.tscn" id="10_3154g"]
 [ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
@@ -66,7 +61,7 @@ snap_2d_transforms_to_pixel = true
 canvas_item_default_texture_filter = 0
 physics_object_picking = true
 oversampling_override = 1.0
-size = Vector2i(1920, 1080)
+size = Vector2i(640, 360)
 wrap_controls = true
 transient = true
 unresizable = true
@@ -87,31 +82,6 @@ position = Vector2(320, 180)
 [node name="BackgroundParent" type="Node2D" parent="Window640/Offset" unique_id=519102949]
 
 [node name="EventParentBackground" type="Node2D" parent="Window640/Offset" unique_id=1419209084]
-
-[node name="HellPuddle" parent="Window640/Offset/EventParentBackground" unique_id=225935508 instance=ExtResource("2_qrryo")]
-position = Vector2(-77.666664, 119.333336)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Window640/Offset/EventParentBackground" unique_id=251656736]
-position = Vector2(-81.44444, -23)
-collision_layer = 64
-collision_mask = 2
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Window640/Offset/EventParentBackground/StaticBody2D" unique_id=1189905832]
-position = Vector2(-5.333326, 100.333336)
-polygon = PackedVector2Array(20, 20, 0, 15, 0, -15, 20, -20)
-
-[node name="Sprite2D" type="Sprite2D" parent="Window640/Offset/EventParentBackground/StaticBody2D/CollisionPolygon2D" unique_id=1665734954]
-position = Vector2(10.444397, -2.670288e-05)
-texture = ExtResource("3_eeah7")
-
-[node name="HellTree" parent="Window640/Offset/EventParentBackground" unique_id=1047116625 instance=ExtResource("8_okq7h")]
-position = Vector2(20.66665, 2.9999847)
-
-[node name="HellSpikes" parent="Window640/Offset/EventParentBackground" unique_id=1741122985 instance=ExtResource("9_e6ktq")]
-position = Vector2(81.66667, 134.33333)
-
-[node name="Flowers" parent="Window640/Offset/EventParentBackground" unique_id=1081851184 instance=ExtResource("10_3154g")]
-position = Vector2(21.666668, -19.666668)
 
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
 
@@ -142,7 +112,7 @@ disable_3d = true
 transparent_bg = true
 physics_object_picking = true
 oversampling_override = 1.0
-size = Vector2i(1920, 1080)
+size = Vector2i(2160, 1440)
 wrap_controls = true
 transient = true
 unresizable = true

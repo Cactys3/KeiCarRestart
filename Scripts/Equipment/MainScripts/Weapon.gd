@@ -1,18 +1,6 @@
 extends Equipment
 ## Weapons Equippable by the player
 class_name Weapon
-
-
-@export_category("New Settings")
-## NEW STUFF
-@export var homing: bool = false
-@export var homing_speed: float = 0
-@export var projectile_acceleration: float = 0
-@export var mult_proj_delay_total_time: float = 2
-enum multiple_projectiles_aim_types {delay, spread}
-## Does it fire multiple projectiles one after another with a delay or at the same time with an angle/position spread
-@export var multiple_projectiles_aim_type: multiple_projectiles_aim_types = multiple_projectiles_aim_types.spread
-
 var hp_stat:
 	get():
 		return get_stat(GlobalStats.HP)
@@ -94,73 +82,34 @@ var thorns_stat:
 var inaccuracy_stat:
 	get():
 		return get_stat(GlobalStats.INACCURACY)
-
-## Frame
-
-var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used, to create attack need to use stats which defeats point of queue
-## Returns nearest enemy or null
-func get_nearest_enemy() -> Variant:
-	var nearest_enemy = null
-	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if nearest_enemy == null:
-			nearest_enemy = enemy
-		elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
-			nearest_enemy = enemy
-	return nearest_enemy
-func get_enemy_nearby(distance: float) -> Variant:
-	var nearest_enemy = null
-	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
-			if !nearest_enemy:
-				nearest_enemy = enemy
-			elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
-				nearest_enemy = enemy
-	return nearest_enemy
-## Returns all enemies within distance
-func get_enemies_nearby(distance: float) -> Array[Enemy]:
-	var enemies = []
-	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
-			enemies.append(enemy)
-	return enemies
-## Sets the weapon's slot in reference to all weapons charcater has, used for calculating position
-func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
-	weapon_slot = slot
-	weapon_count = _max #TODO: Only Static Slot (cardinal direction) weapons should add to this thing
-
-## Do anything that needs to be done to utilize a stat change
-func apply_stats() -> void: 
-	var size: float = GlobalStats.calculate_scale(size_stat)
-	scale = Vector2(size, size)
-class AttackEvent:
-	var attackee: Node
-	var attacker: Node
-	var clone: bool
-	func _init(new_attackee: Node, new_attacker: Node, is_clone: bool):
-		clone = is_clone
-		attackee = new_attackee
-		attacker = new_attacker
-
-
-## Handle
-@export_category("Handle Settings")
 @export var visual: AnimatedSprite2D
-## Can ignore the ready_to_fire variable and assume always ready to fire = true
-@export var always_ready_to_fire: bool = false
+@export var projectile: PackedScene
+@export_category("Projectile Settings")
+@export var MultipleProjectileOffset: float = 2
+@export var MultipleProjectileAngleOffset: float = 2
+@export var homing: bool = false
+@export var homing_speed: float = 0
+@export var projectile_acceleration: float = 0
+@export var mult_proj_delay_total_time: float = 2
+enum multiple_projectiles_aim_types {delay, spread}
+## Does it fire multiple projectiles one after another with a delay or at the same time with an angle/position spread
+@export var multiple_projectiles_aim_type: multiple_projectiles_aim_types = multiple_projectiles_aim_types.spread
+@export_category("Handle Settings")
 @export var AimType: AimTypes = AimTypes.default
-@export var orbit_distance: float = 55
-
+@export var orbit_distance: float = 20
 @export var rotation_speed: float = 20
-var weapon_slot: float = 1
-var weapon_count: float = 1
-
-var player: Character
 @export var spinning_offset: float = 0
 @export var spinning_speed: float = 3
+## Can ignore the ready_to_fire variable and assume always ready to fire = true
+@export var always_ready_to_fire: bool = false
+@export_category("Attachment Settings")
+@export var MeleeDamageFactor: float = 1
+## Offset that additional projectiles are given when firing multiple, should be different for different weapons and also scale with inaccuracy
 
+var weapon_slot: float = 1
+var weapon_count: float = 1
 var current_angle: float = 0  #Stores the angle for smooth circular motion
 enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Unique}
-
 var temp_value = 0
 #TODO: Used by all handles to tell how many of each aim type there are?
 # probably just keep track in player tbh
@@ -169,23 +118,26 @@ static var MouseAimCount
 static var SpinAimCount
 static var UnqiueAimCount
 var ready_to_fire: bool = false #Tells attach if it can call Attack()
-
-## Attachemnt
-@export_category("Attachment Settings")
-
 var bullets: Array[Projectile]
 ## Determines what attackspeed is, attacksperX = 2 means attackspeed is how many attacks every 2 seconds
 const attacksperX: int = 10
-
 var stopwatch: Timer
-
-@export var MeleeDamageFactor: float = 1
-@export var projectile: PackedScene
-## Offset that additional projectiles are given when firing multiple, should be different for different weapons and also scale with inaccuracy
-@export var MultipleProjectileOffset: float = 2
-@export var MultipleProjectileAngleOffset: float = 2
 var cooldown_timer: float = 0
 var attacking: bool = false
+var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used?, to create attack need to use stats which defeats point of queue
+
+## Override
+func activate(new_player: Character):
+	super(new_player)
+	if get_parent():
+		reparent(new_player)
+	else:
+		new_player.add_child(self)
+## Override
+func deactivate():
+	super()
+	if get_parent():
+		get_parent().remove_child(self)
 func _ready() -> void:
 	super()
 	cooldown_timer = 0
@@ -298,10 +250,39 @@ func make_attack() -> Attack:
 	return new_attack
 func get_inaccurate_direction(direction: Vector2, inaccuracy: float) -> Vector2:
 	return direction.rotated(deg_to_rad(randf_range(-inaccuracy / 3, inaccuracy / 3)))
-
-## Handle
-
-
+## Returns nearest enemy or null
+func get_nearest_enemy() -> Variant:
+	var nearest_enemy = null
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if nearest_enemy == null:
+			nearest_enemy = enemy
+		elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
+			nearest_enemy = enemy
+	return nearest_enemy
+func get_enemy_nearby(distance: float) -> Variant:
+	var nearest_enemy = null
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
+			if !nearest_enemy:
+				nearest_enemy = enemy
+			elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
+				nearest_enemy = enemy
+	return nearest_enemy
+## Returns all enemies within distance
+func get_enemies_nearby(distance: float) -> Array[Enemy]:
+	var enemies = []
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
+			enemies.append(enemy)
+	return enemies
+## Sets the weapon's slot in reference to all weapons charcater has, used for calculating position
+func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
+	weapon_slot = slot
+	weapon_count = _max #TODO: Only Static Slot (cardinal direction) weapons should add to this thing
+## Do anything that needs to be done to utilize a stat change
+func apply_stats() -> void: 
+	var size: float = GlobalStats.calculate_scale(size_stat)
+	scale = Vector2(size, size)
 ## Process Aiming Methods
 ## Aim at any enemy in range, else aim at mouse, rotating around player towards mouse
 func ProcessDynamicAtMouse(delta: float) -> void:
@@ -367,9 +348,9 @@ func ProcessStaticSlot(delta: float) -> void:
 		ready_to_fire = false
 ## Spin around player, aiming directly outward from center
 func ProcessSpinning(delta: float) -> void:
-	spinning_offset += delta * spinning_speed #TODO: Have a static value between all handles used to know how many of each aim type there are?
-	global_position = GetOrbitPosition(spinning_offset + (TAU * (weapon_slot))) #should be used if there are multiple spinning weapons
-	rotation = spinning_offset + (TAU * (weapon_slot)) #face directly outward (works?)
+	spinning_offset += delta * spinning_speed 
+	global_position = GetOrbitPosition(spinning_offset + (TAU * (weapon_slot)))
+	rotation = spinning_offset + (TAU * (weapon_slot)) 
 	ready_to_fire = true
 ## Overriden method to aim uniquely
 func ProcessUnique(_delta: float) -> void:
@@ -404,3 +385,11 @@ func IsAimingAtAnyEnemy() -> bool:
 	if false: #TODO: setup with raycasts
 		return true
 	return false
+class AttackEvent:
+	var attackee: Node
+	var attacker: Node
+	var clone: bool
+	func _init(new_attackee: Node, new_attacker: Node, is_clone: bool):
+		clone = is_clone
+		attackee = new_attackee
+		attacker = new_attacker

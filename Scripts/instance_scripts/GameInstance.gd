@@ -18,7 +18,7 @@ var xp_parent: Node2D
 var character_parent: Node2D
 var weapon_parent: Node2D
 ## Images
-const TileBlank = preload("uid://doyhfeyvrpplf")
+const TileBlank = null
 var TILES: Array = []
 var preset_tiles: Dictionary = {}
 ## Enemies
@@ -284,7 +284,7 @@ func remove_enemy(enemy: Enemy):
 ## Spawns backup enemies until min_enemies is met
 func spawn_backups(pos: Vector2, num: int):
 	if num > 0:
-		print("Not enough enemies, Spawning " + str(num) + "! " + str(GlobalStats.calculate_min_enemies(min_enemies, game_man.difficulty)))
+		pass#print("Not enough enemies, Spawning " + str(num) + "! " + str(GlobalStats.calculate_min_enemies(min_enemies, game_man.difficulty)))
 	var counter: int = 0
 	var enemies_added: int = 0
 	var initial_enemies: int = enemies_alive

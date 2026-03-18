@@ -1,11 +1,6 @@
 [gd_scene format=3 uid="uid://bqxl1c0t7c6ac"]
 
 [ext_resource type="Script" uid="uid://cjm2yg4cq7j06" path="res://Scripts/UI/stat_scroll_event_ui.gd" id="1_70qbo"]
-[ext_resource type="Texture2D" uid="uid://du0vojvtkk8ud" path="res://Art/ProximityEvents/StatScroll/StatScroll.png" id="2_70qbo"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kd7vd"]
-atlas = ExtResource("2_70qbo")
-region = Rect2(0, 0, 32, 32)
 
 [node name="StatScrollEventUI" type="Control" unique_id=833795729 node_paths=PackedStringArray("label", "accept", "decline")]
 layout_mode = 3
@@ -23,7 +18,6 @@ offset_left = 334.0
 offset_right = 665.0
 offset_bottom = 1000.0
 size_flags_horizontal = 3
-texture = SubResource("AtlasTexture_kd7vd")
 expand_mode = 1
 stretch_mode = 4
 

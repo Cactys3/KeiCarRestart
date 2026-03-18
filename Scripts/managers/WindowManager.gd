@@ -48,10 +48,12 @@ func set_program_size(size: Vector2i, fullscreen: bool):
 	## Keep track of curr size
 	curr_size = size
 	#UI_Offset.position = Vector2(size.x / 2, 0) # If Node2D, if Control = not needed
-var curr: int = 1
+var curr: int = 2
 func _process(delta: float) -> void:
 	if !instance:
 		instance = self
+	if Input.is_action_just_pressed("ability1"):
+		_on_pressed()
 func _on_pressed() -> void:
 	#print("Changed Resolution from: " + str(curr))
 	match curr:

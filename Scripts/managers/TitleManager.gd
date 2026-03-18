@@ -20,19 +20,19 @@ static var file_slot: int = 0
 
 const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
 ## Instances
-var HELL: duple = duple.new("HELL", "res://Scenes/Instances/hell_instance.tscn")
-var TEST: duple = duple.new("TEST", "res://Scenes/Instances/test_instance.tscn")
-var FRUITS_AND_VEGGIES: duple = duple.new("FRUITS_AND_VEGGIES", "res://Scenes/Instances/fruits_and_veggies_instance.tscn")
+var TEST: duple = duple.new("TEST", "res://Scenes/Instances/TestInstance.tscn")
+var DARKFOREST: duple = duple.new("DARKFOREST", "res://Scenes/Instances/DarkForest.tscn")
 ## Characters [global_stats][character scene]
-var WEBFISHER: duple = duple.new("WebFisher", "res://Scenes/Characters/character.tscn")
+var WEBFISHER: duple = duple.new("WebFisher", "res://Scenes/Characters/Character.tscn")
+var LILY: duple = duple.new("Lily", "res://Scenes/Characters/Lily.tscn")
 ## Weapons
 var PISTOL: duple_int = duple_int.new("PISTOL", ShopManager.pistol_index)
 ## Choice Variables
 var character: int ## Chosen character
 var map: int ## Chosen map
 var weapon: int ## Chosen weapon
-var characters: Array[duple] = [WEBFISHER]
-var maps: Array[duple] = [HELL, TEST, FRUITS_AND_VEGGIES]
+var characters: Array[duple] = [WEBFISHER, LILY]
+var maps: Array[duple] = [TEST, DARKFOREST]
 var weapons: Array[duple_int] = [PISTOL]
 
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
@@ -172,8 +172,8 @@ func set_visible(nodes: Array[Control]):
 	for node in nodes:
 		node.visible = true
 func _quickstart():
-	character = 0
-	map = 2
+	character = 1
+	map = 1
 	weapon = 0
 	press_start_game()
 ## Setup the achievements visual based on Save Data
