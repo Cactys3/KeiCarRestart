@@ -108,6 +108,8 @@ enum multiple_projectiles_aim_types {delay, spread}
 @export_category("Handle Settings")
 @export var AimType: AimTypes = AimTypes.default
 @export var orbit_distance: float = 20
+## Used by weapons to offset weapon orbit forward (for use in attacks, etc)
+var weapon_position_offset: float = 0
 @export var rotation_speed: float = 20
 @export var spinning_offset: float = 0
 @export var spinning_speed: float = 3
@@ -117,7 +119,7 @@ enum multiple_projectiles_aim_types {delay, spread}
 @export var MeleeDamageFactor: float = 1
 ## Offset that additional projectiles are given when firing multiple, should be different for different weapons and also scale with inaccuracy
 var weapon_slot: float = 1
-var weapon_count: float = 1
+var weapon_count: float = 0
 var current_angle: float = 0  #Stores the angle for smooth circular motion
 enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Unique}
 var temp_value = 0
@@ -186,8 +188,8 @@ func process_cooldown(delta: float) -> void:
 	if between_attacks_cooldown_timer > get_cooldown_between_attacks():
 		if between_projectiles_cooldown_timer > get_cooldown_between_projectiles():
 			if (ready_to_fire || always_ready_to_fire):# || Input.is_action_pressed("left_click"):
-				print("between projects: ", between_attacks_cooldown_timer, " / ", get_cooldown_between_attacks())
-				print("between projects: ", between_projectiles_cooldown_timer, " / ", get_cooldown_between_projectiles())
+				#print("between projects: ", between_attacks_cooldown_timer, " / ", get_cooldown_between_attacks())
+				#print("between projects: ", between_projectiles_cooldown_timer, " / ", get_cooldown_between_projectiles())
 				attack()
 		else:
 			#print("between projects: ", between_projectiles_cooldown_timer, " / ", get_cooldown_between_projectiles())
@@ -329,16 +331,18 @@ func apply_stats() -> void:
 ## Aim at any enemy in range, else aim at mouse, rotating around player towards mouse
 func ProcessDynamicAtMouse(delta: float) -> void:
 	#Orbit Player Towards Mouse
-	var alternating_sign: float = 1
-	if (int(weapon_slot) % 2) == 0: #alternate being left of 1st weapon and right
-		alternating_sign = -1
-	var temp_slot_variable: float = weapon_slot
-	if weapon_slot > 2:
-		if (int(weapon_slot) % 2) != 0: #make distance only increase once a sword has been added on both left and right with same distance
-			temp_slot_variable = (weapon_slot + 1) / 2
-		else:
-			temp_slot_variable = (weapon_slot + 2) / 2
-	var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
+	var slot_offset_value = 0
+	if false: #weapon_slot != 1: ## TODO: implement weapon slots later if needed
+		var alternating_sign: float = 1
+		if (int(weapon_slot) % 2) == 0: #alternate being left of 1st weapon and right
+			alternating_sign = -1
+		var temp_slot_variable: float = weapon_slot
+		if weapon_slot > 2:
+			if (int(weapon_slot) % 2) != 0: #make distance only increase once a sword has been added on both left and right with same distance
+				temp_slot_variable = (weapon_slot + 1) / 2
+			else:
+				temp_slot_variable = (weapon_slot + 2) / 2
+		slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
 	global_position = GetOrbitPosition((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
 	var nearest_enemy: Node2D = get_enemy_nearby(range_stat)
@@ -352,16 +356,18 @@ func ProcessDynamicAtMouse(delta: float) -> void:
 ## Aim always at mouse, rotating around player towards mouse
 func ProcessAlwaysAtMouse(delta: float) -> void:
 	#Orbit Player Towards Mouse
-	var alternating_sign: float = 1
-	if (int(weapon_slot) % 2) == 0: #alternate being left of 1st weapon and right
-		alternating_sign = -1
-	var temp_slot_variable: float = weapon_slot
-	if weapon_slot > 2:
-		if (int(weapon_slot) % 2) != 0: #make distance only increase once a sword has been added on both left and right with same distance
-			temp_slot_variable = (weapon_slot + 1) / 2
-		else:
-			temp_slot_variable = (weapon_slot + 2) / 2
-	var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
+	var slot_offset_value = 0
+	if false: #weapon_slot != 1: ## TODO: implement weapon slots later if needed
+		var alternating_sign: float = 1
+		if (int(weapon_slot) % 2) == 0: #alternate being left of 1st weapon and right
+			alternating_sign = -1
+		var temp_slot_variable: float = weapon_slot
+		if weapon_slot > 2:
+			if (int(weapon_slot) % 2) != 0: #make distance only increase once a sword has been added on both left and right with same distance
+				temp_slot_variable = (weapon_slot + 1) / 2
+			else:
+				temp_slot_variable = (weapon_slot + 2) / 2
+		slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
 	global_position = GetOrbitPositionAtMouse((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
 	var nearest_enemy: Node2D = get_enemy_nearby(range_stat)
@@ -404,11 +410,13 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
  #TODO: try global_position instead of player.global_position for how weapon aiming looks
 ## Calculates the orbit position for a weapon at given target_angle
 func GetOrbitPosition(target_angle: float) -> Vector2:
-	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance ## TODO: Stat: Size
+	return player.global_position + (Vector2(cos(target_angle), sin(target_angle)) * orbit_distance) + GetWeaponOffsetPosition(target_angle) ## TODO: Stat: Size
 func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
 	if player.global_position.distance_to(get_global_mouse_position()) < orbit_distance:
 		return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * (player.global_position.distance_to(get_global_mouse_position()) - 1)
-	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance
+	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance + GetWeaponOffsetPosition(target_angle)
+func GetWeaponOffsetPosition(target_angle: float) -> Vector2:
+	return weapon_position_offset * Vector2(cos(target_angle), sin(target_angle))
 ## Returns if weapon is pointing towards the given enemy
 func IsAimingAtEnemy(enemy: Node2D) -> bool:
 	if enemy != null:
