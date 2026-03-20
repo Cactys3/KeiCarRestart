@@ -51,32 +51,18 @@ var money_gain_modifier: float:
 		return max(0.1, 1 + (player.mogul - 1) / 100)
 
 var revives_used: int = 0
-var max_hp: float:
-	get():
-		return player.health
-var max_shield: float:
-	get():
-		return player.shield
 var shield: float = 0:
 	set(value):
 		shield = value
-		if max_shield > 0:
-			ui_man.set_shield(str(value), value / max_shield)
-		else:
-			ui_man.set_shield("0", 0)
-var hp: float = 0:
+		ui_man.set_shield(value)
+var curr_hp: float = 0:
 	set(value):
-		hp = value
-		if max_hp > 0:
-			ui_man.set_hp(str(value), hp / max_hp)
-		else:
-			ui_man.set_hp(str(value), 0)
+		curr_hp = value
+		ui_man.set_hp(value)
 var level: float = 1: ## level
 	set(value): #TODO: maybe send to instancemanager and make game harder by level
 		level = value
 		ui_man.set_level(str(int(value)))
-	get(): # calculate level based on total xp
-		return level 
 var xp: float = 0: ## Current (total?) XP Gained
 	set(value):
 		var xp_just_added: float = 0
@@ -134,20 +120,24 @@ signal RoundEnded(round_number: int)
 
 func setup(new_player: Character, starting_weapon: String):
 	player = new_player
-	call_deferred("setup_deffered", starting_weapon)
+	call_deferred("defer_once", starting_weapon)
 	connect("level_up", create_level_up_instance)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	EnemyKilled.connect(enemy_killed)
 	PlayerDamaged.connect(player_damaged)
-func setup_deffered(starting_weapon: String):
+func defer_once(starting_weapon: String):
+	call_deferred("defer_twice", starting_weapon)
+## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
+func defer_twice(starting_weapon: String):
 	player.initialize_stats()
+	revives_used = 0
+	
+	curr_hp = player.health
+	shield = player.shield
 	level = 1
 	xp = 0
 	money = starting_money
 	get_tree().paused = false
-	call_deferred("setup_weapon", starting_weapon)
-## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
-func setup_weapon(starting_weapon: String):
 	var weapon: Weapon = ShopManager.get_weapon(starting_weapon)
 	add_weapon(weapon)
 	add_weapon(weapon)
@@ -276,8 +266,8 @@ func pause(value: bool):
 			get_tree().paused = false
 ## Signal Connections
 func enemy_killed(enemy: Enemy, attack: Attack):
-	if player.lifesteal > 0 && hp < max_hp:
-		hp += player.lifesteal
+	if player.lifesteal > 0 && curr_hp < player.health:
+		curr_hp += player.lifesteal
 func player_damaged(playah: Character, attack: Attack):
 	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage"):
 		attack.attacker.damage(Attack.new(player.thorns, player.position, 0, null, null, 0, 0, 0))

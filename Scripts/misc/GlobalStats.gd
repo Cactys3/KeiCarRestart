@@ -10,8 +10,10 @@ const LUCK = "luck"
 const DAMAGE = "damage"
 const RANGE = "range"
 const WEIGHT = "weight"
-const ATTACKCOOLDOWN = "attackcooldown"
-const ATTACKSPEED = "attackspeed"
+## Determines cooldown between projectiles
+const ATTACKCOOLDOWN = "attack cooldown"
+## Determines cooldown for reloading
+const RELOADTIME = "reload cooldown"
 const VELOCITY = "velocity"
 const AMMO = "ammo"
 const COUNT = "count"
@@ -19,8 +21,8 @@ const PIERCING = "piercing"
 const DURATION = "duration"
 const BUILDUP = "buildup"
 const SIZE = "size"
-const CRITCHANCE = "critchance"
-const CRITDAMAGE = "critdamage"
+const CRITCHANCE = "critical strike chance"
+const CRITDAMAGE = "critical strike damage"
 const GHOSTLY = "ghostly"
 const REGEN = "regen"
 const MAGNETIZE = "magentize"
@@ -30,19 +32,6 @@ const DIFFICULTY = "difficulty"
 const REVIES = "revies"
 const THORNS = "thorns"
 const INACCURACY = "inaccuracy"
-## Default Stats (for those that aren't 0)
-const HP_DEFAULT = 100
-const MOVESPEED_DEFAULT = 30
-const XP_DEFAULT = 1
-const MOGUL_DEFAULT = 1
-const LUCK_DEFAULT = 1
-const RANGE_DEFAULT = 60
-const COUNT_DEFAULT = 1
-const SIZE_DEFAULT = 1
-const CRITDAMAGE_DEFAULT = 1.5
-const REGEN_DEFAULT = 3
-const MAGNETIZE_DEFAULT = 20
-const DIFFICULTY_DEFAULT = 1
 ## Stats Added to Stat Getters
 static var statsbase = StatsList.new(0)
 ## Stats Multiplied to Stat Getters
@@ -50,38 +39,7 @@ static var statsfactor = StatsList.new(1)
 ## Likely resets everything in preparation for a new run
 static func setup():
 	statsbase = StatsList.new(0)
-	statsbase.list = {
-		HP: HP_DEFAULT,
-		STANCE: 0.0,
-		MOVESPEED: MOVESPEED_DEFAULT,
-		XP: XP_DEFAULT,
-		MOGUL:MOGUL_DEFAULT,
-		LUCK: LUCK_DEFAULT, 
-		DAMAGE: 0.0,
-		RANGE: RANGE_DEFAULT,
-		WEIGHT: 0.0,
-		ATTACKCOOLDOWN: 0.0,
-		ATTACKSPEED: 0.0,
-		VELOCITY: 0.0,
-		AMMO: 0.0,
-		COUNT: COUNT_DEFAULT,
-		PIERCING: 0.0,
-		DURATION: 0.0,
-		BUILDUP: 0.0,
-		SIZE: SIZE_DEFAULT, 
-		CRITCHANCE: 0.0,
-		CRITDAMAGE: CRITDAMAGE_DEFAULT,
-		GHOSTLY: 0.0,
-		REGEN: REGEN_DEFAULT,
-		MAGNETIZE: MAGNETIZE_DEFAULT,
-		LIFESTEAL: 0.0,
-		SHIELD: 0.0,
-		DIFFICULTY: DIFFICULTY_DEFAULT,
-		REVIES: 0.0,
-		THORNS: 0.0,
-		INACCURACY: 0.0}
 	statsfactor = StatsList.new(1)
-
 static func get_base_stat(stat: String) -> float:
 	return statsbase[stat]
 static func get_factor_stat(stat: String) -> float:
@@ -108,7 +66,7 @@ class StatsList:
 			RANGE: default_value,
 			WEIGHT: default_value,
 			ATTACKCOOLDOWN: default_value,
-			ATTACKSPEED: default_value,
+			RELOADTIME: default_value,
 			VELOCITY: default_value,
 			AMMO: default_value,
 			COUNT: default_value,
@@ -145,7 +103,7 @@ class StatsList:
 		RANGE: 0.0,
 		WEIGHT: 0.0,
 		ATTACKCOOLDOWN: 0.0,
-		ATTACKSPEED: 0.0,
+		RELOADTIME: 0.0,
 		VELOCITY: 0.0,
 		AMMO: 0.0,
 		COUNT: 0.0,
@@ -164,8 +122,6 @@ class StatsList:
 		REVIES: 0.0,
 		THORNS: 0.0,
 		INACCURACY: 0.0}
-
-
 ## STOLEN FROM STATS.GD
 ## Round original_stat to have 'digits' digits at max
 static func round_to_digits(original_stat: float, digits: int) -> String:

@@ -16,12 +16,19 @@ var game_man: GameManager:
 @export var movespeed: float = 30:
 	get():
 		return movespeed + GlobalStats.get_stat(GlobalStats.MOVESPEED)
+## Max Health for the player
 @export var health: float = 100:
 	get():
 		return health + GlobalStats.get_stat(GlobalStats.HP)
+	set(value):
+		health = value
+		GameManager.instance.ui_man.set_max_hp(value)
 @export var shield: float = 20:
 	get():
 		return shield + GlobalStats.get_stat(GlobalStats.SHIELD)
+	set(value):
+		shield = value
+		GameManager.instance.ui_man.set_max_shield(value)
 @export var stance: float = 0:
 	get():
 		return stance + GlobalStats.get_stat(GlobalStats.STANCE)
@@ -65,11 +72,7 @@ func flash():
 	await get_tree().create_timer(0.1).timeout
 	visible = true
 func initialize_stats() -> void:
-	game_man.revives_used = 0
-	game_man.hp = health
-	game_man.shield = shield
 	curr_speed = movespeed
-	stat_changed_method()
 func _process(_delta: float) -> void:
 	if GameInstance.is_game_over:
 		return
@@ -100,8 +103,8 @@ func handle_regens(delta) -> void:
 	regen_stopwatch += delta
 	if regen_stopwatch >= 1:
 		regen_stopwatch = 0
-		if regen > 0 && game_man.hp < health:
-			game_man.hp += GlobalStats.calculate_regen(regen)
+		if regen > 0 && game_man.curr_hp < health:
+			game_man.curr_hp += GlobalStats.calculate_regen(regen)
 func handle_moving(delta) -> void:
 	var is_moving = false
 	var directionX := Input.get_axis("left", "right")
@@ -147,7 +150,7 @@ func damage(attack: Attack):
 			game_man.shield = 0
 	## Consider HP
 	if net_damage > 0:
-		game_man.hp -= net_damage
+		game_man.curr_hp -= net_damage
 	## Stun currently prevents the player from inputting movements, this means that the currently velocity (including knockback) will apply fully for the duration of the stun
 	if can_be_stunned && attack.stun != 0:
 		stun_time_left += attack.stun
@@ -155,7 +158,7 @@ func damage(attack: Attack):
 	## Knockback is applied fully for 1 frame as the player's own movement code then overwrites it quickly on the following frames.
 	if can_be_knockbacked && attack.knockback != 0:
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback * knockback_modifier)
-	if game_man.hp <= 0:
+	if game_man.curr_hp <= 0:
 		die(attack)
 	
 	## This shit doesn't work for some fucked up reason when it's preloaded
@@ -176,7 +179,7 @@ func stat_changed_method():
 	# hp, size, xp gain, money gain, magentize etc
 	pickup_range.shape.radius = default_pickup_radius + GlobalStats.get_stat(GlobalStats.MAGNETIZE)
 	transform.scaled(Vector2(size, size))
-	game_man.hp = game_man.hp ## checks maxhp to setup UI properly
+	game_man.curr_hp = game_man.curr_hp ## checks maxhp to setup UI properly
 	game_man.shield = game_man.shield ## checks maxshield to setup UI properly
 func character_ability(number: int) -> void:
 	pass#print("ability " + str(number))

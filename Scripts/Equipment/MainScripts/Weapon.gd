@@ -31,9 +31,9 @@ var weight_stat:
 var attackcooldown_stat:
 	get():
 		return get_stat(GlobalStats.ATTACKCOOLDOWN)
-var attackspeed_stat:
+var RELOADTIME_stat:
 	get():
-		return get_stat(GlobalStats.ATTACKSPEED)
+		return get_stat(GlobalStats.RELOADTIME)
 var velocity_stat:
 	get():
 		return get_stat(GlobalStats.VELOCITY)
@@ -90,11 +90,16 @@ var inaccuracy_stat:
 		return get_stat(GlobalStats.INACCURACY)
 @export var anim: AnimatedSprite2D
 ## Does this animation flip when facing left vs non-flipped when facing right
-@export var flip_left_right: bool = false
 @export var projectile: PackedScene
 @export var time_one_projectile_takes_to_create: float = 0:
 	get():
 		return _time_one_projectile_takes_to_create()
+@export var AimType: AimTypes = AimTypes.default
+@export_category("Weapon Settings")
+@export var flip_left_right: bool = false
+@export var lock_transform_while_attacking: bool = false
+@export var always_ready_to_fire: bool = false
+@export var MeleeDamageFactor: float = 1
 @export_category("Projectile Settings")
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
@@ -105,8 +110,7 @@ var inaccuracy_stat:
 enum multiple_projectiles_aim_types {delay, spread}
 ## Does it fire multiple projectiles one after another with a delay or at the same time with an angle/position spread
 @export var multiple_projectiles_aim_type: multiple_projectiles_aim_types = multiple_projectiles_aim_types.spread
-@export_category("Handle Settings")
-@export var AimType: AimTypes = AimTypes.default
+@export_category("Orbit Settings")
 @export var orbit_distance: float = 20
 ## Used by weapons to offset weapon orbit forward (for use in attacks, etc)
 var weapon_position_offset: float = 0
@@ -114,9 +118,6 @@ var weapon_position_offset: float = 0
 @export var spinning_offset: float = 0
 @export var spinning_speed: float = 3
 ## Can ignore the ready_to_fire variable and assume always ready to fire = true
-@export var always_ready_to_fire: bool = false
-@export_category("Attachment Settings")
-@export var MeleeDamageFactor: float = 1
 ## Offset that additional projectiles are given when firing multiple, should be different for different weapons and also scale with inaccuracy
 var weapon_slot: float = 1
 var weapon_count: float = 0
@@ -137,8 +138,14 @@ const attacksperX: int = 2
 var stopwatch: Timer
 var between_attacks_cooldown_timer: float = 0
 var between_projectiles_cooldown_timer: float = 0
-var attacking: bool = false
+var attacking: bool = false:
+	set(value):
+		attacking = value
+		if value && lock_transform_while_attacking:
+			while_attacking_locked_rotation = rotation
 var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used?, to create attack need to use stats which defeats point of queue
+var while_attacking_locked_rotation: float
+var while_attacking_locked_orbit: float
 ## Override
 func activate(new_player: Character):
 	super(new_player)
@@ -153,7 +160,8 @@ func deactivate():
 		get_parent().remove_child(self)
 func _ready() -> void:
 	super()
-	between_attacks_cooldown_timer = 0
+	between_attacks_cooldown_timer = 1000
+	between_projectiles_cooldown_timer = 1000
 	projectiles_left_in_ammo = ammo_stat
 	stopwatch = Timer.new()
 	add_child(stopwatch)
@@ -277,11 +285,11 @@ func projectile_died(pos: Vector2, is_clone: bool):
 	pass
 func get_cooldown_between_projectiles() -> float:
 	#print("get_cooldown_between_projectiles ", attacksperX / max(0.1, attackspeed_stat), " attacksperX: ", attacksperX, ", attackspeed: ", attackspeed_stat)
-	return (attacksperX / max(0.1, attackspeed_stat))
+	return attackcooldown_stat#(attacksperX / max(0.1, attackspeed_stat))
 ## Calculate and return cooldown between attacks
 func get_cooldown_between_attacks() -> float:
 	## Minimum: atttack 0.1 times per X
-	return attackcooldown_stat
+	return RELOADTIME_stat
 ## Send altered values because it's a melee hitbox
 func make_attack() -> Attack:
 	var knockback: float = weight_stat * damage_stat ## TODO: Stat: knockback
@@ -401,6 +409,9 @@ func ProcessUnique(_delta: float) -> void:
 	pass
 ## rotates this weapon towards the new position, TODO: lerp calculated with weight
 func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
+	## don't rotate if shouldn't
+	if attacking && lock_transform_while_attacking:
+		return
 	var speed = rotation_speed * _delta * (10 / max(weight_stat, 1)) ## TODO: Stat: weight
 	var angle = (new_position - global_position).normalized().angle()
 	rotation = lerp_angle(rotation, angle, speed)
@@ -410,8 +421,16 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
  #TODO: try global_position instead of player.global_position for how weapon aiming looks
 ## Calculates the orbit position for a weapon at given target_angle
 func GetOrbitPosition(target_angle: float) -> Vector2:
+	if attacking && lock_transform_while_attacking:
+		return player.global_position + (Vector2(cos(while_attacking_locked_rotation), sin(while_attacking_locked_rotation)) * orbit_distance) + GetWeaponOffsetPosition(while_attacking_locked_rotation)
 	return player.global_position + (Vector2(cos(target_angle), sin(target_angle)) * orbit_distance) + GetWeaponOffsetPosition(target_angle) ## TODO: Stat: Size
 func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
+	## Position without new rotation
+	if attacking && lock_transform_while_attacking:
+		if player.global_position.distance_to(get_global_mouse_position()) < orbit_distance:
+			return player.global_position + Vector2(cos(while_attacking_locked_rotation), sin(while_attacking_locked_rotation)) * (player.global_position.distance_to(get_global_mouse_position()) - 1)
+		return player.global_position + Vector2(cos(while_attacking_locked_rotation), sin(while_attacking_locked_rotation)) * orbit_distance + GetWeaponOffsetPosition(while_attacking_locked_rotation)
+	## Position Normally
 	if player.global_position.distance_to(get_global_mouse_position()) < orbit_distance:
 		return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * (player.global_position.distance_to(get_global_mouse_position()) - 1)
 	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance + GetWeaponOffsetPosition(target_angle)

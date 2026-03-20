@@ -166,16 +166,18 @@ func unpause(pause_item: PauseItem):
 		PauseQueue.erase(pause_item)
 func set_level(value: String) -> void:
 	level_label.text = value
-func set_max_hp(percent: float) -> void:
-	hud.set_max_hp(percent)
-func set_shield(value: String, percent: float) -> void:
-	hud.set_shield(percent)
-func set_hp(value: String, percent: float) -> void:
-	hp_label.text = value
-	hud.set_hp(percent)
-func set_xp(value: String, percent: float) -> void:
-	xp_label.text = value
-	hud.set_xp(percent)
+func set_max_hp(value: float) -> void:
+	hud.set_max_hp(value)
+func set_max_shield(value: float) -> void:
+	hud.set_max_shield(value)
+func set_shield(value: float) -> void:
+	hud.set_shield(value)
+func set_hp(value: float) -> void:
+	hp_label.text = str(round(value))
+	hud.set_hp(value)
+func set_xp(text: String, value: float) -> void:
+	xp_label.text = text
+	hud.set_xp(value)
 func set_money(value: float) -> void:
 	money_label.text = str(roundi(value))
 	hud.set_money(value)
@@ -191,13 +193,12 @@ func toggle_you_win(value: bool) -> void:
 	you_win.visible = value
 func toggle_you_lose(value: bool) -> void:
 	you_lose.visible = value
-
+## Adds the weapon to the UI which displays weapons
 func add_weapon(weapon: Weapon):
 	pass
+## Adds the upgrade to the UI which displays upgrades
 func add_upgrade(upgrade: Upgrade):
 	pass
-
-
 
 func _on_tutorial_or_stats_pressed() -> void:
 	tutorial_or_stats = !tutorial_or_stats

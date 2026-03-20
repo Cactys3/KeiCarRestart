@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scripts/instance_scripts/InstanceRoot.gd" id="1_eeah7"]
+[ext_resource type="PackedScene" uid="uid://bgt57e0022plx" path="res://Scenes/Misc/xp_blip.tscn" id="9_t1qak"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
 [ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
@@ -87,15 +88,18 @@ position = Vector2(320, 180)
 
 [node name="XP Parent" type="Node2D" parent="Window640/Offset" unique_id=719851691 groups=["xp_parent"]]
 
+[node name="xp_blip" parent="Window640/Offset/XP Parent" unique_id=144117000 instance=ExtResource("9_t1qak")]
+position = Vector2(492, 365)
+
 [node name="CharacterParent" type="Node2D" parent="Window640/Offset" unique_id=1665705803]
 
 [node name="Camera2D" type="Camera2D" parent="Window640/Offset/CharacterParent" unique_id=682145971]
 
+[node name="ProjectileParent" type="Node2D" parent="Window640/Offset" unique_id=1081666723]
+
 [node name="WeaponParent" type="Node2D" parent="Window640/Offset" unique_id=2000948482]
 
 [node name="EventParentForeground" type="Node2D" parent="Window640/Offset" unique_id=494069381]
-
-[node name="ProjectileParent" type="Node2D" parent="Window640/Offset" unique_id=1081666723]
 
 [node name="SpawnArea" type="CollisionShape2D" parent="Window640/Offset" unique_id=1285077429]
 visible = false
@@ -431,6 +435,7 @@ bbcode_enabled = true
 text = "[shake rate=20.0 level=5 connected=1] You Lose! [/shake]"
 
 [node name="LevelUpParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1878413924]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -440,6 +445,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="TabMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=879721707]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -449,6 +455,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1841136718]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

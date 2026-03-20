@@ -11,13 +11,8 @@ class_name Equipment
 @export var damage: float = 0.0
 @export var _range: float = 0.0
 @export var weight: float = 0.0
-## Seconds of reload time between attacks
 @export var attackcooldown: float = 0.0
-## projectiles per X (check X in Weapon.gd)
-@export var attackspeed: float = 0.0:
-	set(value):
-		print("changed attackspeed: ", attackspeed, " -> ", value)
-		attackspeed = value
+@export var RELOADTIME: float = 0.0
 @export var velocity: float = 0.0
 @export var ammo:  float = 0.0
 @export var count: float = 0.0
@@ -60,8 +55,8 @@ func get_stat(stat: String) -> float:
 		return (GlobalStats.get_base_stat(GlobalStats.WEIGHT) + weight) * GlobalStats.get_factor_stat(GlobalStats.WEIGHT)
 	elif stat == GlobalStats.ATTACKCOOLDOWN:
 		return (GlobalStats.get_base_stat(GlobalStats.ATTACKCOOLDOWN) + attackcooldown) * GlobalStats.get_factor_stat(GlobalStats.ATTACKCOOLDOWN)
-	elif stat == GlobalStats.ATTACKSPEED:
-		return (GlobalStats.get_base_stat(GlobalStats.ATTACKSPEED) + attackspeed) * GlobalStats.get_factor_stat(GlobalStats.ATTACKSPEED)
+	elif stat == GlobalStats.RELOADTIME:
+		return (GlobalStats.get_base_stat(GlobalStats.RELOADTIME) + RELOADTIME) * GlobalStats.get_factor_stat(GlobalStats.RELOADTIME)
 	elif stat == GlobalStats.VELOCITY:
 		return (GlobalStats.get_base_stat(GlobalStats.VELOCITY) + velocity) * GlobalStats.get_factor_stat(GlobalStats.VELOCITY)
 	elif stat == GlobalStats.AMMO:

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bbw0s4nlfy63s"]
 
 [ext_resource type="Script" uid="uid://bsgbnenow5c2h" path="res://Scripts/Equipment/BoxingGloves/BoxingGloves.gd" id="1_rw4pg"]
-[ext_resource type="PackedScene" uid="uid://c5n35stv668tp" path="res://Scenes/Weapons/Pistol/9mm.tscn" id="2_8up8s"]
+[ext_resource type="PackedScene" uid="uid://d1gb0dt4hcvtx" path="res://Scenes/Weapons/BoxingGloves/FirePunch.tscn" id="2_8up8s"]
 [ext_resource type="Texture2D" uid="uid://dyinr3i8jtc2p" path="res://Art/Weapons/BoxingGloves/BoxingGloves.png" id="2_37iyi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37iyi"]
@@ -95,15 +95,27 @@ animations = [{
 "texture": SubResource("AtlasTexture_37iyi")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_37iyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8up8s")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_8up8s")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ig0w8")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ig0w8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdjnv")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hdjnv")
 }],
-"loop": true,
+"loop": false,
 "name": &"Both",
 "speed": 5.0
 }, {
@@ -151,8 +163,20 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_25c1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wo6rn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpcme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_684m8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25c1n")
 }],
-"loop": true,
+"loop": false,
 "name": &"Left",
 "speed": 5.0
 }, {
@@ -161,15 +185,27 @@ animations = [{
 "texture": SubResource("AtlasTexture_fdh3w")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_fdh3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33thv")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_33thv")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fqkjv")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_fqkjv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grbjr")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_grbjr")
 }],
-"loop": true,
+"loop": false,
 "name": &"Right",
 "speed": 5.0
 }]
@@ -268,15 +304,27 @@ animations = [{
 "texture": SubResource("AtlasTexture_vkvc3")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_vkvc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfpnr")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_dfpnr")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xgg31")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xgg31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yracp")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_yracp")
 }],
-"loop": true,
+"loop": false,
 "name": &"Both",
 "speed": 5.0
 }, {
@@ -317,15 +365,27 @@ animations = [{
 "texture": SubResource("AtlasTexture_iypct")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_iypct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jnfe")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_8jnfe")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0crms")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_0crms")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2cli")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_b2cli")
 }],
-"loop": true,
+"loop": false,
 "name": &"Left",
 "speed": 5.0
 }, {
@@ -341,8 +401,20 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jhci1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ng3xp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52e5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3n5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhci1")
 }],
-"loop": true,
+"loop": false,
 "name": &"Right",
 "speed": 5.0
 }]
@@ -357,14 +429,18 @@ script = ExtResource("1_rw4pg")
 anim = NodePath("LeftGlove/LeftSprite")
 projectile = ExtResource("2_8up8s")
 AimType = 2
+lock_transform_while_attacking = true
 damage = 40.0
-attackcooldown = 1.5
-attackspeed = 10.0
-velocity = 20.0
+_range = 30.0
+weight = 10.0
+attackcooldown = 0.5
+RELOADTIME = 2.0
+velocity = 200.0
 ammo = 5.0
 count = 2.0
 duration = 5.0
 buildup = 1.0
+size = 1.0
 
 [node name="RightGlove" type="Area2D" parent="." unique_id=1339773686]
 collision_layer = 4
@@ -374,10 +450,14 @@ collision_mask = 8
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_ym58m")
 animation = &"Right"
+autoplay = "Idle"
 
 [node name="RightCollision" type="CollisionShape2D" parent="RightGlove" unique_id=1350339387]
 position = Vector2(13, 14)
 shape = SubResource("RectangleShape2D_rw4pg")
+
+[node name="RightProjectileSpawn" type="Node2D" parent="RightGlove" unique_id=1331759870]
+position = Vector2(9, 9)
 
 [node name="LeftGlove" type="Area2D" parent="." unique_id=108564608]
 collision_layer = 4
@@ -387,10 +467,16 @@ collision_mask = 8
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_rxp14")
 animation = &"Right"
+autoplay = "Idle"
+frame = 7
+frame_progress = 1.0
 
 [node name="LeftCollision" type="CollisionShape2D" parent="LeftGlove" unique_id=490944232]
 position = Vector2(13, -14)
 shape = SubResource("RectangleShape2D_37iyi")
+
+[node name="LeftProjectileSpawn" type="Node2D" parent="LeftGlove" unique_id=1553056762]
+position = Vector2(9, -9)
 
 [connection signal="area_entered" from="RightGlove" to="." method="_hit_enemy"]
 [connection signal="body_entered" from="RightGlove" to="." method="_hit_enemy"]
