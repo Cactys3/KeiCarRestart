@@ -10,12 +10,18 @@ extends Node2D
 @export var foreground: Array[AnimatedSprite2D]
 @export var background: Array[AnimatedSprite2D]
 
+@export var anim: AnimatedSprite2D
+@export var each_frame_is_alternative_art: bool = false
+@export var randomly_roll_alternative_art: bool = false
+
 var stopwatch: float = 100
 
 func _init() -> void:
 	visible = false
 func _ready() -> void:
 	flash()
+	if each_frame_is_alternative_art && randomly_roll_alternative_art && anim:
+		anim.frame = randi_range(0, anim.sprite_frames.get_frame_count(anim.animation))
 func flash():
 	await get_tree().create_timer(0.1).timeout
 	visible = true
@@ -23,6 +29,8 @@ func flash():
 func _process(delta: float) -> void:
 	if can_damage && stopwatch <= cooldown:
 		stopwatch += delta
+	global_position = round(global_position)
+	
 
 func setup(new_time: int, new_level: int):
 	if foreground:

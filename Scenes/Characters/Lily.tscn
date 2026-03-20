@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cu3rjd0ggqilu" path="res://Scripts/character_scripts/Lily.gd" id="1_t5ff5"]
 [ext_resource type="Texture2D" uid="uid://b2d11j5psl1cd" path="res://Art/Characters/Lily/Lily.png" id="2_t5ff5"]
-[ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_g0u0m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5ff5"]
 atlas = ExtResource("2_t5ff5")
@@ -130,13 +129,12 @@ character_name = "Lily"
 pickup_range = NodePath("pickup_range/CollisionShape2D")
 anim = NodePath("AnimatedSprite2D")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=564162239 node_paths=PackedStringArray("Target")]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=564162239]
 sprite_frames = SubResource("SpriteFrames_qime4")
-animation = &"move"
+animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.6700732
 speed_scale = 1.5
-script = ExtResource("3_g0u0m")
-Target = NodePath(".")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2066742228]
 position = Vector2(0.5, 1)

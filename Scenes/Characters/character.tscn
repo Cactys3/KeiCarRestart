@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dbfx0pgjmmdgy"]
 
-[ext_resource type="Script" uid="uid://d2q8eeh4e5ai8" path="res://Scripts/character_scripts/webfisher.gd" id="1_ieu52"]
+[ext_resource type="Script" uid="uid://d2q8eeh4e5ai8" path="res://Scripts/character_scripts/Webfisher.gd" id="1_ieu52"]
 [ext_resource type="Texture2D" uid="uid://cci4rkm141kqh" path="res://Art/Characters/Webfisher/Webfisher.png" id="2_lmtek"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_owm7s"]
 

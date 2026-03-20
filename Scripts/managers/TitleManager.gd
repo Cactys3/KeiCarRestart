@@ -20,8 +20,8 @@ static var file_slot: int = 0
 
 const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
 ## Instances
-var TEST: duple = duple.new("TEST", "res://Scenes/Instances/TestInstance.tscn")
-var DARKFOREST: duple = duple.new("DARKFOREST", "res://Scenes/Instances/DarkForest.tscn")
+var TEST: duple = duple.new("TEST", "res://Scenes/Main/TestInstance.tscn")
+var DARKFOREST: duple = duple.new("DARKFOREST", "res://Scenes/DarkForest/DarkForest.tscn")
 ## Characters [global_stats][character scene]
 var WEBFISHER: duple = duple.new("WebFisher", "res://Scenes/Characters/Character.tscn")
 var LILY: duple = duple.new("Lily", "res://Scenes/Characters/Lily.tscn")

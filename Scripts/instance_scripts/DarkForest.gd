@@ -5,7 +5,9 @@ const TILE1 = preload("uid://cdoowwkvlvfk0")
 ## Enemies
 ## Enemy Events
 ## Bosses
-## Events
+## Objects/Events
+const EVIL_TREE = preload("uid://dx3vgmeepju4x")
+
 func _process(delta: float) -> void:
 	super(delta)
 func add_tiles():
@@ -25,7 +27,7 @@ func _ready() -> void:
 	## Setups Phases
 	#phases.append(SpawningPhase.new("", 60, phase_one))
 	## Setup Basic Events
-	#events.append(EventSpawn.new("", , 0.25, -1, 1))
+	events.append(EventSpawn.new("Evil Tree", EVIL_TREE, 0.5, -1, 20))
 	## Setup Interactable Events
 	#events.append(EventSpawn.new("", , 0.3, -1, 3))
 	## Setup Main Events

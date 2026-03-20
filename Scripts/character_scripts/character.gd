@@ -63,7 +63,6 @@ var stunning:bool = false
 var stun_time_left: float = 0
 ## Current Stats
 var curr_speed: float
-
 func _init() -> void:
 	visible = false
 func _ready() -> void:
@@ -92,7 +91,19 @@ func _physics_process(delta : float) -> void:
 	else:
 		stunning = false
 	handle_moving(delta)
+	var oldx = position.x
+	var oldy = position.y
 	move_and_slide()
+	## Pixel-Perfect code, tries to align diagonal movement along pixel perfect lines instead of jagged ones
+	if velocity:
+		if abs(oldx - position.x) > abs(oldy - position.y) && velocity.x != 0: 
+			var x = round(position.x)
+			var y = round(position.y + (x - position.x) * velocity.y / velocity.x)
+			position.y = y
+		elif abs(oldx - position.x) <= abs(oldy - position.y) && velocity.y != 0:
+			var y = round(position.y)
+			var x = round(position.x + (y - position.y) * velocity.x / velocity.y)
+			position.x = x
 	handle_regens(delta)
 	time_since_taken_damage += delta
 func handle_regens(delta) -> void:

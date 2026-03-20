@@ -1,9 +1,11 @@
-extends AnimatedSprite2D
+extends Node2D
 
 @export var Target: Node2D 
 @export var Offset: Vector2
 
 func _process(delta: float) -> void:
-	pass
 	if Target:
-		pass#global_position = round(Target.global_position + Offset)
+		global_position = round(Target.global_position + Offset)
+	else:
+		position = Vector2.ZERO
+		global_position = round(global_position)

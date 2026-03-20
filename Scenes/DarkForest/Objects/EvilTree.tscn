@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dx3vgmeepju4x"]
+
+[ext_resource type="Script" uid="uid://qsl3fexnb70s" path="res://Scripts/misc_object_scripts/NonInteractableEvent.gd" id="1_pqand"]
+[ext_resource type="Texture2D" uid="uid://dahscn7othqv" path="res://Art/DarkForest/EvilTree/EvilTree.png" id="2_j8kdx"]
+[ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_j8kdx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cafu0"]
+atlas = ExtResource("2_j8kdx")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqand"]
+atlas = ExtResource("2_j8kdx")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_drgie"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cafu0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqand")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EvilTree" type="Node2D" unique_id=467412118 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_pqand")
+can_damage = true
+cooldown = 2.0
+damage = 0.0
+knockback = 30.0
+anim = NodePath("Foreground")
+each_frame_is_alternative_art = true
+randomly_roll_alternative_art = true
+
+[node name="Background" type="AnimatedSprite2D" parent="." unique_id=1161857457]
+sprite_frames = SubResource("SpriteFrames_drgie")
+script = ExtResource("3_j8kdx")
+
+[node name="Foreground" type="AnimatedSprite2D" parent="." unique_id=99957601]
+sprite_frames = SubResource("SpriteFrames_drgie")
+script = ExtResource("3_j8kdx")
