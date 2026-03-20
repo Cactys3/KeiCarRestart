@@ -1,25 +1,23 @@
 extends Node
 class_name ShopManager
-## Weapons
+## Weapon Names
 const PISTOL = "Pistol"
 const BOXING_GLOVES = "Boxing Glove"
-
-## Projectiles
+## Upgrade Names
+const test = "test"
+## Projectile Names
 const _9_MM = "9mm"
 ## Weapon Scenes
 const PISTOL_SCENE = preload("uid://cjkad8i0d5u2g")
 const BOXING_GLOVES_SCENE = preload("uid://bbw0s4nlfy63s")
-
 ## Upgrades Scenes
-
 ## Projectiles
 const _9_MM_SCENE = preload("uid://c5n35stv668tp")
-
 ## Arrays
-static var unlocked_projectiles_indicies: Array [String] = []
-static var unlocked_weapon_indicies: Array [String] = []
-static var unlocked_upgrade_indicies: Array [String] = []
-const upgrade_list: Dictionary [String, PackedScene] = {}
+static var unlocked_projectiles_keys: Array [String] = []
+static var unlocked_weapon_keys: Array [String] = []
+static var unlocked_upgrade_keys: Array [String] = []
+const upgrade_list: Dictionary [String, UpgradeData] = {}
 const weapon_list: Dictionary [String, PackedScene] = {
 	PISTOL: PISTOL_SCENE,
 	BOXING_GLOVES: BOXING_GLOVES_SCENE}
@@ -57,17 +55,17 @@ static func get_upgrade(key: String) -> Upgrade:
 	return null
 ## Returns random unlocked projectile's index
 static func get_random_unlocked_projectile_key() -> String:
-	return unlocked_weapon_indicies.pick_random() #TODO: Check if attachment is unlocked?
+	return unlocked_weapon_keys.pick_random() #TODO: Check if attachment is unlocked?
 static func get_random_unlocked_weapon_key() -> String:
-	return unlocked_projectiles_indicies.pick_random() #TODO: Check if attachment is unlocked?
+	return unlocked_projectiles_keys.pick_random() #TODO: Check if attachment is unlocked?
 static func get_random_unlocked_upgrade_key() -> String:
-	return unlocked_upgrade_indicies.pick_random() #TODO: Check if item is unlocked?
-static func get_all_unlocked_weapon_keys() -> Array[String]:
-	return unlocked_weapon_indicies
-static func get_all_unlocked_upgrade_keys() -> Array[String]:
-	return unlocked_upgrade_indicies
-static func get_all_unlocked_projectiles_keys() -> Array[String]:
-	return unlocked_projectiles_indicies
+	return unlocked_upgrade_keys.pick_random() #TODO: Check if item is unlocked?
+static func get_all_unlocked_weapons() -> Array[String]:
+	return unlocked_weapon_keys
+static func get_all_unlocked_upgrades() -> Array[String]:
+	return unlocked_upgrade_keys
+static func get_all_unlocked_projectiles() -> Array[String]:
+	return unlocked_projectiles_keys
 ## TODO: Implement
 static func get_rand_upgrade_except(avoided_items: Array[Equipment]) -> Upgrade:
 	return get_rand_upgrade()

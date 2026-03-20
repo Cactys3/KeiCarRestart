@@ -49,11 +49,21 @@ func carryout_special():
 	carryout_money()
 func carryout_new_upgrade():
 	pass
-## The meaty function that decides what the level up option will be 
-static func get_random_level_up_option(other_options: Array[LevelUpData]) -> LevelUpData:
-	var game_man: GameManager = GameManager.instance
-	
-	return get_upgrade_upgrade(other_options)
+## Returns 'count' of LevelUpData filled with a random valid upgrade
+static func get_level_up_options(count: int) -> Array[LevelUpData]:
+	var array: Array[LevelUpData] = []
+	var i: int = count
+	while count > 0:
+		count -= 1
+		var upgrade: Upgrade
+		## Get the upgrade
+		upgrade = GameManager.instance.get_all_valid_upgrades().pick_random().make_upgrade()
+		var level_up: LevelUpData = LevelUpData.new()
+		level_up.set_equipment(upgrade, LevelUpData.types.upgrade)
+		array.append(level_up)
+	return array 
+
+## Old
 static func get_upgrade_upgrade(other_upgrades: Array[LevelUpData]) -> LevelUpData:
 	var avoided_items: Array[Equipment] = []
 	for upgrade in other_upgrades:
@@ -71,6 +81,7 @@ static func get_upgrade_upgrade(other_upgrades: Array[LevelUpData]) -> LevelUpDa
 		item = ShopManager.get_rand_upgrade()
 	levelupdata.set_equipment(item, LevelUpData.types.upgrade)
 	return levelupdata
+
 ## Returns RichText colorized based on rarity
 func colorize(text: String, rarity: Equipment.item_rarities) -> String:
 	var textcolor

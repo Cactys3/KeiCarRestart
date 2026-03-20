@@ -1,13 +1,11 @@
 extends Equipment
 ## An upgrade can be: an active weapon that damages enemies, a global stat buff, a passive to weapons, etc
 class_name Upgrade
-
-@export var upgrade_name: String
-@export var upgrade_description: String
-
-## Override
+## Data about the prereqs etc, maybe not needed
+var data: UpgradeData
+## Enables the functionality of this upgrade
 func activate(new_player: Character):
 	super(new_player)
-## Override
+## Disables the functionality of this upgrade
 func deactivate():
 	super()

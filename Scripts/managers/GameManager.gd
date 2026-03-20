@@ -228,21 +228,14 @@ func create_level_up_instance():
 	var level_pause: UIManager.PauseItem = UIManager.PauseItem.new(Callable(), UIManager.PauseItem.PauseTypes.ui, false, false, ui_man.level_up_parent)
 	ui_man.pause(level_pause)
 	## get 3 random things w/ variable references
-	var array: Array[LevelUpData] = []
-	var one = LevelUpData.get_random_level_up_option(array)
-	array.append(one)
-	var two = LevelUpData.get_random_level_up_option(array)
-	array.append(two)
-	var three = LevelUpData.get_random_level_up_option(array)
-	array.append(three)
+	var array: Array[LevelUpData] = LevelUpData.get_level_up_options(3)
 	## setup LevelUpInstance with those random things and their details (color, name, etc)
 	var level_instance = LEVEL_UP_UI.instantiate()
 	level_instance.set_pause(level_pause)
 	#level_instance.position = Vector2(0, 0)
 	ui_man.level_up_parent.add_child(level_instance)
-	level_instance.add_choice(one)
-	level_instance.add_choice(two)
-	level_instance.add_choice(three)
+	for option in array:
+		level_instance.add_choice(option)
 	var choice: LevelUpData = await level_instance.get_choice()
 	choice.carryout_level_up()
 	level_instance.free_instance()
@@ -292,3 +285,10 @@ func get_random_equipped_upgrade_except(avoided_upgrades: Array[Upgrade]) -> Upg
 		if !avoided_upgrades.has(upgrade):
 			return upgrade
 	return null
+## Returns all upgrades that are valid to obtain given prereqs
+func get_all_valid_upgrades() -> Array[UpgradeData]:
+	var array: Array[UpgradeData]
+	for upgrade in ShopManager.upgrade_list.values():
+		if upgrade.can_obtain():
+			array.append(upgrade)
+	return array
