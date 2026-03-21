@@ -67,7 +67,7 @@ var total_stopwatch: float = 0
 var enemy_stopwatch: float = 0
 var enemy_cooldown: float = 1
 var spawning_phase: int = -1
-var event_arr: Array
+var active_events: Array[Event]
 var map_height: int = 10 ## this many chunks tall
 var map_width: int = 10 ## this many chunks wide
 const spawn_area_size: float = 650
@@ -323,20 +323,50 @@ func spawn_bosses(pos: Vector2):
 				spawn_boss(boss.scene, random_position(pos))
 			for i in boss.get_spawns(enemies_killed, total_stopwatch):
 				spawn_boss(boss.scene, random_position(pos))
-func load_event(scene: PackedScene, chunk: Vector2):
-	var new_event = scene.instantiate()
-	event_background_parent.add_child(new_event)
-	## Get random point inside the chunk and spawn event
+func load_event(scene: PackedScene, chunk: Vector2) -> bool:
+	## Grab event instance
+	var new_event: Event = scene.instantiate()
+	## Calculate chunk and event values
 	var center := Vector2(chunk.x * chunk_x, chunk.y * chunk_y)
 	var half := Vector2(chunk_x, chunk_y) / 2.0
-	var new_min := center - half
+	var new_min := center - half 
 	var new_max := center + half
-	new_event.position = Vector2(randf_range(new_min.x, new_max.x), randf_range(new_min.y, new_max.y))
-	event_arr.append(new_event)
-	if new_event.has_method("setup"):
-		new_event.setup(total_stopwatch, level)
-	else:
-		print("event doesn't have setup " + new_event.name)
+	var half_size: Vector2 = new_event.event_size / 2.0
+	var place_min: Vector2 = new_min + half_size
+	var place_max: Vector2 = new_max - half_size
+	#print("load_event: center=", center, " half=", half, " place_min=", place_min, " place_max=", place_max, " half_size=", half_size)
+	# Check if event is too large for chunk, just return true and place it in the center
+	if place_min.x > place_max.x || place_min.y > place_max.y:
+		#print("load_event: event too large for chunk, placing at center")
+		new_event.position = center - new_event.event_center_offset
+		event_background_parent.add_child(new_event)
+		new_event.setup(total_stopwatch, level, chunk)
+		active_events.append(new_event)
+		return true
+	## TODO: Mabye add a system where it checks all valid positions it found and checks which one is furthest from other events and uses that one
+	## Idk how intensive 10 attempts is
+	var attempts: int = 10
+	for i in attempts:
+		var candidate := Vector2(randf_range(place_min.x, place_max.x), randf_range(place_min.y, place_max.y))
+		var candidate_rect := Rect2(candidate + new_event.event_center_offset - half_size, new_event.event_size)
+		#print("load_event: attempt ", i, " candidate=", candidate, " candidate_rect=", candidate_rect)
+		var overlaps := false
+		for event in active_events:
+			var existing_rect := Rect2(event.position + event.event_center_offset - event.event_size / 2.0, event.event_size)
+			#print("load_event: checking against event=", event.name, " existing_rect=", existing_rect, " overlaps=", candidate_rect.intersects(existing_rect))
+			if candidate_rect.intersects(existing_rect):
+				overlaps = true
+				break
+		if !overlaps:
+			#print("load_event: placed at candidate=", candidate)
+			new_event.position = candidate
+			event_background_parent.add_child(new_event)
+			new_event.setup(total_stopwatch, level, chunk)
+			active_events.append(new_event)
+			return true
+	#print("load_event: failed to place after ", attempts, " attempts")
+	new_event.queue_free()
+	return false
 func draw_new_visual():
 	chunk_rect.color = Color(0, 0, 0, 0)
 	chunk_rect = ColorRect.new()
@@ -577,10 +607,13 @@ class EventSpawn:
 	var spawn_count: int = 0
 	## max number of events per tile
 	var max_per_tile: int = 1
+	## Width and Height of the event (so events don't spawn inside each other)
+	var event_size: Vector2
 	var ready: bool = false
-	func _init(new_name: String, new_scene: PackedScene, new_spawn_chance: float, new_max_spawns: int, new_max_per_tile: int) -> void:
+	func _init(new_name: String, new_scene: PackedScene, new_size: Vector2, new_spawn_chance: float, new_max_spawns: int, new_max_per_tile: int) -> void:
 		name = new_name
 		scene = new_scene
+		event_size = new_size
 		spawn_chance = new_spawn_chance
 		max_spawns = new_max_spawns
 		max_per_tile = new_max_per_tile

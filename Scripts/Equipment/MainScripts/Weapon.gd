@@ -151,8 +151,9 @@ func activate(new_player: Character):
 	super(new_player)
 	if get_parent():
 		reparent(new_player)
+		## This code doesn't work (make sprite very glitchy) for some chud reason so I can't have the weapon on a different parent reparent(GameManager.instance.weapon_parent)
 	else:
-		new_player.add_child(self)
+		new_player.add_child(self)#GameManager.instance.weapon_parent.add_child(self) 
 ## Override
 func deactivate():
 	super()
@@ -160,6 +161,8 @@ func deactivate():
 		get_parent().remove_child(self)
 func _ready() -> void:
 	super()
+	z_index = 1
+	z_as_relative = false
 	between_attacks_cooldown_timer = 1000
 	between_projectiles_cooldown_timer = 1000
 	projectiles_left_in_ammo = ammo_stat
@@ -167,6 +170,7 @@ func _ready() -> void:
 	add_child(stopwatch)
 ## Calls Process_Cooldown
 func _process(delta: float) -> void:
+	global_position = player.global_position
 	if !QueuedAttacks.is_empty():
 		for event in QueuedAttacks:
 			QueuedAttacks.erase(event)

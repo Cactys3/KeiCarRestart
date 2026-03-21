@@ -27,7 +27,7 @@ func _ready() -> void:
 	## Setups Phases
 	#phases.append(SpawningPhase.new("", 60, phase_one))
 	## Setup Basic Events
-	events.append(EventSpawn.new("Evil Tree", EVIL_TREE, 0.5, -1, 20))
+	events.append(EventSpawn.new("Evil Tree", EVIL_TREE, Vector2(30, 44), 0.5, -1, 10))
 	## Setup Interactable Events
 	#events.append(EventSpawn.new("", , 0.3, -1, 3))
 	## Setup Main Events
