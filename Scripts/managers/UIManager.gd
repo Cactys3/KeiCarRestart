@@ -24,6 +24,7 @@ var tutorial_or_stats: bool = true
 @export var misc_parent: Control
 @export var relative_to_game_parent: Control
 @export var top_level_labels_parent: Control
+@export var upgrade_parent: Control
 ## Inventories
 ## Other
 @export var hud: HUD
@@ -198,7 +199,10 @@ func add_weapon(weapon: Weapon):
 	pass
 ## Adds the upgrade to the UI which displays upgrades
 func add_upgrade(upgrade: Upgrade):
-	pass
+	## Basic adding image of thing
+	var image: Sprite2D = Sprite2D.new()
+	image.texture = upgrade.item_image
+	upgrade_parent.add_child(image)
 
 func _on_tutorial_or_stats_pressed() -> void:
 	tutorial_or_stats = !tutorial_or_stats

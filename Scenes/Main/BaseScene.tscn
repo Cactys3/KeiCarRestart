@@ -445,7 +445,6 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="TabMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=879721707]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -453,6 +452,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="Label" type="Label" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=720499549]
+layout_mode = 0
+offset_left = 92.44444
+offset_top = 156.44444
+offset_right = 397.33337
+offset_bottom = 207.44444
+theme_override_font_sizes/font_size = 64
+text = "Upgrades!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeParent" type="GridContainer" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=584677558]
+layout_mode = 0
+offset_left = 80.888885
+offset_top = 214.2222
+offset_right = 470.22223
+offset_bottom = 1002.6666
 
 [node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1841136718]
 visible = false
