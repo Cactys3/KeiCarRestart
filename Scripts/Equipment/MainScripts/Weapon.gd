@@ -1,93 +1,6 @@
 extends Equipment
 ## Weapons Equippable by the player
 class_name Weapon
-var hp_stat:
-	get():
-		return get_stat(GlobalStats.HP)
-var stance_stat:
-	get():
-		return get_stat(GlobalStats.STANCE)
-var movespeed_stat:
-	get():
-		return get_stat(GlobalStats.MOVESPEED)
-var xp_stat:
-	get():
-		return get_stat(GlobalStats.XP)
-var mogul_stat:
-	get():
-		return get_stat(GlobalStats.MOGUL)
-var luck_stat:
-	get():
-		return get_stat(GlobalStats.LUCK)
-var damage_stat:
-	get():
-		return get_stat(GlobalStats.DAMAGE)
-var range_stat:
-	get():
-		return get_stat(GlobalStats.RANGE)
-var weight_stat:
-	get():
-		return get_stat(GlobalStats.WEIGHT)
-var attackcooldown_stat:
-	get():
-		return get_stat(GlobalStats.ATTACKCOOLDOWN)
-var RELOADTIME_stat:
-	get():
-		return get_stat(GlobalStats.RELOADTIME)
-var velocity_stat:
-	get():
-		return get_stat(GlobalStats.VELOCITY)
-var ammo_stat:
-	get():
-		return get_stat(GlobalStats.AMMO)
-var count_stat:
-	get():
-		return get_stat(GlobalStats.COUNT)
-var piercing_stat:
-	get():
-		return get_stat(GlobalStats.PIERCING)
-var duration_stat:
-	get():
-		return get_stat(GlobalStats.DURATION)
-var buildup_stat:
-	get():
-		return get_stat(GlobalStats.BUILDUP)
-var size_stat:
-	get():
-		return get_stat(GlobalStats.SIZE)
-var critchance_stat:
-	get():
-		return get_stat(GlobalStats.CRITCHANCE)
-var critdamage_stat:
-	get():
-		return get_stat(GlobalStats.CRITDAMAGE)
-var ghostly_stat:
-	get():
-		return get_stat(GlobalStats.GHOSTLY)
-var regen_stat:
-	get():
-		return get_stat(GlobalStats.REGEN)
-var magnetize_stat:
-	get():
-		return get_stat(GlobalStats.MAGNETIZE)
-var lifesteal_stat:
-	get():
-		return get_stat(GlobalStats.LIFESTEAL)
-var shield_stat:
-	get():
-		return get_stat(GlobalStats.SHIELD)
-var difficulty_stat:
-	get():
-		return get_stat(GlobalStats.DIFFICULTY)
-var revies_stat:
-	get():
-		return get_stat(GlobalStats.REVIES)
-var thorns_stat:
-	get():
-		return get_stat(GlobalStats.THORNS)
-var inaccuracy_stat:
-	get():
-		return get_stat(GlobalStats.INACCURACY)
 @export var anim: AnimatedSprite2D
 ## Does this animation flip when facing left vs non-flipped when facing right
 @export var projectile: PackedScene
@@ -146,6 +59,7 @@ var attacking: bool = false:
 var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used?, to create attack need to use stats which defeats point of queue
 var while_attacking_locked_rotation: float
 var while_attacking_locked_orbit: float
+
 ## Override
 func activate(new_player: Character):
 	super(new_player)
@@ -223,14 +137,13 @@ func attack():
 		attacking = false
 ## Create any projectiles but also do any melee attacks
 func create_projectile():
-	## Randomize Direction Based on inaccuracy
 	projectiles_left_in_ammo -= 1
-	var direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
-	var proj: Projectile = init_projectile(global_position, direction)
-## Create any projectiles but also do any melee attacks, also do last ammo attacks
+	var proj: Projectile = init_projectile(global_position, get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat))
+	game_man.WeaponFired.emit(self, proj)
+## Create any projectiles but also do any melee attacks, also do last ammo attacks/reloading stuff
 func create_last_projectile():
-	# remember: projectiles_left_in_ammo
 	create_projectile()
+	game_man.WeaponReloaded.emit(self)
 ## Previous implementation of Attack(), Create and setup all the projectiles for an attack from this Weapon
 func create_all_projectiles():
 	## Create the first bullet by default
@@ -275,7 +188,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 		return null
 	var new_bullet: Projectile = projectile.instantiate()
 	new_bullet.visible = false
-	new_bullet.setup_projectile(null, new_direction, homing, homing_speed, false, piercing_stat, duration_stat + 5, damage_stat, velocity_stat, buildup_stat, weight_stat, size_stat, projectile_acceleration)
+	new_bullet.setup_projectile(self, null, new_direction, homing, homing_speed, false, 0) # old method extension: , piercing_stat, duration_stat + 5, damage_stat, velocity_stat, buildup_stat, weight_stat, size_stat, projectile_acceleration)
 	if (AimType == AimTypes.Spinning): #handle aim types special cases
 		player.add_child(new_bullet)
 	else:
@@ -293,15 +206,10 @@ func get_cooldown_between_projectiles() -> float:
 ## Calculate and return cooldown between attacks
 func get_cooldown_between_attacks() -> float:
 	## Minimum: atttack 0.1 times per X
-	return RELOADTIME_stat
-## Send altered values because it's a melee hitbox
-func make_attack() -> Attack:
-	var knockback: float = weight_stat * damage_stat ## TODO: Stat: knockback
-	## MeleeDamageFactor goes inside crit calculation
-	var damage: float = GlobalStats.calculate_damage(damage_stat * MeleeDamageFactor, critchance_stat, critdamage_stat) ## TODO: Stat: damage, critchance, critdamage
-	var new_attack: Attack = Attack.new(damage, player.global_position, buildup_stat, StatusEffects.new(), self, 0, 0, knockback)
-	 #TODO: determine how to calculate knockback
-	return new_attack
+	return reloadtime_stat
+## Calculate and return an attack with melee damage offset
+func make_melee_attack() -> Attack:
+	return make_attack(MeleeDamageFactor)
 func get_inaccurate_direction(direction: Vector2, given_inaccuracy: float) -> Vector2:
 	if given_inaccuracy == 0:
 		return direction
@@ -337,8 +245,8 @@ func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #T
 	weapon_count = _max #TODO: Only Static Slot (cardinal direction) weapons should add to this thing
 ## Do anything that needs to be done to utilize a stat change
 func apply_stats() -> void: 
-	var size: float = GlobalStats.calculate_scale(size_stat)
-	scale = Vector2(size, size)
+	var _size: float = GlobalStats.calculate_scale(size_stat)
+	scale = Vector2(_size, _size)
 ## Process Aiming Methods
 ## Aim at any enemy in range, else aim at mouse, rotating around player towards mouse
 func ProcessDynamicAtMouse(delta: float) -> void:

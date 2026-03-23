@@ -143,16 +143,16 @@ func create_all_projectiles():
 	play_anim(Idle)
 	set_anim_speed(IdleFrameRate)
 	#await create_projectiles()
-func play_anim(anim: String) -> void:
-	right_sprite.play(anim)
-	left_sprite.play(anim)
+func play_anim(animation: String) -> void:
+	right_sprite.play(animation)
+	left_sprite.play(animation)
 func set_anim_speed(speed: float) -> void:
 	right_sprite.speed_scale = speed
 	left_sprite.speed_scale = speed
 func _hit_enemy(enemy: Node2D) -> void:
 	if enemy.is_in_group("enemy"):
 		enemy = enemy as Enemy
-		var attack :Attack = make_attack()
-		enemy.damage(attack)
+		var new_attack :Attack = make_melee_attack()
+		enemy.damage(new_attack)
 func get_punch_speed() -> float:
-	return (PunchFrameRate + RELOADTIME_stat) - (velocity_stat / 200)
+	return (PunchFrameRate + reloadtime_stat) - (velocity_stat / 200)

@@ -2,6 +2,7 @@ extends Node2D
 class_name Equipment
 
 ## Stats
+@export_category("Stats")
 @export var hp: float = 0.0
 @export var stance: float = 0.0
 @export var movespeed: float = 0.0
@@ -31,8 +32,82 @@ class_name Equipment
 @export var revies: float = 0.0
 @export var thorns: float = 0.0
 @export var inaccuracy: float = 0.0
+@export_category("Status Effects")
+@export var status: StatusEffects = StatusEffects.new()
+@export_category("Information")
+@export_placeholder("Name Go Here") var item_name: String = "unset"
+@export_multiline var item_description: String = "default description"
+@export var item_type: item_types
+@export var item_color: Color = Color.DARK_SLATE_BLUE
+@export var border_color: Color = Color.WHITE
+@export var item_image: Texture2D 
+@export var item_rarity: item_rarities
+var game_man: GameManager:
+	get():
+		return GameManager.instance
+## Data Fields
+var player: Character
+## Generic Fields (always active)
+## is this weapon or upgrade equipped
+var active: bool = false
+## unset, upgrade, projectile, weapon
+enum item_types{unset, upgrade, projectile, weapon}
+## unset, common, rare, epic, exclusive
+enum item_rarities {unset, common, rare, epic, exclusive}
+## Rarity Colors
+const DEFAULT_COLOR: Color = Color.GRAY
+const COMMON_COLOR: Color = Color.LIME_GREEN
+const RARE_COLOR: Color = Color.ROYAL_BLUE
+const EPIC_COLOR: Color = Color.MEDIUM_PURPLE
+const EXCLUSIVE_COLOR: Color = Color.ORANGE_RED
 func _ready() -> void:
 	flash()
+## Flashing stuff
+func flash():
+	visible = false
+	await get_tree().create_timer(0.1).timeout
+	visible = true
+## Returns rarity for the given rarity_types index
+static func get_rarity(i: int) -> String:
+	match(i):
+		item_rarities.common:
+			return "Common"
+		item_rarities.rare:
+			return "Rare"
+		item_rarities.epic:
+			return "Epic"
+		item_rarities.exclusive:
+			return "Exclusive"
+		item_rarities.unset:
+			return "unset"
+	return "Rarity: " + str(i)
+## Returns type for the given item_types index
+static func get_type(i: int) -> String:
+	match(i):
+		item_types.unset:
+			return "unset"
+		item_types.projectile:
+			return "projectile"
+		item_types.weapon:
+			return "weapon"
+		item_types.upgrade:
+			return "upgrade"
+	return "Type: " + str(i)
+## enable and apply the functionality of this Equipment
+func activate(new_player: Character):
+	player = new_player
+	active = true
+## disable and halt the functionality of this Equipment
+func deactivate():
+	active = false
+## Calculate and return an attack with damage multiplier
+func make_attack(damage_multiplier: float) -> Attack:
+	var knockback: float = weight_stat * damage_stat * damage_multiplier
+	## MeleeDamageFactor goes inside crit calculation
+	var attack_damage: float = GlobalStats.calculate_damage(damage_stat * damage_multiplier, critchance_stat, critdamage_stat)
+	var new_attack: Attack = Attack.new(attack_damage, player.global_position, buildup_stat, status, self, 0, 0, knockback)
+	return new_attack
+## Returns self's stat + GlobalStats' stat
 func get_stat(stat: String) -> float:
 	## other implementations are hard because variables may be accessed before they are ready or smth i forget.
 	if stat == GlobalStats.HP:
@@ -95,65 +170,91 @@ func get_stat(stat: String) -> float:
 		return (GlobalStats.get_base_stat(GlobalStats.INACCURACY) + inaccuracy) * GlobalStats.get_factor_stat(GlobalStats.INACCURACY)
 	printerr("Stat not found: ", stat)
 	return -999
-## Flashing stuff
-func flash():
-	visible = false
-	await get_tree().create_timer(0.1).timeout
-	visible = true
-
-## Data Fields
-var player: Character
-## Generic Fields (always active)
-@export_placeholder("Name Go Here") var item_name: String = "unset"
-@export_multiline var item_description: String = "default description"
-@export var item_type: item_types
-@export var item_color: Color = Color.DARK_SLATE_BLUE
-@export var border_color: Color = Color.WHITE
-@export var item_image: Texture2D 
-@export var item_rarity: item_rarities
-## is this weapon or upgrade equipped
-var active: bool = false
-## unset, upgrade, projectile, weapon
-enum item_types{unset, upgrade, projectile, weapon}
-## unset, common, rare, epic, exclusive
-enum item_rarities {unset, common, rare, epic, exclusive}
-## Rarity Colors
-const DEFAULT_COLOR: Color = Color.GRAY
-const COMMON_COLOR: Color = Color.LIME_GREEN
-const RARE_COLOR: Color = Color.ROYAL_BLUE
-const EPIC_COLOR: Color = Color.MEDIUM_PURPLE
-const EXCLUSIVE_COLOR: Color = Color.ORANGE_RED
-## Returns rarity for the given rarity_types index
-static func get_rarity(i: int) -> String:
-	match(i):
-		item_rarities.common:
-			return "Common"
-		item_rarities.rare:
-			return "Rare"
-		item_rarities.epic:
-			return "Epic"
-		item_rarities.exclusive:
-			return "Exclusive"
-		item_rarities.unset:
-			return "unset"
-	return "Rarity: " + str(i)
-## Returns type for the given item_types index
-static func get_type(i: int) -> String:
-	match(i):
-		item_types.unset:
-			return "unset"
-		item_types.projectile:
-			return "projectile"
-		item_types.weapon:
-			return "weapon"
-		item_types.upgrade:
-			return "upgrade"
-	return "Type: " + str(i)
-
-## enable and apply the functionality of this Equipment
-func activate(new_player: Character):
-	player = new_player
-	active = true
-## disable and halt the functionality of this Equipment
-func deactivate():
-	active = false
+# stat variables that call get_stat() method
+var hp_stat:
+	get():
+		return get_stat(GlobalStats.HP)
+var stance_stat:
+	get():
+		return get_stat(GlobalStats.STANCE)
+var movespeed_stat:
+	get():
+		return get_stat(GlobalStats.MOVESPEED)
+var xp_stat:
+	get():
+		return get_stat(GlobalStats.XP)
+var mogul_stat:
+	get():
+		return get_stat(GlobalStats.MOGUL)
+var luck_stat:
+	get():
+		return get_stat(GlobalStats.LUCK)
+var damage_stat:
+	get():
+		return get_stat(GlobalStats.DAMAGE)
+var range_stat:
+	get():
+		return get_stat(GlobalStats.RANGE)
+var weight_stat:
+	get():
+		return get_stat(GlobalStats.WEIGHT)
+var attackcooldown_stat:
+	get():
+		return get_stat(GlobalStats.ATTACKCOOLDOWN)
+var reloadtime_stat:
+	get():
+		return get_stat(GlobalStats.RELOADTIME)
+var velocity_stat:
+	get():
+		return get_stat(GlobalStats.VELOCITY)
+var ammo_stat:
+	get():
+		return get_stat(GlobalStats.AMMO)
+var count_stat:
+	get():
+		return get_stat(GlobalStats.COUNT)
+var piercing_stat:
+	get():
+		return get_stat(GlobalStats.PIERCING)
+var duration_stat:
+	get():
+		return get_stat(GlobalStats.DURATION)
+var buildup_stat:
+	get():
+		return get_stat(GlobalStats.BUILDUP)
+var size_stat:
+	get():
+		return get_stat(GlobalStats.SIZE)
+var critchance_stat:
+	get():
+		return get_stat(GlobalStats.CRITCHANCE)
+var critdamage_stat:
+	get():
+		return get_stat(GlobalStats.CRITDAMAGE)
+var ghostly_stat:
+	get():
+		return get_stat(GlobalStats.GHOSTLY)
+var regen_stat:
+	get():
+		return get_stat(GlobalStats.REGEN)
+var magnetize_stat:
+	get():
+		return get_stat(GlobalStats.MAGNETIZE)
+var lifesteal_stat:
+	get():
+		return get_stat(GlobalStats.LIFESTEAL)
+var shield_stat:
+	get():
+		return get_stat(GlobalStats.SHIELD)
+var difficulty_stat:
+	get():
+		return get_stat(GlobalStats.DIFFICULTY)
+var revies_stat:
+	get():
+		return get_stat(GlobalStats.REVIES)
+var thorns_stat:
+	get():
+		return get_stat(GlobalStats.THORNS)
+var inaccuracy_stat:
+	get():
+		return get_stat(GlobalStats.INACCURACY)

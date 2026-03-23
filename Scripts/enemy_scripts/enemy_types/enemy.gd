@@ -1,6 +1,5 @@
 extends RigidBody2D
 class_name Enemy
-
 @export_category("Enemy Stats")
 @export var multiply_hp_by_minute: bool = true
 @export var melee_attacks: bool = true
@@ -33,7 +32,7 @@ class_name Enemy
 @export var base_lifetime: float = 15
 @export var base_piercing: float = 0
 @export_category("Status Effects")
-# enemy's attacking status buildups
+# enemy's attacking status buildups (for if we charm enemies? to apply status on each other?)
 @export var status: StatusEffects = StatusEffects.new()
 # enemy's attacking buildup value
 @export var buildup: float = 1
@@ -88,13 +87,11 @@ var applied_wet: int = 0
 var frost_damage_reduction: float = 0
 var shock_defense_reduction: float = 0
 var wet_movement_reduction: float = 0
-
 @export_category("Misc")
 @export var turns_towards_movement: bool = false
 @export var anim: AnimatedSprite2D 
 const XP = preload("res://Scenes/Misc/xp_blip.tscn")
 const ITEM_DROP = preload("uid://d3v2pdpqpmvpe")
-
 var player: Character
 var attack_on_cd: bool = true
 var stun_time_left: float = 0
@@ -204,9 +201,8 @@ func _process(delta: float) -> void:
 				GameManager.instance.projectile_parent.add_child(proj)
 				proj.modulate = self.modulate
 				proj.global_position = global_position
-				proj.setup_enemy_projectile(self)
 				## 1 damage at minimum
-				proj.setup_projectile(player, global_position - player.global_position, homing, 20, false, curr_piercing, curr_lifetime, max(1, curr_damage + frost_damage_reduction), curr_speed, 1, 1, scale.length(), curr_acceleration)
+				proj.setup_enemy(self, player, global_position - player.global_position, homing, 20, false, 0) #curr_piercing, curr_lifetime, max(1, curr_damage + frost_damage_reduction), curr_speed, 1, 1, scale.length(), curr_acceleration)
 func _physics_process(_delta: float) -> void:
 	if !ImReady:
 		return

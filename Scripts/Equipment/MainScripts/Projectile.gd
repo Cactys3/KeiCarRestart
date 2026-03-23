@@ -1,6 +1,7 @@
 extends Area2D
 class_name Projectile
 ## Given Variables
+var parent: Equipment
 var target: Node2D
 var homing: bool
 var homing_speed: float
@@ -26,7 +27,7 @@ var collision_counter: float = 0
 var dead: bool = false
 signal died(pos: Vector2, cloned: bool)
 @export var can_spawn_multiple: bool = true
-@export var status: StatusEffects
+var status: StatusEffects
 
 func _init() -> void:
 	visible = false
@@ -67,22 +68,24 @@ func process_movement_homing(delta: float):
 	if (stopwatch > lifetime) || (collision_counter > piercing):
 		die()
 ## Setup values generic for all BasicProjectile
-func setup_projectile(new_target: Node2D, enemy_direction:Vector2, is_homing: bool, new_homing_speed: float, new_is_clone: bool, new_piercing: float, new_lifetime: float, new_damage: float, new_velocity: float, new_buildup: float, new_weight: float, new_size: float, new_acceleration: float):
-	size = new_size
+func setup_projectile(new_parent: Equipment, new_target: Node2D, enemy_direction:Vector2, is_homing: bool, new_homing_speed: float, new_is_clone: bool, new_acceleration: float): #, new_piercing: float, new_lifetime: float, new_damage: float, new_velocity: float, new_buildup: float, new_weight: float, new_size: float):
+	parent = new_parent
 	self.scale = Vector2(size, size) #TODO: size calculation
 	target = new_target
 	initial_direction = enemy_direction.normalized()
 	direction = enemy_direction.normalized()
 	homing = is_homing
 	homing_speed = new_homing_speed
-	piercing = new_piercing
-	lifetime = new_lifetime
-	damage = new_damage
-	velocity = new_velocity
-	buildup = new_buildup
-	weight = new_weight
 	is_clone = new_is_clone
 	acceleration = new_acceleration
+	if parent:
+		size = parent.size_stat#size = new_size
+		piercing = parent.piercing_stat#piercing = new_piercing
+		lifetime = parent.duration_stat#lifetime = new_lifetime
+		damage = parent.damage_stat#damage = new_damage
+		velocity = parent.velocity_stat#velocity = new_velocity
+		buildup = parent.buildup_stat#buildup = new_buildup
+		weight = parent.weight_stat#weight = new_weight
 ## Setup values specific for clones
 func setup_clone(damage_offset: float):
 	clone_offset = damage_offset
@@ -100,8 +103,15 @@ func _on_body_entered(body: Node2D) -> void:
 		AttackedObjects.append(body)
 
 func attack_body(body: Node2D, clone: bool) -> void:
-	var new_attack = make_attack(clone)
-	body.damage(new_attack)
+	if is_instance_valid(parent):
+		if is_clone:
+			parent.make_attack(clone_offset)
+		else:
+			parent.make_attack(1)
+	else:
+		var new_attack = make_attack(clone)
+		if new_attack:
+			body.damage(new_attack)
 
 func make_attack(clone: bool) -> Attack:
 	var new_attack: Attack

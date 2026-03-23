@@ -108,7 +108,6 @@ signal set_xp(value: float)
 signal set_money(value: float)
 signal set_level(value: float)
 signal set_hp(value: float)
-#signal add_upgrade_inventory(upgrade: Upgrade)
 ## For Upgrade Mechanics
 signal EnemyDamaged(enemy: Enemy, attack: Attack)
 signal EnemyKilled(enemy: Enemy, attack: Attack)
@@ -116,6 +115,8 @@ signal BossKilled(boss: Boss, attack: Attack)
 signal PlayerDamaged(player: Character, attack: Attack)
 signal PlayerRevived(player: Character)
 signal PlayerKilled(player: Character, attack: Attack)
+signal WeaponReloaded(weapon: Weapon)
+signal WeaponFired(weapon: Weapon, projectile: Projectile)
 signal RoundEnded(round_number: int)
 
 func setup(new_player: Character, starting_weapon: String):
