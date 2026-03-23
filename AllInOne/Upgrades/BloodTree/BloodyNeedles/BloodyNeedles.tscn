@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c8tnjpvdsybli"]
+
+[ext_resource type="Script" uid="uid://kpr8jchtkndd" path="res://AllInOne/Upgrades/BloodTree/BloodyNeedles/BloodyNeedles.gd" id="1_x101a"]
+
+[node name="BloodyNeedles" type="Node2D" unique_id=1005690770]
+script = ExtResource("1_x101a")

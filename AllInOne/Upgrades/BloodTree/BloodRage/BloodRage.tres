@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://ug72dev0jq2d"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_gs52r"]
+[ext_resource type="PackedScene" uid="uid://mhd4la5xj6fc" path="res://AllInOne/Upgrades/BloodTree/BloodRage/BloodRage.tscn" id="2_sfjtf"]
+
+[resource]
+script = ExtResource("1_gs52r")
+scene = ExtResource("2_sfjtf")
+upgrade_name = "Blood Rage"
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

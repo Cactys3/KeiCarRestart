@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bcfc0hdhceqpc"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_541k6"]
+[ext_resource type="PackedScene" uid="uid://2kmgh5r2qssr" path="res://AllInOne/Upgrades/BloodTree/BloodMechanic/BloodMechanic.tscn" id="2_r6uq6"]
+
+[resource]
+script = ExtResource("1_541k6")
+scene = ExtResource("2_r6uq6")
+upgrade_name = "Blood Mechanic"
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

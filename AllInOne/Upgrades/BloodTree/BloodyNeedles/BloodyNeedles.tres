@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://jxh1upa5f50q"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_rhixf"]
+[ext_resource type="PackedScene" uid="uid://c8tnjpvdsybli" path="res://AllInOne/Upgrades/BloodTree/BloodyNeedles/BloodyNeedles.tscn" id="2_6u0fv"]
+
+[resource]
+script = ExtResource("1_rhixf")
+scene = ExtResource("2_6u0fv")
+upgrade_name = "Bloody Needles"
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

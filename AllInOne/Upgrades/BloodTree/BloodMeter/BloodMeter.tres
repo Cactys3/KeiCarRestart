@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://1xwwnlfmp6et"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_cfb4i"]
+[ext_resource type="PackedScene" uid="uid://b0e0hsmdq668" path="res://AllInOne/Upgrades/BloodTree/BloodMeter/BloodMeter.tscn" id="2_to68k"]
+
+[resource]
+script = ExtResource("1_cfb4i")
+scene = ExtResource("2_to68k")
+upgrade_name = "Blood Meter"
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

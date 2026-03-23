@@ -3,6 +3,9 @@ class_name UpgradeData
 @export var scene: PackedScene
 @export var upgrade_name: String
 @export var upgrade_description: String
+@export var upgrade_color: Color = Color.DARK_SLATE_BLUE
+@export var upgrade_image: Texture2D 
+@export var upgrade_rarity: Upgrade.UpgradeRarities = Upgrade.UpgradeRarities.unset
 @export var prerequisite_upgrades: Array[UpgradeData]
 @export var decedent_upgrades: Array[UpgradeData]
 ## Returns a list with the data of all prerequisite required upgrades to obtain this upgrade
@@ -19,5 +22,5 @@ func can_obtain(equipped_upgrades: Array[UpgradeData]) -> bool:
 			copy.erase(upgrade)
 	return copy.is_empty()
 ## Makes and returns the associated Upgrade scene for this data
-func make_upgrade() -> Upgrade:
+func get_upgrade() -> Upgrade:
 	return scene.instantiate()

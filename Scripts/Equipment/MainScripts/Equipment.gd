@@ -41,7 +41,6 @@ class_name Equipment
 @export var item_color: Color = Color.DARK_SLATE_BLUE
 @export var border_color: Color = Color.WHITE
 @export var item_image: Texture2D 
-@export var item_rarity: item_rarities
 var game_man: GameManager:
 	get():
 		return GameManager.instance
@@ -52,14 +51,6 @@ var player: Character
 var active: bool = false
 ## unset, upgrade, projectile, weapon
 enum item_types{unset, upgrade, projectile, weapon}
-## unset, common, rare, epic, exclusive
-enum item_rarities {unset, common, rare, epic, exclusive}
-## Rarity Colors
-const DEFAULT_COLOR: Color = Color.GRAY
-const COMMON_COLOR: Color = Color.LIME_GREEN
-const RARE_COLOR: Color = Color.ROYAL_BLUE
-const EPIC_COLOR: Color = Color.MEDIUM_PURPLE
-const EXCLUSIVE_COLOR: Color = Color.ORANGE_RED
 func _ready() -> void:
 	flash()
 ## Flashing stuff
@@ -67,20 +58,6 @@ func flash():
 	visible = false
 	await get_tree().create_timer(0.1).timeout
 	visible = true
-## Returns rarity for the given rarity_types index
-static func get_rarity(i: int) -> String:
-	match(i):
-		item_rarities.common:
-			return "Common"
-		item_rarities.rare:
-			return "Rare"
-		item_rarities.epic:
-			return "Epic"
-		item_rarities.exclusive:
-			return "Exclusive"
-		item_rarities.unset:
-			return "unset"
-	return "Rarity: " + str(i)
 ## Returns type for the given item_types index
 static func get_type(i: int) -> String:
 	match(i):
@@ -105,7 +82,12 @@ func make_attack(damage_multiplier: float) -> Attack:
 	var knockback: float = weight_stat * damage_stat * damage_multiplier
 	## MeleeDamageFactor goes inside crit calculation
 	var attack_damage: float = GlobalStats.calculate_damage(damage_stat * damage_multiplier, critchance_stat, critdamage_stat)
-	var new_attack: Attack = Attack.new(attack_damage, player.global_position, buildup_stat, status, self, 0, 0, knockback)
+	var attack_type: Attack.AttackTypes
+	if item_type == item_types.upgrade:
+		attack_type = Attack.AttackTypes.upgrade_melee
+	elif item_type == item_types.weapon:
+		attack_type = Attack.AttackTypes.player_weapon_melee 
+	var new_attack: Attack = Attack.new(attack_type, attack_damage, player.global_position, buildup_stat, status, self, 0, 0, knockback)
 	return new_attack
 ## Returns self's stat + GlobalStats' stat
 func get_stat(stat: String) -> float:

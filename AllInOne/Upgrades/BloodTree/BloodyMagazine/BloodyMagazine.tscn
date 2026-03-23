@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b6hvkhhfvr3jo"]
+
+[ext_resource type="Script" uid="uid://ss0jl8nfe6md" path="res://AllInOne/Upgrades/BloodTree/BloodyMagazine/BloodyMagazine.gd" id="1_ddvj2"]
+
+[node name="BloodyMagazin" type="Node2D" unique_id=377685898]
+script = ExtResource("1_ddvj2")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://br44c2vh2fhtf"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_opth1"]
+[ext_resource type="PackedScene" uid="uid://do5ml7xerejcq" path="res://AllInOne/Upgrades/BloodTree/BloodyQuiver/BloodyQuiver.tscn" id="2_86g43"]
+
+[resource]
+script = ExtResource("1_opth1")
+scene = ExtResource("2_86g43")
+upgrade_name = "Bloody Quiver"
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

@@ -1,3 +1,4 @@
+@tool
 extends Event
 @export var can_damage: bool = false
 @export var cooldown: float = 5
@@ -46,4 +47,4 @@ func setup(new_time: float, new_level: float, new_chunk: Vector2):
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if can_damage && stopwatch >= cooldown:
 		stopwatch = 0
-		GameManager.instance.player.damage(Attack.new(damage, global_position, buildup, status, self, stun, slow, knockback))
+		GameManager.instance.player.damage(Attack.new(Attack.AttackTypes.map_hazard, damage, global_position, buildup, status, self, stun, slow, knockback))

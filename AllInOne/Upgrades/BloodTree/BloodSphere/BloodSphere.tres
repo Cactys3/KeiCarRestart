@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bwjdr1umu6h5k"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_y6ali"]
+[ext_resource type="PackedScene" uid="uid://b5f0nwp2uny4u" path="res://AllInOne/Upgrades/BloodTree/BloodSphere/BloodSphere.tscn" id="2_g8qtv"]
+
+[resource]
+script = ExtResource("1_y6ali")
+scene = ExtResource("2_g8qtv")
+upgrade_name = "Blood Sphere"
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

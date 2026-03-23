@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://2kmgh5r2qssr"]
+
+[ext_resource type="Script" uid="uid://bdf2i0n8pp86j" path="res://AllInOne/Upgrades/BloodTree/BloodMechanic/BloodMechanic.gd" id="1_4k1ff"]
+
+[node name="BloodMechanic" type="Node2D" unique_id=1755728932]
+script = ExtResource("1_4k1ff")

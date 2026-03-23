@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://c5wosxw2gtbd5"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_yx1s1"]
+[ext_resource type="PackedScene" uid="uid://6mvan1c5pqvm" path="res://AllInOne/Upgrades/BloodTree/BloodTurrets/BloodTurrets.tscn" id="2_y1y7t"]
+
+[resource]
+script = ExtResource("1_yx1s1")
+scene = ExtResource("2_y1y7t")
+upgrade_name = "Blood Turrets"
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

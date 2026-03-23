@@ -2,6 +2,23 @@ extends Resource
 class_name Attack
 
 ## General Data
+var attack_type: AttackTypes = AttackTypes.unset
+enum AttackTypes{
+	unset, 
+	player_weapon_projectile, 
+	player_weapon_melee,
+	player_status,
+	## Thorns, etc
+	player_misc,
+	upgrade_projectile,
+	upgrade_turret,
+	upgrade_spawn,
+	upgrade_melee,
+	upgrade_status,
+	enemy_projectile,
+	enemy_melee,
+	enemy_status,
+	map_hazard}
 var damage: float # Damage of attack
 var position: Vector2 # Position of Attack
 var buildup: float # Multiply to Status Buildups
@@ -19,13 +36,8 @@ var stun: float
 var slow: float
 var knockback: float
 
-## it should include a stats instance right? 
-## probably not. 
-## No it should, some enemies will have unique ways of being attacked like taking more dmg based on player's current money. 
-## Maybe they can just get from game manager?
-#var attacker_stats: StatsResource
-
-func _init(dmg: float, pos: Vector2, buildupStat: float, attacker_status: StatusEffects, attackerNode: Node2D, stunValue: float, slowValue: float, knockbackValue: float):
+func _init(type: AttackTypes, dmg: float, pos: Vector2, buildupStat: float, attacker_status: StatusEffects, attackerNode: Node2D, stunValue: float, slowValue: float, knockbackValue: float):
+	attack_type = type
 	damage = dmg
 	position = pos
 	buildup = buildupStat

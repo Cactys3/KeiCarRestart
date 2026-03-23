@@ -3,6 +3,7 @@ class_name Projectile
 ## Given Variables
 var parent: Equipment
 var target: Node2D
+var attack_type: Attack.AttackTypes = Attack.AttackTypes.unset
 var homing: bool
 var homing_speed: float
 var is_clone: bool 
@@ -78,6 +79,12 @@ func setup_projectile(new_parent: Equipment, new_target: Node2D, enemy_direction
 	homing_speed = new_homing_speed
 	is_clone = new_is_clone
 	acceleration = new_acceleration
+	if new_parent is Weapon:
+		attack_type = Attack.AttackTypes.player_weapon_projectile
+	elif new_parent is Upgrade:
+		attack_type = Attack.AttackTypes.upgrade_projectile
+	else:
+		printerr("Projectile setup normally but not from weapon or upgrade")
 	if parent:
 		size = parent.size_stat#size = new_size
 		piercing = parent.piercing_stat#piercing = new_piercing
@@ -119,9 +126,9 @@ func make_attack(clone: bool) -> Attack:
 	if clone:
 		attack_damage = damage * clone_offset
 	if status:
-		new_attack = Attack.new(attack_damage, global_position, buildup, status, self, 0, 0, weight * (attack_damage / 30))
+		new_attack = Attack.new(attack_type, attack_damage, global_position, buildup, status, self, 0, 0, weight * (attack_damage / 30))
 	else:
-		new_attack = Attack.new(attack_damage, global_position, buildup, null, self, 0, 0, weight * (attack_damage / 30))
+		new_attack = Attack.new(attack_type, attack_damage, global_position, buildup, null, self, 0, 0, weight * (attack_damage / 30))
 	return new_attack
 
 func die():

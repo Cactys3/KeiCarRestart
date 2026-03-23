@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://do5ml7xerejcq"]
+
+[ext_resource type="Script" uid="uid://c0as4vidgov1h" path="res://AllInOne/Upgrades/BloodTree/BloodyQuiver/BloodyQuiver.gd" id="1_ir410"]
+
+[node name="BloodyQuiver" type="Node2D" unique_id=1819395772]
+script = ExtResource("1_ir410")

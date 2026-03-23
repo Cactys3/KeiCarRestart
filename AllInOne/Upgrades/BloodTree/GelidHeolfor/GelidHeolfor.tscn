@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cpddv1omtu17r"]
+
+[ext_resource type="Script" uid="uid://colp26apigtr5" path="res://AllInOne/Upgrades/BloodTree/GelidHeolfor/GelidHeolfor.gd" id="1_k16fo"]
+
+[node name="GelidHeolfor" type="Node2D" unique_id=634924965]
+script = ExtResource("1_k16fo")

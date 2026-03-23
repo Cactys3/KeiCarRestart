@@ -306,10 +306,10 @@ func get_poison_damage() -> float:
 	var mulitplier: float = floor(poison / poison_threshhold)
 	return max_health * 0.25 * mulitplier
 func make_status_attack(status_damage: float) -> Attack:
-	return  Attack.new(status_damage, global_position, 0, null, self, 0, 0, 0)
+	return Attack.new(Attack.AttackTypes.enemy_status, status_damage, global_position, 0, null, self, 0, 0, 0)
 ## Overriden by enemies who want different projectile vs melee damage
 func damage_player_projectile(_damage_player: Node2D):
-	damage_player(_damage_player)
+	damage_player(_damage_player, true)
 func shoot_projectile():
 	pass
 func die():
@@ -345,7 +345,7 @@ func drop_forge():
 	GameInstance.drop_item(GameInstance.FORGE_DROP.duplicate(), global_position)
 ## Drops a random component (enemies have a chance)
 func drop_item():
-	GameInstance.drop_item(ShopManager.get_rand_upgrade(), global_position)
+	GameInstance.drop_item(ShopManager.get_rand_upgrade().get_upgrade(), global_position)
 ## Drops a chest (currenlty simple enemies don't have a chance to drop chests)
 func drop_chest():
 	GameInstance.drop_chest("Random Weapon!", -1, -1, -1, global_position)
@@ -355,13 +355,17 @@ func drop_powerup():
 
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("damage") && body.is_in_group("player"):
-		damage_player(body)
+		damage_player(body, false)
 		## Handles self knockback on attack player
 		if self_knockback_onhit != 0:
 			apply_knockback(body.global_position, self_knockback_onhit)
-func damage_player(_damage_player: Node2D):
+func damage_player(_damage_player: Node2D, from_projectile: bool):
 	cooldown_stopwatch = 0;
-	var attack: Attack = Attack.new(GlobalStats.calculate_damage(curr_damage, curr_critchance, curr_critdamage), global_position, buildup, status, self, weapon_stun, 0, weapon_knockback)
+	var attack: Attack
+	if from_projectile:
+		Attack.new(Attack.AttackTypes.enemy_projectile, GlobalStats.calculate_damage(curr_damage, curr_critchance, curr_critdamage), global_position, buildup, status, self, weapon_stun, 0, weapon_knockback)
+	else:
+		Attack.new(Attack.AttackTypes.enemy_melee, GlobalStats.calculate_damage(curr_damage, curr_critchance, curr_critdamage), global_position, buildup, status, self, weapon_stun, 0, weapon_knockback)
 	_damage_player.damage(attack) #TODO: put into game manager?
 	if melee_attacks:
 		damage_hitbox.set_deferred("monitoring", false)

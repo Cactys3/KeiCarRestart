@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://6mvan1c5pqvm"]
+
+[ext_resource type="Script" uid="uid://cnsc461fpwxys" path="res://AllInOne/Upgrades/BloodTree/BloodTurrets/BloodTurrets.gd" id="1_q48aj"]
+
+[node name="BloodTurret" type="Node2D" unique_id=1420758577]
+script = ExtResource("1_q48aj")

@@ -221,6 +221,12 @@ func remove_weapon(weapon: Weapon) -> bool:
 func remove_equipment(equipment: Equipment) -> void:
 	pass
 
+func handle_weapon_attack(attack: Attack) -> Attack:
+	for upgrade in active_upgrades:
+		if upgrade.edits_attack:
+			attack = upgrade.edit_attack(attack)
+	return attack
+
 func create_level_up_instance():
 	if leveling_up:
 		level_up_queue += 1
@@ -264,7 +270,7 @@ func enemy_killed(enemy: Enemy, attack: Attack):
 		curr_hp += player.lifesteal
 func player_damaged(playah: Character, attack: Attack):
 	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage"):
-		attack.attacker.damage(Attack.new(player.thorns, player.position, 0, null, null, 0, 0, 0))
+		attack.attacker.damage(Attack.new(Attack.AttackTypes.player_misc, player.thorns, player.position, 0, null, null, 0, 0, 0))
 func has_upgrade_room():
 	return upgrade_count <= upgrade_limit
 func has_weapon_room():

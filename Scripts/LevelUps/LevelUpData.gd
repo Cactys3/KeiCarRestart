@@ -11,17 +11,17 @@ var rarity: String
 var level: int
 var type: types
 enum types{upgrade, special}
-var equipment: Equipment 
+var upgrade_data: UpgradeData 
 ## sets up the data using an Equipment
-func set_equipment(new_equipment: Equipment, new_type: types):
-	option_name = new_equipment.item_name
-	image = new_equipment.item_image
-	color = new_equipment.item_color
-	border_color = new_equipment.border_color
-	description = new_equipment.get_item_description()
-	rarity = Equipment.get_rarity(new_equipment.item_rarity)
-	level = new_equipment.level
-	equipment = new_equipment
+func set_equipment(new_upgrade_data: UpgradeData, new_type: types):
+	option_name = upgrade_data.item_name
+	image = upgrade_data.item_image
+	color = upgrade_data.item_color
+	border_color = upgrade_data.border_color
+	description = upgrade_data.get_item_description()
+	rarity = "N/A"
+	level = upgrade_data.level
+	upgrade_data = new_upgrade_data
 	type = new_type
 	match(new_type):
 		types.upgrade:
@@ -55,9 +55,9 @@ static func get_level_up_options(count: int) -> Array[LevelUpData]:
 	var i: int = count
 	while count > 0:
 		count -= 1
-		var upgrade: Upgrade
+		var upgrade: UpgradeData
 		## Get the upgrade
-		upgrade = GameManager.instance.get_all_valid_upgrades().pick_random().make_upgrade()
+		upgrade = GameManager.instance.get_all_valid_upgrades().pick_random().get_upgrade()
 		var level_up: LevelUpData = LevelUpData.new()
 		level_up.set_equipment(upgrade, LevelUpData.types.upgrade)
 		array.append(level_up)
@@ -65,12 +65,12 @@ static func get_level_up_options(count: int) -> Array[LevelUpData]:
 
 ## Old
 static func get_upgrade_upgrade(other_upgrades: Array[LevelUpData]) -> LevelUpData:
-	var avoided_items: Array[Equipment] = []
+	var avoided_items: Array[UpgradeData] = []
 	for upgrade in other_upgrades:
 		if upgrade.type == types.upgrade:
 			avoided_items.append(upgrade.equipment)
 	var levelupdata: LevelUpData = LevelUpData.new()
-	var item: Equipment 
+	var item: UpgradeData 
 	if avoided_items.is_empty():
 		item = ShopManager.get_rand_upgrade()
 	else:
@@ -83,19 +83,19 @@ static func get_upgrade_upgrade(other_upgrades: Array[LevelUpData]) -> LevelUpDa
 	return levelupdata
 
 ## Returns RichText colorized based on rarity
-func colorize(text: String, rarity: Equipment.item_rarities) -> String:
+func colorize(text: String, rarity: Upgrade.UpgradeRarities) -> String:
 	var textcolor
 	match rarity:
-		Equipment.item_rarities.common:
-			textcolor = Equipment.COMMON_COLOR.to_html(false)
-		Equipment.item_rarities.rare:
-			textcolor = Equipment.RARE_COLOR.to_html(false)
+		Upgrade.UpgradeRarities.Basic:
+			textcolor = Upgrade.BASIC_COLOR.to_html(false)
+		Upgrade.UpgradeRarities.Intermediate:
+			textcolor = Upgrade.INTERMEDIATE_COLOR.to_html(false)
 			text = tornado(text)
-		Equipment.item_rarities.epic:
-			textcolor = Equipment.EPIC_COLOR.to_html(false)
+		Upgrade.UpgradeRarities.Advanced:
+			textcolor = Upgrade.ADVANCED_COLOR.to_html(false)
 			text = pulse(text)
-		Equipment.item_rarities.exclusive:
-			textcolor = Equipment.EXCLUSIVE_COLOR.to_html(false)
+		Upgrade.UpgradeRarities.Exclusive:
+			textcolor = Upgrade.EXCLUSIVE_COLOR.to_html(false)
 			text = shake(text)
 	text = "[color=%s]" % ("#" + textcolor) + text + "[/color]"
 	#text = wave(text)
