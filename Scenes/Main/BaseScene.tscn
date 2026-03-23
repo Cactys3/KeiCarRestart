@@ -157,7 +157,7 @@ projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
 position = Vector2(960, 0)
 script = ExtResource("12_e4e03")
 
-[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("stats", "tutorial", "TutorialOrStatsButton", "money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "you_lose", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "top_level_labels_parent", "hud")]
+[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("stats", "tutorial", "TutorialOrStatsButton", "money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "you_lose", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "top_level_labels_parent", "upgrade_parent", "hud")]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -187,6 +187,7 @@ static_ui_parent = NodePath("StaticHUDParent")
 misc_parent = NodePath("MiscParent")
 relative_to_game_parent = NodePath("RelativeToGameParent")
 top_level_labels_parent = NodePath("TopLevelLabelsParent")
+upgrade_parent = NodePath("TabMenuParent/UpgradeParent")
 hud = NodePath("StaticHUDParent/hud")
 
 [node name="RelativeToGameParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=943559020]
@@ -470,6 +471,7 @@ offset_left = 80.888885
 offset_top = 214.2222
 offset_right = 470.22223
 offset_bottom = 1002.6666
+columns = 4
 
 [node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1841136718]
 visible = false

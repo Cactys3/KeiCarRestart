@@ -34,7 +34,7 @@ var weapon_limit_reached: bool:
 var upgrade_limit_reached: bool:
 	get():
 		return has_upgrade_room()
-var active_upgrades: Array[Upgrade]
+var active_upgrades: Array[UpgradeData]
 var upgrades_affecting_stats: Array[Upgrade]
 
 var xp_to_next_level: float = 100
@@ -155,9 +155,13 @@ func _process(_delta: float) -> void:
 	if !leveling_up && level_up_queue > 0:
 		create_level_up_instance()
 
-func add_upgrade(upgrade: Upgrade) -> void:
+func add_upgrade(data: UpgradeData) -> void:
+	upgrade = data.get_upgrade()
+	if active_upgrades.has(upgrade):
+		printerr("Trying to add upgrade that already exists in active upgrades: ", upgrade.item_name)
+		return
 	upgrade.activate(player)
-	active_upgrades.append(upgrade)
+	active_upgrades.append(data)
 	ui_man.add_upgrade(upgrade)
 func add_weapon(weapon: Weapon) -> void:
 	weapon_list.append(weapon)

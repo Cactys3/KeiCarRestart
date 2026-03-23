@@ -200,8 +200,11 @@ func add_weapon(weapon: Weapon):
 ## Adds the upgrade to the UI which displays upgrades
 func add_upgrade(upgrade: Upgrade):
 	## Basic adding image of thing
-	var image: Sprite2D = Sprite2D.new()
-	image.texture = upgrade.item_image
+	var image: TextureRect = TextureRect.new()
+	if upgrade.item_image != null:
+		image.texture = upgrade.item_image
+	else:
+		image.texture = load("uid://b7v3ge0yvguti")
 	upgrade_parent.add_child(image)
 
 func _on_tutorial_or_stats_pressed() -> void:
