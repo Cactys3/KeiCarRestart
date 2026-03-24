@@ -196,16 +196,38 @@ func toggle_you_lose(value: bool) -> void:
 	you_lose.visible = value
 ## Adds the weapon to the UI which displays weapons
 func add_weapon(weapon: Weapon):
-	pass
+	## Basic adding image of thing ## TODO: make real ui 
+	var image: TextureRect = TextureRect.new()
+	if weapon.item_image != null:
+		image.texture = weapon.item_image
+	else:
+		image.texture = load("uid://b7v3ge0yvguti")
+	var label: Label
+	if weapon.item_name != "":
+		label = Label.new()
+		label.text = weapon.item_name
+	else:
+		label = Label.new()
+		label.text = weapon.item_name
+	upgrade_parent.add_child(image)
+	image.add_child(label)
 ## Adds the upgrade to the UI which displays upgrades
 func add_upgrade(upgrade: Upgrade):
-	## Basic adding image of thing
+	## Basic adding image of thing ## TODO: make real ui 
 	var image: TextureRect = TextureRect.new()
 	if upgrade.item_image != null:
 		image.texture = upgrade.item_image
 	else:
 		image.texture = load("uid://b7v3ge0yvguti")
+	var label: Label
+	if upgrade.item_name != "":
+		label = Label.new()
+		label.text = upgrade.item_name
+	else:
+		label = Label.new()
+		label.text = upgrade.item_name
 	upgrade_parent.add_child(image)
+	image.add_child(label)
 
 func _on_tutorial_or_stats_pressed() -> void:
 	tutorial_or_stats = !tutorial_or_stats

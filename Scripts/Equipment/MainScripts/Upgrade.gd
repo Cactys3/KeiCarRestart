@@ -20,7 +20,9 @@ func deactivate():
 ## Override method to edit an attack and return
 func edit_attack(attack: Attack) -> Attack:
 	return attack
-
+## Overide method to edit the list of stats
+func edit_stats():
+	pass
 ## On Reload Signal
 func reload() -> void:
 	pass

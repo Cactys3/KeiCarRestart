@@ -1,6 +1,7 @@
-extends Equipment
+extends StatsEquipment
 ## Weapons Equippable by the player
 class_name Weapon
+@export_group("Weapon Settings")
 @export var anim: AnimatedSprite2D
 ## Does this animation flip when facing left vs non-flipped when facing right
 @export var projectile: PackedScene
@@ -8,12 +9,11 @@ class_name Weapon
 	get():
 		return _time_one_projectile_takes_to_create()
 @export var AimType: AimTypes = AimTypes.default
-@export_category("Weapon Settings")
 @export var flip_left_right: bool = false
 @export var lock_transform_while_attacking: bool = false
 @export var always_ready_to_fire: bool = false
 @export var MeleeDamageFactor: float = 1
-@export_category("Projectile Settings")
+@export_group("Projectile Settings")
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
 @export var homing: bool = false
@@ -23,7 +23,7 @@ class_name Weapon
 enum multiple_projectiles_aim_types {delay, spread}
 ## Does it fire multiple projectiles one after another with a delay or at the same time with an angle/position spread
 @export var multiple_projectiles_aim_type: multiple_projectiles_aim_types = multiple_projectiles_aim_types.spread
-@export_category("Orbit Settings")
+@export_group("Orbit Settings")
 @export var orbit_distance: float = 20
 ## Used by weapons to offset weapon orbit forward (for use in attacks, etc)
 var weapon_position_offset: float = 0

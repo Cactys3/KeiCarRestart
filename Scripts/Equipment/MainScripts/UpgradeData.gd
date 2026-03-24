@@ -23,4 +23,9 @@ func can_obtain(equipped_upgrades: Array[UpgradeData]) -> bool:
 	return copy.is_empty()
 ## Makes and returns the associated Upgrade scene for this data
 func get_upgrade() -> Upgrade:
-	return scene.instantiate()
+	var upgrade: Upgrade = scene.instantiate()
+	upgrade.item_name = upgrade_name
+	upgrade.item_description = upgrade_description
+	upgrade.item_color = upgrade_color
+	upgrade.upgrade_rarity = upgrade_rarity
+	return upgrade

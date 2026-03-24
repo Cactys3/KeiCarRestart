@@ -288,25 +288,27 @@ func status_process(delta: float) -> void:
 		die()
 func get_burn_damage() -> float:
 	var mulitplier: float = floor(burn / burn_threshhold)
-	return 3 * mulitplier
+	return 3 * mulitplier * GlobalStats.get_stat(GlobalStats.BURN_DAMAGE)
 func get_frost_damage_reduction() -> float:
 	## 3 base * number of times threshold has been reached
-	return 3 * floor(frost / frost_threshhold)
+	return 3 * floor(frost / frost_threshhold) * GlobalStats.get_stat(GlobalStats.FROST_DAMAGE)
 func get_shock_defense_reduction() -> float:
 	## 3 base * number of times threshold has been reached
-	return 3 * floor(shock / shock_threshhold)
+	return 3 * floor(shock / shock_threshhold) * GlobalStats.get_stat(GlobalStats.SHOCK_DAMAGE)
 func get_wet_movement_reduction() -> float:
 	## 4 base * number of times threshold has been reached
-	return -1 * 4 * floor(wet / wet_threshhold)
+	return -1 * 4 * floor(wet / wet_threshhold) * GlobalStats.get_stat(GlobalStats.WET_DAMAGE)
 func get_bleed_damage() -> float:
 	var mulitplier: float = floor(bleed / bleed_threshhold)
-	return (max_health * 0.50)
+	return max_health * GlobalStats.get_stat(GlobalStats.BLEED_DAMAGE)
 func get_poison_damage() -> float:
 	# 1/4 of max health for each time above threshold
 	var mulitplier: float = floor(poison / poison_threshhold)
-	return max_health * 0.25 * mulitplier
+	return max_health * GlobalStats.get_stat(GlobalStats.POISON_DAMAGE) * mulitplier
 func make_status_attack(status_damage: float) -> Attack:
-	return Attack.new(Attack.AttackTypes.enemy_status, status_damage, global_position, 0, null, self, 0, 0, 0)
+	var attack: Attack = Attack.new(Attack.AttackTypes.enemy_status, self, global_position, status, null, null)
+	attack.simple_setup(status_damage, 0)
+	return attack
 ## Overriden by enemies who want different projectile vs melee damage
 func damage_player_projectile(_damage_player: Node2D):
 	damage_player(_damage_player, true)
@@ -363,9 +365,11 @@ func damage_player(_damage_player: Node2D, from_projectile: bool):
 	cooldown_stopwatch = 0;
 	var attack: Attack
 	if from_projectile:
-		Attack.new(Attack.AttackTypes.enemy_projectile, GlobalStats.calculate_damage(curr_damage, curr_critchance, curr_critdamage), global_position, buildup, status, self, weapon_stun, 0, weapon_knockback)
+		attack = Attack.new(Attack.AttackTypes.enemy_projectile, self, global_position, status, null, null)
 	else:
-		Attack.new(Attack.AttackTypes.enemy_melee, GlobalStats.calculate_damage(curr_damage, curr_critchance, curr_critdamage), global_position, buildup, status, self, weapon_stun, 0, weapon_knockback)
+		attack = Attack.new(Attack.AttackTypes.enemy_melee, self, global_position, status, null, null)
+	## Simple Setup for Attack
+	attack.simple_setup(GlobalStats.calculate_damage(curr_damage, curr_critchance, curr_critdamage), weapon_knockback)
 	_damage_player.damage(attack) #TODO: put into game manager?
 	if melee_attacks:
 		damage_hitbox.set_deferred("monitoring", false)
@@ -384,61 +388,55 @@ func is_player_nearby(distance: float) -> bool:
 func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
-	var damage_taken = attack.damage - curr_damage_reduction 
+	## Apply Damage
+	var damage_taken = attack.get_damage() - curr_damage_reduction 
 	if damage_taken > 0:
 		GameManager.instance.EnemyDamaged.emit(self, attack)
 		curr_health -= damage_taken
 	## Apply Status Effect Changes (doesn't apply status effect effects yet)
-	if attack.attacking_status:
-		var attack_status: StatusEffects = attack.attacking_status
-		burn += attack_status.burning * attack.buildup
-		frost += attack_status.frost * attack.buildup
-		poison += attack_status.poison * attack.buildup
-		bleed += attack_status.bleed * attack.buildup
-		shock += attack_status.shock * attack.buildup
-		wet += attack_status.wet * attack.buildup
-		
-		if !is_burning:
-			applied_burn = 0
-		if !is_frosted:
-			applied_frost = 0
-			frost_damage_reduction = 0
-		if !is_poisoned:
-			applied_poison = 0
-		if !is_bleeding:
-			applied_bleed = 0
-		if !is_shocked:
-			applied_shock = 0
-			shock_defense_reduction = 0
-		if !is_wet:
-			applied_wet = 0
-			wet_movement_reduction = 0
-	
-	
-	if attack.stun > 0 && can_be_stunned:
-			stun_time_left = attack.stun
+	burn += attack.get_burn()
+	frost += attack.get_frost()
+	poison += attack.get_poison()
+	bleed += attack.get_bleed()
+	shock += attack.get_shock()
+	wet += attack.get_wet()
+	if !is_burning:
+		applied_burn = 0
+	if !is_frosted:
+		applied_frost = 0
+		frost_damage_reduction = 0
+	if !is_poisoned:
+		applied_poison = 0
+	if !is_bleeding:
+		applied_bleed = 0
+	if !is_shocked:
+		applied_shock = 0
+		shock_defense_reduction = 0
+	if !is_wet:
+		applied_wet = 0
+		wet_movement_reduction = 0
+	## Apply Stun and Knockback
+	if attack.get_stun() > 0 && can_be_stunned:
+			stun_time_left = attack.get_stun()
 			stunned = true
 			linear_velocity = Vector2.ZERO
-	if can_be_knockbacked && attack.knockback != 0:
+	if can_be_knockbacked && attack.get_knockback() != 0:
 		if stun_time_left < 1 && can_be_stunned:
 			stun_time_left = 0.2
 			stunned = true
-		apply_knockback(attack.position, attack.knockback)
-		#call_deferred("set_linear_velocity", (global_position - attack.position).normalized() * attack.knockback * curr_knockback_modifier)
-	## This shit doesn't work for some fucked up reason when it's preloaded
+		apply_knockback(attack.position, attack.get_knockback())
+	## This doesn't work for some reason when it's preloaded
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
-	dmg_text.setup(str(int(round(attack.damage))), damage_taken + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10))
-	
+	dmg_text.setup(str(int(round(attack.get_damage()))), damage_taken + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10))
+	## Die.
 	if curr_health <= 0:
 		death_signal(attack)
 		die()
-
 func death_signal(attack: Attack):
 	GameManager.instance.EnemyKilled.emit(self, attack)
 func apply_knockback(attack_pos: Vector2, knockback: float):
 	call_deferred("set_linear_velocity", (global_position - attack_pos).normalized() * knockback * curr_knockback_modifier)
-
 static func calculate_enemy_hp(base_hp: float, hp_mult: float, game_difficulty: float, multiply_hp: bool) -> float:
 	var ret: float = base_hp
 	if multiply_hp:

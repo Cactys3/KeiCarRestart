@@ -15,6 +15,8 @@ const AttackBoth = "Both"
 const Idle = "Idle"
 const IdleFrameRate = 3
 const PunchFrameRate = 3
+const MaxPunchFrameRate = 5
+const MinPunchFrameRate = 1
 const MinPunchTime = 0.10
 const MaxPunchTime = 0.3
 const projectile_offset: float = 10
@@ -155,4 +157,4 @@ func _hit_enemy(enemy: Node2D) -> void:
 		var new_attack :Attack = make_melee_attack()
 		enemy.damage(new_attack)
 func get_punch_speed() -> float:
-	return (PunchFrameRate + reloadtime_stat) - (velocity_stat / 200)
+	return clamp((PunchFrameRate / max(0.1, attackcooldown_stat * 3)) - (velocity_stat / 200), MinPunchFrameRate, MaxPunchFrameRate)

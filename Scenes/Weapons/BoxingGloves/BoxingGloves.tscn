@@ -4,6 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://d1gb0dt4hcvtx" path="res://Scenes/Weapons/BoxingGloves/FirePunch.tscn" id="2_8up8s"]
 [ext_resource type="Texture2D" uid="uid://dyinr3i8jtc2p" path="res://Art/Weapons/BoxingGloves/BoxingGloves.png" id="2_37iyi"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_8up8s"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="3_ig0w8"]
+
+[sub_resource type="Resource" id="Resource_hdjnv"]
+script = ExtResource("3_ig0w8")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37iyi"]
 atlas = ExtResource("2_37iyi")
@@ -431,17 +436,22 @@ anim = NodePath("LeftGlove/LeftSprite")
 projectile = ExtResource("2_8up8s")
 AimType = 2
 lock_transform_while_attacking = true
-damage = 40.0
-_range = 30.0
-weight = 10.0
-attackcooldown = 0.5
-RELOADTIME = 2.0
-velocity = 200.0
-ammo = 5.0
+status = SubResource("Resource_hdjnv")
+damage = 20.0
+_range = 40.0
+attackcooldown = 0.25
+reloadtime = 3.0
+velocity = 50.0
+ammo = 4.0
 count = 2.0
-duration = 5.0
-buildup = 1.0
+piercing = 20.0
+duration = 10.0
 size = 1.0
+inaccuracy = 4.0
+weight = 20.0
+item_name = "Boxing Gloves"
+item_description = "Punch your way to victory!"
+item_type = 3
 
 [node name="RightGlove" type="Area2D" parent="." unique_id=1339773686]
 collision_layer = 4

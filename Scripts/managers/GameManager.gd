@@ -118,7 +118,12 @@ signal PlayerKilled(player: Character, attack: Attack)
 signal WeaponReloaded(weapon: Weapon)
 signal WeaponFired(weapon: Weapon, projectile: Projectile)
 signal RoundEnded(round_number: int)
-
+signal BurnProc(damage: float, enemy: Enemy)
+signal ForstProc(damage: float, enemy: Enemy)
+signal PoisonProc(damage: float, enemy: Enemy)
+signal BleedProc(damage: float, enemy: Enemy)
+signal ShockProc(damage: float, enemy: Enemy)
+signal WetProc(damage: float, enemy: Enemy)
 func setup(new_player: Character, starting_weapon: String):
 	player = new_player
 	call_deferred("defer_once", starting_weapon)
@@ -141,7 +146,6 @@ func defer_twice(starting_weapon: String):
 	get_tree().paused = false
 	var weapon: Weapon = ShopManager.get_weapon(starting_weapon)
 	add_weapon(weapon)
-	add_weapon(weapon)
 func _ready() -> void:
 	# Ensure only one instance exists
 	if instance != null:
@@ -156,8 +160,8 @@ func _process(_delta: float) -> void:
 		create_level_up_instance()
 
 func add_upgrade(data: UpgradeData) -> void:
-	upgrade = data.get_upgrade()
-	if active_upgrades.has(upgrade):
+	var upgrade: Upgrade = data.get_upgrade()
+	if active_upgrades.has(data):
 		printerr("Trying to add upgrade that already exists in active upgrades: ", upgrade.item_name)
 		return
 	upgrade.activate(player)
@@ -187,6 +191,7 @@ func add_weapon(weapon: Weapon) -> void:
 		if (equipped_weapon.AimType == weapon.AimType):
 			index += 1
 			equipped_weapon.change_slot(index, temp_count)
+	ui_man.add_weapon(weapon)
 	weapon.activate(player)
 func add_equipment(equipment: Equipment) -> void:
 	pass
@@ -224,8 +229,8 @@ func remove_weapon(weapon: Weapon) -> bool:
 	return false
 func remove_equipment(equipment: Equipment) -> void:
 	pass
-
-func handle_weapon_attack(attack: Attack) -> Attack:
+## Pass a player's attack through each active upgrade 
+func handle_player_attack(attack: Attack) -> Attack:
 	for upgrade in active_upgrades:
 		if upgrade.edits_attack:
 			attack = upgrade.edit_attack(attack)
@@ -274,7 +279,12 @@ func enemy_killed(enemy: Enemy, attack: Attack):
 		curr_hp += player.lifesteal
 func player_damaged(playah: Character, attack: Attack):
 	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage"):
-		attack.attacker.damage(Attack.new(Attack.AttackTypes.player_misc, player.thorns, player.position, 0, null, null, 0, 0, 0))
+		## Apply Thorns Damage to Attacker
+		var new_status: StatusEffects = StatusEffects.new()
+		new_status.applies_bleed = true
+		var new_attack = Attack.new(Attack.AttackTypes.player_misc, player, player.position, null, null, null)
+		new_attack.simple_setup(player.thorns, 0)
+		attack.attacker.damage(new_attack)
 func has_upgrade_room():
 	return upgrade_count <= upgrade_limit
 func has_weapon_room():

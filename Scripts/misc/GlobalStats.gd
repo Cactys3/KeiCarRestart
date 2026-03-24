@@ -19,9 +19,7 @@ const AMMO = "ammo"
 const COUNT = "count"
 const PIERCING = "piercing"
 const DURATION = "duration"
-const BUILDUP = "buildup"
 const SIZE = "size"
-const CRITCHANCE = "critical strike chance"
 const CRITDAMAGE = "critical strike damage"
 const GHOSTLY = "ghostly"
 const REGEN = "regen"
@@ -32,28 +30,50 @@ const DIFFICULTY = "difficulty"
 const REVIES = "revies"
 const THORNS = "thorns"
 const INACCURACY = "inaccuracy"
+## Status - Weapons have these default to 1 (unless the weapon can't apply it), 
+## as these stats don't matter unless the weapon has 'can_effect' enabled in StatusEffects
+const BURN_APPLY = "burn apply"
+const FROST_APPLY = "frost apply"
+const POISON_APPLY = "poison apply"
+const BLEED_APPLY = "bleed apply"
+const SHOCK_APPLY = "shock apply"
+const WET_APPLY = "wet apply"
+## Status Damages
+const BURN_DAMAGE = "burn damage"
+const FROST_DAMAGE = "frost damage"
+const POISON_DAMAGE = "poison damage"
+const BLEED_DAMAGE = "bleed damage"
+const SHOCK_DAMAGE = "shock damage"
+const WET_DAMAGE = "wet damage"
 ## Stats Added to Stat Getters
 static var statsbase = StatsList.new(0)
 ## Stats Multiplied to Stat Getters
 static var statsfactor = StatsList.new(1)
 ## Likely resets everything in preparation for a new run
-static func setup():
+static func reset():
 	statsbase = StatsList.new(0)
 	statsfactor = StatsList.new(1)
 static func get_base_stat(stat: String) -> float:
 	return statsbase[stat]
 static func get_factor_stat(stat: String) -> float:
 	return statsfactor[stat]
-## Calculates the stat
+## Calculates the full stat
 static func get_stat(stat: String) -> float:
 	return get_base_stat(stat) * get_factor_stat(stat)
 ## add stats
-static func increase_stats_base(stat: String, value: float):
+static func add_to_stats_base(stat: String, value: float):
 	statsbase[stat] += value
-static func increase_stats_factor(stat: String, value: float):
+static func add_to_stats_factor(stat: String, value: float):
 	statsfactor[stat] += value
+## Returns a copy of the Factor StatsList
+static func get_statslist_factor() -> StatsList:
+	return statsfactor.get_copy()
+## Returns a copy of the Base StatsList
+static func get_statslist_base() -> StatsList:
+	return statsfactor.get_copy()
 ## Stores a variable for each stat
 class StatsList:
+	var list: Dictionary
 	func _init(default_value: float):
 		list = {
 			HP: default_value,
@@ -72,9 +92,7 @@ class StatsList:
 			COUNT: default_value,
 			PIERCING: default_value,
 			DURATION: default_value,
-			BUILDUP: default_value,
 			SIZE: default_value, 
-			CRITCHANCE: default_value,
 			CRITDAMAGE: default_value,
 			GHOSTLY: default_value,
 			REGEN: default_value,
@@ -84,7 +102,20 @@ class StatsList:
 			DIFFICULTY: default_value,
 			REVIES: default_value,
 			THORNS: default_value,
-			INACCURACY: default_value}
+			INACCURACY: default_value,
+			BURN_APPLY: default_value,
+			FROST_APPLY: default_value,
+			POISON_APPLY: default_value,
+			BLEED_APPLY: default_value,
+			SHOCK_APPLY: default_value,
+			WET_APPLY: default_value,
+			BURN_DAMAGE: default_value,
+			FROST_DAMAGE: default_value,
+			POISON_DAMAGE: default_value,
+			BLEED_DAMAGE: default_value,
+			SHOCK_DAMAGE: default_value,
+			WET_DAMAGE: default_value
+			}
 	func _get(key: StringName):
 		return list.get(key)
 	func _set(key: StringName, value) -> bool:
@@ -92,36 +123,12 @@ class StatsList:
 			list[key] = value
 			return true
 		return false
-	var list = {
-		HP: 0.0,
-		STANCE: 0.0,
-		MOVESPEED: 0.0,
-		XP: 0.0,
-		MOGUL: 0.0,
-		LUCK: 0.0, 
-		DAMAGE: 0.0,
-		RANGE: 0.0,
-		WEIGHT: 0.0,
-		ATTACKCOOLDOWN: 0.0,
-		RELOADTIME: 0.0,
-		VELOCITY: 0.0,
-		AMMO: 0.0,
-		COUNT: 0.0,
-		PIERCING: 0.0,
-		DURATION: 0.0,
-		BUILDUP: 0.0,
-		SIZE: 0.0, 
-		CRITCHANCE: 0.0,
-		CRITDAMAGE: 0.0,
-		GHOSTLY: 0.0,
-		REGEN: 0.0,
-		MAGNETIZE: 0.0,
-		LIFESTEAL: 0.0,
-		SHIELD: 0.0,
-		DIFFICULTY: 0.0,
-		REVIES: 0.0,
-		THORNS: 0.0,
-		INACCURACY: 0.0}
+	## Returns duplicate copy of this StatsList
+	func get_copy() -> StatsList: 
+		var new_list = StatsList.new(0)
+		for key in list.keys():
+			new_list[key] = [key]
+		return new_list
 ## STOLEN FROM STATS.GD
 ## Round original_stat to have 'digits' digits at max
 static func round_to_digits(original_stat: float, digits: int) -> String:
@@ -141,13 +148,13 @@ static func calculate_movespeed(movespeed: float) -> float:
 	return movespeed * 2
 static func calculate_critdamage(critdamage: float) -> float:
 	return critdamage
-static func calculate_critchance(critchance: float) -> float:
-	return critchance
-static func calculate_damage(damage: float, critchance: float, critdamage: float):
-	if (critchance / 100) > randf():
+static func calculate_damage(damage: float, luck: float, critdamage: float):
+	if (luck / 100) > randf():
 		return damage * (1 + (critdamage / 100))
 	else:
 		return damage
+static func calculate_knockback(damage: float, weight: float) -> float:
+	return damage * weight
 static func calculate_avoid_damage(ghostly: float) -> bool:
 	var ScalingConstant: float = 160 ## Half-Saturation: at Ghostly = 160, it will reach half of 160 (chance = 80)
 	if ghostly > 0.0:

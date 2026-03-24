@@ -14,7 +14,6 @@ var size: float
 var damage: float
 var count: float 
 var piercing: float
-var buildup: float
 var weight: float
 var velocity: float
 var direction:Vector2
@@ -69,7 +68,7 @@ func process_movement_homing(delta: float):
 	if (stopwatch > lifetime) || (collision_counter > piercing):
 		die()
 ## Setup values generic for all BasicProjectile
-func setup_projectile(new_parent: Equipment, new_target: Node2D, enemy_direction:Vector2, is_homing: bool, new_homing_speed: float, new_is_clone: bool, new_acceleration: float): #, new_piercing: float, new_lifetime: float, new_damage: float, new_velocity: float, new_buildup: float, new_weight: float, new_size: float):
+func setup_projectile(new_parent: Equipment, new_target: Node2D, enemy_direction:Vector2, is_homing: bool, new_homing_speed: float, new_is_clone: bool, new_acceleration: float): #, new_piercing: float, new_lifetime: float, new_damage: float, new_velocity: float, new_weight: float, new_size: float):
 	parent = new_parent
 	self.scale = Vector2(size, size) #TODO: size calculation
 	target = new_target
@@ -91,7 +90,6 @@ func setup_projectile(new_parent: Equipment, new_target: Node2D, enemy_direction
 		lifetime = parent.duration_stat#lifetime = new_lifetime
 		damage = parent.damage_stat#damage = new_damage
 		velocity = parent.velocity_stat#velocity = new_velocity
-		buildup = parent.buildup_stat#buildup = new_buildup
 		weight = parent.weight_stat#weight = new_weight
 ## Setup values specific for clones
 func setup_clone(damage_offset: float):
@@ -125,10 +123,8 @@ func make_attack(clone: bool) -> Attack:
 	var attack_damage: float = damage
 	if clone:
 		attack_damage = damage * clone_offset
-	if status:
-		new_attack = Attack.new(attack_type, attack_damage, global_position, buildup, status, self, 0, 0, weight * (attack_damage / 30))
-	else:
-		new_attack = Attack.new(attack_type, attack_damage, global_position, buildup, null, self, 0, 0, weight * (attack_damage / 30))
+	new_attack = Attack.new(attack_type, self, global_position, status, null, null)
+	new_attack.simple_setup(attack_damage, weight * (attack_damage / 30))
 	return new_attack
 
 func die():

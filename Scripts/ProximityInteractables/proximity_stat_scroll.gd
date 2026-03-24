@@ -48,7 +48,7 @@ func stat_scroll_function():
 	## TODO: Unpause, can this cause issues? what if something else is higher priority, we would just unpause that instead of the scroll pause..
 	ui_man.unpause(pause)
 	if ui.decision:
-		GlobalStats.increase_stats_base(stat_add.stat, stat_add.value)
+		GlobalStats.add_to_stats_base(stat_add.stat, stat_add.value)
 	delete_scroll()
 func delete_scroll():
 	if ui:

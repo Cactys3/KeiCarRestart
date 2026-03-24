@@ -11,7 +11,7 @@ extends Node2D
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("space"):
 		ShopManager.unlocked_upgrade_keys = ShopManager.upgrade_list.keys()
-		GameManager.instance.add_upgrade(ShopManager.get_rand_upgrade().get_upgrade())
+		GameManager.instance.add_upgrade(ShopManager.get_rand_upgrade())
 	if Input.is_action_just_pressed("test_2"):
 		pass
 	if Input.is_action_just_pressed("test_3"):

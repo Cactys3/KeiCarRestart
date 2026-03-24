@@ -41,7 +41,7 @@ var array: Array[Control] = [main, settings, collection, shop, character_selecti
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	## For testing:
-	GlobalStats.setup()
+	GlobalStats.reset()
 	GameInstance.is_game_over = false
 	
 	set_process_input(true)
