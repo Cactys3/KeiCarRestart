@@ -73,10 +73,10 @@ func create_projectile():
 	play_anim(Idle)
 	if left_or_right:
 		left_collision.disabled = true
-		left_position_offset -= total ## TODO: slowly return instad of all at once
+		left_position_offset = 0#-= total ## TODO: slowly return instad of all at once
 	else:
 		right_collision.disabled = true
-		right_position_offset -= total ## TODO: slowly return instad of all at once
+		right_position_offset = 0#-= total ## TODO: slowly return instad of all at once
 	## Setup for next time
 	left_or_right = !left_or_right
 ## Override: Do a left + right punch
@@ -104,8 +104,8 @@ func create_last_projectile():
 	var right_direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
 	var right_proj: Projectile = init_projectile(right_projectile_spawn.global_position, right_direction)
 	## Cleanup
-	right_position_offset -= total ## TODO: slowly return instad of all at once
-	left_position_offset -= total ## TODO: slowly return instad of all at once
+	right_position_offset = 0#-= total ## TODO: slowly return instad of all at once
+	left_position_offset = 0#-= total ## TODO: slowly return instad of all at once
 	set_anim_speed(IdleFrameRate)
 	play_anim(Idle)
 	right_collision.disabled = true
@@ -152,8 +152,8 @@ func set_anim_speed(speed: float) -> void:
 	right_sprite.speed_scale = speed
 	left_sprite.speed_scale = speed
 func _hit_enemy(enemy: Node2D) -> void:
+	print("Hit Enemy: ", enemy.name)
 	if enemy.is_in_group("enemy"):
-		enemy = enemy as Enemy
 		var new_attack :Attack = make_melee_attack()
 		enemy.damage(new_attack)
 func get_punch_speed() -> float:

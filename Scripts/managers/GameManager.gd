@@ -34,7 +34,7 @@ var weapon_limit_reached: bool:
 var upgrade_limit_reached: bool:
 	get():
 		return has_upgrade_room()
-var active_upgrades: Array[UpgradeData]
+var active_upgrades: Array[Upgrade]
 var upgrades_affecting_stats: Array[Upgrade]
 
 var xp_to_next_level: float = 100
@@ -165,7 +165,7 @@ func add_upgrade(data: UpgradeData) -> void:
 		printerr("Trying to add upgrade that already exists in active upgrades: ", upgrade.item_name)
 		return
 	upgrade.activate(player)
-	active_upgrades.append(data)
+	active_upgrades.append(upgrade)
 	ui_man.add_upgrade(upgrade)
 func add_weapon(weapon: Weapon) -> void:
 	weapon_list.append(weapon)
@@ -260,7 +260,7 @@ func create_level_up_instance():
 func add_xp(added_xp: float):
 	xp += added_xp
 func can_revive() -> int:
-	return (player.max_revies - revives_used) > 1
+	return (player.revives - revives_used) > 1
 func use_revive():
 	revives_used += 1
 func pause(value: bool):
@@ -307,9 +307,3 @@ func get_random_equipped_upgrade_except(avoided_upgrades: Array[Upgrade]) -> Upg
 			return upgrade
 	return null
 ## Returns all upgrades that are valid to obtain given prereqs
-func get_all_valid_upgrades() -> Array[UpgradeData]:
-	var array: Array[UpgradeData]
-	for upgrade in ShopManager.upgrade_list.values():
-		if upgrade.can_obtain():
-			array.append(upgrade)
-	return array

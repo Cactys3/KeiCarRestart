@@ -27,7 +27,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=2028827476]
 position = Vector2(0, 3)
 
-[node name="Health_HitArea" type="Area2D" parent="." unique_id=134069665]
+[node name="Health_HitArea" type="Area2D" parent="." unique_id=134069665 groups=["enemy"]]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("3_nlbgu")

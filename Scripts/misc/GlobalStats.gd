@@ -54,17 +54,17 @@ static func reset():
 	statsbase = StatsList.new(0)
 	statsfactor = StatsList.new(1)
 static func get_base_stat(stat: String) -> float:
-	return statsbase[stat]
+	return statsbase.get_stat(stat)
 static func get_factor_stat(stat: String) -> float:
-	return statsfactor[stat]
+	return statsfactor.get_stat(stat)
 ## Calculates the full stat
 static func get_stat(stat: String) -> float:
 	return get_base_stat(stat) * get_factor_stat(stat)
 ## add stats
 static func add_to_stats_base(stat: String, value: float):
-	statsbase[stat] += value
+	statsbase.add_to_stat(stat, value)
 static func add_to_stats_factor(stat: String, value: float):
-	statsfactor[stat] += value
+	statsfactor.add_to_stat(stat, value)
 ## Returns a copy of the Factor StatsList
 static func get_statslist_factor() -> StatsList:
 	return statsfactor.get_copy()
@@ -73,7 +73,7 @@ static func get_statslist_base() -> StatsList:
 	return statsfactor.get_copy()
 ## Stores a variable for each stat
 class StatsList:
-	var list: Dictionary
+	var list: Dictionary = {}
 	func _init(default_value: float):
 		list = {
 			HP: default_value,
@@ -116,18 +116,25 @@ class StatsList:
 			SHOCK_DAMAGE: default_value,
 			WET_DAMAGE: default_value
 			}
-	func _get(key: StringName):
+	func has(key: String) -> bool:
+		return list.has(key)
+	func get_stat(key: String):
 		return list.get(key)
-	func _set(key: StringName, value) -> bool:
+	func set_stat(key: String, value: float) -> bool:
 		if list.has(key):
 			list[key] = value
+			return true
+		return false
+	func add_to_stat(key: String, value: float) -> bool:
+		if list.has(key):
+			list[key] = list[key] + value
 			return true
 		return false
 	## Returns duplicate copy of this StatsList
 	func get_copy() -> StatsList: 
 		var new_list = StatsList.new(0)
-		for key in list.keys():
-			new_list[key] = [key]
+		for key in new_list.list.keys():
+			new_list.set_stat(key, get_stat(key))
 		return new_list
 ## STOLEN FROM STATS.GD
 ## Round original_stat to have 'digits' digits at max

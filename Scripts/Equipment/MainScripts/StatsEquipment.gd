@@ -144,7 +144,7 @@ func make_attack(damage_multiplier: float) -> Attack:
 	
 	## Add Self's Base Stats to Base StatList
 	base = add_to_stats_list(base)
-	factor[GlobalStats.DAMAGE] += (damage_multiplier - 1) # -1 to make it a multiplier
+	factor.add_to_stat(GlobalStats.DAMAGE, damage_multiplier - 1) # -1 to make it a multiplier
 	
 	## Make Attack Values
 	var attack_type: Attack.AttackTypes
@@ -158,32 +158,32 @@ func make_attack(damage_multiplier: float) -> Attack:
 	return attack
 
 ## Adds Base Stats to given StatsList (Base Stat, not Base Stat + Global Stat)
-func add_to_stats_list(list: GlobalStats.StatsList) -> GlobalStats.StatsList:
-	list[GlobalStats.HP] += hp
-	list[GlobalStats.STANCE] += stance
-	list[GlobalStats.MOVESPEED] += movespeed
-	list[GlobalStats.XP] += xp
-	list[GlobalStats.MOGUL] += mogul
-	list[GlobalStats.LUCK] += luck
-	list[GlobalStats.DAMAGE] += damage
-	list[GlobalStats.RANGE] += range
-	list[GlobalStats.WEIGHT] += weight
-	list[GlobalStats.ATTACKCOOLDOWN] += attackcooldown
-	list[GlobalStats.RELOADTIME] += reloadtime
-	list[GlobalStats.VELOCITY] += velocity
-	list[GlobalStats.AMMO] += ammo
-	list[GlobalStats.COUNT] += count
-	list[GlobalStats.PIERCING] += piercing
-	list[GlobalStats.DURATION] += duration
-	list[GlobalStats.SIZE] += size
-	list[GlobalStats.CRITDAMAGE] += critdamage
-	list[GlobalStats.GHOSTLY] += ghostly
-	list[GlobalStats.REGEN] += regen
-	list[GlobalStats.MAGNETIZE] += magnetize
-	list[GlobalStats.LIFESTEAL] += lifesteal
-	list[GlobalStats.SHIELD] += shield
-	list[GlobalStats.DIFFICULTY] += difficulty
-	list[GlobalStats.REVIES] += revies
-	list[GlobalStats.THORNS] += thorns
-	list[GlobalStats.INACCURACY] += inaccuracy
+func add_to_stats_list(list: GlobalStats.StatsList) -> GlobalStats.StatsList: 
+	list.add_to_stat(GlobalStats.HP, hp)
+	list.add_to_stat(GlobalStats.STANCE, stance)
+	list.add_to_stat(GlobalStats.MOVESPEED, movespeed)
+	list.add_to_stat(GlobalStats.XP, xp)
+	list.add_to_stat(GlobalStats.MOGUL, mogul)
+	list.add_to_stat(GlobalStats.LUCK, luck)
+	list.add_to_stat(GlobalStats.DAMAGE, damage)
+	list.add_to_stat(GlobalStats.RANGE, _range)
+	list.add_to_stat(GlobalStats.WEIGHT, weight)
+	list.add_to_stat(GlobalStats.ATTACKCOOLDOWN, attackcooldown)
+	list.add_to_stat(GlobalStats.RELOADTIME, reloadtime)
+	list.add_to_stat(GlobalStats.VELOCITY, velocity)
+	list.add_to_stat(GlobalStats.AMMO, ammo)
+	list.add_to_stat(GlobalStats.COUNT, count)
+	list.add_to_stat(GlobalStats.PIERCING, piercing)
+	list.add_to_stat(GlobalStats.DURATION, duration)
+	list.add_to_stat(GlobalStats.SIZE, size)
+	list.add_to_stat(GlobalStats.CRITDAMAGE, critdamage)
+	list.add_to_stat(GlobalStats.GHOSTLY, ghostly)
+	list.add_to_stat(GlobalStats.REGEN, regen)
+	list.add_to_stat(GlobalStats.MAGNETIZE, magnetize)
+	list.add_to_stat(GlobalStats.LIFESTEAL, lifesteal)
+	list.add_to_stat(GlobalStats.SHIELD, shield)
+	list.add_to_stat(GlobalStats.DIFFICULTY, difficulty)
+	list.add_to_stat(GlobalStats.REVIES, revies)
+	list.add_to_stat(GlobalStats.THORNS, thorns)
+	list.add_to_stat(GlobalStats.INACCURACY, inaccuracy)
 	return list

@@ -11,17 +11,15 @@ var rarity: String
 var level: int
 var type: types
 enum types{upgrade, special}
-var upgrade_data: UpgradeData 
+var data: UpgradeData
 ## sets up the data using an Equipment
-func set_equipment(new_upgrade_data: UpgradeData, new_type: types):
-	option_name = upgrade_data.item_name
-	image = upgrade_data.item_image
-	color = upgrade_data.item_color
-	border_color = upgrade_data.border_color
-	description = upgrade_data.get_item_description()
+func set_equipment(upgrade_data: UpgradeData, new_type: types):
+	data = upgrade_data
+	option_name = upgrade_data.upgrade_name
+	image = upgrade_data.upgrade_image
+	color = upgrade_data.upgrade_color
+	description = upgrade_data.upgrade_description
 	rarity = "N/A"
-	level = upgrade_data.level
-	upgrade_data = new_upgrade_data
 	type = new_type
 	match(new_type):
 		types.upgrade:
@@ -48,7 +46,7 @@ func carryout_money():
 func carryout_special():
 	carryout_money()
 func carryout_new_upgrade():
-	pass
+	GameManager.instance.add_upgrade(data)
 ## Returns 'count' of LevelUpData filled with a random valid upgrade
 static func get_level_up_options(count: int) -> Array[LevelUpData]:
 	var array: Array[LevelUpData] = []
@@ -57,30 +55,34 @@ static func get_level_up_options(count: int) -> Array[LevelUpData]:
 		count -= 1
 		var upgrade: UpgradeData
 		## Get the upgrade
-		upgrade = GameManager.instance.get_all_valid_upgrades().pick_random().get_upgrade()
-		var level_up: LevelUpData = LevelUpData.new()
-		level_up.set_equipment(upgrade, LevelUpData.types.upgrade)
-		array.append(level_up)
+		var upgrades = ShopManager.get_rand_upgrades(1, GameManager.instance)
+		if upgrades.size() > 0:
+			upgrade = upgrades[0]
+			var level_up: LevelUpData = LevelUpData.new()
+			level_up.set_equipment(upgrade, LevelUpData.types.upgrade)
+			array.append(level_up)
+		else:
+			printerr("Trying to get upgrade, but valid upgrades list is empty")
 	return array 
 
-## Old
-static func get_upgrade_upgrade(other_upgrades: Array[LevelUpData]) -> LevelUpData:
-	var avoided_items: Array[UpgradeData] = []
-	for upgrade in other_upgrades:
-		if upgrade.type == types.upgrade:
-			avoided_items.append(upgrade.equipment)
-	var levelupdata: LevelUpData = LevelUpData.new()
-	var item: UpgradeData 
-	if avoided_items.is_empty():
-		item = ShopManager.get_rand_upgrade()
-	else:
-		item = ShopManager.get_rand_upgrade_except(avoided_items)
-	if item == null:
-		printerr("Called get_item_level_upgrade() whilst had already made upgrade options for all avaliable components")
-		## Fallback to just having duplicate options
-		item = ShopManager.get_rand_upgrade()
-	levelupdata.set_equipment(item, LevelUpData.types.upgrade)
-	return levelupdata
+### Old
+#static func get_upgrade_upgrade(other_upgrades: Array[LevelUpData]) -> LevelUpData:
+	#var avoided_items: Array[UpgradeData] = []
+	#for upgrade in other_upgrades:
+		#if upgrade.type == types.upgrade:
+			#avoided_items.append(upgrade.equipment)
+	#var levelupdata: LevelUpData = LevelUpData.new()
+	#var item: UpgradeData 
+	#if avoided_items.is_empty():
+		#item = ShopManager.get_rand_upgrade()
+	#else:
+		#item = ShopManager.get_rand_upgrade_except(avoided_items)
+	#if item == null:
+		#printerr("Called get_item_level_upgrade() whilst had already made upgrade options for all avaliable components")
+		### Fallback to just having duplicate options
+		#item = ShopManager.get_rand_upgrade()
+	#levelupdata.set_equipment(item, LevelUpData.types.upgrade)
+	#return levelupdata
 
 ## Returns RichText colorized based on rarity
 func colorize(text: String, rarity: Upgrade.UpgradeRarities) -> String:

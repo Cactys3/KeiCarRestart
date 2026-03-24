@@ -344,10 +344,10 @@ func die():
 		queue_free()
 ## Drops a forge (drops when GameInstance says so)
 func drop_forge():
-	GameInstance.drop_item(GameInstance.FORGE_DROP.duplicate(), global_position)
+	pass#GameInstance.drop_item(GameInstance.FORGE_DROP.duplicate(), global_position)
 ## Drops a random component (enemies have a chance)
 func drop_item():
-	GameInstance.drop_item(ShopManager.get_rand_upgrade().get_upgrade(), global_position)
+	pass#GameInstance.drop_item(ShopManager.get_rand_upgrade().get_upgrade(), global_position)
 ## Drops a chest (currenlty simple enemies don't have a chance to drop chests)
 func drop_chest():
 	GameInstance.drop_chest("Random Weapon!", -1, -1, -1, global_position)

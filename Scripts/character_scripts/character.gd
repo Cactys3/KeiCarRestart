@@ -144,7 +144,7 @@ func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
 	## Consider Stance
-	var net_damage = attack.damage - stance
+	var net_damage = attack.get_damage() - stance
 	if GlobalStats.calculate_avoid_damage(GlobalStats.get_stat(GlobalStats.GHOSTLY)):
 		net_damage = 0
 		print("PLAYER AVOIDED DAMAGE")
@@ -164,18 +164,18 @@ func damage(attack: Attack):
 		game_man.curr_hp -= net_damage
 	## Stun currently prevents the player from inputting movements, this means that the currently velocity (including knockback) will apply fully for the duration of the stun
 	if can_be_stunned && attack.stun != 0:
-		stun_time_left += attack.stun
+		stun_time_left += attack.get_stun()
 		stunning = true
 	## Knockback is applied fully for 1 frame as the player's own movement code then overwrites it quickly on the following frames.
-	if can_be_knockbacked && attack.knockback != 0:
-		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback * knockback_modifier)
+	if can_be_knockbacked && attack.get_knockback() != 0:
+		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.get_knockback() * knockback_modifier)
 	if game_man.curr_hp <= 0:
 		die(attack)
 	
 	## This shit doesn't work for some fucked up reason when it's preloaded
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
-	dmg_text.setup_color(str(int(round(attack.damage))), net_damage + 36, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), Color.RED)
+	dmg_text.setup_color(str(int(round(attack.get_damage()))), net_damage + 36, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), Color.RED)
 ## Handles Revives and Events on player death
 func die(attack: Attack):
 	if !GameInstance.is_game_over:

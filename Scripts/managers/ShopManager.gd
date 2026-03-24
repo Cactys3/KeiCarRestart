@@ -72,16 +72,26 @@ static func get_rand_projectile() -> Projectile:
 ## Returns Random Weapon
 static func get_rand_weapon() -> Weapon:
 		return weapon_list.get(get_random_unlocked_weapon_key()).instantiate()
-## Returns Random Upgrade
-static func get_rand_upgrade() -> UpgradeData:
-	return upgrade_list.get(get_random_unlocked_upgrade_key())
-##
+## Returns Random, valid upgrade, will return empty array if no valid upgrade
+static func get_rand_upgrades(count: int, game_man: GameManager) -> Array[UpgradeData]:
+	var valid_upgrades: Array[UpgradeData] = get_all_valid_upgrades(game_man)
+	var ret: Array[UpgradeData] = []
+	## Pick At Random
+	for e in count:
+		if valid_upgrades.size() > 0:
+			var upgrade: UpgradeData = valid_upgrades.pick_random()
+			ret.append(upgrade)
+			valid_upgrades.erase(upgrade)
+	if ret.is_empty():
+		printerr("Trying to get upgrade, but there are no valid upgrades")
+	return ret
+## Returns random projectile instance
 static func get_projectile(key: String) -> Projectile:
 	if projectile_list.has(key):
 		return projectile_list.get(key).instantiate()
 	printerr("Requesting non-existent projectile: ", key)
 	return null
-##
+## Returns random weapon instance
 static func get_weapon(key: String) -> Weapon:
 	if weapon_list.has(key):
 		return weapon_list.get(key).instantiate()
@@ -98,14 +108,34 @@ static func get_random_unlocked_projectile_key() -> String:
 	return unlocked_weapon_keys.pick_random() #TODO: Check if attachment is unlocked?
 static func get_random_unlocked_weapon_key() -> String:
 	return unlocked_projectiles_keys.pick_random() #TODO: Check if attachment is unlocked?
-static func get_random_unlocked_upgrade_key() -> String:
-	return unlocked_upgrade_keys.pick_random() #TODO: Check if item is unlocked?
+#static func get_random_unlocked_upgrade_key() -> String:
+	#return unlocked_upgrade_keys.pick_random() #TODO: Check if item is unlocked?
 static func get_all_unlocked_weapons() -> Array[String]:
 	return unlocked_weapon_keys
-static func get_all_unlocked_upgrades() -> Array[String]:
-	return unlocked_upgrade_keys
+#static func get_all_unlocked_upgrades() -> Array[String]:
+	#return unlocked_upgrade_keys
 static func get_all_unlocked_projectiles() -> Array[String]:
 	return unlocked_projectiles_keys
-## TODO: Implement
-static func get_rand_upgrade_except(avoided_items: Array[UpgradeData]) -> UpgradeData:
-	return get_rand_upgrade()
+## Returns Random, valid upgrade, except those in avoided_items
+static func get_rand_upgrades_except(avoided_items: Array[Upgrade], count: int, game_man: GameManager) -> Array[UpgradeData]:
+	var valid_upgrades: Array[UpgradeData] = get_all_valid_upgrades(game_man)
+	## Remove avoids
+	for upgrade in avoided_items:
+		if valid_upgrades.has(upgrade):
+			valid_upgrades.erase(upgrade)
+	## Pick At Random
+	var ret: Array[UpgradeData] = []
+	for e in count:
+		if valid_upgrades.size() > 0:
+			var upgrade: UpgradeData = valid_upgrades.pick_random()
+			ret.append(upgrade)
+			valid_upgrades.erase(upgrade)
+	return ret
+## Returns all upgrades that are valid to obtain and not already obtained
+static func get_all_valid_upgrades(game_man: GameManager) -> Array[UpgradeData]:
+	var array: Array[UpgradeData]
+	for upgrade: UpgradeData in upgrade_list.values():
+		## If we can obtain, add to list
+		if upgrade.can_obtain(game_man.active_upgrades):
+			array.append(upgrade)
+	return array

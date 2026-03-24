@@ -9,7 +9,6 @@ const BASIC_COLOR: Color = Color.RED
 const INTERMEDIATE_COLOR: Color = Color.BLUE
 const ADVANCED_COLOR: Color = Color.REBECCA_PURPLE
 const EXCLUSIVE_COLOR: Color = Color.LIGHT_GOLDENROD
-## Data about the prereqs etc, maybe not needed
 var data: UpgradeData
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):

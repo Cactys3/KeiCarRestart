@@ -1,17 +1,16 @@
 extends Node2D
 
 @export var EnemyParent: Node2D
-
 @onready var player: Character = get_tree().get_first_node_in_group("player")
-
-
 @export var shop: Panel
 @onready var xp = preload("res://Scenes/Misc/xp_blip.tscn")
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("space"):
 		ShopManager.unlocked_upgrade_keys = ShopManager.upgrade_list.keys()
-		GameManager.instance.add_upgrade(ShopManager.get_rand_upgrade())
+		var list = ShopManager.get_rand_upgrades(1, GameManager.instance)
+		if !list.is_empty():
+			GameManager.instance.add_upgrade(list[0])
 	if Input.is_action_just_pressed("test_2"):
 		pass
 	if Input.is_action_just_pressed("test_3"):

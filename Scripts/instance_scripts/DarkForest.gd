@@ -3,6 +3,8 @@ extends GameInstance
 const TILE1 = preload("uid://cdoowwkvlvfk0")
 
 ## Enemies
+const DARKORB = preload("uid://cqip08xv6m5no")
+
 ## Enemy Events
 ## Bosses
 ## Objects/Events
@@ -25,7 +27,7 @@ func _ready() -> void:
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide
 	## Setups Phases
-	#phases.append(SpawningPhase.new("", 60, phase_one))
+	phases.append(SpawningPhase.new("", 600, phase_one))
 	## Setup Basic Events
 	events.append(EventSpawn.new("Evil Tree", EVIL_TREE, Vector2(30, 44), 0.5, -1, 10))
 	## Setup Interactable Events
@@ -34,7 +36,7 @@ func _ready() -> void:
 func phase_one():
 	print("PHASE 1 - ")
 	generic_phase_setup(1)
-	#enemies.append(EnemySpawn.new("", , 0.2, 1))
+	enemies.append(EnemySpawn.new("Dark Orb", DARKORB, 0.2, 1))
 func phase_two():
 	print("PHASE 2 - ")
 	generic_phase_setup(2)

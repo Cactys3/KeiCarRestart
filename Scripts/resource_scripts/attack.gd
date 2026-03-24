@@ -25,7 +25,7 @@ var attacker: Node2D # Reference to attacker
 var temporary_base_stats: GlobalStats.StatsList 
 var temporary_factor_stats: GlobalStats.StatsList 
 ## Values
-var stun
+var stun: float = 0
 ## Simple Values
 var simple: bool = false
 var simple_damage: float
@@ -84,7 +84,7 @@ func get_stat(key: String) -> float:
 		printerr("Trying to call 'get_stat' on Attack but Attack is setup as simple: ", key)
 		return 0
 	if temporary_base_stats.has(key) && temporary_factor_stats.has(key):
-		return temporary_base_stats[key] * temporary_factor_stats[key]
+		return temporary_base_stats.get_stat(key) * temporary_factor_stats.get_stat(key)
 	else:
 		printerr("Trying to get stat that doesn't exist in StatsList: ", key)
 		return 0
