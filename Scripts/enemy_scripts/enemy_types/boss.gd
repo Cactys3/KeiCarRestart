@@ -27,13 +27,9 @@ func get_frost_movespeed_reduction() -> float:
 	return super()
 func get_shock_defense_reduction() -> float:
 	return super()
-## BOSS: only -1 movement speed instead of -4
-func get_wet_movement_reduction() -> float:
-	## 4 base * number of times threshold has been reached
-	return -1 * 1 * floor(wet / wet_threshhold)
-## BOSS: 50% bleed damage reduction
+## BOSS:
 func get_bleed_damage() -> float:
-	return super() / 2
-## BOSS: 50% poison damage reduction
+	return super() 
+## BOSS: 
 func get_poison_damage() -> float:
-	return super() / 2
+	return super()

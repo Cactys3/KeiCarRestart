@@ -22,7 +22,7 @@ enum EnemyTypes {unset}
 @export var base_movespeed: float = 20
 ## Added directly to movespeed
 @export var movespeed_modifier: float = 0
-@export var base_health: float = 10
+@export var base_health: float = 50
 @export var base_regen: float = 0
 @export var base_knockback_modifier: float = 1
 @export var base_damage_reduction: float = 0
@@ -329,7 +329,7 @@ func proc_frost() -> Attack:
 	applied_frost += 1
 	curr_health -= current_frost_damage
 	## Do the display dmg
-	display_damage(current_frost_damage, Color.LIGHT_SKY_BLUE)
+	display_damage(current_frost_damage, Color.LIGHT_CYAN)
 	## Raise the threshold
 	frost_threshhold *= GlobalStats.enemy_frost_threshold_multiplier
 	return attack
@@ -358,7 +358,7 @@ func proc_bleed() -> Attack:
 	applied_bleed += 1
 	curr_health -= current_bleed_damage
 	## Do the display dmg
-	display_damage(current_bleed_damage, Color.DARK_RED)
+	display_damage(current_bleed_damage, Color.ORANGE_RED)
 	## Raise bleed threshold
 	bleed_threshhold *= GlobalStats.enemy_bleed_threshold_multiplier
 	return attack
@@ -388,6 +388,10 @@ func get_poison_damage() -> float:
 	# 1/4 of max health for each time above threshold
 	var mulitplier: float = floor(poison / poison_threshhold)
 	return base_health * GlobalStats.get_stat(GlobalStats.POISON_DAMAGE) * mulitplier
+func get_shock_damage() -> float:
+	return GlobalStats.get_stat(GlobalStats.SHOCK_DAMAGE)
+func get_wet_damage() -> float:
+	return GlobalStats.get_stat(GlobalStats.WET_DAMAGE)
 ## Makes a status effect attack to attack self (when a status effect damages this enemy)
 func make_status_attack(status_damage: float, type: StatusEffects.StatusTypes) -> Attack:
 	## Report what type of status effect it was
@@ -501,11 +505,6 @@ func is_player_nearby(distance: float) -> bool:
 func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
-	## Apply Damage
-	var damage_taken = attack.get_damage() - curr_damage_reduction 
-	if damage_taken > 0:
-		GameManager.instance.EnemyDamaged.emit(self, attack)
-		curr_health -= damage_taken
 	## Apply Status Effect Changes (doesn't apply status effect effects yet)
 	burn += attack.get_burn()
 	frost += attack.get_frost()
@@ -513,12 +512,30 @@ func damage(attack: Attack):
 	bleed += attack.get_bleed()
 	shock += attack.get_shock()
 	wet += attack.get_wet()
-	print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
-	print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
-	print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
-	print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
-	print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
-	print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
+
+	## Calculate Damage
+	var attack_damage: float = attack.get_damage()
+	var shock_damage: float = 0
+	var wet_damage: float = 0
+	
+	## Shock
+	if attack.status.applies_shock:
+		shock_damage = get_shock_damage()
+	## Wet
+	if attack.status.applies_wet:
+		wet_damage = get_wet_damage()
+	## The Attack
+	var total_damage: float = attack_damage + wet_damage + shock_damage
+	var damage_taken = total_damage - (curr_damage_reduction - shock_defense_reduction)
+	if damage_taken > 0:
+		GameManager.instance.EnemyDamaged.emit(self, attack)
+		curr_health -= damage_taken
+	#print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
+	#print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
+	#print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
+	#print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
+	#print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
+	#print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
 	## Apply Stun and Knockback
 	if attack.get_stun() > 0 && can_be_stunned:
 			stun_time_left = attack.get_stun()
@@ -529,7 +546,12 @@ func damage(attack: Attack):
 			stun_time_left = 0.2
 			stunned = true
 		apply_knockback(attack.position, attack.get_knockback())
-	display_damage(attack.get_damage(), Color.TRANSPARENT)
+	if attack_damage > 0:
+		display_damage(attack_damage, Color.TRANSPARENT)
+	if shock_damage > 0:
+		display_damage(shock_damage, Color.GOLD)
+	if wet_damage > 0:
+		display_damage(wet_damage, Color.BLUE)
 	## Die.
 	check_death(attack)
 func death_signal(attack: Attack):

@@ -71,12 +71,12 @@ static func reset():
 	statsbase = StatsList.new(0)
 	statsfactor = StatsList.new(1)
 	## Status Effect Base Damages are default
-	statsbase.set_stat(BURN_DAMAGE, 5.0)
-	statsbase.set_stat(FROST_DAMAGE, 20.0)
-	statsbase.set_stat(POISON_DAMAGE, 3.0)
-	statsbase.set_stat(BLEED_DAMAGE, 50.0)
+	statsbase.set_stat(BURN_DAMAGE, 25.0)
+	statsbase.set_stat(FROST_DAMAGE, 10.0)
+	statsbase.set_stat(POISON_DAMAGE, 10.0)
+	statsbase.set_stat(BLEED_DAMAGE, 25.0) # Percent
 	statsbase.set_stat(SHOCK_DAMAGE, 10.0)
-	statsbase.set_stat(WET_DAMAGE, 5.0)
+	statsbase.set_stat(WET_DAMAGE, 1.0)
 static func get_base_stat(stat: String) -> float:
 	return statsbase.get_stat(stat)
 static func get_factor_stat(stat: String) -> float:
@@ -189,7 +189,7 @@ static func calculate_damage(damage: float, luck: float, critdamage: float):
 	else:
 		return damage
 static func calculate_knockback(damage: float, weight: float) -> float:
-	return damage * weight
+	return (damage / 2) + (weight * 2) ## More to do with weight than damage
 static func calculate_avoid_damage(ghostly: float) -> bool:
 	var ScalingConstant: float = 160 ## Half-Saturation: at Ghostly = 160, it will reach half of 160 (chance = 80)
 	if ghostly > 0.0:

@@ -13,8 +13,8 @@ const AttackBoth = "Both"
 const Idle = "Idle"
 const IdleFrameRate = 3
 const PunchFrameRate = 3
-const MaxPunchFrameRate = 5
-const MinPunchFrameRate = 1
+const MaxPunchFrameRate = 6
+const MinPunchFrameRate = 2
 const MinPunchTime = 0.10
 const MaxPunchTime = 0.3
 const projectile_offset: float = 10
@@ -37,6 +37,7 @@ func create_projectile():
 	## Melee Attack
 	if left_or_right:
 		set_anim_speed(get_punch_speed())
+		print(get_punch_speed())
 		play_anim(AttackLeft)
 		left_collision.disabled = false
 		#await anim.animation_finished
@@ -158,4 +159,4 @@ func _hit_enemy(enemy: Node2D) -> void:
 		var new_attack :Attack = make_melee_attack()
 		enemy.damage(new_attack)
 func get_punch_speed() -> float:
-	return clamp((PunchFrameRate / max(0.1, attackcooldown_stat * 3)) - (velocity_stat / 200), MinPunchFrameRate, MaxPunchFrameRate)
+	return clamp((PunchFrameRate / max(0.1, attackcooldown_stat * 3)) + (velocity_stat / 90), MinPunchFrameRate, MaxPunchFrameRate)
