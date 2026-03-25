@@ -39,20 +39,44 @@ const BLEED_APPLY = "bleed apply"
 const SHOCK_APPLY = "shock apply"
 const WET_APPLY = "wet apply"
 ## Status Damages
+## Damage done every burn tick
 const BURN_DAMAGE = "burn damage"
+## Damage done on frost proc
 const FROST_DAMAGE = "frost damage"
+## Damage done every poison tick
 const POISON_DAMAGE = "poison damage"
+## Percent (out of 100) HP that bleed procs do
 const BLEED_DAMAGE = "bleed damage"
+## Bonus damage from shock
 const SHOCK_DAMAGE = "shock damage"
+## Bonus damage from wet
 const WET_DAMAGE = "wet damage"
 ## Stats Added to Stat Getters
 static var statsbase = StatsList.new(0)
 ## Stats Multiplied to Stat Getters
 static var statsfactor = StatsList.new(1)
+
+## Variables in one place which are changed during gameplay
+## Reduce enemy movespeed by x when frosted
+static var enemy_frost_movespeed_reduction: float = 5
+## Increase enemy damage taken by x when shocked
+static var enemy_shock_defense_reduction: float = 5
+## Multiplier increase of enemy bleed threshold after bleed proc
+static var enemy_bleed_threshold_multiplier: float = 1.7
+## Multiplier increase of enemy frost threshold after frost proc
+static var enemy_frost_threshold_multiplier: float = 2
+
 ## Likely resets everything in preparation for a new run
 static func reset():
 	statsbase = StatsList.new(0)
 	statsfactor = StatsList.new(1)
+	## Status Effect Base Damages are default
+	statsbase.set_stat(BURN_DAMAGE, 5.0)
+	statsbase.set_stat(FROST_DAMAGE, 20.0)
+	statsbase.set_stat(POISON_DAMAGE, 3.0)
+	statsbase.set_stat(BLEED_DAMAGE, 50.0)
+	statsbase.set_stat(SHOCK_DAMAGE, 10.0)
+	statsbase.set_stat(WET_DAMAGE, 5.0)
 static func get_base_stat(stat: String) -> float:
 	return statsbase.get_stat(stat)
 static func get_factor_stat(stat: String) -> float:
@@ -70,7 +94,7 @@ static func get_statslist_factor() -> StatsList:
 	return statsfactor.get_copy()
 ## Returns a copy of the Base StatsList
 static func get_statslist_base() -> StatsList:
-	return statsfactor.get_copy()
+	return statsbase.get_copy()
 ## Stores a variable for each stat
 class StatsList:
 	var list: Dictionary = {}
@@ -130,6 +154,10 @@ class StatsList:
 			list[key] = list[key] + value
 			return true
 		return false
+	func print_stats():
+		print("Stats: ")
+		for stat in list.keys():
+			print("\t", stat, " : ", list.get(stat))
 	## Returns duplicate copy of this StatsList
 	func get_copy() -> StatsList: 
 		var new_list = StatsList.new(0)

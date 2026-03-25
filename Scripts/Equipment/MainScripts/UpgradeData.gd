@@ -19,15 +19,16 @@ func get_decedent_upgrades() -> Array[UpgradeData]:
 	return decedent_upgrades
 ## Checks if all the preqreq upgrades are obtained, if self is already obtained, if another upgrade disables self
 func can_obtain(equipped_upgrades: Array[Upgrade]) -> bool:
-	## If already obtained self, return false
-	if equipped_upgrades.has(self):
-		return false
 	## If all prerequisite upgrades are obtained, return true
 	var copy: Array[UpgradeData] = prerequisite_upgrades.duplicate()
 	for upgrade in equipped_upgrades:
+		## If already obtained self, return false
+		if upgrade.data == self:
+			return false
 		## If there's an upgrade obtained that disables this upgrade, return false
 		if upgrade.data.disable_upgrades.has(self):
 			return false
+		## Remove prereq upgrades until list is empty or left only with prereqs that aren't active
 		if copy.has(upgrade.data):
 			copy.erase(upgrade.data)
 	return copy.is_empty()

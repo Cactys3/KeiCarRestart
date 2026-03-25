@@ -11,6 +11,7 @@ func deactivate():
 	super()
 ## Override method to edit an attack and return
 func edit_attack(attack: Attack) -> Attack:
+	print("Edit attack! Cutting!")
 	if attack.is_from_weapon():
-		attack.attacking_status.applies_bleed = true
+		attack.status.applies_bleed = true
 	return attack

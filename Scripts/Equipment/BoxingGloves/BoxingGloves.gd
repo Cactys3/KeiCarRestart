@@ -1,6 +1,4 @@
 extends Weapon
-func _ready() -> void:
-	super()
 @onready var right_sprite: AnimatedSprite2D = $RightGlove/RightSprite
 @onready var left_sprite: AnimatedSprite2D = $LeftGlove/LeftSprite
 @onready var right_collision: CollisionShape2D = $RightGlove/RightCollision
@@ -24,6 +22,10 @@ var left_or_right: bool = false
 var left_position_offset: float = 0
 var right_position_offset: float = 0
 @export var punch_distance_default: float = 4
+func _ready() -> void:
+	right_collision.disabled = true
+	left_collision.disabled = true
+	super()
 func _process(delta: float) -> void:
 	super(delta)
 	## Add in left/right position offsets
@@ -152,7 +154,6 @@ func set_anim_speed(speed: float) -> void:
 	right_sprite.speed_scale = speed
 	left_sprite.speed_scale = speed
 func _hit_enemy(enemy: Node2D) -> void:
-	print("Hit Enemy: ", enemy.name)
 	if enemy.is_in_group("enemy"):
 		var new_attack :Attack = make_melee_attack()
 		enemy.damage(new_attack)

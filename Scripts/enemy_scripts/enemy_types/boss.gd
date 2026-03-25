@@ -23,7 +23,7 @@ func unlock_weapon():
 		Save.unlock_weapon(unlocks_weapon_id)
 func get_burn_damage() -> float:
 	return super()
-func get_frost_damage_reduction() -> float:
+func get_frost_movespeed_reduction() -> float:
 	return super()
 func get_shock_defense_reduction() -> float:
 	return super()
@@ -31,11 +31,9 @@ func get_shock_defense_reduction() -> float:
 func get_wet_movement_reduction() -> float:
 	## 4 base * number of times threshold has been reached
 	return -1 * 1 * floor(wet / wet_threshhold)
-## BOSS: only 10 percent max hp dmg for bosses (instead of 50)
+## BOSS: 50% bleed damage reduction
 func get_bleed_damage() -> float:
-	var mulitplier: float = floor(bleed / bleed_threshhold)
-	return (max_health * 0.10)
-## BOSS: 5 percent of max hp every 2 seconds instead of 25
+	return super() / 2
+## BOSS: 50% poison damage reduction
 func get_poison_damage() -> float:
-	var mulitplier: float = floor(poison / poison_threshhold)
-	return max_health * 0.05 * mulitplier
+	return super() / 2

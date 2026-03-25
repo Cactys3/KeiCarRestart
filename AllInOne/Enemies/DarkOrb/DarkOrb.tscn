@@ -113,6 +113,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_g120u"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_lqxhm"]
 radius = 7.0
 
@@ -122,23 +124,44 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_2u64k"]
 radius = 9.0
 
-[node name="DarkOrb" type="RigidBody2D" unique_id=1624017261 node_paths=PackedStringArray("damage_hitbox", "anim") groups=["enemy"]]
+[node name="DarkOrb" type="RigidBody2D" unique_id=1624017261 node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
 collision_layer = 32
 collision_mask = 32
 gravity_scale = 0.0
 script = ExtResource("1_lqxhm")
+enemy_name = "Dark Orb"
+enemy_description = "An Evil Orb floats towards you.... Scary stuff"
 damage_hitbox = NodePath("Damage_Hitbox")
 status = SubResource("Resource_yjfkj")
 turns_towards_movement = true
-anim = NodePath("AnimatedSprite2D")
 metadata/_custom_type_script = "uid://cexfniayiorgs"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1763268192]
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1763268192]
 position = Vector2(1, 9)
 sprite_frames = SubResource("SpriteFrames_cgp4i")
 autoplay = "default"
 frame_progress = 0.58037806
 offset = Vector2(0, -8.385)
+
+[node name="StatusEffectAnims" type="Node2D" parent="." unique_id=1369656196]
+
+[node name="Burn" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=1279875800]
+sprite_frames = SubResource("SpriteFrames_g120u")
+
+[node name="Frost" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=988958672]
+sprite_frames = SubResource("SpriteFrames_g120u")
+
+[node name="Poison" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=1948188115]
+sprite_frames = SubResource("SpriteFrames_g120u")
+
+[node name="Bleed" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=1799396745]
+sprite_frames = SubResource("SpriteFrames_g120u")
+
+[node name="Shock" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=1961702770]
+sprite_frames = SubResource("SpriteFrames_g120u")
+
+[node name="Wet" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=501983667]
+sprite_frames = SubResource("SpriteFrames_g120u")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1652375899]
 shape = SubResource("CircleShape2D_lqxhm")

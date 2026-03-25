@@ -56,9 +56,9 @@ static var ACHIEVEMENTS_DICT = {
 ## Order in 'dictionaries' must be save order they are put into the JSON
 static var dictionaries = [save_slot_statistics, WEAPON_UNLOCKS_DICT, ITEM_UNLOCKS_DICT, MAP_UNLOCKS_DICT, CHARACTER_UNLOCKS_DICT, SHOP_DICT, ACHIEVEMENTS_DICT]
 ## Save Slot Statistics
-const Playtime = "Playtime"
-const Gametime = "Gametime"
-const PlayCount = "PlayCount"
+const Playtime = "Playtime" # In Seconds
+const Gametime = "Gametime" # In Seconds
+const PlayCount = "PlayCount" # Num of times game has been opened
 const RunCount = "RunCount"
 const LoseCount = "LoseCount"
 const WinCount = "WinCount"

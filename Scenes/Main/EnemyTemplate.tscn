@@ -3,19 +3,40 @@
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_8217j"]
 [ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_nlbgu"]
 
-[node name="EnemyTemplate" type="RigidBody2D" unique_id=994641897 node_paths=PackedStringArray("damage_hitbox", "anim") groups=["enemy"]]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8tre4"]
+
+[node name="EnemyTemplate" type="RigidBody2D" unique_id=994641897 node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
 collision_layer = 32
 collision_mask = 32
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_8217j")
 damage_hitbox = NodePath("Damage_Hitbox")
-anim = NodePath("AnimatedSprite2D")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1808058517]
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1808058517]
 animation = &""
 autoplay = "Idle"
 offset = Vector2(0, -8.385)
+
+[node name="StatusEffectAnims" type="Node2D" parent="." unique_id=1380230997]
+
+[node name="Burn" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=1693931292]
+sprite_frames = SubResource("SpriteFrames_8tre4")
+
+[node name="Frost" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=700120926]
+sprite_frames = SubResource("SpriteFrames_8tre4")
+
+[node name="Poison" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=2133276191]
+sprite_frames = SubResource("SpriteFrames_8tre4")
+
+[node name="Bleed" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=1054270537]
+sprite_frames = SubResource("SpriteFrames_8tre4")
+
+[node name="Shock" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=987884546]
+sprite_frames = SubResource("SpriteFrames_8tre4")
+
+[node name="Wet" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=347437274]
+sprite_frames = SubResource("SpriteFrames_8tre4")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=172860896]
 position = Vector2(0, 3)

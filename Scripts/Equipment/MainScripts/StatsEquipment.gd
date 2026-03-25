@@ -4,18 +4,19 @@ class_name StatsEquipment
 ## Stats
 @export_group("Status")
 @export var status: StatusEffects = StatusEffects.new()
-@export var burn_apply: float = 0.5
-@export var frost_apply: float = 0.5
-@export var poison_apply: float = 0.5
-@export var bleed_apply: float = 0.5
-@export var shock_apply: float = 0.5
-@export var wet_apply: float = 0.5
-@export var burn_damage: float = 5.0
-@export var frost_damage: float = 20.0
-@export var poison_damage: float = 3.0
-@export var bleed_damage: float = 35.0
-@export var shock_damage: float = 5.0
-@export var wet_damage: float = 1.0
+@export var burn_apply: float = 0.35 # takes 3 hits base for each to proc (at threshold of 1)
+@export var frost_apply: float = 0.35
+@export var poison_apply: float = 0.35
+@export var bleed_apply: float = 0.35
+@export var shock_apply: float = 0.35
+@export var wet_apply: float = 0.35
+# not used, status damages are only GlobalStats
+#@export var burn_damage: float = 5.0
+#@export var frost_damage: float = 20.0
+#@export var poison_damage: float = 3.0
+#@export var bleed_damage: float = 35.0
+#@export var shock_damage: float = 5.0
+#@export var wet_damage: float = 1.0
 @export_group("Weapon Stats")
 ## Weapon Stats
 @export var damage: float = 0.0
@@ -186,4 +187,13 @@ func add_to_stats_list(list: GlobalStats.StatsList) -> GlobalStats.StatsList:
 	list.add_to_stat(GlobalStats.REVIES, revies)
 	list.add_to_stat(GlobalStats.THORNS, thorns)
 	list.add_to_stat(GlobalStats.INACCURACY, inaccuracy)
+	list.add_to_stat(GlobalStats.BURN_APPLY, burn_apply)
+	list.add_to_stat(GlobalStats.FROST_APPLY, frost_apply)
+	list.add_to_stat(GlobalStats.POISON_APPLY, poison_apply)
+	list.add_to_stat(GlobalStats.BLEED_APPLY, bleed_apply)
+	list.add_to_stat(GlobalStats.SHOCK_APPLY, shock_apply)
+	list.add_to_stat(GlobalStats.WET_APPLY, wet_apply)
+
+	
+	
 	return list

@@ -8,6 +8,12 @@
 
 [sub_resource type="Resource" id="Resource_hdjnv"]
 script = ExtResource("3_ig0w8")
+applies_burn = true
+applies_frost = true
+applies_poison = true
+applies_bleed = true
+applies_shock = true
+applies_wet = true
 metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37iyi"]
@@ -437,7 +443,7 @@ projectile = ExtResource("2_8up8s")
 AimType = 2
 lock_transform_while_attacking = true
 status = SubResource("Resource_hdjnv")
-damage = 20.0
+damage = 1.0
 _range = 40.0
 attackcooldown = 0.25
 reloadtime = 3.0
@@ -448,6 +454,7 @@ piercing = 20.0
 duration = 10.0
 size = 1.0
 inaccuracy = 4.0
+luck = 50.0
 weight = 20.0
 item_name = "Boxing Gloves"
 item_description = "Punch your way to victory!"

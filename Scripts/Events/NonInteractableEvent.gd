@@ -44,7 +44,7 @@ func setup(new_time: float, new_level: float, new_chunk: Vector2):
 			animation.reparent(GameInstance.instance.event_background_parent)
 			animation.set_deferred("global_position", global_pos)
 
-func _on_damage_area_body_entered(body: Node2D) -> void:
+func _hit_detection_entered(body: Node2D) -> void:
 	if can_damage && stopwatch >= cooldown:
 		stopwatch = 0
 		var attack: Attack = Attack.new(Attack.AttackTypes.map_hazard, self, global_position, status, null, null)

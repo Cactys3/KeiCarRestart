@@ -36,7 +36,7 @@ func _ready() -> void:
 func phase_one():
 	print("PHASE 1 - ")
 	generic_phase_setup(1)
-	enemies.append(EnemySpawn.new("Dark Orb", DARKORB, 0.2, 1))
+	#enemies.append(EnemySpawn.new("Dark Orb", DARKORB, 0.2, 1))
 func phase_two():
 	print("PHASE 2 - ")
 	generic_phase_setup(2)

@@ -4,3 +4,4 @@
 
 [node name="CuttingStrikes" type="Node2D" unique_id=2003032444]
 script = ExtResource("1_qjrlg")
+edits_attack = true

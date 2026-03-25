@@ -38,8 +38,11 @@ var weapons: Array[duple] = [PISTOL, BOXING_GLOVE]
 
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
 
+static var start_playtime: float 
+static var start_gametime: float 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	start_playtime = Time.get_ticks_msec()
 	## For testing:
 	GlobalStats.reset()
 	GameInstance.is_game_over = false
@@ -131,6 +134,7 @@ func press_start_game():
 	var instance: GameInstance = setup_instance(base_scene)
 	get_tree().root.add_child(base_scene)
 	get_tree().current_scene = base_scene
+	start_gametime = Time.get_ticks_msec()
 ## Creates Instance with Chosen Values
 func setup_instance(base_scene) -> GameInstance:
 	#print("Creating instance with Map: " + maps[map].key + ", Char: " + characters[character].key)

@@ -2,6 +2,8 @@ extends Resource
 class_name StatusEffects
 
 ## Does it apply status effects:
+enum StatusTypes {burn, frost, poison, bleed, shock, wet}
+
 
 @export var applies_burn: bool = false
 @export var applies_frost: bool = false

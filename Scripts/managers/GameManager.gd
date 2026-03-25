@@ -118,12 +118,18 @@ signal PlayerKilled(player: Character, attack: Attack)
 signal WeaponReloaded(weapon: Weapon)
 signal WeaponFired(weapon: Weapon, projectile: Projectile)
 signal RoundEnded(round_number: int)
-signal BurnProc(damage: float, enemy: Enemy)
-signal ForstProc(damage: float, enemy: Enemy)
-signal PoisonProc(damage: float, enemy: Enemy)
-signal BleedProc(damage: float, enemy: Enemy)
-signal ShockProc(damage: float, enemy: Enemy)
-signal WetProc(damage: float, enemy: Enemy)
+signal BurnDamage(damage: float, enemy: Enemy)
+signal FrostDamage(damage: float, enemy: Enemy)
+signal PoisonDamage(damage: float, enemy: Enemy)
+signal BleedDamage(damage: float, enemy: Enemy)
+signal ShockDamage(damage: float, enemy: Enemy)
+signal WetDamage(damage: float, enemy: Enemy)
+signal BurnApplied(enemy: Enemy)
+signal FrostApplied(enemy: Enemy)
+signal PoisonApplied(enemy: Enemy)
+signal BleedApplied(enemy: Enemy)
+signal ShockApplied(enemy: Enemy)
+signal WetApplied(enemy: Enemy)
 func setup(new_player: Character, starting_weapon: String):
 	player = new_player
 	call_deferred("defer_once", starting_weapon)
@@ -161,9 +167,11 @@ func _process(_delta: float) -> void:
 
 func add_upgrade(data: UpgradeData) -> void:
 	var upgrade: Upgrade = data.get_upgrade()
-	if active_upgrades.has(data):
-		printerr("Trying to add upgrade that already exists in active upgrades: ", upgrade.item_name)
-		return
+	for active_upgrade in active_upgrades:
+		## Can't use active_upgrades.has() because it's a typed array with resources?
+		if active_upgrade.data == data:
+			printerr("Trying to add upgrade that already exists in active upgrades: ", upgrade.item_name)
+			return
 	upgrade.activate(player)
 	active_upgrades.append(upgrade)
 	ui_man.add_upgrade(upgrade)

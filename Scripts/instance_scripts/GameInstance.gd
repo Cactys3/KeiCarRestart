@@ -170,6 +170,10 @@ func check_max_min_enemies():
 func return_to_main_menu() -> void:
 	## Save
 	Save.save_file(TitleManager.file_slot)
+	## Save GameTime
+	var time_since_gametime_start_seconds: float = roundi((Time.get_ticks_msec() - TitleManager.start_gametime) / 1000)
+	Save.update_runtime_data(TitleManager.file_slot, Save.Playtime, Save.get_runtime_data(TitleManager.file_slot, Save.Playtime) + time_since_gametime_start_seconds)
+	TitleManager.start_gametime = 0
 	## Change Scenes
 	if TITLE_SCENE == null:
 		TITLE_SCENE = load("res://Scenes/Main/TitleScene.tscn")

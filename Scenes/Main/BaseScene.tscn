@@ -84,8 +84,6 @@ position = Vector2(320, 180)
 
 [node name="EventParentBackground" type="Node2D" parent="Window640/Offset" unique_id=1419209084]
 
-[node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
-
 [node name="XP Parent" type="Node2D" parent="Window640/Offset" unique_id=719851691 groups=["xp_parent"]]
 
 [node name="xp_blip" parent="Window640/Offset/XP Parent" unique_id=144117000 instance=ExtResource("9_t1qak")]
@@ -100,6 +98,8 @@ position = Vector2(492, 365)
 [node name="WeaponParent" type="Node2D" parent="Window640/Offset" unique_id=2000948482]
 
 [node name="EventParentForeground" type="Node2D" parent="Window640/Offset" unique_id=494069381]
+
+[node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
 
 [node name="SpawnArea" type="CollisionShape2D" parent="Window640/Offset" unique_id=1285077429]
 visible = false

@@ -104,6 +104,13 @@ func convert_large_position(position: Vector2) -> Vector2:
 ## Also handles saving on close game because this node always exists
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		## Update Playtime
+		var time_since_playtime_start_seconds: float = roundi((Time.get_ticks_msec() - TitleManager.start_playtime) / 1000)
+		Save.update_runtime_data(TitleManager.file_slot, Save.Playtime, Save.get_runtime_data(TitleManager.file_slot, Save.Playtime) + time_since_playtime_start_seconds)
+		## Update Gametime
+		if TitleManager.start_gametime > 1000:
+			var time_since_gametime_start_seconds: float = roundi((Time.get_ticks_msec() - TitleManager.start_gametime) / 1000)
+			Save.update_runtime_data(TitleManager.file_slot, Save.Playtime, Save.get_runtime_data(TitleManager.file_slot, Save.Playtime) + time_since_gametime_start_seconds)
 		## Add to game's playcount
 		Save.update_runtime_data(TitleManager.file_slot, Save.PlayCount, Save.get_runtime_data(TitleManager.file_slot, Save.PlayCount) + 1)
 		## Save to file on close game
