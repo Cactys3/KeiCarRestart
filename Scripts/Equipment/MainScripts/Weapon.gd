@@ -210,7 +210,7 @@ func get_cooldown_between_attacks() -> float:
 ## Calculate and return an attack with melee damage offset
 func make_melee_attack() -> Attack:
 	return make_attack(MeleeDamageFactor)
-func get_inaccurate_direction(direction: Vector2, given_inaccuracy: float) -> Vector2:
+static func get_inaccurate_direction(direction: Vector2, given_inaccuracy: float) -> Vector2:
 	if given_inaccuracy == 0:
 		return direction
 	return direction.rotated(deg_to_rad(randf_range(-given_inaccuracy / 3, given_inaccuracy / 3)))

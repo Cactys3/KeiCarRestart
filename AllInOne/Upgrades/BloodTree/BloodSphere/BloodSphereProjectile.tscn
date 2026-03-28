@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://hwgphgu8fcjy"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_288sq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_288sq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_288sq"]
+
+[node name="BloodSphereProjectile" type="Area2D" unique_id=2136569903]
+script = ExtResource("1_288sq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1856059290]
+sprite_frames = SubResource("SpriteFrames_288sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=807999439]
+shape = SubResource("RectangleShape2D_288sq")

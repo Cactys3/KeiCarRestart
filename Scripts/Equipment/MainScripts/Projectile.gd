@@ -28,7 +28,7 @@ var dead: bool = false
 signal died(pos: Vector2, cloned: bool)
 @export var can_spawn_multiple: bool = true
 var status: StatusEffects
-
+var prebuilt_attack: Attack = null
 func _init() -> void:
 	visible = false
 func _ready() -> void:
@@ -36,7 +36,6 @@ func _ready() -> void:
 func flash():
 	await get_tree().create_timer(0.1).timeout
 	visible = true
-##
 func _process(delta: float) -> void:
 	if dead:
 		return
@@ -47,10 +46,8 @@ func _process(delta: float) -> void:
 	stopwatch += delta
 	if (stopwatch > lifetime):
 		die()
-##
 func process_movement(delta: float) -> void:
 	position += direction * velocity * delta
-##
 func process_movement_homing(delta: float):
 	## Acceleration
 	velocity += velocity * acceleration * delta
@@ -91,6 +88,9 @@ func setup_projectile(new_parent: Equipment, new_target: Node2D, enemy_direction
 		damage = parent.damage_stat#damage = new_damage
 		velocity = parent.velocity_stat#velocity = new_velocity
 		weight = parent.weight_stat#weight = new_weight
+## Gives the projectile a prebuilt attack to use instead of calling parent.make_attack()
+func setup_projectile_prebuilt_attack(attack: Attack):
+	prebuilt_attack = attack
 ## Setup values specific for clones
 func setup_clone(damage_offset: float):
 	clone_offset = damage_offset
@@ -98,7 +98,6 @@ func setup_clone(damage_offset: float):
 func setup_return_to_sender(player: Node2D):
 	return_to_sender = true
 	sender = player
-##
 func _on_body_entered(body: Node2D) -> void: 
 	if dead:
 		return
@@ -106,18 +105,22 @@ func _on_body_entered(body: Node2D) -> void:
 		attack_body(body, is_clone)
 		collision_counter += 1
 		AttackedObjects.append(body)
-
 func attack_body(body: Node2D, clone: bool) -> void:
-	if is_instance_valid(parent):
+	var attack: Attack = null
+	## Use prebuilt attack as 1st prio
+	if prebuilt_attack:
+		attack = prebuilt_attack
+	## Then request an attack from parent
+	elif is_instance_valid(parent):
 		if is_clone:
-			parent.make_attack(clone_offset)
+			attack = parent.make_attack(clone_offset)
 		else:
-			parent.make_attack(1)
+			attack = parent.make_attack(1)
+	## Lastly try making own attack
 	else:
-		var new_attack = make_attack(clone)
-		if new_attack:
-			body.damage(new_attack)
-
+		attack = make_attack(clone)
+	if attack:
+		body.damage(attack)
 func make_attack(clone: bool) -> Attack:
 	var new_attack: Attack
 	var attack_damage: float = damage
@@ -126,7 +129,6 @@ func make_attack(clone: bool) -> Attack:
 	new_attack = Attack.new(attack_type, self, global_position, status, null, null)
 	new_attack.simple_setup(attack_damage, weight * (attack_damage / 30))
 	return new_attack
-
 func die():
 	if dead:
 		return

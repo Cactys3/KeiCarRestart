@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dovy7157t412j"]
+
+[ext_resource type="Script" uid="uid://bu3bamj54eaja" path="res://Scripts/Equipment/MainScripts/Turret.gd" id="1_tlcek"]
+
+[node name="BloodTurretScene" type="Node2D" unique_id=874664008 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_tlcek")
+anim = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=342397088]

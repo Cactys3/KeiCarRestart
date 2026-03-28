@@ -183,6 +183,9 @@ static func calculate_movespeed(movespeed: float) -> float:
 	return movespeed * 2
 static func calculate_critdamage(critdamage: float) -> float:
 	return critdamage
+## Calculate if this move is a critical strike
+static func calculate_crit(luck: float) -> bool:
+	return luck >= randf_range(0, 100)
 static func calculate_damage(damage: float, luck: float, critdamage: float):
 	if (luck / 100) > randf():
 		return damage * (1 + (critdamage / 100))

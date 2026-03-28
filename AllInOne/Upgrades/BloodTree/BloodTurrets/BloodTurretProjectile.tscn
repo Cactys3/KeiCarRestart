@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cmox0efehx05e"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_gnqbd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gnqbd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gnqbd"]
+
+[node name="BloodTurretProjectile" type="Area2D" unique_id=1341003424]
+script = ExtResource("1_gnqbd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2118981883]
+sprite_frames = SubResource("SpriteFrames_gnqbd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=752319349]
+shape = SubResource("RectangleShape2D_gnqbd")

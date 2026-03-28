@@ -25,12 +25,13 @@ var attacker: Node2D # Reference to attacker
 var temporary_base_stats: GlobalStats.StatsList 
 var temporary_factor_stats: GlobalStats.StatsList 
 ## Values
+var calculated_crit: bool = false
+var is_crit: bool = false
 var stun: float = 0
 ## Simple Values
 var simple: bool = false
 var simple_damage: float
 var simple_knockback: float
-
 
 func _init(type: AttackTypes, attackerNode: Node2D, pos: Vector2, attacker_status: StatusEffects, basestats: GlobalStats.StatsList, factorstats: GlobalStats.StatsList):
 	attack_type = type
@@ -78,7 +79,16 @@ func get_wet() -> float:
 	if status.applies_wet:
 		return get_stat(GlobalStats.WET_APPLY)
 	return 0
-
+## Returns if this attack is a critical strike
+func get_crit() -> bool:
+	if !calculated_crit:
+		calculate_crit()
+	return is_crit
+## Decides the value for crit
+func calculate_crit() -> void:
+	if temporary_base_stats && temporary_factor_stats:
+		calculated_crit = true
+		is_crit = GlobalStats.calculate_crit(temporary_base_stats.get_stat(GlobalStats.LUCK) * temporary_factor_stats.get_stat(GlobalStats.LUCK))
 func get_stat(key: String) -> float:
 	if simple:
 		printerr("Trying to call 'get_stat' on Attack but Attack is setup as simple: ", key)

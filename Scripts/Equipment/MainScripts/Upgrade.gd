@@ -12,6 +12,8 @@ const INTERMEDIATE_COLOR: Color = Color.BLUE
 const ADVANCED_COLOR: Color = Color.REBECCA_PURPLE
 const EXCLUSIVE_COLOR: Color = Color.LIGHT_GOLDENROD
 var data: UpgradeData
+## Disable all functions 
+var disabled_by_inherited_upgrade: bool = false
 ## statics
 static var upgrade_buffs_duration_factor: float = 1
 func _process(delta: float) -> void:

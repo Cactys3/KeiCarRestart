@@ -11,6 +11,8 @@ class_name Equipment
 @export_group("Signal Connections")
 @export var connect_enemy_killed: bool = false
 @export var connect_reload: bool = false
+@export var connect_bleed_proc: bool = false
+@export var connect_frost_proc: bool = false
 @export var connect_: bool = false
 var game_man: GameManager:
 	get():
@@ -24,10 +26,6 @@ var active: bool = false
 enum item_types{unset, upgrade, projectile, weapon}
 func _ready() -> void:
 	flash()
-	if connect_enemy_killed:
-		game_man.EnemyKilled.connect(enemy_killed)
-	if connect_reload:
-		game_man.WeaponReloaded.connect(reload)
 func _process(delta: float) -> void:
 	pass
 ## Flashing stuff
@@ -49,10 +47,26 @@ static func get_type(i: int) -> String:
 	return "Type: " + str(i)
 ## enable and apply the functionality of this Equipment
 func activate(new_player: Character):
+	if connect_enemy_killed:
+		game_man.EnemyKilled.connect(enemy_killed)
+	if connect_reload:
+		game_man.WeaponReloaded.connect(reload)
+	if connect_bleed_proc:
+		game_man.BleedDamage.connect(bleed_proc)
+	if connect_frost_proc:
+		game_man.FrostDamage.connect((frost_proc))
 	player = new_player
 	active = true
 ## disable and halt the functionality of this Equipment
 func deactivate():
+	if connect_enemy_killed && game_man.EnemyKilled.is_connected(enemy_killed):
+		game_man.EnemyKilled.disconnect(enemy_killed)
+	if connect_reload && game_man.WeaponReloaded.is_connected(reload):
+		game_man.WeaponReloaded.disconnect(reload)
+	if connect_bleed_proc && game_man.BleedDamage.is_connected(bleed_proc):
+		game_man.BleedDamage.disconnect(bleed_proc)
+	if connect_frost_proc && game_man.FrostDamage.is_connected((frost_proc)):
+		game_man.FrostDamage.disconnect((frost_proc))
 	active = false
 ## Returns if this Equipment can attack the given node (not the player, has damage() func, can_be_damaged)
 func can_attack(node: Node2D) -> bool:
@@ -104,13 +118,17 @@ func IsAimingAtAnyEnemy() -> bool:
 	return false
 ## SIGNALS
 ## On Enemy Killed Signal
-func enemy_killed() -> void:
+func enemy_killed(enemy: Enemy, attack: Attack) -> void:
 	pass
 ## On Reload Signal
-func reload() -> void:
+func reload(weapon: Weapon) -> void:
 	pass
-
-
+## On (enemy) Bleed Proc Signal 
+func bleed_proc(bleed_damage: float, enemy: Enemy):
+	pass
+## On (enemy) Frost Proc Signal 
+func frost_proc(frost_damage: float, enemy: Enemy):
+	pass
 ## Stats Equipment
 ## Stats
 @export_group("Stats Equipment")

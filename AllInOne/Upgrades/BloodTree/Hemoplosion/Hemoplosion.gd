@@ -8,3 +8,5 @@ func activate(new_player: Character):
 ## Disables the functionality of this upgrade
 func deactivate():
 	super()
+
+## TODO: blood meter
