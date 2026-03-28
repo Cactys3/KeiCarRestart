@@ -10,7 +10,7 @@ func _ready() -> void:
 
 ## Die on first collision
 func attack_body(body: Node2D, clone: bool) -> void:
-	if !AttackedObjects.has(body):
+	if !AttackedObjects.has(body) && parent.can_attack(body):
 		var new_attack = make_attack(clone)
 		body.damage(new_attack)
 		collision_counter += 1

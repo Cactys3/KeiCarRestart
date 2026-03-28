@@ -54,6 +54,7 @@ var game_man: GameManager:
 	get():
 		return revives + GlobalStats.get_stat(GlobalStats.REVIES)
 ## Variables
+var can_be_damaged: bool = true
 var default_pickup_radius: float = 30
 var regen_stopwatch: float = 0
 var time_since_taken_damage: float = 0

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_lqxhm"]
 [ext_resource type="Texture2D" uid="uid://dcqev4gxdwwa0" path="res://Art/Enemies/DarkOrb/DarkOrb.png" id="2_2u64k"]
-[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="2_3cmtv"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_g120u"]
 
 [sub_resource type="Resource" id="Resource_yjfkj"]
@@ -115,18 +114,27 @@ animations = [{
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g120u"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lqxhm"]
-radius = 7.0
+[sub_resource type="Gradient" id="Gradient_2u64k"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.6294737, 1)
+colors = PackedColorArray(0.3550117, 0, 0.040141694, 1, 1, 0, 0, 1, 1, 0.5232479, 0.40684927, 1)
+
+[sub_resource type="Gradient" id="Gradient_g120u"]
+offsets = PackedFloat32Array(0, 0.6063158, 1)
+colors = PackedColorArray(0.6684423, 0.728573, 1, 1, 0.659976, 0.9100499, 0.9999998, 1, 0.8971079, 0.9114601, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3cmtv"]
 radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lqxhm"]
+radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2u64k"]
 radius = 9.0
 
 [node name="DarkOrb" type="RigidBody2D" unique_id=1624017261 node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
-collision_layer = 32
-collision_mask = 32
+collision_layer = 8
+collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_lqxhm")
 enemy_name = "Dark Orb"
@@ -146,10 +154,45 @@ offset = Vector2(0, -8.385)
 [node name="StatusEffectAnims" type="Node2D" parent="." unique_id=1369656196]
 
 [node name="Burn" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=1279875800]
+visible = false
 sprite_frames = SubResource("SpriteFrames_g120u")
 
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="StatusEffectAnims/Burn" unique_id=528236734]
+lifetime = 3.0
+speed_scale = 3.0
+emission_shape = 2
+emission_sphere_radius = 9.0
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, -2)
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
+angle_max = 90.0
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+color_ramp = SubResource("Gradient_2u64k")
+hue_variation_min = -0.1
+hue_variation_max = 0.04
+
 [node name="Frost" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=988958672]
+visible = false
 sprite_frames = SubResource("SpriteFrames_g120u")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="StatusEffectAnims/Frost" unique_id=747779763]
+lifetime = 3.0
+emission_shape = 2
+emission_sphere_radius = 7.51
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 0)
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+radial_accel_max = 3.0
+scale_amount_min = 0.2
+scale_amount_max = 0.7
+color_initial_ramp = SubResource("Gradient_g120u")
 
 [node name="Poison" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=1948188115]
 sprite_frames = SubResource("SpriteFrames_g120u")
@@ -163,22 +206,21 @@ sprite_frames = SubResource("SpriteFrames_g120u")
 [node name="Wet" type="AnimatedSprite2D" parent="StatusEffectAnims" unique_id=501983667]
 sprite_frames = SubResource("SpriteFrames_g120u")
 
-[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1652375899]
-shape = SubResource("CircleShape2D_lqxhm")
-
 [node name="Damage_Hitbox" type="Area2D" parent="." unique_id=2072209990]
 collision_layer = 16
-collision_mask = 2
+collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=115181602]
 shape = SubResource("CircleShape2D_3cmtv")
 
-[node name="Health_HitArea" type="Area2D" parent="." unique_id=1625047453 groups=["enemy"]]
-collision_layer = 8
-collision_mask = 8
-script = ExtResource("2_3cmtv")
+[node name="MinionBlock" type="Area2D" parent="." unique_id=614303809]
+collision_layer = 32
+collision_mask = 32
 
-[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=36205081]
+[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=1652375899]
+shape = SubResource("CircleShape2D_lqxhm")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=36205081]
 shape = SubResource("CircleShape2D_2u64k")
 
 [connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

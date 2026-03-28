@@ -102,7 +102,7 @@ func setup_return_to_sender(player: Node2D):
 func _on_body_entered(body: Node2D) -> void: 
 	if dead:
 		return
-	if body.has_method("damage") && !AttackedObjects.has(body):
+	if parent.can_attack(body) && !AttackedObjects.has(body):
 		attack_body(body, is_clone)
 		collision_counter += 1
 		AttackedObjects.append(body)

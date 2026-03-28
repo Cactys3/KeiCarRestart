@@ -1,12 +1,8 @@
 [gd_scene format=3 uid="uid://dx3vgmeepju4x"]
 
 [ext_resource type="Script" uid="uid://qsl3fexnb70s" path="res://Scripts/Events/NonInteractableEvent.gd" id="1_pqand"]
-[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_cafu0"]
 [ext_resource type="Texture2D" uid="uid://bfqmjyqvuiltk" path="res://Art/DarkForest/EvilTree/EvilTree.png" id="2_j8kdx"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_j8kdx"]
-
-[sub_resource type="Resource" id="Resource_drgie"]
-script = ExtResource("2_cafu0")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h0ay4"]
 atlas = ExtResource("2_j8kdx")
@@ -23,11 +19,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_cafu0"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.6294737, 1)
-colors = PackedColorArray(0.3550117, 0, 0.040141694, 1, 1, 0, 0, 1, 1, 0.5232479, 0.40684927, 1)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_hp3iw"]
 atlas = ExtResource("2_j8kdx")
 region = Rect2(256, 128, 128, 128)
@@ -42,6 +33,11 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="Gradient" id="Gradient_cafu0"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.6294737, 1)
+colors = PackedColorArray(0.3550117, 0, 0.040141694, 1, 1, 0, 0, 1, 1, 0.5232479, 0.40684927, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8kdx"]
 size = Vector2(23, 18)
@@ -58,31 +54,17 @@ size = Vector2(54, 39)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_drgie"]
 size = Vector2(100, 120)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h0ay4"]
-size = Vector2(56, 94)
-
-[node name="EvilTree" type="Area2D" unique_id=1702388138 node_paths=PackedStringArray("hurtbox", "hitbox", "foreground", "background", "anims", "burn_anim", "frost_anim", "poison_anim", "bleed_anim", "shock_anim", "wet_anim")]
-collision_layer = 128
-collision_mask = 0
+[node name="EvilTree" type="Area2D" unique_id=1702388138 node_paths=PackedStringArray("foreground", "background", "anims")]
+collision_layer = 64
+collision_mask = 2
 script = ExtResource("1_pqand")
-hurtbox = NodePath("Hitbox")
 can_be_damaged = true
-hp = 10000000000.0
 can_have_status_effect = true
-hitbox = NodePath("Hitbox")
-attack_damage = null
-status = SubResource("Resource_drgie")
 foreground = [NodePath("Foreground")]
 background = [NodePath("Background")]
 anims = [NodePath("Foreground/Foreground"), NodePath("Background/Background")]
 each_frame_is_alternative_art = true
 randomly_roll_alternative_art = true
-burn_anim = NodePath("Foreground/StatusEffects/Burn")
-frost_anim = NodePath("Foreground/StatusEffects/Frost")
-poison_anim = NodePath("Foreground/StatusEffects/Poison")
-bleed_anim = NodePath("Foreground/StatusEffects/Bleed")
-shock_anim = NodePath("Foreground/StatusEffects/Shock")
-wet_anim = NodePath("Foreground/StatusEffects/Wet")
 event_center_offset = Vector2(0, -5)
 event_size = Vector2(100, 120)
 
@@ -92,12 +74,17 @@ event_size = Vector2(100, 120)
 sprite_frames = SubResource("SpriteFrames_hp3iw")
 script = ExtResource("3_j8kdx")
 
-[node name="StatusEffects" type="Node2D" parent="Foreground" unique_id=1613916493]
+[node name="Background" type="Node2D" parent="." unique_id=1123936459]
 
-[node name="Burn" type="Node2D" parent="Foreground/StatusEffects" unique_id=598919968]
-visible = false
+[node name="Background" type="AnimatedSprite2D" parent="Background" unique_id=1161857457]
+sprite_frames = SubResource("SpriteFrames_drgie")
+script = ExtResource("3_j8kdx")
 
-[node name="BurnParticles" type="CPUParticles2D" parent="Foreground/StatusEffects/Burn" unique_id=580036794]
+[node name="StatusEffects" type="Node2D" parent="." unique_id=1613916493]
+
+[node name="Burn" type="Node2D" parent="StatusEffects" unique_id=598919968]
+
+[node name="BurnParticles" type="CPUParticles2D" parent="StatusEffects/Burn" unique_id=580036794]
 emission_shape = 2
 emission_sphere_radius = 17.7
 direction = Vector2(0, -1)
@@ -107,26 +94,15 @@ radial_accel_min = -17.32
 scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_cafu0")
 
-[node name="Frost" type="Node2D" parent="Foreground/StatusEffects" unique_id=2136550942]
-visible = false
+[node name="Frost" type="Node2D" parent="StatusEffects" unique_id=2136550942]
 
-[node name="Poison" type="Node2D" parent="Foreground/StatusEffects" unique_id=471716094]
-visible = false
+[node name="Poison" type="Node2D" parent="StatusEffects" unique_id=471716094]
 
-[node name="Bleed" type="Node2D" parent="Foreground/StatusEffects" unique_id=1814056099]
-visible = false
+[node name="Bleed" type="Node2D" parent="StatusEffects" unique_id=1814056099]
 
-[node name="Shock" type="Node2D" parent="Foreground/StatusEffects" unique_id=1210051436]
-visible = false
+[node name="Shock" type="Node2D" parent="StatusEffects" unique_id=1210051436]
 
-[node name="Wet" type="Node2D" parent="Foreground/StatusEffects" unique_id=1797584529]
-visible = false
-
-[node name="Background" type="Node2D" parent="." unique_id=1123936459]
-
-[node name="Background" type="AnimatedSprite2D" parent="Background" unique_id=1161857457]
-sprite_frames = SubResource("SpriteFrames_drgie")
-script = ExtResource("3_j8kdx")
+[node name="Wet" type="Node2D" parent="StatusEffects" unique_id=1797584529]
 
 [node name="CollisionBody" type="RigidBody2D" parent="." unique_id=1721310384]
 collision_layer = 64
@@ -143,15 +119,13 @@ shape = SubResource("RectangleShape2D_j8kdx")
 position = Vector2(0, -8.5)
 shape = SubResource("RectangleShape2D_5qsf8")
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=105461919]
-collision_layer = 0
-collision_mask = 10
+[node name="HitDetection" type="Area2D" parent="." unique_id=105461919]
 
-[node name="HitboxTrunk" type="CollisionShape2D" parent="Hitbox" unique_id=620365097]
+[node name="HitDetectionTrunk" type="CollisionShape2D" parent="HitDetection" unique_id=620365097]
 position = Vector2(1.5, 20)
 shape = SubResource("RectangleShape2D_hp3iw")
 
-[node name="Hitbox" type="CollisionShape2D" parent="Hitbox" unique_id=1911973237]
+[node name="HitDetection" type="CollisionShape2D" parent="HitDetection" unique_id=1911973237]
 position = Vector2(0, -8.5)
 shape = SubResource("RectangleShape2D_cafu0")
 
@@ -160,9 +134,5 @@ position = Vector2(-1, 2)
 shape = SubResource("RectangleShape2D_drgie")
 disabled = true
 
-[node name="Hurtbox2" type="CollisionShape2D" parent="." unique_id=224920586]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_h0ay4")
-
-[connection signal="area_entered" from="Hitbox" to="." method="_hit_detection_entered"]
-[connection signal="body_entered" from="Hitbox" to="." method="_hit_detection_entered"]
+[connection signal="area_entered" from="HitDetection" to="." method="_hit_detection_entered"]
+[connection signal="body_entered" from="HitDetection" to="." method="_hit_detection_entered"]

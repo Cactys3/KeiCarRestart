@@ -1,6 +1,8 @@
 @tool
 extends Node2D
 class_name Event
+@export var event_name: String = "unset"
+@export var event_description: String = "unset"
 @export var show_size_debug: bool = false
 @export var event_center_offset: Vector2
 @export var event_size: Vector2:

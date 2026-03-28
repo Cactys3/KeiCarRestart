@@ -115,6 +115,7 @@ signal BossKilled(boss: Boss, attack: Attack)
 signal PlayerDamaged(player: Character, attack: Attack)
 signal PlayerRevived(player: Character)
 signal PlayerKilled(player: Character, attack: Attack)
+signal EventKilled(event: Event, attack: Attack)
 signal WeaponReloaded(weapon: Weapon)
 signal WeaponFired(weapon: Weapon, projectile: Projectile)
 signal RoundEnded(round_number: int)
@@ -286,7 +287,7 @@ func enemy_killed(enemy: Enemy, attack: Attack):
 	if player.lifesteal > 0 && curr_hp < player.health:
 		curr_hp += player.lifesteal
 func player_damaged(playah: Character, attack: Attack):
-	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage"):
+	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage") && "can_be_damaged" in attack.attacker && attack.attacker.get("can_be_damaged"):
 		## Apply Thorns Damage to Attacker
 		var new_status: StatusEffects = StatusEffects.new()
 		new_status.applies_bleed = true

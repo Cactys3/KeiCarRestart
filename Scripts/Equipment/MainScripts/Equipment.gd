@@ -44,3 +44,8 @@ func activate(new_player: Character):
 ## disable and halt the functionality of this Equipment
 func deactivate():
 	active = false
+## Returns if this Equipment can attack the given node (not the player, has damage() func, can_be_damaged)
+func can_attack(node: Node2D) -> bool:
+	print('can we attack ', node.name, "?")
+	print(!node.is_in_group("player"), "can_be_damaged" in node,  node.get("can_be_damaged"),  node.has_method("damage"))
+	return !node.is_in_group("player") && "can_be_damaged" in node && node.get("can_be_damaged") && node.has_method("damage")

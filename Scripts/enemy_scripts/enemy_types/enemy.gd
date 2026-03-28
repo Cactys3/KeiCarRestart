@@ -9,7 +9,7 @@ enum EnemyTypes {unset}
 @export var multiply_hp_by_minute: bool = true
 @export var melee_attacks: bool = true
 @export var damage_hitbox: Area2D
-@export var can_be_knockbacked:bool = true
+@export var can_be_knockbacked: bool = true
 @export var can_be_stunned:bool = true
 @export var xp_on_death: int = 10
 @export var money_on_death: int = 3
@@ -55,6 +55,7 @@ enum EnemyTypes {unset}
 @export var bleed_threshhold: float = 1
 @export var shock_threshhold: float = 1
 @export var wet_threshhold: float = 1
+var can_be_damaged: bool = true
 ## Current values of each status that have been damaged into this enemy
 var burn: float = 0
 var frost: float = 0
@@ -131,6 +132,7 @@ var curr_critdamage: float
 var facing_left: bool = true
 var ImReady: bool = false
 var can_drop_stuff: bool = true
+var can_attack_other_enemies: bool = false
 ## Called on death with position of death
 signal death(position: Vector2)
 ## Player Level at time Enemy was spawned
@@ -141,6 +143,7 @@ var difficulty: float
 var dead: bool = false
 
 func _ready() -> void:
+	
 	anim.visible = false
 	flash()
 	call_deferred("set_stats")
@@ -167,6 +170,7 @@ func set_stats():
 	curr_health = base_health
 	curr_critchance = base_critchance
 	curr_critdamage = base_critdamage
+	
 ##
 func setup():
 	player = get_tree().get_first_node_in_group("player")
@@ -250,6 +254,8 @@ func status_process(delta: float) -> void:
 	## BURN: Burn every 1 second, damage based on how many times over threshold
 	if !is_burning:
 		applied_burn = 0
+		burn_anim.stop()
+		burn_anim.visible = false
 	elif !immune_to_burn:
 		if second:
 			most_recent_attack = proc_burn()
@@ -263,11 +269,15 @@ func status_process(delta: float) -> void:
 			## Death
 			if check_death(most_recent_attack):
 				return
-		if !is_frosted:
-			frost_movespeed_reduction = 0
+	if !is_frosted:
+		frost_anim.stop()
+		frost_anim.visible = false
+		frost_movespeed_reduction = 0
 	## POISON: Take damage every 2 seconds
 	if !is_poisoned:
 		applied_poison = 0
+		poison_anim.stop()
+		poison_anim.visible = false
 	elif !immune_to_poison:
 		if two_second:
 			most_recent_attack = proc_poison()
@@ -282,16 +292,23 @@ func status_process(delta: float) -> void:
 			## Death
 			if check_death(most_recent_attack):
 				return
+	if !is_bleeding:
+		bleed_anim.stop()
+		bleed_anim.visible = false
 	## SHOCK:
 	if !is_shocked:
 		applied_shock = 0
 		shock_defense_reduction = 0
+		shock_anim.stop()
+		shock_anim.visible = false
 	elif !immune_to_shock:
 		if applied_shock != floor(shock / shock_threshhold):
 			proc_shock()
 	## WET:
 	if !is_wet:
 		applied_wet = 0
+		wet_anim.stop()
+		wet_anim.visible = false
 	elif !immune_to_wet:
 		if applied_wet != floor(wet / wet_threshhold):
 			proc_wet()
@@ -305,6 +322,7 @@ func check_death(attack: Attack) -> bool:
 
 func proc_burn() -> Attack:
 	if burn_anim:
+		burn_anim.visible = true
 		burn_anim.play("default")
 	## Do the math
 	var current_burn_damage: float = get_burn_damage()
@@ -318,6 +336,7 @@ func proc_burn() -> Attack:
 	return attack
 func proc_frost() -> Attack:
 	if frost_anim:
+		frost_anim.visible = true
 		frost_anim.play("default")
 	applied_frost = floor(frost / frost_threshhold)
 	frost_movespeed_reduction = get_frost_movespeed_reduction()
@@ -335,6 +354,7 @@ func proc_frost() -> Attack:
 	return attack
 func proc_poison() -> Attack:
 	if poison_anim:
+		poison_anim.visible = true
 		poison_anim.play("default")
 	## Do the math
 	var current_poison_damage: float = get_poison_damage()
@@ -348,6 +368,7 @@ func proc_poison() -> Attack:
 	return attack
 func proc_bleed() -> Attack:
 	if bleed_anim:
+		bleed_anim.visible = true
 		bleed_anim.play("default")
 	## Do the math
 	# does x percent of health each bleed proc
@@ -364,11 +385,13 @@ func proc_bleed() -> Attack:
 	return attack
 func proc_shock():
 	if shock_anim:
+		shock_anim.visible = true
 		shock_anim.play("default")
 	applied_shock = floor(shock / shock_threshhold)
 	shock_defense_reduction = get_shock_defense_reduction()
 func proc_wet():
 	if wet_anim:
+		wet_anim.visible = true
 		wet_anim.play("default")
 	applied_wet = floor(wet / wet_threshhold)
 
@@ -473,7 +496,7 @@ func display_damage(damage_value: float, color: Color):
 		dmg_text.setup_color(str(int(round(damage_value))), damage_value + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), color)
 
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:
-	if body.has_method("damage") && body.is_in_group("player"):
+	if can_attack(body):
 		damage_player(body, false)
 		## Handles self knockback on attack player
 		if self_knockback_onhit != 0:
@@ -568,3 +591,6 @@ static func calculate_enemy_damage(base_dmg: float, game_level: float, game_diff
 	var ret: float = base_dmg
 	ret *= 1 + (game_difficulty / 50)
 	return ret
+## Returns if this can attack the node
+func can_attack(body: Node2D) -> bool:
+	return (can_attack_other_enemies || !body.is_in_group("enemy")) && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage")

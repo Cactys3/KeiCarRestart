@@ -155,7 +155,7 @@ func set_anim_speed(speed: float) -> void:
 	right_sprite.speed_scale = speed
 	left_sprite.speed_scale = speed
 func _hit_enemy(enemy: Node2D) -> void:
-	if enemy.is_in_group("enemy"):
+	if can_attack(enemy):
 		var new_attack :Attack = make_melee_attack()
 		enemy.damage(new_attack)
 func get_punch_speed() -> float:

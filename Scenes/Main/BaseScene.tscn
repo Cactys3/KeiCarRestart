@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scripts/instance_scripts/InstanceRoot.gd" id="1_eeah7"]
+[ext_resource type="Texture2D" uid="uid://cdoowwkvlvfk0" path="res://Art/DarkForest/Setting/Backdrop.png" id="2_pbrr2"]
 [ext_resource type="PackedScene" uid="uid://bgt57e0022plx" path="res://Scenes/Misc/xp_blip.tscn" id="9_t1qak"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
@@ -9,6 +10,21 @@
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
 [ext_resource type="Script" uid="uid://b6808ricdvjjh" path="res://Scripts/UI/relative_to_game.gd" id="17_afe04"]
 [ext_resource type="Script" uid="uid://xirmq1j15ex1" path="res://Scripts/managers/WindowManager.gd" id="27_fwf5d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrryo"]
+atlas = ExtResource("2_pbrr2")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eeah7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrryo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_41mr8"]
 radius = 652.96
@@ -58,7 +74,6 @@ spawn_deadzone = NodePath("Window640/Offset/DeadzoneArea")
 [node name="Window640" type="Window" parent="." unique_id=1195365431]
 auto_translate_mode = 1
 disable_3d = true
-snap_2d_transforms_to_pixel = true
 canvas_item_default_texture_filter = 0
 physics_object_picking = true
 oversampling_override = 1.0
@@ -70,6 +85,8 @@ borderless = true
 extend_to_title = true
 mouse_passthrough = true
 sharp_corners = true
+minimize_disabled = true
+maximize_disabled = true
 content_scale_size = Vector2i(640, 360)
 content_scale_mode = 2
 content_scale_aspect = 1
@@ -81,6 +98,10 @@ texture_filter = 1
 position = Vector2(320, 180)
 
 [node name="BackgroundParent" type="Node2D" parent="Window640/Offset" unique_id=519102949]
+
+[node name="TEST_BackgroundPlaceholder" type="AnimatedSprite2D" parent="Window640/Offset/BackgroundParent" unique_id=1405815988]
+visible = false
+sprite_frames = SubResource("SpriteFrames_eeah7")
 
 [node name="EventParentBackground" type="Node2D" parent="Window640/Offset" unique_id=1419209084]
 
@@ -124,6 +145,8 @@ borderless = true
 extend_to_title = true
 mouse_passthrough = true
 sharp_corners = true
+minimize_disabled = true
+maximize_disabled = true
 content_scale_size = Vector2i(1920, 1080)
 content_scale_mode = 2
 content_scale_aspect = 1
