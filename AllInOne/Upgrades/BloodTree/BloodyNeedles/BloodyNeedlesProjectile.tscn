@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ck86b4m7iaeeu"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_44sww"]
+
+[node name="BloodyNeedlesProjectile" type="Node2D" unique_id=1839344969]
+script = ExtResource("1_44sww")

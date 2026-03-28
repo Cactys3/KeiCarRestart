@@ -4,8 +4,7 @@
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_cafu0"]
 [ext_resource type="Texture2D" uid="uid://bfqmjyqvuiltk" path="res://Art/DarkForest/EvilTree/EvilTree.png" id="2_j8kdx"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_j8kdx"]
-[ext_resource type="PackedScene" uid="uid://gy3vfni2yby5" path="res://AllInOne/Particles/FireParticles.tscn" id="5_drgie"]
-[ext_resource type="PackedScene" uid="uid://cwdekcvqhawws" path="res://AllInOne/Particles/FrostParticles.tscn" id="6_5qsf8"]
+[ext_resource type="PackedScene" uid="uid://gy3vfni2yby5" path="res://AllInOne/Particles/Fire/FireParticles.tscn" id="5_drgie"]
 
 [sub_resource type="Resource" id="Resource_drgie"]
 script = ExtResource("2_cafu0")
@@ -24,6 +23,22 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="Gradient" id="Gradient_cafu0"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.6294737, 1)
+colors = PackedColorArray(0.3550117, 0, 0.040141694, 1, 1, 0, 0, 1, 1, 0.5232479, 0.40684927, 1)
+
+[sub_resource type="Gradient" id="Gradient_drgie"]
+offsets = PackedFloat32Array(0, 0.71816283, 1)
+colors = PackedColorArray(1, 0.4786337, 0.40343267, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cafu0"]
+gradient = SubResource("Gradient_drgie")
+width = 100
+height = 100
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hp3iw"]
 atlas = ExtResource("2_j8kdx")
@@ -94,14 +109,31 @@ script = ExtResource("3_j8kdx")
 visible = false
 
 [node name="FireParticles" parent="Foreground/StatusEffects/Burn" unique_id=908855576 instance=ExtResource("5_drgie")]
-scale = Vector2(3, 3)
-amount = 20
+enabled = null
+energy = null
+texture_scale = null
+light_texture = null
+light_color = null
+shadow = null
+
+[node name="BurnParticles" type="CPUParticles2D" parent="Foreground/StatusEffects/Burn" unique_id=580036794]
+visible = false
+emission_shape = 2
+emission_sphere_radius = 17.7
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 0)
+radial_accel_min = -17.32
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_cafu0")
+
+[node name="PointLight2D" type="PointLight2D" parent="Foreground/StatusEffects/Burn" unique_id=30358877]
+visible = false
+energy = 0.5
+texture = SubResource("GradientTexture2D_cafu0")
 
 [node name="Frost" type="Node2D" parent="Foreground/StatusEffects" unique_id=2136550942]
 visible = false
-
-[node name="FrostParticles" parent="Foreground/StatusEffects/Frost" unique_id=1616397393 instance=ExtResource("6_5qsf8")]
-texture_scale = 1.0
 
 [node name="Poison" type="Node2D" parent="Foreground/StatusEffects" unique_id=471716094]
 visible = false

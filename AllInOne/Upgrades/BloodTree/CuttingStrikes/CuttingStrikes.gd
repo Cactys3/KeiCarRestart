@@ -2,7 +2,10 @@ extends Upgrade
 
 ## This upgrade:
 #
-
+## set Edits attack
+func _ready() -> void:
+	edits_attack = true
+	super()
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
 	super(new_player)

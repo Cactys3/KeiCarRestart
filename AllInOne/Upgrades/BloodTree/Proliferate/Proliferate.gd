@@ -3,6 +3,10 @@ extends Upgrade
 #
 const blood_damage_buff_factor = 0.25
 const blood_apply_buff_factor = 0.5
+## set Edits attack
+func _ready() -> void:
+	edits_attack = true
+	super()
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
 	super(new_player)

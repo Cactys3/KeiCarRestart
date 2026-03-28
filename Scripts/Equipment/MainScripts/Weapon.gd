@@ -1,4 +1,4 @@
-extends StatsEquipment
+extends Equipment
 ## Weapons Equippable by the player
 class_name Weapon
 @export_group("Weapon Settings")
@@ -214,31 +214,6 @@ func get_inaccurate_direction(direction: Vector2, given_inaccuracy: float) -> Ve
 	if given_inaccuracy == 0:
 		return direction
 	return direction.rotated(deg_to_rad(randf_range(-given_inaccuracy / 3, given_inaccuracy / 3)))
-## Returns nearest enemy or null
-func get_nearest_enemy() -> Variant:
-	var nearest_enemy = null
-	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if nearest_enemy == null:
-			nearest_enemy = enemy
-		elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
-			nearest_enemy = enemy
-	return nearest_enemy
-func get_enemy_nearby(distance: float) -> Variant:
-	var nearest_enemy = null
-	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
-			if !nearest_enemy:
-				nearest_enemy = enemy
-			elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
-				nearest_enemy = enemy
-	return nearest_enemy
-## Returns all enemies within distance
-func get_enemies_nearby(distance: float) -> Array[Enemy]:
-	var enemies = []
-	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
-			enemies.append(enemy)
-	return enemies
 ## Sets the weapon's slot in reference to all weapons charcater has, used for calculating position
 func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	weapon_slot = slot
@@ -348,23 +323,7 @@ func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
 	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance + GetWeaponOffsetPosition(target_angle)
 func GetWeaponOffsetPosition(target_angle: float) -> Vector2:
 	return weapon_position_offset * Vector2(cos(target_angle), sin(target_angle))
-## Returns if weapon is pointing towards the given enemy
-func IsAimingAtEnemy(enemy: Node2D) -> bool:
-	if enemy != null:
-		var angle = rad_to_deg(acos(global_transform.x.normalized().dot((enemy.global_position - global_position).normalized())))
-		return angle <= 5
-	return false
-## Returns if weapon is pointing towards the given enemy, within degree of leniency
-func IsAimingAtEnemyWithinDegree(enemy: Node2D, degree: float) -> bool:
-	if enemy != null:
-		var angle = rad_to_deg(acos(global_transform.x.normalized().dot((enemy.global_position - global_position).normalized())))
-		return angle <= degree
-	return false
-## Returns if weapon is pointing towards any enemy TODO: not setup
-func IsAimingAtAnyEnemy() -> bool:
-	if false: #TODO: setup with raycasts
-		return true
-	return false
+
 class AttackEvent:
 	var attackee: Node
 	var attacker: Node

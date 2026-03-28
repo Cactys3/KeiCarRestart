@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c8tnjpvdsybli"]
+
+[ext_resource type="Script" uid="uid://kpr8jchtkndd" path="res://AllInOne/Upgrades/BloodTree/BloodyNeedles/BloodyNeedles.gd" id="1_x101a"]
+
+[node name="BloodyNeedles" type="Node2D" unique_id=1005690770]
+script = ExtResource("1_x101a")
+spawn_on_enemy_kills = null
+enemy_kills_to_spawn = null
+spawn_on_reload = null
+spawn_with_cd = null
+spawn_every_seconds = null
+item_name = null
+item_description = null
+item_type = null
+item_color = null
+border_color = null
+connect_enemy_killed = null
+connect_reload = null
+connect_ = null
