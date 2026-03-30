@@ -16,8 +16,6 @@ extends CPUParticles2D
 		texture_scale = value
 		if light:
 			light.texture_scale = texture_scale
-			print("Sup")
-		print("nopw")
 @export var light_texture: Texture2D = preload("uid://d1m1idlbdun46") :
 	set(value):
 		light_texture = value

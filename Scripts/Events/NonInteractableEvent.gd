@@ -125,7 +125,6 @@ func setup(new_time: float, new_level: float, new_chunk: Vector2):
 func _hurtbox_entered(body: Node2D) -> void:
 	pass
 func _hitbox_entered(body: Node2D) -> void:
-	print("DAMAGE SOMETHING")
 	if can_damage && stopwatch >= cooldown:
 		if (!only_damage_player || body.is_in_group("player")) && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage"):
 			stopwatch = 0
@@ -133,7 +132,6 @@ func _hitbox_entered(body: Node2D) -> void:
 			attack.simple_setup(attack_damage, knockback)
 			GameManager.instance.player.damage(attack)
 func damage(attack: Attack):
-	print("DAMAGED BY SOMETHING")
 	if GameInstance.is_game_over:
 		return
 	## Apply Status Effect Changes (doesn't apply status effect effects yet)
@@ -161,12 +159,13 @@ func damage(attack: Attack):
 	if damage_taken > 0:
 		GameManager.instance.EnemyDamaged.emit(self, attack)
 		curr_health -= damage_taken
-	print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
-	print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
-	print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
-	print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
-	print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
-	print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
+	if false:
+		print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
+		print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
+		print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
+		print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
+		print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
+		print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
 	## Apply Stun and Knockback
 	if attack.get_stun() > 0 && can_be_stunned:
 			pass#stun_time_left = attack.get_stun()

@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://b18b5v5lx44ak"]
+
+[ext_resource type="Script" uid="uid://bypyyivpkekc" path="res://Scripts/UI/GrowBar.gd" id="1_5tv6g"]
+[ext_resource type="Texture2D" uid="uid://d3i2vwnurbmlo" path="res://Art/UI/XpLeft.png" id="1_jtwpr"]
+[ext_resource type="Texture2D" uid="uid://blf6qgqofolod" path="res://Art/UI/XpRight.png" id="2_5tv6g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tv6g"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3qv0"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="GrowBar" type="VBoxContainer" unique_id=109577131]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_5tv6g")
+
+[node name="TopOffset" type="Control" parent="." unique_id=911458694]
+layout_mode = 2
+
+[node name="Offsets_X" type="HBoxContainer" parent="." unique_id=1118535522]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="LeftOffset" type="Control" parent="Offsets_X" unique_id=993123339]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="BarParent" type="Control" parent="Offsets_X" unique_id=463647159]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BarBackground" type="HBoxContainer" parent="Offsets_X/BarParent" unique_id=1563249268]
+modulate = Color(0.13333334, 0.1254902, 0.20392157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="BackgroundLeft" type="TextureRect" parent="Offsets_X/BarParent/BarBackground" unique_id=1220996438]
+layout_mode = 2
+texture = ExtResource("1_jtwpr")
+expand_mode = 3
+
+[node name="BackgroundMiddle" type="Panel" parent="Offsets_X/BarParent/BarBackground" unique_id=1559030241]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5tv6g")
+
+[node name="BackgroundRight" type="TextureRect" parent="Offsets_X/BarParent/BarBackground" unique_id=389365342]
+layout_mode = 2
+texture = ExtResource("2_5tv6g")
+expand_mode = 3
+
+[node name="BarForeground" type="HBoxContainer" parent="Offsets_X/BarParent" unique_id=761915096]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="ForegroundLeftOffset" type="Control" parent="Offsets_X/BarParent/BarForeground" unique_id=1267325583]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="ForegroundLeft" type="TextureRect" parent="Offsets_X/BarParent/BarForeground" unique_id=2145828836]
+self_modulate = Color(0.37254903, 0.8039216, 0.89411765, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_jtwpr")
+expand_mode = 3
+
+[node name="ForegroundMiddle" type="Panel" parent="Offsets_X/BarParent/BarForeground" unique_id=1896364191]
+self_modulate = Color(0.37254903, 0.8039216, 0.89411765, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m3qv0")
+
+[node name="ForegroundRight" type="TextureRect" parent="Offsets_X/BarParent/BarForeground" unique_id=652983017]
+self_modulate = Color(0.37254903, 0.8039216, 0.89411765, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_5tv6g")
+expand_mode = 3
+
+[node name="ForegroundRightOffset" type="Control" parent="Offsets_X/BarParent/BarForeground" unique_id=71261036]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="RightOffset" type="Control" parent="Offsets_X" unique_id=47309329]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="BottomOffset" type="Control" parent="." unique_id=263532468]
+layout_mode = 2

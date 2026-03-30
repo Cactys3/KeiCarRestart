@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cb83sv1b16det" path="res://Scripts/UI/hud.gd" id="1_fdl0h"]
 [ext_resource type="Texture2D" uid="uid://d3i2vwnurbmlo" path="res://Art/UI/XpLeft.png" id="1_ny26j"]
 [ext_resource type="Texture2D" uid="uid://blf6qgqofolod" path="res://Art/UI/XpRight.png" id="2_fdl0h"]
+[ext_resource type="PackedScene" uid="uid://b18b5v5lx44ak" path="res://Scenes/UI/GrowBar.tscn" id="4_8glcj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ny26j"]
 bg_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
@@ -300,3 +301,18 @@ theme_override_font_sizes/font_size = 64
 text = "0:0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TestGrowBar" type="Control" parent="." unique_id=750047934]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GrowBar" parent="TestGrowBar" unique_id=109577131 instance=ExtResource("4_8glcj")]
+layout_mode = 1
+start_max = 1000000.0
+start_value = 1000000.0
+foreground_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
+background_color = Color(0.13333334, 0.1254902, 0.20392157, 1)

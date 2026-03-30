@@ -541,12 +541,13 @@ func damage(attack: Attack):
 	if damage_taken > 0:
 		GameManager.instance.EnemyDamaged.emit(self, attack)
 		curr_health -= damage_taken
-	#print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
-	#print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
-	#print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
-	#print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
-	#print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
-	#print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
+	if false:
+		print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
+		print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
+		print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
+		print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
+		print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
+		print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
 	## Apply Stun and Knockback
 	if attack.get_stun() > 0 && can_be_stunned:
 			stun_time_left = attack.get_stun()

@@ -16,6 +16,9 @@ class_name HUD
 @onready var money: Label = $Labels/Money
 @onready var kills: Label = $Labels/Kills
 @onready var time: Label = $Time
+## Test
+@onready var grow_bar: GrowBar = $TestGrowBar/GrowBar
+
 ## Variables, determined dynamically by the control nodes' stretching
 var shield_ui_max_width: float:
 	get():
@@ -50,6 +53,7 @@ func set_xp(value: float):
 		xp.size.x = value
 ## Sets the width of the HP HUD, width grows with given value
 func set_hp(value: float):
+	grow_bar.set_value(value)
 	hp_bar.visible = true
 	## If value is maxxed out
 	if value >= hp_max_width:

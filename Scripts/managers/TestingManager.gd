@@ -4,6 +4,9 @@ extends Node2D
 @onready var player: Character = get_tree().get_first_node_in_group("player")
 @export var shop: Panel
 @onready var xp = preload("res://Scenes/Misc/xp_blip.tscn")
+var game_man: GameManager:
+	get():
+		return GameManager.instance
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("space"):
@@ -13,7 +16,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("test_2"):
 		GameInstance.instance.spawn_enemy(load("uid://cqip08xv6m5no"), player.global_position + Vector2(0, -150))
 	if Input.is_action_just_pressed("test_3"):
-		pass
+		game_man.curr_hp -= 1
 	if Input.is_action_just_pressed("test_4"):
 		pass
 	if Input.is_action_just_pressed("test_5"):

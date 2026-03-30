@@ -447,9 +447,9 @@ func win():
 func lose():
 	## Disable stuff for ending text or cutscene or whatever
 	is_game_over = true
-	for item in game_man.active_items:
+	for upgrade in game_man.active_upgrades:
 		## just disable (keep in inventory so we can do end of game stats summary or smth for equipped items)
-		item.disable()
+		upgrade.deactivate()
 	for frame in character.weapon_list:
 		## just disable (keep in inventory so we can do end of game stats summary or smth for equipped items)
 		character.remove_frame(frame)
