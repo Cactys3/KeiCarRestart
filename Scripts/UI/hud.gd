@@ -17,8 +17,9 @@ class_name HUD
 @onready var kills: Label = $Labels/Kills
 @onready var time: Label = $Time
 ## Test
-@onready var grow_bar: GrowBar = $TestGrowBar/GrowBar
-
+@onready var grow_bar_hp: GrowBar = $TestGrowBar/GrowBar
+@onready var grow_bar_shield: GrowBar = $TestGrowBar/GrowBar2
+@onready var grow_bar_xp: GrowBar = $TestGrowBar/GrowBar3
 ## Variables, determined dynamically by the control nodes' stretching
 var shield_ui_max_width: float:
 	get():
@@ -37,6 +38,8 @@ var hp_max_width: float = 0
 var xp_max_width: float = 0
 ## Sets the width of the XP HUD, width grows with given value
 func set_xp(value: float):
+	print("set xp: ", value)
+	grow_bar_xp.set_value(value)
 	xp_bar.visible = true
 	## If value is maxxed out
 	if value >= xp_max_width:
@@ -53,7 +56,7 @@ func set_xp(value: float):
 		xp.size.x = value
 ## Sets the width of the HP HUD, width grows with given value
 func set_hp(value: float):
-	grow_bar.set_value(value)
+	grow_bar_hp.set_value(value)
 	hp_bar.visible = true
 	## If value is maxxed out
 	if value >= hp_max_width:
@@ -70,6 +73,7 @@ func set_hp(value: float):
 		hp.size.x = value
 ## Sets the width of the Shield HUD, width grows with given value
 func set_shield(value: float):
+	grow_bar_shield.set_value(value)
 	shield_parent.visible = true
 	#shield_bar.visible = true
 	## If value is maxxed out
@@ -89,6 +93,7 @@ func set_shield(value: float):
 
 ## Sets the width of the HP background to match new value
 func set_max_hp(value: float):
+	grow_bar_hp.set_max(value)
 	if value >= 0:
 		hp_max_width = value
 		hp_bar.custom_minimum_size.x = value
@@ -113,6 +118,7 @@ func set_time(value: float):
 
 ## Sets XP to be a certian percent of a dynamically calculated max-width (doesn't expand max-width with larger xp value) 
 func set_xp_percent(percent: float):
+	grow_bar_xp.set_value_percent(percent)
 	xp_bar.visible = true
 	if percent >= 1:
 		xp.custom_minimum_size.x = xp_ui_max_width
@@ -129,7 +135,6 @@ func set_hp_percent(percent: float):
 	if is_instance_valid(percent) || percent == NAN:
 		hp_bar.visible = false
 	elif percent >= 1:
-		print("percent 1, setting width: ", hp_ui_max_width)
 		hp.custom_minimum_size.x = hp_ui_max_width
 		hp.size.x = hp_ui_max_width
 		## TODO: play animation or smth, maybe different color if gaining 2 or more levels at once (percent > 2)

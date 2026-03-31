@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://enhc775cfydn"]
+
+[ext_resource type="Script" uid="uid://bm2jcwahpcvwc" path="res://Testing/GrowBarTest/grow_bar_test.gd" id="1_rt2m6"]
+[ext_resource type="PackedScene" uid="uid://b18b5v5lx44ak" path="res://AllInOne/UI/GrowBar/GrowBar.tscn" id="2_o3xrt"]
+
+[node name="Control" type="Control" unique_id=270087105]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_rt2m6")
+
+[node name="Container" type="Container" parent="." unique_id=718711870]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 273.0
+offset_right = 288.0
+offset_bottom = 368.0
+
+[node name="GrowBar" parent="Container" unique_id=109577131 instance=ExtResource("2_o3xrt")]
+layout_mode = 2
+start_max = 1000.0

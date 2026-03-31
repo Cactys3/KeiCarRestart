@@ -177,8 +177,10 @@ func set_hp(value: float) -> void:
 	hp_label.text = str(round(value))
 	hud.set_hp(value)
 func set_xp(text: String, value: float) -> void:
+	print("xp: ", text, ", ", value)
 	xp_label.text = text
-	hud.set_xp(value)
+	## XP uses xp percent
+	hud.set_xp_percent(value)
 func set_money(value: float) -> void:
 	money_label.text = str(roundi(value))
 	hud.set_money(value)

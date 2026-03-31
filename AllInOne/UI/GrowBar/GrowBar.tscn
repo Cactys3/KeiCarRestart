@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b18b5v5lx44ak"]
 
-[ext_resource type="Script" uid="uid://bypyyivpkekc" path="res://Scripts/UI/GrowBar.gd" id="1_5tv6g"]
+[ext_resource type="Script" uid="uid://bypyyivpkekc" path="res://AllInOne/UI/GrowBar/GrowBar.gd" id="1_5tv6g"]
 [ext_resource type="Texture2D" uid="uid://d3i2vwnurbmlo" path="res://Art/UI/XpLeft.png" id="1_jtwpr"]
 [ext_resource type="Texture2D" uid="uid://blf6qgqofolod" path="res://Art/UI/XpRight.png" id="2_5tv6g"]
 
@@ -16,6 +16,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 0
 script = ExtResource("1_5tv6g")
 
@@ -63,19 +65,16 @@ texture = ExtResource("2_5tv6g")
 expand_mode = 3
 
 [node name="BarForeground" type="HBoxContainer" parent="Offsets_X/BarParent" unique_id=761915096]
-custom_minimum_size = Vector2(0, 20)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 9
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_right = 550.0
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_constants/separation = 0
 
 [node name="ForegroundLeftOffset" type="Control" parent="Offsets_X/BarParent/BarForeground" unique_id=1267325583]
-custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="ForegroundLeft" type="TextureRect" parent="Offsets_X/BarParent/BarForeground" unique_id=2145828836]
@@ -88,6 +87,7 @@ expand_mode = 3
 [node name="ForegroundMiddle" type="Panel" parent="Offsets_X/BarParent/BarForeground" unique_id=1896364191]
 self_modulate = Color(0.37254903, 0.8039216, 0.89411765, 1)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_m3qv0")
 
 [node name="ForegroundRight" type="TextureRect" parent="Offsets_X/BarParent/BarForeground" unique_id=652983017]
@@ -98,7 +98,6 @@ texture = ExtResource("2_5tv6g")
 expand_mode = 3
 
 [node name="ForegroundRightOffset" type="Control" parent="Offsets_X/BarParent/BarForeground" unique_id=71261036]
-custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="RightOffset" type="Control" parent="Offsets_X" unique_id=47309329]
