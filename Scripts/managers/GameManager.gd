@@ -55,8 +55,14 @@ var shield: float = 0:
 	set(value):
 		shield = value
 		ui_man.set_shield(value)
+var max_hp: float = 100:
+	set(value):
+		max_hp = value
+		ui_man.set_max_hp(value)
 var curr_hp: float = 0:
 	set(value):
+		if value > max_hp:
+			max_hp = value
 		curr_hp = value
 		ui_man.set_hp(value)
 var level: float = 1: ## level

@@ -41,6 +41,6 @@ func hover_choice(data: LevelUpData):
 func free_instance():
 	for connection in choice_made.get_connections():
 		disconnect("choice_made", connection)
-	
+	GameManager.instance.ui_man.finished_level_up()
 	GameInstance.instance.ui_man.unpause(pause)
 	queue_free()

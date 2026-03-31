@@ -29,9 +29,7 @@ var tutorial_or_stats: bool = true
 ## Other
 @export var hud: HUD
 var enabled: bool = true
-
 signal delete_proximity
-
 func _ready() -> void:
 	call_deferred("_connect_signals")
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -176,11 +174,13 @@ func set_shield(value: float) -> void:
 func set_hp(value: float) -> void:
 	hp_label.text = str(round(value))
 	hud.set_hp(value)
+func finished_level_up() -> void:
+	hud.set_xp_visible(false)
 func set_xp(text: String, value: float) -> void:
 	print("xp: ", text, ", ", value)
 	xp_label.text = text
 	## XP uses xp percent
-	hud.set_xp_percent(value)
+	hud.set_xp(value)
 func set_money(value: float) -> void:
 	money_label.text = str(roundi(value))
 	hud.set_money(value)
@@ -230,7 +230,6 @@ func add_upgrade(upgrade: Upgrade):
 		label.text = upgrade.item_name
 	upgrade_parent.add_child(image)
 	image.add_child(label)
-
 func _on_tutorial_or_stats_pressed() -> void:
 	tutorial_or_stats = !tutorial_or_stats
 	if tutorial_or_stats:

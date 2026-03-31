@@ -450,9 +450,9 @@ func lose():
 	for upgrade in game_man.active_upgrades:
 		## just disable (keep in inventory so we can do end of game stats summary or smth for equipped items)
 		upgrade.deactivate()
-	for frame in character.weapon_list:
+	for weapon in game_man.weapon_list:
 		## just disable (keep in inventory so we can do end of game stats summary or smth for equipped items)
-		character.remove_frame(frame)
+		game_man.remove_weapon(weapon)
 	ui_man.toggle_you_lose(true)
 	await get_tree().create_timer(2).timeout
 	ui_man.you_lose.text += ", buddy"
