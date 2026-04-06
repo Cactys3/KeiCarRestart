@@ -9,6 +9,14 @@ class_name UpgradeData
 @export var upgrade_rarity: Upgrade.UpgradeRarities = Upgrade.UpgradeRarities.unset
 @export var prerequisite_upgrades: Array[UpgradeData]
 @export var decedent_upgrades: Array[UpgradeData]
+@export var prereq_num_of_projectile_upgrades: int = 0
+@export var prereq_num_of_creation_upgrades: int = 0
+@export var prereq_num_of_summons_upgrades: int = 0
+@export var prereq_num_of_traps_upgrades: int = 0
+@export var spawns_projectile: bool = false
+@export var spawns_creation: bool = false
+@export var spawns_summon: bool = false
+@export var spawns_trap: bool = false
 ## Upgrades that this upgrade disables obtaining
 @export var disable_upgrades: Array[UpgradeData]
 ## Returns a list with the data of all prerequisite required upgrades to obtain this upgrade
@@ -21,7 +29,20 @@ func get_decedent_upgrades() -> Array[UpgradeData]:
 func can_obtain(equipped_upgrades: Array[Upgrade]) -> bool:
 	## If all prerequisite upgrades are obtained, return true
 	var copy: Array[UpgradeData] = prerequisite_upgrades.duplicate()
+	var prereq_projectile: int = prereq_num_of_projectile_upgrades
+	var prereq_creation: int = prereq_num_of_creation_upgrades
+	var prereq_summon: int = prereq_num_of_summons_upgrades
+	var prereq_trap: int = prereq_num_of_traps_upgrades
 	for upgrade in equipped_upgrades:
+		## Check spawn prereqs
+		if upgrade.data.spawns_projectile:
+			prereq_projectile -= 1
+		if upgrade.data.spawns_creation:
+			prereq_creation -= 1
+		if upgrade.data.spawns_summon:
+			prereq_summon -= 1
+		if upgrade.data.spawns_trap:
+			prereq_trap -= 1
 		## If already obtained self, return false
 		if upgrade.data == self:
 			return false
@@ -31,7 +52,8 @@ func can_obtain(equipped_upgrades: Array[Upgrade]) -> bool:
 		## Remove prereq upgrades until list is empty or left only with prereqs that aren't active
 		if copy.has(upgrade.data):
 			copy.erase(upgrade.data)
-	return copy.is_empty()
+	## Returns if all prereqs were in equipped upgardes and enough upgrades of each type were in equipped
+	return copy.is_empty() && (prereq_projectile + prereq_creation + prereq_summon + prereq_trap) <= 0
 ## Makes and returns the associated Upgrade scene for this data
 func get_upgrade() -> Upgrade:
 	var upgrade: Upgrade = scene.instantiate()
