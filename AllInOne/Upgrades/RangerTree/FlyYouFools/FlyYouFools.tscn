@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bo47otarfwvnt"]
+
+[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_e330k"]
+
+[node name="FlyYouFools" type="Node2D" unique_id=1996569690]
+script = ExtResource("1_e330k")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://i7cauoirka0a"]
+
+[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_5nux2"]
+
+[node name="Spectre" type="Node2D" unique_id=1358962221]
+script = ExtResource("1_5nux2")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

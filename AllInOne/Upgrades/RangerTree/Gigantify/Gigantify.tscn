@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b7cap1wdvm6ae"]
+
+[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_acntg"]
+
+[node name="Gigantify" type="Node2D" unique_id=380903383]
+script = ExtResource("1_acntg")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"
