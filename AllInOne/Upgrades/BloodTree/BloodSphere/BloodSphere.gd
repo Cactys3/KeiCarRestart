@@ -1,4 +1,4 @@
-extends SpawningUpgrade
+extends ProjectileUpgrade
 ## This upgrade:
 #
 ## Set Vars
@@ -21,9 +21,6 @@ func deactivate():
 const SCENE = preload("uid://hwgphgu8fcjy")
 const bleed_factor_buff: float = 0.15
 var buff_applied: bool = false
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_PREDELETE:
-		check_remove()
 func check_remove():
 	if buff_applied:
 		GlobalStats.add_to_stats_factor(GlobalStats.BLEED_APPLY, -bleed_factor_buff)

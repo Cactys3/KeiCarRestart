@@ -1,4 +1,4 @@
-extends SpawningUpgrade 
+extends ProjectileUpgrade 
 ## This upgrade:
 #
 const SCENE = preload("uid://ck86b4m7iaeeu")

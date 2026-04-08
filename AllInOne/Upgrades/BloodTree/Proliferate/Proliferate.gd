@@ -16,9 +16,6 @@ func deactivate():
 const blood_damage_buff_factor = 0.25
 const blood_apply_buff_factor = 0.5
 var buff_applied: bool = false
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_PREDELETE:
-		check_remove()
 func check_remove():
 	if buff_applied:
 		GlobalStats.add_to_stats_factor(GlobalStats.BLEED_APPLY, -blood_apply_buff_factor)

@@ -9,6 +9,7 @@ class_name UpgradeData
 @export var upgrade_rarity: Upgrade.UpgradeRarities = Upgrade.UpgradeRarities.unset
 @export var prerequisite_upgrades: Array[UpgradeData]
 @export var decedent_upgrades: Array[UpgradeData]
+@export var upgrades_to_overwrite_functionality: Array[UpgradeData]
 @export var prereq_num_of_projectile_upgrades: int = 0
 @export var prereq_num_of_creation_upgrades: int = 0
 @export var prereq_num_of_summons_upgrades: int = 0
@@ -57,6 +58,7 @@ func can_obtain(equipped_upgrades: Array[Upgrade]) -> bool:
 ## Makes and returns the associated Upgrade scene for this data
 func get_upgrade() -> Upgrade:
 	var upgrade: Upgrade = scene.instantiate()
+	upgrade.upgrades_to_overwrite_functionality = upgrades_to_overwrite_functionality
 	upgrade.item_name = upgrade_name
 	upgrade.item_description = upgrade_description
 	upgrade.item_color = upgrade_color

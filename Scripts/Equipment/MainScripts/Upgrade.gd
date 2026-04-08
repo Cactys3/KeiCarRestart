@@ -3,8 +3,17 @@ extends Equipment
 class_name Upgrade
 ## variables set in ready() method or by UpgradeData
 
+## Booleans that say what this upgrade does
 ## Should attacks be passed through this upgrade before being sent to enemy
-var edits_attack: bool = false
+@export var edits_attack: bool = false
+@export var spawns_projectile: bool = false
+@export var spawns_summon: bool = false
+@export var spawns_creation: bool = false
+@export var spawns_trap: bool = false
+@export var buffs_weapon_stats: bool = false
+@export var buffs_player_stats: bool = false
+## Variables given by UpgradeData
+var upgrades_to_overwrite_functionality: Array[UpgradeData]
 var upgrade_rarity: Upgrade.UpgradeRarities = UpgradeRarities.unset
 enum UpgradeRarities {unset, Basic, Intermediate, Advanced, Exclusive}
 const BASIC_COLOR: Color = Color.RED
@@ -16,17 +25,39 @@ var data: UpgradeData
 var disabled_by_inherited_upgrade: bool = false
 ## statics
 static var upgrade_buffs_duration_factor: float = 1
+## Check to remove buffs or other stuff on leaving scene
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		check_remove()
+func _ready() -> void:
+	super()
 func _process(delta: float) -> void:
 	super(delta)
+
+## Override below
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
+	var upgrades_found: Array[UpgradeData] = upgrades_to_overwrite_functionality
+	for upgrade in GameManager.instance.active_upgrades:
+		if upgrades_to_overwrite_functionality.has(upgrade.data):
+			upgrade.disabled_by_inherited_upgrade = true
+			upgrades_found.erase(upgrade.data)
+	if !upgrades_found.is_empty():
+		var error = ""
+		for upgrade in upgrades_found:
+			error += str("Couldn't Find ", upgrade.data.upgrade_name, " to disable them (from ", data.upgrade_name, ")\n")
+		printerr(error)
 	super(new_player)
 ## Disables the functionality of this upgrade
 func deactivate():
+	check_remove()
 	super()
 ## Override method to edit an attack and return
 func edit_attack(attack: Attack) -> Attack:
 	return attack
 ## Overide method to edit the list of stats
 func edit_stats():
+	pass
+## Override function to check if a buff is applied and remove it
+func check_remove():
 	pass

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cblknk4qtp6wq"]
+
+[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_ab8vd"]
+
+[node name="DodgeMeter" type="Node2D" unique_id=1122042463]
+script = ExtResource("1_ab8vd")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

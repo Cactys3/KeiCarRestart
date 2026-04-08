@@ -29,6 +29,7 @@ signal died(pos: Vector2, cloned: bool)
 @export var can_spawn_multiple: bool = true
 var status: StatusEffects
 var prebuilt_attack: Attack = null
+var death_method: Callable
 func _init() -> void:
 	visible = false
 func _ready() -> void:
@@ -98,6 +99,9 @@ func setup_clone(damage_offset: float):
 func setup_return_to_sender(player: Node2D):
 	return_to_sender = true
 	sender = player
+## Calls the given method when this projectile is destroyed
+func setup_death_method(method: Callable):
+	death_method = method
 func _on_body_entered(body: Node2D) -> void: 
 	if dead:
 		return
@@ -132,6 +136,7 @@ func make_attack(clone: bool) -> Attack:
 func die():
 	if dead:
 		return
+	death_method.call()
 	visible = false
 	dead = true
 	died.emit(global_position, is_clone)

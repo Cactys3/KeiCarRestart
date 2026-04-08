@@ -1,4 +1,4 @@
-extends SpawningUpgrade
+extends CreationUpgrade
 ## This upgrade:
 #
 ## Enables the functionality of this upgrade
