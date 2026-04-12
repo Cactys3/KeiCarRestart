@@ -1,10 +1,10 @@
 extends Node
 class_name ShopManager
-## Weapon Names
-const PISTOL = "Pistol"
-const BOXING_GLOVES = "Boxing Glove"
-## Upgrade Names
-# Blood Path
+## Weapon Scenes
+const BOXING_GLOVES = "Boxing Gloves"
+## Projectile Names
+const BOXING_BLAST = "Boxing Blast"
+## Blood Tree
 const BLOOD_BORN = "Blood Born"
 const BLOOD_MECHANIC = "Blood Mechanic"
 const BLOOD_METER = "Blood Meter"
@@ -18,12 +18,52 @@ const CUTTING_STRIKES = "Cutting Strikes"
 const GELID_HEOLFOR = "Gelid Heolfor"
 const HEMOPLOSION = "Hemoplosion"
 const PROLIFERATE = "Proliferate"
-## Projectile Names
-const _9_MM = "9mm"
+const SHARK = "Shark"
+## Ghost Tree
+const FEARY = "Feary"
+const GHOST_ARMY = "Ghost Army"
+const GHOSTLY_HELPER = "Ghostly Helper"
+const GHOSTSPLOSION = "Ghostsplosion"
+const LIKE_CREATOR_LIKE_SUMMON = "Like Creator Like Summon"
+## Mage Tree
+const AZARATH = "Azarath"
+const BLUNT_MISSILE = "Blunt Missile"
+const CASTER = "Caster"
+const DARK_ORB_ = "Dark Orb+"
+const DARK_ORB = "Dark Orb"
+const DUPLICATION_SPELL = "Duplication Spell"
+const FROST_MISSILE = "Frost Missile"
+const LARGE_SPELL_NAME = "Large Spell Name"
+const MAGIC_MISSILE = "Magic Missile"
+const METRION = "Metrion"
+const POISON_MISSILE = "Poison Missile"
+const SHOCK_MISSILE = "Shock Missile"
+const STONE_GNOMES = "Stone Gnomes"
+const WET_MISSILE = "Wet Missile"
+## Mechanic Tree
+const COPY_CAT = "Copy Cat"
+const CREATIONIST = "Creationist"
+const DECOY = "Decoy"
+const DEEP_COPY = "Deep Copy"
+const FLAME_SPEWERS = "Flame Spewers"
+const KAMI_KAMI = "Kami Kami"
+const MECHA_BUFFED = "Mecha Buffed"
+const MECHA_HEALER = "Mecha Healer"
+## Ranger Tree
+const ARROWS = "Arrows"
+const BEAR_TRAP = "Bear Trap"
+const BLEED_BEARS_BLEED = "Bleed Bears Bleed"
+const BOSS_BANE = "Boss Bane"
+const DUEL_WIELDING = "Duel Wielding"
+const FLY_YOU_FOOLS = "Fly You Fools"
+const GIGANITFY = "Giganitfy"
+const TRAPPED_AND_MARKED = "Trapped And Marked"
+
 ## Weapon Scenes
-const PISTOL_SCENE = preload("uid://cjkad8i0d5u2g")
 const BOXING_GLOVES_SCENE = preload("uid://bbw0s4nlfy63s")
-## Upgrades Scenes	
+## Projectile Scenes 
+const BOXING_BLAST_SCENE = preload("uid://d1gb0dt4hcvtx")
+## Blood Tree
 const BLOOD_BORN_SCENE = preload("uid://c6tfvrx3jikpg")
 const BLOOD_MECHANIC_SCENE = preload("uid://bcfc0hdhceqpc")
 const BLOOD_METER_SCENE = preload("uid://1xwwnlfmp6et")
@@ -37,9 +77,46 @@ const CUTTING_STRIKES_SCENE = preload("uid://e4ho6vfqngai")
 const GELID_HEOLFOR_SCENE = preload("uid://b3gs60rx8eg8u")
 const HEMOPLOSION_SCENE = preload("uid://clsx2ugtfnojs")
 const PROLIFERATE_SCENE = preload("uid://kers0tuck4se")
-
-## Projectiles
-const _9_MM_SCENE = preload("uid://c5n35stv668tp")
+const SHARK_SCENE = preload("uid://swik15ufuq4a")
+## Ghost Tree
+const FEARY_SCENE = preload("uid://b3yf4m2mleant")
+const GHOST_ARMY_SCENE = preload("uid://chg5xi3oq3nq7")
+const GHOSTLY_HELPER_SCENE = preload("uid://b1njscxfupn3i")
+const GHOSTSPLOSION_SCENE = preload("uid://6ltv35g54reg")
+const LIKE_CREATOR_LIKE_SUMMON_SCENE = preload("uid://btl32vwy7lmj7")
+## Mage Tree
+const AZARATH_SCENE = preload("uid://cbhsbt4rgm3ds")
+const BLUNT_MISSILE_SCENE = preload("uid://b04h5lg0pc86r")
+const CASTER_SCENE = preload("uid://gh67t70mkjkb")
+const DARK_ORB_SCENE_ = preload("uid://dcax4cwevpikv")
+const DARK_ORB_SCENE = preload("uid://lx2ndf10nlo3")
+const DUPLICATION_SPELL_SCENE = preload("uid://bkobmj3nxh2sj")
+const FROST_MISSILE_SCENE = preload("uid://c724bder7iuxt")
+const LARGE_SPELL_NAME_SCENE = preload("uid://dtipi3562y0vn")
+const MAGIC_MISSILE_SCENE = preload("uid://crukgotdrboni")
+const METRION_SCENE = preload("uid://bshdsl7ijfs0o")
+const POISON_MISSILE_SCENE = preload("uid://bingxk7tcwrtf")
+const SHOCK_MISSILE_SCENE = preload("uid://esppeaiu7rm1")
+const STONE_GNOMES_SCENE = preload("uid://cfvrc8mx1505s")
+const WET_MISSILE_SCENE = preload("uid://h73eqyff56ai")
+## Mechanic Tree
+const COPY_CAT_SCENE = preload("uid://bv0v8kcne1kpl")
+const CREATIONIST_SCENE = preload("uid://cin83dvkk6wxj")
+const DECOY_SCENE = preload("uid://ieoea6eepiit")
+const DEEP_COPY_SCENE = preload("uid://ct7s3wnjsq5gg")
+const FLAME_SPEWERS_SCENE = preload("uid://cxtb3irvno82o")
+const KAMI_KAMI_SCENE = preload("uid://mlx10tww06ls")
+const MECHA_BUFFED_SCENE = preload("uid://c3qwt077ej2kb")
+const MECHA_HEALER_SCENE = preload("uid://b2qs0kvdfna4a")
+## Ranger Tree
+const ARROWS_SCENE = preload("uid://bwe0vbaruos8r")
+const BEAR_TRAP_SCENE = preload("uid://g0v6sseax4ep")
+const BLEED_BEARS_BLEED_SCENE = preload("uid://co83ia2bt1jc0")
+const BOSS_BANE_SCENE = preload("uid://b87c1cbnx435j")
+const DUEL_WIELDING_SCENE = preload("uid://bc6jpsvr353fh")
+const FLY_YOU_FOOLS_SCENE = preload("uid://cgwqvxfx1b1ro")
+const GIGANITFY_SCENE = preload("uid://cgee0d77p0euy")
+const TRAPPED_AND_MARKED_SCENE = preload("uid://cpw7ux7hbia5o")
 ## Arrays
 static var unlocked_projectiles_keys: Array [String] = []
 static var unlocked_weapon_keys: Array [String] = []
@@ -57,12 +134,47 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	CUTTING_STRIKES: CUTTING_STRIKES_SCENE,
 	GELID_HEOLFOR: GELID_HEOLFOR_SCENE,
 	HEMOPLOSION: HEMOPLOSION_SCENE,
-	PROLIFERATE: PROLIFERATE_SCENE}
+	PROLIFERATE: PROLIFERATE_SCENE,
+	SHARK: SHARK_SCENE,
+	FEARY: FEARY_SCENE,
+	GHOST_ARMY: GHOST_ARMY_SCENE,
+	GHOSTLY_HELPER: GHOSTLY_HELPER_SCENE,
+	GHOSTSPLOSION: GHOSTSPLOSION_SCENE,
+	LIKE_CREATOR_LIKE_SUMMON: LIKE_CREATOR_LIKE_SUMMON_SCENE,
+	AZARATH: AZARATH_SCENE,
+	BLUNT_MISSILE: BLUNT_MISSILE_SCENE,
+	CASTER: CASTER_SCENE,
+	DARK_ORB_: DARK_ORB_SCENE_,
+	DARK_ORB: DARK_ORB_SCENE,
+	DUPLICATION_SPELL: DUPLICATION_SPELL_SCENE,
+	FROST_MISSILE: FROST_MISSILE_SCENE,
+	LARGE_SPELL_NAME: LARGE_SPELL_NAME_SCENE,
+	MAGIC_MISSILE: MAGIC_MISSILE_SCENE,
+	METRION: METRION_SCENE,
+	POISON_MISSILE: POISON_MISSILE_SCENE,
+	SHOCK_MISSILE: SHOCK_MISSILE_SCENE,
+	STONE_GNOMES: STONE_GNOMES_SCENE,
+	WET_MISSILE: WET_MISSILE_SCENE,
+	COPY_CAT: COPY_CAT_SCENE,
+	CREATIONIST: CREATIONIST_SCENE,
+	DECOY: DECOY_SCENE,
+	DEEP_COPY: DEEP_COPY_SCENE,
+	FLAME_SPEWERS: FLAME_SPEWERS_SCENE,
+	KAMI_KAMI: KAMI_KAMI_SCENE,
+	MECHA_BUFFED: MECHA_BUFFED_SCENE,
+	MECHA_HEALER: MECHA_HEALER_SCENE,
+	ARROWS: ARROWS_SCENE,
+	BEAR_TRAP: BEAR_TRAP_SCENE,
+	BLEED_BEARS_BLEED: BLEED_BEARS_BLEED_SCENE,
+	BOSS_BANE: BOSS_BANE_SCENE,
+	DUEL_WIELDING: DUEL_WIELDING_SCENE,
+	FLY_YOU_FOOLS: FLY_YOU_FOOLS_SCENE,
+	GIGANITFY: GIGANITFY_SCENE,
+	TRAPPED_AND_MARKED: TRAPPED_AND_MARKED_SCENE}
 const weapon_list: Dictionary [String, PackedScene] = {
-	PISTOL: PISTOL_SCENE,
 	BOXING_GLOVES: BOXING_GLOVES_SCENE}
 const projectile_list: Dictionary [String, PackedScene] = {
-	_9_MM: _9_MM_SCENE}
+	BOXING_BLAST: BOXING_BLAST_SCENE}
 
 ## Upgrade Indexes
 
@@ -135,7 +247,9 @@ static func get_rand_upgrades_except(avoided_items: Array[Upgrade], count: int, 
 static func get_all_valid_upgrades(game_man: GameManager) -> Array[UpgradeData]:
 	var array: Array[UpgradeData]
 	for upgrade: UpgradeData in upgrade_list.values():
+		print("can upgrade?")
 		## If we can obtain, add to list
 		if upgrade.can_obtain(game_man.active_upgrades):
+			print("CAN!")
 			array.append(upgrade)
 	return array

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dy8n8p0ymnmak"]
 
-[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_jn61f"]
+[ext_resource type="Script" uid="uid://bgh5kv4egiort" path="res://AllInOne/Upgrades/MageTree/WetMissile/WetMissile.gd" id="1_jn61f"]
 
 [node name="WetMissile" type="Node2D" unique_id=1358962221]
 script = ExtResource("1_jn61f")

@@ -1,12 +1,54 @@
 extends Resource
 class_name UpgradeStatics
-## Number of additional spawns per spawn
-static var summon_count: int = 0
-static var trap_count: int = 0
-static var creation_count: int = 0
-static var projectile_count: int = 0
+
+## Tracking Variables
+
 ## Number of currently active spawns
 static var active_summons: int = 0
 static var active_traps: int = 0
 static var active_creations: int = 0
 static var active_projectiles: int = 0
+
+## Buff Variables
+
+## Global Buffs
+static var global_damage_buff: float = 0
+static var global_projectile_size_buff: float = 0
+
+## Trigger based buffs (applied in places where things are spawned via specific triggers)
+static var reload_spawns_count_buff: int = 0
+
+## Number of additional spawns per spawn (I think this is probably flat, so 1 = 1)
+static var summon_count_buff: int = 0
+static var trap_count_buff: int = 0
+static var creation_count_buff: int = 0
+static var projectile_count_buff: int = 0
+## Duration Increases for each spawn (I think this is probably percent)
+static var summon_duration_buff: float = 0
+static var trap_duration_buff: float = 0
+static var creation_duration_buff: float = 0
+static var projectile_duration_buff: float = 0
+## Damage Increases for each spawn (I think this is probably percent too)
+static var summon_damage_buff: float = 0
+static var trap_damage_buff: float = 0
+static var creation_damage_buff: float = 0
+static var projectile_damage_buff: float = 0
+## Size Increases for each spawn (I think this is probably percent (but out of 100))
+static var summon_size_buff: float = 0
+static var trap_size_buff: float = 0
+static var creation_size_buff: float = 0
+static var projectile_size_buff: float = 0
+## 
+static var summon_attackspeed_buff: float = 0
+static var trap_attackspeed_buff: float = 0
+static var creation_attackspeed_buff: float = 0
+static var projectile_attackspeed_buff: float = 0
+## 
+static var summon_hp_buff: float = 0
+static var trap_hp_buff: float = 0
+static var creation_hp_buff: float = 0
+## Projectile Only Buff
+static var projectile_piercing_buff: float = 0
+## Summon Only Buffs
+static var summon_dodge_buff: float = 0
+static var summon_dodges_count_for_player: float = 0 # value > 0 means true

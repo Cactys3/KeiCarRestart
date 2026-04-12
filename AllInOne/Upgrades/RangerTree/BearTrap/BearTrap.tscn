@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://xgb5v0715fsu"]
 
-[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_b2kt2"]
+[ext_resource type="Script" uid="uid://cguj3ri6smn7f" path="res://AllInOne/Upgrades/RangerTree/BearTrap/BearTrap.gd" id="1_b2kt2"]
 
 [node name="BearTrap" type="Node2D" unique_id=1425052330]
 script = ExtResource("1_b2kt2")

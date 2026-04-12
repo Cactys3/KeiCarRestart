@@ -5,21 +5,18 @@ class_name Turret
 @export var AimType: AimTypes = AimTypes.TowardsNearestEnemy
 @export var has_attacking_animation: bool = false
 @export var anim: AnimatedSprite2D 
+@export var homing: bool = false
+@export var homing_speed: float = 0
+@export var projectile: Projectile
 enum AimTypes{Spinning, TowardsNearestEnemy, TowardsRandomEnemy, AtMouse}
 var parent: Equipment
-var projectile: Projectile
 var turret_duration: float = 10
 var duration_stopwatch: float = 0
-var homing: bool = false
-var homing_speed: float = 0
 var target: Node2D
 var is_ready: bool = false
-func setup(new_parent: Equipment, new_projectile: Projectile, new_duration: float, new_homing: bool, new_homing_speed: float):
+func setup(new_parent: Equipment, new_duration: float):
 	parent = new_parent
-	projectile = new_projectile
 	turret_duration = new_duration
-	homing = new_homing
-	homing_speed = new_homing_speed
 	is_ready = true
 func _ready() -> void:
 	pass

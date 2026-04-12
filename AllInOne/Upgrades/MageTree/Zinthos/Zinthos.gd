@@ -9,5 +9,5 @@ func edit_attack(attack: Attack) -> Attack:
 	return attack
 func edit_stats():
 	pass
-func check_remove():
+func remove_buff():
 	pass

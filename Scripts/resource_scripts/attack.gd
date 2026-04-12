@@ -10,8 +10,9 @@ enum AttackTypes{
 	## Thorns, etc
 	player_misc,
 	upgrade_projectile,
-	upgrade_turret,
-	upgrade_spawn,
+	upgrade_creation,
+	upgrade_trap,
+	upgrade_summon,
 	upgrade_melee,
 	upgrade_status,
 	enemy_projectile,
@@ -110,16 +111,18 @@ func is_from_player() -> bool:
 		|| attack_type == AttackTypes.player_status
 		|| attack_type == AttackTypes.player_misc
 		|| attack_type == AttackTypes.upgrade_projectile
-		|| attack_type == AttackTypes.upgrade_turret
-		|| attack_type == AttackTypes.upgrade_spawn
+		|| attack_type == AttackTypes.upgrade_creation
+		|| attack_type == AttackTypes.upgrade_trap
+		|| attack_type == AttackTypes.upgrade_summon
 		|| attack_type == AttackTypes.upgrade_melee
 		|| attack_type == AttackTypes.upgrade_status
 		)
 ## Returns if this attack is from anything from an Upgrade
 func is_from_upgrade() -> bool:
 	return (attack_type == AttackTypes.upgrade_projectile
-		|| attack_type == AttackTypes.upgrade_turret
-		|| attack_type == AttackTypes.upgrade_spawn
+		|| attack_type == AttackTypes.upgrade_creation
+		|| attack_type == AttackTypes.upgrade_trap
+		|| attack_type == AttackTypes.upgrade_summon
 		|| attack_type == AttackTypes.upgrade_melee
 		|| attack_type == AttackTypes.upgrade_status
 		)

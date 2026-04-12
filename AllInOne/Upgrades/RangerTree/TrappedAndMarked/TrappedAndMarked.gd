@@ -1,7 +1,8 @@
-extends Upgrade
+extends ProjectileUpgrade
 ## This upgrade:
-#
+# When an enemy steps on a trap, shoot arrows at them.
 func activate(new_player: Character):
+	connect_enemy_trapped = true
 	super(new_player)
 func deactivate():
 	super()
@@ -9,5 +10,24 @@ func edit_attack(attack: Attack) -> Attack:
 	return attack
 func edit_stats():
 	pass
-func check_remove():
+func remove_buff():
 	pass
+
+var last_enemy: Enemy = null
+var last_trap: Trap = null # trap as backup to just get trap position and shoot projectile towards there
+func enemy_trapped(enemy: Enemy, trap: Trap):
+	last_enemy = enemy
+	last_trap = trap
+	spawn()
+## Make sure that projectiles shoots towards enemy that is trapped
+func initialize_projectile(projectile: Projectile) -> Projectile:
+	var enemy: Node2D = get_nearest_enemy()
+	
+	if last_enemy:
+		enemy = last_enemy
+	
+	if enemy:
+		projectile.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized(), homing, homing_speed, false, 0)
+	else:
+		projectile.setup_projectile(self, null, player.transform.x, homing, homing_speed, false, 0)
+	return projectile

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dug1hiu476rf6"]
 
-[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_anedg"]
+[ext_resource type="Script" uid="uid://cg6bfkhvqr0rj" path="res://AllInOne/Upgrades/RangerTree/BleedBearsBleed/BleedBearsBleed.gd" id="1_anedg"]
 
 [node name="BleedBearsBleed" type="Node2D" unique_id=1135576738]
 script = ExtResource("1_anedg")

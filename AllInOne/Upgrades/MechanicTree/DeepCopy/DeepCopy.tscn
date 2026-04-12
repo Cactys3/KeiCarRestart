@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ckg6ysmbrbgmx"]
 
-[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_x2xk6"]
+[ext_resource type="Script" uid="uid://qct2m7c7a4j1" path="res://AllInOne/Upgrades/MechanicTree/DeepCopy/DeepCopy.gd" id="1_x2xk6"]
 
 [node name="DeepCopy" type="Node2D" unique_id=812701087]
 script = ExtResource("1_x2xk6")

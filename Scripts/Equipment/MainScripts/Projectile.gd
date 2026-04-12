@@ -136,7 +136,8 @@ func make_attack(clone: bool) -> Attack:
 func die():
 	if dead:
 		return
-	death_method.call()
+	if death_method:
+		death_method.call()
 	visible = false
 	dead = true
 	died.emit(global_position, is_clone)

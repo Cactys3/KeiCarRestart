@@ -12,10 +12,17 @@ func deactivate():
 	despawn()
 	super()
 func spawn():
-	UpgradeStatics.active_traps += 1
-	super()
+	## If we spawn, increase active spawn counter
+	if super():
+		UpgradeStatics.active_traps += 1
+	## Spawn for count
+	for i in UpgradeStatics.trap_count_buff + additional_spawns:
+		if super():
+			UpgradeStatics.active_traps += 1
 func despawn():
 	UpgradeStatics.active_traps -= 1
 ## Override to setup spawn
 func initialize_object(object: Node2D) -> bool:
+	if object is Projectile: ## object is Trap:
+		return true
 	return false

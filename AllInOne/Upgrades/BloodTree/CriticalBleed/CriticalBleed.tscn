@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cok2k8hgsw433"]
+
+[ext_resource type="Script" uid="uid://boiw34v70m118" path="res://AllInOne/Upgrades/BloodTree/CriticalBleed/CriticalBleed.gd" id="1_om5tu"]
+
+[node name="CriticalBleed" type="Node2D" unique_id=902373751]
+script = ExtResource("1_om5tu")

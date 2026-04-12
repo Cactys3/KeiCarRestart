@@ -12,12 +12,17 @@ func deactivate():
 	despawn()
 	super()
 func spawn():
-	UpgradeStatics.active_creations += 1
+	## If we spawn, increase active spawn counter
+	if super():
+		UpgradeStatics.active_creations += 1
 	## Spawn for count
-	for i in UpgradeStatics.creation_count:
-		super()
+	for i in UpgradeStatics.creation_count_buff + additional_spawns:
+		if super():
+			UpgradeStatics.active_creations += 1
 func despawn():
 	UpgradeStatics.active_creations -= 1
 ## Override to setup spawn
 func initialize_object(object: Node2D) -> bool:
+	if object is Projectile: ## object is Creation:
+		return true
 	return false

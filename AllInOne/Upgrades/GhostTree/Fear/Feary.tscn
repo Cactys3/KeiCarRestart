@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bjs26uidq33rv"]
 
-[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_15nta"]
+[ext_resource type="Script" uid="uid://vflj5lo2p7ve" path="res://AllInOne/Upgrades/GhostTree/Fear/Feary.gd" id="1_j7omc"]
 
 [node name="Fear" type="Node2D" unique_id=800677000]
-script = ExtResource("1_15nta")
+script = ExtResource("1_j7omc")
 metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

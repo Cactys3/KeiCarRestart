@@ -2,8 +2,16 @@ extends SpawningUpgrade
 ## Adds functionality to Upgrade that adds a Summon which follows the player and damages enemies
 class_name SummonUpgrade
 var spawned: bool = false
+var summons: Array[Summon]
+var check_spawn_cd: float = 0
 func _process(delta: float) -> void:
 	super(delta)
+	## Check if we should summon more summons (copies)
+	if spawned && active:
+		check_spawn_cd += delta
+		if check_spawn_cd > 1:
+			check_spawn_cd = 0
+			spawn()
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
 	spawn()
@@ -13,14 +21,27 @@ func deactivate():
 	despawn()
 	super()
 func spawn():
-	UpgradeStatics.active_summons += 1
-	## Spawn for count
-	for i in UpgradeStatics.summon_count:
-		super()
-	spawned = true
+	## Calculate total number we should spawn (do nothing if we have already spawned)
+	var summons_to_spawn: int = (UpgradeStatics.summon_count_buff + additional_spawns) - summons.size()
+	if summons_to_spawn > 0:
+		## If we spawn, increase active spawn counter
+		if super():
+			summons_to_spawn -= 1
+			UpgradeStatics.active_summons += 1
+			spawned = true
+	if summons_to_spawn > 0:
+		## Spawn for count left to spawn
+		for i in summons_to_spawn:
+			if super():
+				UpgradeStatics.active_summons += 1
+				spawned = true
 func despawn():
 	UpgradeStatics.active_summons -= 1
 	spawned = false
+	for summon in summons:
+		summon.queue_free()
+	summons.clear()
 ## Override to setup spawn
 func initialize_object(object: Node2D) -> bool:
+	summons.append(object) ## TODO: Append
 	return false

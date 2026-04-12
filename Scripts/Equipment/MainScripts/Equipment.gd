@@ -10,9 +10,15 @@ class_name Equipment
 @export var item_image: Texture2D 
 @export_group("Signal Connections")
 @export var connect_enemy_killed: bool = false
+@export var connect_boss_killed: bool = false
 @export var connect_reload: bool = false
 @export var connect_bleed_proc: bool = false
 @export var connect_frost_proc: bool = false
+@export var connect_dodge: bool = false
+@export var connect_player_damaged: bool = false
+@export var connect_enemy_trapped: bool = false
+@export var connect_creation_died: bool = false
+@export var connect_projectile_spawned: bool = false
 @export var connect_: bool = false
 var game_man: GameManager:
 	get():
@@ -49,12 +55,24 @@ static func get_type(i: int) -> String:
 func activate(new_player: Character):
 	if connect_enemy_killed:
 		game_man.EnemyKilled.connect(enemy_killed)
+	if connect_boss_killed:
+		game_man.BossKilled.connect(boss_killed)
 	if connect_reload:
 		game_man.WeaponReloaded.connect(reload)
 	if connect_bleed_proc:
 		game_man.BleedDamage.connect(bleed_proc)
 	if connect_frost_proc:
-		game_man.FrostDamage.connect((frost_proc))
+		game_man.FrostDamage.connect(frost_proc)
+	if connect_dodge:
+		game_man.PlayerDodged.connect(dodge)
+	if connect_player_damaged:
+		game_man.PlayerDamaged.connect(player_damaged)
+	if connect_enemy_trapped:
+		game_man.EnemyTrapped.connect(enemy_trapped)
+	if connect_creation_died:
+		game_man.CreationDied.connect(creation_died)
+	if connect_projectile_spawned:
+		game_man.ProjectileSpawned.connect(projectile_spawned)
 	player = new_player
 	active = true
 ## disable and halt the functionality of this Equipment
@@ -114,9 +132,14 @@ func IsAimingAtAnyEnemy() -> bool:
 	if false: #TODO: setup with raycasts
 		return true
 	return false
+
 ## SIGNALS
+
 ## On Enemy Killed Signal
 func enemy_killed(enemy: Enemy, attack: Attack) -> void:
+	pass
+## On Boss Killed Signal
+func boss_killed(boss: Boss, attack: Attack) -> void:
 	pass
 ## On Reload Signal
 func reload(weapon: Weapon) -> void:
@@ -126,6 +149,17 @@ func bleed_proc(bleed_damage: float, enemy: Enemy):
 	pass
 ## On (enemy) Frost Proc Signal 
 func frost_proc(frost_damage: float, enemy: Enemy):
+	pass
+## On player dodges damage
+func dodge(character: Character, attack: Attack):
+	pass
+func player_damaged(character: Character, attack: Attack):
+	pass
+func enemy_trapped(enemy: Enemy, trap: Trap):
+	pass
+func creation_died(creation: Creation, attack: Attack):
+	pass
+func projectile_spawned(projectile: Projectile):
 	pass
 ## Stats Equipment
 ## Stats

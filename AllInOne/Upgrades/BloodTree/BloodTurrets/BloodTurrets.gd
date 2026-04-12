@@ -26,7 +26,7 @@ func _ready() -> void:
 func initialize_object(object: Node2D) -> bool:
 	if object is Turret:
 		object = object as Turret
-		object.setup(self, PROJECTILE, turret_duration + duration_stat, homing, homing_speed)
+		object.setup(self, turret_duration + duration_stat + UpgradeStatics.creation_duration_buff)
 		active_turrets.append(object)
 		return true
 	return false

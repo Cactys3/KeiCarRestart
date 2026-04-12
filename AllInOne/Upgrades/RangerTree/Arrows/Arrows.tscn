@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://hec2vq6dgy17"]
 
-[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_fhsf0"]
+[ext_resource type="Script" uid="uid://jg1rbmnv1ykf" path="res://AllInOne/Upgrades/RangerTree/Arrows/Arrows.gd" id="1_fhsf0"]
 
-[node name="Spectre" type="Node2D" unique_id=155862344]
+[node name="Arrows" type="Node2D" unique_id=155862344]
 script = ExtResource("1_fhsf0")
 metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

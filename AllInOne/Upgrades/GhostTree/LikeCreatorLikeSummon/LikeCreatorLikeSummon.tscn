@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://81p6ofac1khv"]
+
+[ext_resource type="Script" uid="uid://bhg1lxmhq4s5m" path="res://AllInOne/Upgrades/GhostTree/LikeCreatorLikeSummon/LikeCreatorLikeSummon.gd" id="1_bsh6r"]
+
+[node name="LikeCreatorLikeSummon" type="Node2D" unique_id=1044980529]
+script = ExtResource("1_bsh6r")

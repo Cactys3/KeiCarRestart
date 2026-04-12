@@ -117,8 +117,10 @@ signal set_hp(value: float)
 ## For Upgrade Mechanics
 signal EnemyDamaged(enemy: Enemy, attack: Attack)
 signal EnemyKilled(enemy: Enemy, attack: Attack)
+signal EnemyTrapped(enemy: Enemy, trap: Trap, attack: Attack) ## Attack may be null
 signal BossKilled(boss: Boss, attack: Attack)
 signal PlayerDamaged(player: Character, attack: Attack)
+signal PlayerDodged(player: Character, attack: Attack)
 signal PlayerRevived(player: Character)
 signal PlayerKilled(player: Character, attack: Attack)
 signal EventKilled(event: Event, attack: Attack)

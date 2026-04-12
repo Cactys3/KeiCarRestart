@@ -5,7 +5,6 @@ const SCENE = preload("uid://ck86b4m7iaeeu")
 const spawn_every_seconds_base: int = 5
 ## Set Vars
 func _ready() -> void:
-	spawn_projectiles = true
 	homing = false
 	homing_speed = 0
 	spawn_every_seconds = true

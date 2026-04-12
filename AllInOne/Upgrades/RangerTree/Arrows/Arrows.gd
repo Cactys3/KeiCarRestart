@@ -1,14 +1,11 @@
 extends ProjectileUpgrade
 ## This upgrade:
-#
-const SCENE = null
+# Shoot arrows at nearby enemies every 3 seconds.
 func _ready() -> void:
-	scene_to_spawn = SCENE
-	#spawn_on_reload = true
-	#homing = true
-	#homing_speed = 20
 	super()
 func activate(new_player: Character):
+	spawn_every_seconds = arrows_cd
+	spawn_with_cd = true
 	super(new_player)
 func deactivate():
 	super()
@@ -16,5 +13,6 @@ func edit_attack(attack: Attack) -> Attack:
 	return attack
 func edit_stats():
 	pass
-func check_remove():
+func remove_buff():
 	pass
+const arrows_cd: float = 3

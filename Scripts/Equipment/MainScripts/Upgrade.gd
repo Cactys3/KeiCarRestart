@@ -6,13 +6,13 @@ class_name Upgrade
 ## Booleans that say what this upgrade does
 ## Should attacks be passed through this upgrade before being sent to enemy
 @export var edits_attack: bool = false
-@export var spawns_projectile: bool = false
-@export var spawns_summon: bool = false
-@export var spawns_creation: bool = false
-@export var spawns_trap: bool = false
 @export var buffs_weapon_stats: bool = false
 @export var buffs_player_stats: bool = false
 ## Variables given by UpgradeData
+var spawns_projectile: bool = false
+var spawns_summon: bool = false
+var spawns_creation: bool = false
+var spawns_trap: bool = false
 var upgrades_to_overwrite_functionality: Array[UpgradeData]
 var upgrade_rarity: Upgrade.UpgradeRarities = UpgradeRarities.unset
 enum UpgradeRarities {unset, Basic, Intermediate, Advanced, Exclusive}
@@ -33,7 +33,10 @@ func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
 	super(delta)
-
+	if buff_applied && buff_time_left > 0:
+		buff_time_left -= delta
+	else:
+		check_remove()
 ## Override below
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
@@ -58,6 +61,12 @@ func edit_attack(attack: Attack) -> Attack:
 ## Overide method to edit the list of stats
 func edit_stats():
 	pass
-## Override function to check if a buff is applied and remove it
+var buff_time_left: float = 0
+var buff_applied: bool = false
+## Checks if a buff is applied and calls remove_buff()
 func check_remove():
+	if buff_applied:
+		remove_buff()
+func remove_buff():
+	buff_applied = false
 	pass

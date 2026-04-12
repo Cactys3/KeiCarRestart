@@ -14,7 +14,7 @@ func _ready() -> void:
 	super()
 ## Upgrade Turrets apply bleed
 func edit_attack(attack: Attack) -> Attack:
-	if attack.attack_type == Attack.AttackTypes.upgrade_turret:
+	if attack.attack_type == Attack.AttackTypes.upgrade_creation:
 		attack.status.applies_bleed = true
 	return attack
 

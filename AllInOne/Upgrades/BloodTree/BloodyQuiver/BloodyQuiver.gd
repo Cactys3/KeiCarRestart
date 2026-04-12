@@ -8,7 +8,6 @@ var bleed_procs: int = 0
 func _ready() -> void:
 	edits_attack = true
 	connect_bleed_proc = true
-	spawn_projectiles = true
 	homing = false
 	homing_speed = 0
 	spawn_every_seconds = true

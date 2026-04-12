@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ho35bs02kqit"]
 
-[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_ifkcq"]
+[ext_resource type="Script" uid="uid://dikri1m0tr4pr" path="res://AllInOne/Upgrades/MageTree/FrostMissile/FrostMissile.gd" id="1_ifkcq"]
 
 [node name="FrostMissile" type="Node2D" unique_id=1358962221]
 script = ExtResource("1_ifkcq")

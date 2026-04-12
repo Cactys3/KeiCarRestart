@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cxbmlxnwof3kq"]
 
-[ext_resource type="Script" uid="uid://cuq1kxp08eb3f" path="res://Scripts/Equipment/MainScripts/Upgrade.gd" id="1_cmbnt"]
+[ext_resource type="Script" uid="uid://dhotonbltooxh" path="res://AllInOne/Upgrades/GhostTree/GhostArmy/GhostArmy.gd" id="1_cmbnt"]
 
 [node name="GhostArmy" type="Node2D" unique_id=726208358]
 script = ExtResource("1_cmbnt")

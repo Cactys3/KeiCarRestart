@@ -74,8 +74,8 @@ spawn_deadzone = NodePath("Window640/Offset/DeadzoneArea")
 [node name="Window640" type="Window" parent="." unique_id=1195365431]
 auto_translate_mode = 1
 disable_3d = true
+snap_2d_transforms_to_pixel = true
 canvas_item_default_texture_filter = 0
-physics_object_picking = true
 oversampling_override = 1.0
 size = Vector2i(640, 360)
 wrap_controls = true
@@ -148,7 +148,6 @@ sharp_corners = true
 minimize_disabled = true
 maximize_disabled = true
 content_scale_size = Vector2i(1920, 1080)
-content_scale_mode = 2
 content_scale_aspect = 1
 
 [node name="Offset" type="Control" parent="Window1920" unique_id=1168849425]
