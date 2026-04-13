@@ -1,7 +1,15 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://swik15ufuq4a"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_yxqs2"]
+[ext_resource type="Resource" uid="uid://e4ho6vfqngai" path="res://AllInOne/Upgrades/BloodTree/CuttingStrikes/CuttingStrikes.tres" id="2_6scr7"]
 
 [resource]
 script = ExtResource("1_yxqs2")
+upgrade_name = "Shark"
+upgrade_description = "Deal 20% more damage to enemies you have bleed!
+Heal 2% hp on bleed proc!"
+upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
+upgrade_rarity = 3
+prerequisite_upgrades = Array[ExtResource("1_yxqs2")]([ExtResource("2_6scr7")])
+prereq_num_of_bleed_upgrades = 5
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

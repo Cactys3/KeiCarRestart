@@ -7,6 +7,8 @@
 script = ExtResource("1_7fmpo")
 scene = ExtResource("2_mepbj")
 upgrade_name = "Cutting Strikes"
-upgrade_description = "Your base weapon applies bleed"
+upgrade_description = "Your basic weapon applies bleed!"
+upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
 upgrade_rarity = 1
+makes_main_weapon_do_status = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

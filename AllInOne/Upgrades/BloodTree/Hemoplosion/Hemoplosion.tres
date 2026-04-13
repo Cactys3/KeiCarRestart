@@ -7,4 +7,5 @@
 script = ExtResource("1_f8fqk")
 scene = ExtResource("2_0m343")
 upgrade_name = "Hemoplosion"
+upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

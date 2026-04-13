@@ -7,4 +7,9 @@
 script = ExtResource("1_rhixf")
 scene = ExtResource("2_6u0fv")
 upgrade_name = "Bloody Needles"
+upgrade_description = "Shoot out a blood needle every 5 seconds!
+Blood needle applies heavy bleed and pierces enemies."
+upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
+upgrade_rarity = 1
+applies_bleed = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

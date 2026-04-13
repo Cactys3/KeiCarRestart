@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("test_6"):
 		game_man.curr_hp += 10
 	if Input.is_action_just_pressed("test_7"):
-		game_man.xp += 1
+		game_man.xp += game_man.xp_to_next_level
 	if Input.is_action_just_pressed("test_0"):
 		GameManager.instance.level_up.emit()
 	if Input.is_action_just_pressed("ability1"):

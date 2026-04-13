@@ -7,4 +7,9 @@
 script = ExtResource("1_7oj7i")
 scene = ExtResource("2_6b726")
 upgrade_name = "Proliferate"
+upgrade_description = "Your bleed sources apply 30% more bleed!
+Your bleed procs do 25% more damage!"
+upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
+upgrade_rarity = 1
+prereq_num_of_bleed_upgrades = 1
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

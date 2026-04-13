@@ -7,4 +7,11 @@
 script = ExtResource("1_d1og7")
 scene = ExtResource("2_cjyih")
 upgrade_name = "Gelid Heolfor"
+upgrade_description = "Proc'ing bleed on a frozen enemy causes them to explode into shards of ice, dealing nearby enemies!
+The ice shards count as projectiles."
+upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
+upgrade_rarity = 2
+prereq_num_of_bleed_upgrades = 2
+prereq_num_of_frost_upgrades = 2
+spawns_projectile = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

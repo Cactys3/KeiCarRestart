@@ -3,21 +3,40 @@ class_name UpgradeData
 @export var scene: PackedScene
 @export var save_key: String = "unset"
 @export var upgrade_name: String
-@export var upgrade_description: String
+@export_multiline("Description") var upgrade_description: String
 @export var upgrade_color: Color = Color.DARK_SLATE_BLUE
 @export var upgrade_image: Texture2D 
 @export var upgrade_rarity: Upgrade.UpgradeRarities = Upgrade.UpgradeRarities.unset
 @export var prerequisite_upgrades: Array[UpgradeData]
 @export var decedent_upgrades: Array[UpgradeData]
 @export var upgrades_to_overwrite_functionality: Array[UpgradeData]
+## Prereq other Upgrades tags
+@export_subgroup("Prereqs")
 @export var prereq_num_of_projectile_upgrades: int = 0
 @export var prereq_num_of_creation_upgrades: int = 0
 @export var prereq_num_of_summons_upgrades: int = 0
 @export var prereq_num_of_traps_upgrades: int = 0
+@export var prereq_num_of_burn_upgrades: int = 0
+@export var prereq_num_of_poison_upgrades: int = 0
+@export var prereq_num_of_bleed_upgrades: int = 0
+@export var prereq_num_of_frost_upgrades: int = 0
+@export var prereq_num_of_shock_upgrades: int = 0
+@export var prereq_num_of_wet_upgrades: int = 0
+## Tags this upgrade has
+@export_subgroup("Upgrade Tags")
+@export var makes_main_weapon_do_status: bool = false
+@export var makes_upgrade_projectiles_do_status: bool = false
+@export var makes_creations_do_status: bool = false
 @export var spawns_projectile: bool = false
 @export var spawns_creation: bool = false
 @export var spawns_summon: bool = false
 @export var spawns_trap: bool = false
+@export var applies_burn: bool = false
+@export var applies_poison: bool = false
+@export var applies_bleed: bool = false
+@export var applies_frost: bool = false
+@export var applies_shock: bool = false
+@export var applies_wet: bool = false
 ## Upgrades that this upgrade disables obtaining
 @export var disable_upgrades: Array[UpgradeData]
 ## Returns a list with the data of all prerequisite required upgrades to obtain this upgrade
@@ -44,7 +63,16 @@ func can_obtain(equipped_upgrades: Array[Upgrade]) -> bool:
 			prereq_summon -= 1
 		if upgrade.data.spawns_trap:
 			prereq_trap -= 1
-		## If already obtained self, return false
+		## You can only have one upgrade that makes main weapon do status effects
+		if upgrade.data.makes_main_weapon_do_status && makes_main_weapon_do_status:
+			return false
+		## You can only have one upgrade that makes upgrade projectiles do status effects
+		if upgrade.data.makes_upgrade_projectiles_do_status && makes_upgrade_projectiles_do_status:
+			return false
+		## You can only have one upgrade that makes creations do status effects
+		if upgrade.data.makes_creations_do_status && makes_creations_do_status:
+			return false
+		## If already obtained self, return false 
 		if upgrade.data == self:
 			return false
 		## If there's an upgrade obtained that disables this upgrade, return false

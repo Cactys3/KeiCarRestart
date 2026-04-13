@@ -4,4 +4,8 @@
 
 [resource]
 script = ExtResource("1_aygln")
+upgrade_description = "Apply heavy (red and dripping text effect goes here)Bleed on critical hits from any source!"
+upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
+upgrade_rarity = 1
+applies_bleed = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

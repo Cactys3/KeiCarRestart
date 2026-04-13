@@ -8,4 +8,5 @@ script = ExtResource("1_jyvk4")
 scene = ExtResource("2_kbjyf")
 upgrade_name = "Blood Born"
 upgrade_description = "Transform into a blood demon!"
+upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"
