@@ -247,9 +247,7 @@ static func get_rand_upgrades_except(avoided_items: Array[Upgrade], count: int, 
 static func get_all_valid_upgrades(game_man: GameManager) -> Array[UpgradeData]:
 	var array: Array[UpgradeData]
 	for upgrade: UpgradeData in upgrade_list.values():
-		print("can upgrade?")
 		## If we can obtain, add to list
 		if upgrade.can_obtain(game_man.active_upgrades):
-			print("CAN!")
 			array.append(upgrade)
 	return array

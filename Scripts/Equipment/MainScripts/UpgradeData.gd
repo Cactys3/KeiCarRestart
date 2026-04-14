@@ -10,8 +10,9 @@ class_name UpgradeData
 @export var prerequisite_upgrades: Array[UpgradeData]
 @export var decedent_upgrades: Array[UpgradeData]
 @export var upgrades_to_overwrite_functionality: Array[UpgradeData]
+@export var disable_upgrades: Array[UpgradeData]
 ## Prereq other Upgrades tags
-@export_subgroup("Prereqs")
+@export_group("Prereqs")
 @export var prereq_num_of_projectile_upgrades: int = 0
 @export var prereq_num_of_creation_upgrades: int = 0
 @export var prereq_num_of_summons_upgrades: int = 0
@@ -22,23 +23,44 @@ class_name UpgradeData
 @export var prereq_num_of_frost_upgrades: int = 0
 @export var prereq_num_of_shock_upgrades: int = 0
 @export var prereq_num_of_wet_upgrades: int = 0
+@export var prereq_num_of_dodge_upgrades: int = 0
 ## Tags this upgrade has
-@export_subgroup("Upgrade Tags")
+@export_group("Upgrade Tags")
+## Buffs
+#@export_placeholder("Buffs Player") var Buffs_Player: String
+@export_subgroup("Buffs")
+@export var gives_player_buff: bool = false
+@export var gives_player_stats: bool = false
+@export var makes_player_dodge: bool = false
+@export var gives_projectiles_stats: bool = false
+@export var gives_creations_stats: bool = false
+@export var gives_summons_stats: bool = false
+@export var gives_traps_stats: bool = false
+## Give things Status
+#@export_placeholder("Give things Status") var Give_things_Status: String
+@export_subgroup("Give things Status")
 @export var makes_main_weapon_do_status: bool = false
 @export var makes_upgrade_projectiles_do_status: bool = false
 @export var makes_creations_do_status: bool = false
+## Spawn things
+#@export_placeholder("Spawn Things") var Spawn_Things: String
+@export_subgroup("Spawn Things")
 @export var spawns_projectile: bool = false
 @export var spawns_creation: bool = false
 @export var spawns_summon: bool = false
 @export var spawns_trap: bool = false
+#@export_placeholder("Do things to enemies") var Do_Things_to_Enemies: String
+@export_subgroup("Do things to enemies")
+## Do things to enemies
 @export var applies_burn: bool = false
 @export var applies_poison: bool = false
 @export var applies_bleed: bool = false
 @export var applies_frost: bool = false
 @export var applies_shock: bool = false
 @export var applies_wet: bool = false
-## Upgrades that this upgrade disables obtaining
-@export var disable_upgrades: Array[UpgradeData]
+@export var fears_enemies: bool = false
+@export var slows_enemies: bool = false
+@export var stuns_enemies: bool = false
 ## Returns a list with the data of all prerequisite required upgrades to obtain this upgrade
 func get_prereqs() -> Array[UpgradeData]:
 	return prerequisite_upgrades

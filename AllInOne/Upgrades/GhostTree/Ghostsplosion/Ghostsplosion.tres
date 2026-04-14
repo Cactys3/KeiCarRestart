@@ -1,7 +1,15 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://6ltv35g54reg"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_18nx8"]
+[ext_resource type="PackedScene" uid="uid://w2iehlm2nfv" path="res://AllInOne/Upgrades/GhostTree/Ghostsplosion/Ghostsplosion.tscn" id="2_kbtlj"]
 
 [resource]
 script = ExtResource("1_18nx8")
+scene = ExtResource("2_kbtlj")
+upgrade_name = "Ghostsplosion"
+upgrade_description = "Every 10 seconds, explode with ghostly energy! (Counts as a trap?)
+You dodge the damage of this explosion."
+upgrade_rarity = 1
+makes_player_dodge = true
+spawns_trap = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

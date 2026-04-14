@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bjs26uidq33rv"]
 
-[ext_resource type="Script" uid="uid://vflj5lo2p7ve" path="res://AllInOne/Upgrades/GhostTree/Fear/Feary.gd" id="1_j7omc"]
+[ext_resource type="Script" uid="uid://vflj5lo2p7ve" path="res://AllInOne/Upgrades/GhostTree/Feary/Feary.gd" id="1_j7omc"]
+
 
 [node name="Fear" type="Node2D" unique_id=800677000]
 script = ExtResource("1_j7omc")

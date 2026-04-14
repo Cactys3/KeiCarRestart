@@ -1,7 +1,18 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://btl32vwy7lmj7"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_8qrhb"]
+[ext_resource type="PackedScene" uid="uid://81p6ofac1khv" path="res://AllInOne/Upgrades/GhostTree/LikeCreatorLikeSummon/LikeCreatorLikeSummon.tscn" id="2_gksts"]
+[ext_resource type="Resource" uid="uid://chg5xi3oq3nq7" path="res://AllInOne/Upgrades/GhostTree/GhostArmy/GhostArmy.tres" id="2_off0t"]
 
 [resource]
 script = ExtResource("1_8qrhb")
+scene = ExtResource("2_gksts")
+upgrade_name = "Like Creator Like Summon"
+upgrade_description = "Your creations' dodge procs count as your own!
+Your creations gain 15% dodge chance."
+upgrade_rarity = 3
+prerequisite_upgrades = Array[ExtResource("1_8qrhb")]([ExtResource("2_off0t")])
+prereq_num_of_creation_upgrades = 3
+makes_player_dodge = true
+gives_creations_stats = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

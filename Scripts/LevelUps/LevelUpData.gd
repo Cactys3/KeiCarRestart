@@ -50,19 +50,14 @@ func carryout_new_upgrade():
 ## Returns 'count' of LevelUpData filled with a random valid upgrade
 static func get_level_up_options(count: int) -> Array[LevelUpData]:
 	var array: Array[LevelUpData] = []
-	var i: int = count
-	while count > 0:
-		count -= 1
-		var upgrade: UpgradeData
-		## Get the upgrade
-		var upgrades = ShopManager.get_rand_upgrades(1, GameManager.instance)
-		if upgrades.size() > 0:
-			upgrade = upgrades[0]
-			var level_up: LevelUpData = LevelUpData.new()
-			level_up.set_equipment(upgrade, LevelUpData.types.upgrade)
-			array.append(level_up)
-		else:
-			printerr("Trying to get upgrade, but valid upgrades list is empty")
+	## Get the upgrade
+	var upgrades = ShopManager.get_rand_upgrades(count, GameManager.instance)
+	print("so we want, ", count, " upgrades, but we only got, ", upgrades.size())
+	for upgrade in upgrades:
+		print("Make leve of upgrade: ", upgrade.upgrade_name, ", ", upgrade.upgrade_description, ", ", upgrade.resource_path)
+		var level_up: LevelUpData = LevelUpData.new()
+		level_up.set_equipment(upgrade, LevelUpData.types.upgrade)
+		array.append(level_up)
 	return array 
 
 ### Old
