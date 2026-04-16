@@ -25,6 +25,12 @@ class_name UpgradeData
 @export var prereq_num_of_wet_upgrades: int = 0
 @export var prereq_num_of_dodge_upgrades: int = 0
 @export var prereq_num_of_magical_upgrades: int = 0
+@export var prereq_num_of_player_buffs_upgrades: int = 0
+@export var prereq_num_of_weapon_buffs_upgrades: int = 0
+@export var prereq_num_of_projectile_buffs_upgrades: int = 0
+@export var prereq_num_of_summon_buffs_upgrades: int = 0
+@export var prereq_num_of_creation_buffs_upgrades: int = 0
+@export var prereq_num_of_trap_buffs_upgrades: int = 0
 ## Tags this upgrade has
 @export_group("Upgrade Tags")
 ## Buffs
@@ -32,11 +38,12 @@ class_name UpgradeData
 @export_subgroup("Buffs")
 @export var gives_player_buff: bool = false
 @export var gives_player_stats: bool = false
-@export var makes_player_dodge: bool = false
+@export var gives_weapon_stats: bool = false
 @export var gives_projectiles_stats: bool = false
 @export var gives_creations_stats: bool = false
 @export var gives_summons_stats: bool = false
 @export var gives_traps_stats: bool = false
+@export var makes_player_dodge: bool = false
 ## Give things Status
 #@export_placeholder("Give things Status") var Give_things_Status: String
 @export_subgroup("Give things Status")
