@@ -2,8 +2,18 @@
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_6eei0"]
 [ext_resource type="Resource" uid="uid://cgee0d77p0euy" path="res://AllInOne/Upgrades/RangerTree/Gigantify/Giganitfy.tres" id="2_vcc18"]
+[ext_resource type="Resource" uid="uid://g0v6sseax4ep" path="res://AllInOne/Upgrades/RangerTree/BearTrap/BearTrap.tres" id="2_yya52"]
+[ext_resource type="PackedScene" uid="uid://dug1hiu476rf6" path="res://AllInOne/Upgrades/RangerTree/BleedBearsBleed/BleedBearsBleed.tscn" id="3_bagi5"]
 
 [resource]
 script = ExtResource("1_6eei0")
-upgrades_to_overwrite_functionality = Array[ExtResource("1_6eei0")]([ExtResource("2_vcc18")])
+scene = ExtResource("3_bagi5")
+upgrade_name = "Bleed Bears Bleed"
+upgrade_description = "Your bear trap applies heavy bleed and immobilizes enemies for 3 seconds!
+Your traps do 10% more damage."
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_6eei0")]([ExtResource("2_yya52")])
+disable_upgrades = Array[ExtResource("1_6eei0")]([ExtResource("2_vcc18")])
+prereq_num_of_bleed_upgrades = 1
+gives_traps_stats = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

@@ -1,7 +1,15 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://g0v6sseax4ep"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_w325l"]
+[ext_resource type="PackedScene" uid="uid://xgb5v0715fsu" path="res://AllInOne/Upgrades/RangerTree/BearTrap/BearTrap.tscn" id="2_0higo"]
 
 [resource]
 script = ExtResource("1_w325l")
+scene = ExtResource("2_0higo")
+upgrade_name = "Bear Trap"
+upgrade_description = "On reload, spawn a bear trap that applies bleed and slows for 3 seconds!"
+upgrade_rarity = 1
+spawns_trap = true
+applies_bleed = true
+slows_enemies = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

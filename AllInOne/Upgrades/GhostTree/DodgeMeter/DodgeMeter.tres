@@ -11,4 +11,5 @@ upgrade_description = "Each time you dodge, fill up a ghostly meter.
 Resets on taking damage.
 At max meter, gain damage and movespeed."
 upgrade_rarity = 3
+prereq_num_of_dodge_upgrades = 4
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"
