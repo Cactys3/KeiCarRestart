@@ -25,6 +25,7 @@ class_name UpgradeData
 @export var prereq_num_of_wet_upgrades: int = 0
 @export var prereq_num_of_dodge_upgrades: int = 0
 @export var prereq_num_of_magical_upgrades: int = 0
+@export var prereq_num_of_blunt_upgrades: int = 0
 @export var prereq_num_of_player_buffs_upgrades: int = 0
 @export var prereq_num_of_weapon_buffs_upgrades: int = 0
 @export var prereq_num_of_projectile_buffs_upgrades: int = 0
@@ -71,6 +72,7 @@ class_name UpgradeData
 @export var stuns_enemies: bool = false
 @export_subgroup("Vibes")
 @export var is_magical: bool = false
+@export var is_blunt: bool = false
 ## Returns a list with the data of all prerequisite required upgrades to obtain this upgrade
 func get_prereqs() -> Array[UpgradeData]:
 	return prerequisite_upgrades

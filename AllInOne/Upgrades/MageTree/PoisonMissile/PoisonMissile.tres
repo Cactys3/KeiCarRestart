@@ -1,7 +1,13 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bingxk7tcwrtf"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_us3wn"]
+[ext_resource type="PackedScene" uid="uid://biu30mjglx5e7" path="res://AllInOne/Upgrades/MageTree/PoisonMissile/PoisonMissile.tscn" id="2_yxkda"]
 
 [resource]
 script = ExtResource("1_us3wn")
+scene = ExtResource("2_yxkda")
+upgrade_name = "Poison Missile"
+upgrade_description = "Your magic missiles becomes Poison missiles!"
+upgrade_rarity = 2
+prereq_num_of_poison_upgrades = 1
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

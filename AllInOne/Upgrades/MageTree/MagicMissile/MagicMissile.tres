@@ -1,7 +1,14 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://crukgotdrboni"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_4e7rc"]
+[ext_resource type="PackedScene" uid="uid://dk02i587w1usf" path="res://AllInOne/Upgrades/MageTree/MagicMissile/MagicMissile.tscn" id="2_x64nq"]
 
 [resource]
 script = ExtResource("1_4e7rc")
+scene = ExtResource("2_x64nq")
+upgrade_name = "Magic Missile"
+upgrade_description = "Shoot out magical missiles every 5 seconds!"
+upgrade_rarity = 1
+spawns_projectile = true
+is_magical = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"
