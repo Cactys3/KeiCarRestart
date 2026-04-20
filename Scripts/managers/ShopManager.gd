@@ -115,7 +115,7 @@ const BLEED_BEARS_BLEED_SCENE = preload("uid://co83ia2bt1jc0")
 const BOSS_BANE_SCENE = preload("uid://b87c1cbnx435j")
 const DUEL_WIELDING_SCENE = preload("uid://bc6jpsvr353fh")
 const FLY_YOU_FOOLS_SCENE = preload("uid://cgwqvxfx1b1ro")
-const GIGANITFY_SCENE = preload("uid://cgee0d77p0euy")
+const GIGANITFY_SCENE = preload("uid://djsypl1486fbs")
 const TRAPPED_AND_MARKED_SCENE = preload("uid://cpw7ux7hbia5o")
 ## Arrays
 static var unlocked_projectiles_keys: Array [String] = []

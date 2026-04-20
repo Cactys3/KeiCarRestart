@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scripts/instance_scripts/InstanceRoot.gd" id="1_eeah7"]
 [ext_resource type="Texture2D" uid="uid://cdoowwkvlvfk0" path="res://Art/DarkForest/Setting/Backdrop.png" id="2_pbrr2"]
+[ext_resource type="Script" uid="uid://b2wexepea57hx" path="res://Scripts/misc/MainCamera.gd" id="4_qrryo"]
+[ext_resource type="Texture2D" uid="uid://k1ndatoaiv00" path="res://Art/Lighting/FOV_Radial_Gradient_16-9.png" id="5_eeah7"]
 [ext_resource type="PackedScene" uid="uid://bgt57e0022plx" path="res://Scenes/Misc/xp_blip.tscn" id="9_t1qak"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
@@ -113,6 +115,10 @@ position = Vector2(492, 365)
 [node name="CharacterParent" type="Node2D" parent="Window640/Offset" unique_id=1665705803]
 
 [node name="Camera2D" type="Camera2D" parent="Window640/Offset/CharacterParent" unique_id=682145971]
+script = ExtResource("4_qrryo")
+
+[node name="PointLight2D" type="PointLight2D" parent="Window640/Offset/CharacterParent/Camera2D" unique_id=853212192]
+texture = ExtResource("5_eeah7")
 
 [node name="ProjectileParent" type="Node2D" parent="Window640/Offset" unique_id=1081666723]
 

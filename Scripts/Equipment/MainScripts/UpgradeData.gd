@@ -10,7 +10,9 @@ class_name UpgradeData
 @export var prerequisite_upgrades: Array[UpgradeData]
 @export var decedent_upgrades: Array[UpgradeData]
 @export var upgrades_to_overwrite_functionality: Array[UpgradeData]
-@export var disable_upgrades: Array[UpgradeData]
+## This must be a string value of the upgrade's names because if two upgrades disable each other
+# we get compiling looping reference errors
+@export var disable_upgrades_names: Array[String] 
 ## Prereq other Upgrades tags
 @export_group("Prereqs")
 @export var prereq_num_of_projectile_upgrades: int = 0
