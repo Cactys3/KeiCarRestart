@@ -118,6 +118,7 @@ position = Vector2(492, 365)
 script = ExtResource("4_qrryo")
 
 [node name="PointLight2D" type="PointLight2D" parent="Window640/Offset/CharacterParent/Camera2D" unique_id=853212192]
+energy = 0.6
 texture = ExtResource("5_eeah7")
 
 [node name="ProjectileParent" type="Node2D" parent="Window640/Offset" unique_id=1081666723]
