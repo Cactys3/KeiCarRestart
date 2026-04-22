@@ -5,20 +5,23 @@ func _process(delta: float) -> void:
 	super(delta)
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
-	spawn()
 	super(new_player)
 ## Disables the functionality of this upgrade
 func deactivate():
 	despawn()
 	super()
-func spawn():
+func spawn() -> bool:
+	var spawned_successfully: bool = false
 	## If we spawn, increase active spawn counter
 	if super():
 		UpgradeStatics.active_projectiles += 1
+		spawned_successfully = true
 	## Spawn for count
 	for i in UpgradeStatics.projectile_count_buff + additional_spawns:
 		if super():
 			UpgradeStatics.active_projectiles += 1
+			spawned_successfully = true
+	return spawned_successfully
 func despawn():
 	UpgradeStatics.active_projectiles -= 1
 func initialize_object(object: Node2D) -> bool:

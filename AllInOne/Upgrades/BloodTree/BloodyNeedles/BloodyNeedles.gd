@@ -17,3 +17,7 @@ func activate(new_player: Character):
 ## Disables the functionality of this upgrade
 func deactivate():
 	super()
+
+func _process(delta: float) -> void:
+	super(delta)
+	print(stopwatch, ">=",  (spawn_every_seconds * spawn_every_seconds_cd_reduction_factor))

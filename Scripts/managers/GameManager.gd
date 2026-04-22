@@ -184,6 +184,7 @@ func add_upgrade(data: UpgradeData) -> void:
 	upgrade.activate(player)
 	active_upgrades.append(upgrade)
 	ui_man.add_upgrade(upgrade)
+	player.add_child(upgrade)
 func add_weapon(weapon: Weapon) -> void:
 	weapon_list.append(weapon)
 	var temp_count: int = weapon_count
@@ -216,6 +217,7 @@ func add_equipment(equipment: Equipment) -> void:
 func remove_upgrade(upgrade: Upgrade) -> void:
 	upgrade.deactivate()
 	active_upgrades.erase(upgrade)
+	player.remove_child(upgrade)
 func remove_weapon(weapon: Weapon) -> bool:
 	if weapon && weapon_list.has(weapon):
 		weapon_list.erase(weapon)

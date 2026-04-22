@@ -16,7 +16,8 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("test_2"):
 		GameInstance.instance.spawn_enemy(load("uid://cqip08xv6m5no"), player.global_position + Vector2(0, -150))
 	if Input.is_action_just_pressed("test_3"):
-		game_man.curr_hp -= 1
+		print("Get Guy")
+		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_NEEDLES))
 	if Input.is_action_just_pressed("test_4"):
 		game_man.curr_hp -= 10
 	if Input.is_action_just_pressed("test_5"):

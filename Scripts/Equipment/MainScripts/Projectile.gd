@@ -38,6 +38,8 @@ func flash():
 	await get_tree().create_timer(0.1).timeout
 	visible = true
 func _process(delta: float) -> void:
+	print(visible)
+	print("dead: ", dead, "distance: ", GameManager.instance.player.global_position.distance_to(global_position))
 	if dead:
 		return
 	if homing:

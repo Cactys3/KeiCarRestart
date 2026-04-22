@@ -1,6 +1,31 @@
 [gd_scene format=3 uid="uid://ck86b4m7iaeeu"]
 
 [ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_44sww"]
+[ext_resource type="Texture2D" uid="uid://o7mbxm7s5k02" path="res://AllInOne/Upgrades/BloodTree/BloodyNeedles/BloodyNeedlesProjectile.png" id="2_rw7g2"]
 
-[node name="BloodyNeedlesProjectile" type="Node2D" unique_id=1839344969]
+[sub_resource type="AtlasTexture" id="AtlasTexture_upfa1"]
+atlas = ExtResource("2_rw7g2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chox6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upfa1")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44sww"]
+
+[node name="BloodyNeedlesProjectile" type="Area2D" unique_id=376684565]
 script = ExtResource("1_44sww")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=984086114]
+sprite_frames = SubResource("SpriteFrames_chox6")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1497253396]
+shape = SubResource("RectangleShape2D_44sww")

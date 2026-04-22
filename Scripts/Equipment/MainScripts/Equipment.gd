@@ -92,6 +92,8 @@ func can_attack(node: Node2D) -> bool:
 ## FIND ENEMIES
 ## Returns nearest enemy or null
 func get_nearest_enemy() -> Variant:
+	if get_tree() == null:
+		return null
 	var nearest_enemy = null
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		if nearest_enemy == null:
