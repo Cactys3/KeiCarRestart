@@ -4,8 +4,7 @@
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_cafu0"]
 [ext_resource type="Texture2D" uid="uid://bfqmjyqvuiltk" path="res://Art/DarkForest/EvilTree/EvilTree.png" id="2_j8kdx"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_j8kdx"]
-[ext_resource type="PackedScene" uid="uid://gy3vfni2yby5" path="res://AllInOne/Particles/FireParticles.tscn" id="5_drgie"]
-[ext_resource type="PackedScene" uid="uid://cwdekcvqhawws" path="res://AllInOne/Particles/FrostParticles.tscn" id="6_5qsf8"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="5_drgie"]
 
 [sub_resource type="Resource" id="Resource_drgie"]
 script = ExtResource("2_cafu0")
@@ -58,7 +57,7 @@ size = Vector2(100, 120)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0ay4"]
 size = Vector2(56, 94)
 
-[node name="EvilTree" type="Area2D" unique_id=1702388138 node_paths=PackedStringArray("hurtbox", "hitbox", "foreground", "background", "anims", "burn_anim", "frost_anim", "poison_anim", "bleed_anim", "shock_anim", "wet_anim")]
+[node name="EvilTree" type="Area2D" unique_id=1702388138 node_paths=PackedStringArray("hurtbox", "hitbox", "foreground", "background", "anims", "particles")]
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("1_pqand")
@@ -73,12 +72,7 @@ background = [NodePath("Background")]
 anims = [NodePath("Foreground/Foreground"), NodePath("Background/Background")]
 each_frame_is_alternative_art = true
 randomly_roll_alternative_art = true
-burn_anim = NodePath("Foreground/StatusEffects/Burn")
-frost_anim = NodePath("Foreground/StatusEffects/Frost")
-poison_anim = NodePath("Foreground/StatusEffects/Poison")
-bleed_anim = NodePath("Foreground/StatusEffects/Bleed")
-shock_anim = NodePath("Foreground/StatusEffects/Shock")
-wet_anim = NodePath("Foreground/StatusEffects/Wet")
+particles = NodePath("Foreground/EntityParticles")
 event_center_offset = Vector2(0, -5)
 event_size = Vector2(100, 120)
 
@@ -88,32 +82,8 @@ event_size = Vector2(100, 120)
 sprite_frames = SubResource("SpriteFrames_hp3iw")
 script = ExtResource("3_j8kdx")
 
-[node name="StatusEffects" type="Node2D" parent="Foreground" unique_id=1613916493]
-
-[node name="Burn" type="Node2D" parent="Foreground/StatusEffects" unique_id=598919968]
-visible = false
-
-[node name="FireParticles" parent="Foreground/StatusEffects/Burn" unique_id=908855576 instance=ExtResource("5_drgie")]
-scale = Vector2(3, 3)
-amount = 20
-
-[node name="Frost" type="Node2D" parent="Foreground/StatusEffects" unique_id=2136550942]
-visible = false
-
-[node name="FrostParticles" parent="Foreground/StatusEffects/Frost" unique_id=1616397393 instance=ExtResource("6_5qsf8")]
-texture_scale = 1.0
-
-[node name="Poison" type="Node2D" parent="Foreground/StatusEffects" unique_id=471716094]
-visible = false
-
-[node name="Bleed" type="Node2D" parent="Foreground/StatusEffects" unique_id=1814056099]
-visible = false
-
-[node name="Shock" type="Node2D" parent="Foreground/StatusEffects" unique_id=1210051436]
-visible = false
-
-[node name="Wet" type="Node2D" parent="Foreground/StatusEffects" unique_id=1797584529]
-visible = false
+[node name="EntityParticles" parent="Foreground" unique_id=1404569718 instance=ExtResource("5_drgie")]
+status_scale = Vector2(3, 3)
 
 [node name="Background" type="Node2D" parent="." unique_id=1123936459]
 

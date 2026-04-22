@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://8gk2j7xci4du"]
+
+[ext_resource type="Script" uid="uid://oxot0e5mrv0h" path="res://Scripts/EntityParticles.gd" id="1_sfwyy"]
+[ext_resource type="PackedScene" uid="uid://gy3vfni2yby5" path="res://AllInOne/Particles/FireParticles.tscn" id="2_sp3yq"]
+[ext_resource type="PackedScene" uid="uid://cwdekcvqhawws" path="res://AllInOne/Particles/FrostParticles.tscn" id="3_k4jr8"]
+[ext_resource type="Texture2D" uid="uid://djs3rmq4tgvy7" path="res://Art/Particles/BleedAnimation.png" id="4_sp3yq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4jr8"]
+atlas = ExtResource("4_sp3yq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_un4pc"]
+atlas = ExtResource("4_sp3yq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eorug"]
+atlas = ExtResource("4_sp3yq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wsasw"]
+atlas = ExtResource("4_sp3yq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4vvg"]
+atlas = ExtResource("4_sp3yq")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qt7g"]
+atlas = ExtResource("4_sp3yq")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ucvxw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4jr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_un4pc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eorug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wsasw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4vvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qt7g")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="EntityParticles" type="Node2D" unique_id=1404569718]
+script = ExtResource("1_sfwyy")
+
+[node name="Burn" type="Node2D" parent="." unique_id=1648805597]
+visible = false
+
+[node name="FireParticles" parent="Burn" unique_id=1704129647 instance=ExtResource("2_sp3yq")]
+emitting = false
+
+[node name="Frost" type="Node2D" parent="." unique_id=1685596734]
+visible = false
+
+[node name="FrostParticles" parent="Frost" unique_id=1616397393 instance=ExtResource("3_k4jr8")]
+emitting = false
+
+[node name="Poison" type="Node2D" parent="." unique_id=804694694]
+visible = false
+
+[node name="Bleed" type="Node2D" parent="." unique_id=1368488024]
+
+[node name="bleed_animation" type="AnimatedSprite2D" parent="Bleed" unique_id=1353588436]
+sprite_frames = SubResource("SpriteFrames_ucvxw")
+frame = 5
+frame_progress = 1.0
+
+[node name="Shock" type="Node2D" parent="." unique_id=771156883]
+visible = false
+
+[node name="Wet" type="Node2D" parent="." unique_id=1512534909]
+visible = false

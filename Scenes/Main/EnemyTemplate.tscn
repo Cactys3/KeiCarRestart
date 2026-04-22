@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://cwosx71g71ysy"]
 
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_8217j"]
-[ext_resource type="PackedScene" uid="uid://gy3vfni2yby5" path="res://AllInOne/Particles/FireParticles.tscn" id="2_ixxii"]
-[ext_resource type="PackedScene" uid="uid://cwdekcvqhawws" path="res://AllInOne/Particles/FrostParticles.tscn" id="3_8hjg3"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="2_8tre4"]
 
 [node name="EnemyTemplate" type="RigidBody2D" unique_id=994641897 node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
 collision_layer = 8
@@ -20,29 +19,7 @@ animation = &""
 autoplay = "Idle"
 offset = Vector2(0, -8.385)
 
-[node name="StatusEffects" type="Node2D" parent="." unique_id=1308518991]
-
-[node name="Burn" type="Node2D" parent="StatusEffects" unique_id=670002301]
-visible = false
-
-[node name="FireParticles" parent="StatusEffects/Burn" unique_id=1704129647 instance=ExtResource("2_ixxii")]
-
-[node name="Frost" type="Node2D" parent="StatusEffects" unique_id=466018757]
-visible = false
-
-[node name="FrostParticles" parent="StatusEffects/Frost" unique_id=1616397393 instance=ExtResource("3_8hjg3")]
-
-[node name="Poison" type="Node2D" parent="StatusEffects" unique_id=1307031391]
-visible = false
-
-[node name="Bleed" type="Node2D" parent="StatusEffects" unique_id=225296647]
-visible = false
-
-[node name="Shock" type="Node2D" parent="StatusEffects" unique_id=953783009]
-visible = false
-
-[node name="Wet" type="Node2D" parent="StatusEffects" unique_id=2034926854]
-visible = false
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("2_8tre4")]
 
 [node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1791966663]
 collision_layer = 16

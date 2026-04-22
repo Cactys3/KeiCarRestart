@@ -437,7 +437,11 @@ anim = NodePath("LeftGlove/LeftSprite")
 projectile = ExtResource("2_8up8s")
 AimType = 2
 lock_transform_while_attacking = true
+item_name = "Boxing Gloves"
+item_description = "Punch your way to victory!"
+item_type = 3
 status = SubResource("Resource_hdjnv")
+burn_apply = 0.2
 damage = 35.0
 _range = 40.0
 attackcooldown = 0.4
@@ -451,9 +455,6 @@ size = 1.0
 inaccuracy = 4.0
 luck = 50.0
 weight = 20.0
-item_name = "Boxing Gloves"
-item_description = "Punch your way to victory!"
-item_type = 3
 
 [node name="RightGlove" type="Area2D" parent="." unique_id=1339773686]
 collision_layer = 4

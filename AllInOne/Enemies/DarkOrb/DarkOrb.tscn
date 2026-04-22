@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_lqxhm"]
 [ext_resource type="Texture2D" uid="uid://dcqev4gxdwwa0" path="res://Art/Enemies/DarkOrb/DarkOrb.png" id="2_2u64k"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_g120u"]
-[ext_resource type="PackedScene" uid="uid://gy3vfni2yby5" path="res://AllInOne/Particles/FireParticles.tscn" id="4_g120u"]
-[ext_resource type="PackedScene" uid="uid://cwdekcvqhawws" path="res://AllInOne/Particles/FrostParticles.tscn" id="5_yjfkj"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="4_2u64k"]
 
 [sub_resource type="Resource" id="Resource_yjfkj"]
 script = ExtResource("2_g120u")
@@ -142,29 +141,7 @@ autoplay = "default"
 frame_progress = 0.58037806
 offset = Vector2(0, -8.385)
 
-[node name="StatusEffects" type="Node2D" parent="." unique_id=1054655920]
-
-[node name="Burn" type="Node2D" parent="StatusEffects" unique_id=395575422]
-visible = false
-
-[node name="FireParticles" parent="StatusEffects/Burn" unique_id=1704129647 instance=ExtResource("4_g120u")]
-
-[node name="Frost" type="Node2D" parent="StatusEffects" unique_id=806491854]
-visible = false
-
-[node name="FrostParticles" parent="StatusEffects/Frost" unique_id=1616397393 instance=ExtResource("5_yjfkj")]
-
-[node name="Poison" type="Node2D" parent="StatusEffects" unique_id=614607196]
-visible = false
-
-[node name="Bleed" type="Node2D" parent="StatusEffects" unique_id=294178178]
-visible = false
-
-[node name="Shock" type="Node2D" parent="StatusEffects" unique_id=2116054212]
-visible = false
-
-[node name="Wet" type="Node2D" parent="StatusEffects" unique_id=78103503]
-visible = false
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("4_2u64k")]
 
 [node name="Damage_Hitbox" type="Area2D" parent="." unique_id=2072209990]
 collision_layer = 16

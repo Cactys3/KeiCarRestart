@@ -1,4 +1,3 @@
-@tool
 extends Event
 @export_category("Defense")
 @export var hurtbox: Area2D
@@ -39,12 +38,8 @@ extends Event
 @export var anims: Array[AnimatedSprite2D]
 @export var each_frame_is_alternative_art: bool = false
 @export var randomly_roll_alternative_art: bool = false
-@export var burn_anim: Node2D 
-@export var frost_anim: Node2D 
-@export var poison_anim: Node2D 
-@export var bleed_anim: Node2D 
-@export var shock_anim: Node2D 
-@export var wet_anim: Node2D 
+@export var particles: EntityParticles = null
+
 var curr_health: float = 1000
 var stopwatch: float = 100
 ##
@@ -200,6 +195,9 @@ var second_cd: float = 0
 var two_second_cd: float = 0
 ## Handles Processing Status Effect defense and effects
 func status_process(delta: float) -> void:
+	## Don't process if we don't even have particle effects
+	if !particles:
+		return
 	## Only process status effects every half second
 	if half_second_cd >= 0.5:
 		half_second_cd = 0
@@ -221,7 +219,7 @@ func status_process(delta: float) -> void:
 	if !is_burning:
 		applied_burn = 0
 		#burn_anim.stop()
-		burn_anim.visible = false
+		particles.toggle_burn(false)
 	elif !immune_to_burn:
 		if second:
 			most_recent_attack = proc_burn()
@@ -237,13 +235,13 @@ func status_process(delta: float) -> void:
 				return
 	if !is_frosted:
 		#frost_anim.stop()
-		frost_anim.visible = false
+		particles.toggle_frost(false)
 		frost_movespeed_reduction = 0
 	## POISON: Take damage every 2 seconds
 	if !is_poisoned:
 		applied_poison = 0
 		#poison_anim.stop()
-		poison_anim.visible = false
+		particles.toggle_poison(false)
 	elif !immune_to_poison:
 		if two_second:
 			most_recent_attack = proc_poison()
@@ -260,13 +258,13 @@ func status_process(delta: float) -> void:
 				return
 	if !is_bleeding:
 		#bleed_anim.stop()
-		bleed_anim.visible = false
+		particles.toggle_bleed(false)
 	## SHOCK:
 	if !is_shocked:
 		applied_shock = 0
 		shock_defense_reduction = 0
 		#shock_anim.stop()
-		shock_anim.visible = false
+		particles.toggle_shock(false)
 	elif !immune_to_shock:
 		if applied_shock != floor(shock / shock_threshhold):
 			proc_shock()
@@ -274,7 +272,7 @@ func status_process(delta: float) -> void:
 	if !is_wet:
 		applied_wet = 0
 		#wet_anim.stop()
-		wet_anim.visible = false
+		particles.toggle_wet(false)
 	elif !immune_to_wet:
 		if applied_wet != floor(wet / wet_threshhold):
 			proc_wet()
@@ -287,8 +285,8 @@ func check_death(attack: Attack) -> bool:
 	return false
 ## Proc Status
 func proc_burn() -> Attack:
-	if burn_anim:
-		burn_anim.visible = true
+	if particles:
+		particles.toggle_burn(true)
 		#burn_anim.play("default")
 	## Do the math
 	var current_burn_damage: float = get_burn_damage()
@@ -301,8 +299,8 @@ func proc_burn() -> Attack:
 	display_damage(current_burn_damage, Color.RED)
 	return attack
 func proc_frost() -> Attack:
-	if frost_anim:
-		frost_anim.visible = true
+	if particles:
+		particles.toggle_frost(true)
 		#frost_anim.play("default")
 	applied_frost = floor(frost / frost_threshhold)
 	frost_movespeed_reduction = get_frost_movespeed_reduction()
@@ -319,8 +317,8 @@ func proc_frost() -> Attack:
 	frost_threshhold *= GlobalStats.enemy_frost_threshold_multiplier
 	return attack
 func proc_poison() -> Attack:
-	if poison_anim:
-		poison_anim.visible = true
+	if particles:
+		particles.toggle_poison(true)
 		#poison_anim.play("default")
 	## Do the math
 	var current_poison_damage: float = get_poison_damage()
@@ -333,8 +331,8 @@ func proc_poison() -> Attack:
 	display_damage(current_poison_damage, Color.GREEN)
 	return attack
 func proc_bleed() -> Attack:
-	if bleed_anim:
-		bleed_anim.visible = true
+	if particles:
+		particles.toggle_bleed(true)
 		#bleed_anim.play("default")
 	## Do the math
 	# does x percent of health each bleed proc
@@ -350,14 +348,14 @@ func proc_bleed() -> Attack:
 	bleed_threshhold *= GlobalStats.enemy_bleed_threshold_multiplier
 	return attack
 func proc_shock():
-	if shock_anim:
-		shock_anim.visible = true
+	if particles:
+		particles.toggle_shock(true)
 		#shock_anim.play("default")
 	applied_shock = floor(shock / shock_threshhold)
 	shock_defense_reduction = get_shock_defense_reduction()
 func proc_wet():
-	if wet_anim:
-		wet_anim.visible = true
+	if particles:
+		particles.toggle_wet(true)
 		#wet_anim.play("default")
 	applied_wet = floor(wet / wet_threshhold)
 ## Get Damages

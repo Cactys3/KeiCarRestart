@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 class_name Event
 @export var event_name: String = "unset"

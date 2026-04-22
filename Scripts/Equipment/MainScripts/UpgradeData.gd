@@ -112,7 +112,7 @@ func can_obtain(equipped_upgrades: Array[Upgrade]) -> bool:
 		if upgrade.data == self:
 			return false
 		## If there's an upgrade obtained that disables this upgrade, return false
-		if upgrade.data.disable_upgrades.has(self):
+		if upgrade.data.disable_upgrades_names.has(upgrade_name):
 			return false
 		## Remove prereq upgrades until list is empty or left only with prereqs that aren't active
 		if copy.has(upgrade.data):
