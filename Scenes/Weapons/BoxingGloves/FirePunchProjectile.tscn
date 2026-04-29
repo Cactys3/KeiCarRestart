@@ -1,26 +1,26 @@
 [gd_scene format=3 uid="uid://d1gb0dt4hcvtx"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_1jpg7"]
-[ext_resource type="Texture2D" uid="uid://dyinr3i8jtc2p" path="res://Art/Weapons/BoxingGloves/BoxingGloves.png" id="2_caedb"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_hqeqx"]
+[ext_resource type="Texture2D" uid="uid://dyinr3i8jtc2p" path="res://Art/Weapons/BoxingGloves/BoxingGloves.png" id="2_anrj0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rdq56"]
-atlas = ExtResource("2_caedb")
+atlas = ExtResource("2_anrj0")
 region = Rect2(0, 960, 64, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v1ag2"]
-atlas = ExtResource("2_caedb")
+atlas = ExtResource("2_anrj0")
 region = Rect2(64, 960, 64, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1l42e"]
-atlas = ExtResource("2_caedb")
+atlas = ExtResource("2_anrj0")
 region = Rect2(128, 960, 64, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b8ajv"]
-atlas = ExtResource("2_caedb")
+atlas = ExtResource("2_anrj0")
 region = Rect2(192, 960, 64, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r8q00"]
-atlas = ExtResource("2_caedb")
+atlas = ExtResource("2_anrj0")
 region = Rect2(256, 960, 64, 80)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qhs76"]
@@ -47,13 +47,13 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1jpg7"]
-radius = 17.5
-height = 42.0
+radius = 8.0
+height = 16.0
 
 [node name="FirePunch" type="Area2D" unique_id=1052976383]
 collision_layer = 4
 collision_mask = 8
-script = ExtResource("1_1jpg7")
+script = ExtResource("1_hqeqx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
 rotation = 1.5707964
@@ -61,6 +61,9 @@ sprite_frames = SubResource("SpriteFrames_qhs76")
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1754514067]
-position = Vector2(-5, 0)
+position = Vector2(-2, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_1jpg7")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

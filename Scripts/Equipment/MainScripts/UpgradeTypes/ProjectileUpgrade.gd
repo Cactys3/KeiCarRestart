@@ -35,8 +35,9 @@ func initialize_projectile(projectile: Projectile) -> Projectile:
 	var enemy: Node2D = get_nearest_enemy()
 	if enemy:
 		projectile.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized(), homing, homing_speed, false, 0)
-	else:
-		projectile.setup_projectile(self, null, player.transform.x, homing, homing_speed, false, 0)
+	else: ## Random Direction, no homing
+		projectile.setup_projectile(self, null, get_global_mouse_position() - player.global_position, homing, homing_speed, false, 0)
+	projectile.position = player.position
 	return projectile
 ## Projectile variables
 @export var homing: bool = false

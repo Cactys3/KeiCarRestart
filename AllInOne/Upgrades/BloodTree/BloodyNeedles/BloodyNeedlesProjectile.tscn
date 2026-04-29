@@ -19,8 +19,11 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44sww"]
+size = Vector2(7, 3)
 
 [node name="BloodyNeedlesProjectile" type="Area2D" unique_id=376684565]
+collision_layer = 4
+collision_mask = 8
 script = ExtResource("1_44sww")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=984086114]
@@ -28,4 +31,8 @@ sprite_frames = SubResource("SpriteFrames_chox6")
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1497253396]
+position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_44sww")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

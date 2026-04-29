@@ -10,12 +10,12 @@ var is_clone: bool
 var clone_offset: float = 0.5
 var return_to_sender: bool = false
 var sender: Node2D
-var size: float
-var damage: float
+var size: float = 1
+var damage: float = 10
 var count: float 
 var piercing: float
 var weight: float
-var velocity: float
+var velocity: float = 20
 var direction:Vector2
 var AttackedObjects: Array[Node2D] = []
 var stopwatch: float = 0.0
@@ -27,6 +27,8 @@ var collision_counter: float = 0
 var dead: bool = false
 signal died(pos: Vector2, cloned: bool)
 @export var can_spawn_multiple: bool = true
+@export var face_rotation: bool = true
+@export var can_knockback: bool = true
 var status: StatusEffects
 var prebuilt_attack: Attack = null
 var death_method: Callable
@@ -34,39 +36,49 @@ func _init() -> void:
 	visible = false
 func _ready() -> void:
 	flash()
+	gravity = 0
 func flash():
 	await get_tree().create_timer(0.1).timeout
 	visible = true
 func _process(delta: float) -> void:
-	print(visible)
-	print("dead: ", dead, "distance: ", GameManager.instance.player.global_position.distance_to(global_position))
+	#print(visible)
+	#print("dead: ", dead, "distance: ", GameManager.instance.player.global_position.distance_to(global_position))
 	if dead:
 		return
+	## Acceleration
+	velocity += velocity * acceleration * delta
+	## Process Movement
 	if homing:
 		process_movement_homing(delta)
 	else:
 		process_movement(delta)
-	stopwatch += delta
-	if (stopwatch > lifetime):
-		die()
-func process_movement(delta: float) -> void:
-	position += direction * velocity * delta
-func process_movement_homing(delta: float):
-	## Acceleration
-	velocity += velocity * acceleration * delta
-	if is_instance_valid(target):
-		## Homing
-		move_toward(rotation, (target.global_position - global_position).angle(), delta * homing_speed)
-		direction = direction.move_toward((target.global_position - global_position), delta * homing_speed)
-		global_position += (direction).normalized() * velocity * delta
-	else:
-		## No Homing
+	## Face Rotation
+	if face_rotation:
 		rotation = direction.angle()
-		global_position += (direction).normalized() * velocity * delta
 	## Death By Old Age
 	stopwatch += delta
 	if (stopwatch > lifetime) || (collision_counter > piercing):
 		die()
+func process_movement(delta: float) -> void:
+	global_position += (direction).normalized() * velocity * delta
+var homing_stopwatch: float = 0
+func process_movement_homing(delta: float):
+	## Homing on a cooldown:
+	homing_stopwatch += delta
+	if homing_stopwatch >= 30:
+		homing_stopwatch = 0
+		## Try to get a new target if target is gone
+		if !target:
+			print("no target")
+			target = get_nearest_enemy()
+		if target:
+			## Homing
+			#move_toward(rotation, (target.global_position - global_position).angle(), delta * homing_speed)	
+			direction = direction.move_toward((target.global_position - global_position).normalized(), delta * homing_speed)
+			global_position += (direction).normalized() * velocity * delta
+	else:
+		## No Homing
+		process_movement(delta)
 ## Setup values generic for all BasicProjectile
 func setup_projectile(new_parent: Equipment, new_target: Node2D, enemy_direction:Vector2, is_homing: bool, new_homing_speed: float, new_is_clone: bool, new_acceleration: float): #, new_piercing: float, new_lifetime: float, new_damage: float, new_velocity: float, new_weight: float, new_size: float):
 	parent = new_parent
@@ -132,8 +144,12 @@ func make_attack(clone: bool) -> Attack:
 	var attack_damage: float = damage
 	if clone:
 		attack_damage = damage * clone_offset
+	var knockback: float = 0
 	new_attack = Attack.new(attack_type, self, global_position, status, null, null)
 	new_attack.simple_setup(attack_damage, weight * (attack_damage / 30))
+	if !can_knockback:
+		## Only set false on !can_knockback (don't set true here incase disabled elsewhere)
+		new_attack.can_knockback = false
 	return new_attack
 func die():
 	if dead:
@@ -144,3 +160,14 @@ func die():
 	dead = true
 	died.emit(global_position, is_clone)
 	queue_free()
+## Returns nearest enemy or null
+func get_nearest_enemy() -> Variant:
+	if get_tree() == null:
+		return null
+	var nearest_enemy = null
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if nearest_enemy == null:
+			nearest_enemy = enemy
+		elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
+			nearest_enemy = enemy
+	return nearest_enemy

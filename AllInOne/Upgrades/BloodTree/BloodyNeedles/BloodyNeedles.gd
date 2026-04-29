@@ -5,8 +5,8 @@ const SCENE = preload("uid://ck86b4m7iaeeu")
 const spawn_every_seconds_base: int = 5
 ## Set Vars
 func _ready() -> void:
-	homing = false
-	homing_speed = 0
+	homing = true
+	homing_speed = 50
 	spawn_every_seconds = true
 	spawn_every_seconds = spawn_every_seconds_base
 	scene_to_spawn = SCENE
@@ -20,4 +20,4 @@ func deactivate():
 
 func _process(delta: float) -> void:
 	super(delta)
-	print(stopwatch, ">=",  (spawn_every_seconds * spawn_every_seconds_cd_reduction_factor))
+	#print(stopwatch, ">=",  (spawn_every_seconds * spawn_every_seconds_cd_reduction_factor))

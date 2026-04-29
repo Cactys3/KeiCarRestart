@@ -11,6 +11,8 @@ metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [node name="BloodyNeedles" type="Node2D" unique_id=1005690770]
 script = ExtResource("1_x101a")
+homing = true
+homing_speed = 1000.0
 spawn_with_cd = true
 spawn_every_seconds = 5.0
 scene_to_spawn = ExtResource("2_ov0j7")

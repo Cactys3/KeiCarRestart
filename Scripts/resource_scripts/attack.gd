@@ -29,6 +29,7 @@ var temporary_factor_stats: GlobalStats.StatsList
 var calculated_crit: bool = false
 var is_crit: bool = false
 var stun: float = 0
+var can_knockback: bool = true
 ## Simple Values
 var simple: bool = false
 var simple_damage: float
@@ -51,9 +52,12 @@ func get_damage() -> float:
 		return simple_damage
 	return GlobalStats.calculate_damage(get_stat(GlobalStats.DAMAGE), get_stat(GlobalStats.LUCK), get_stat(GlobalStats.CRITDAMAGE))
 func get_knockback() -> float:
-	if simple:
-		return simple_knockback
-	return GlobalStats.calculate_knockback(get_stat(GlobalStats.DAMAGE), get_stat(GlobalStats.WEIGHT))
+	if can_knockback:
+		if simple:
+			return simple_knockback
+		return GlobalStats.calculate_knockback(get_stat(GlobalStats.DAMAGE), get_stat(GlobalStats.WEIGHT))
+	else:
+		return 0
 func get_stun() -> float:
 	return stun
 func get_burn() -> float:

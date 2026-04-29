@@ -19,6 +19,7 @@ func _process(_delta: float) -> void:
 		print("Get Guy")
 		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_NEEDLES))
 	if Input.is_action_just_pressed("test_4"):
+		
 		game_man.curr_hp -= 10
 	if Input.is_action_just_pressed("test_5"):
 		game_man.curr_hp += 1

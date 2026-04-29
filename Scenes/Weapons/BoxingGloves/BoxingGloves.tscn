@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bbw0s4nlfy63s"]
 
 [ext_resource type="Script" uid="uid://bsgbnenow5c2h" path="res://Scripts/Equipment/BoxingGloves/BoxingGloves.gd" id="1_rw4pg"]
-[ext_resource type="PackedScene" uid="uid://d1gb0dt4hcvtx" path="res://Scenes/Weapons/BoxingGloves/FirePunch.tscn" id="2_8up8s"]
+[ext_resource type="PackedScene" uid="uid://d1gb0dt4hcvtx" path="res://Scenes/Weapons/BoxingGloves/FirePunchProjectile.tscn" id="2_8up8s"]
 [ext_resource type="Texture2D" uid="uid://dyinr3i8jtc2p" path="res://Art/Weapons/BoxingGloves/BoxingGloves.png" id="2_37iyi"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_8up8s"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="3_ig0w8"]
