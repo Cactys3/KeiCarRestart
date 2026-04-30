@@ -1,14 +1,18 @@
-extends Node2D
+extends SpawnObject
 class_name Turret
+## Shoot projectiles
+## Die after awile
+## Take damage on enemy enter?
+
 ## Does it fire multiple projectiles one after another with a delay or at the same time with an angle/position spread
 @export var multiple_projectiles_aim_type: Weapon.multiple_projectiles_aim_types = Weapon.multiple_projectiles_aim_types.spread
-@export var AimType: AimTypes = AimTypes.TowardsNearestEnemy
+@export var AimType: AimTypes = AimTypes.NearestEnemy
 @export var has_attacking_animation: bool = false
 @export var anim: AnimatedSprite2D 
 @export var homing: bool = false
 @export var homing_speed: float = 0
 @export var projectile: Projectile
-enum AimTypes{Spinning, TowardsNearestEnemy, TowardsRandomEnemy, AtMouse}
+enum AimTypes{Spinning, NearestEnemy, RandomEnemy, AtMouse}
 var parent: Equipment
 var turret_duration: float = 10
 var duration_stopwatch: float = 0
@@ -28,17 +32,17 @@ func _process(delta: float) -> void:
 	match(AimType):
 		AimTypes.Spinning:
 			process_spinning(delta)
-		AimTypes.TowardsNearestEnemy:
-			process_towards_nearest_enemy(delta)
-		AimTypes.TowardsRandomEnemy:
-			process_towards_random_enemy(delta)
+		AimTypes.NearestEnemy:
+			process_nearest_enemy(delta)
+		AimTypes.RandomEnemy:
+			process_random_enemy(delta)
 		AimTypes.AtMouse:
 			process_at_mouse(delta)
 func process_spinning(delta: float) -> void:
 	pass
-func process_towards_nearest_enemy(delta: float) -> void:
+func process_nearest_enemy(delta: float) -> void:
 	pass
-func process_towards_random_enemy(delta: float) -> void:
+func process_random_enemy(delta: float) -> void:
 	pass
 func process_at_mouse(delta: float) -> void:
 	pass
@@ -50,9 +54,9 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 		return null
 	var proj: Projectile = projectile.instantiate()
 	proj.visible = false
-	if AimType == AimTypes.TowardsNearestEnemy:
+	if AimType == AimTypes.NearestEnemy:
 		target = get_nearest_enemy()
-	elif AimType == AimTypes.TowardsRandomEnemy:
+	elif AimType == AimTypes.RandomEnemy:
 		target = get_random_enemy()
 	proj.setup_projectile(parent, target, new_direction, homing, homing_speed, false, 0)
 	GameManager.instance.projectile_parent.add_child(proj)
@@ -62,16 +66,6 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	return proj
 func projectile_died():
 	pass
-func get_nearest_enemy() -> Variant:
-	var nearest_enemy = null
-	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if nearest_enemy == null:
-			nearest_enemy = enemy
-		elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
-			nearest_enemy = enemy
-	return nearest_enemy
-func get_random_enemy() -> Variant:
-	return get_tree().get_nodes_in_group("enemy").pick_random()
 
 func die():
 	pass

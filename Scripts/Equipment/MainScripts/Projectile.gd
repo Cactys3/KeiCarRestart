@@ -1,4 +1,4 @@
-extends Area2D
+extends SpawnObject
 class_name Projectile
 ## Given Variables
 var parent: Equipment
@@ -160,14 +160,3 @@ func die():
 	dead = true
 	died.emit(global_position, is_clone)
 	queue_free()
-## Returns nearest enemy or null
-func get_nearest_enemy() -> Variant:
-	if get_tree() == null:
-		return null
-	var nearest_enemy = null
-	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if nearest_enemy == null:
-			nearest_enemy = enemy
-		elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
-			nearest_enemy = enemy
-	return nearest_enemy
