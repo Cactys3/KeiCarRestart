@@ -45,3 +45,6 @@ func despawn():
 func initialize_object(object: Node2D) -> bool:
 	summons.append(object) ## TODO: Append
 	return false
+## Add in creation duration buff
+func get_spawning_duration() -> float:
+	return super() + UpgradeStatics.summon_duration_buff

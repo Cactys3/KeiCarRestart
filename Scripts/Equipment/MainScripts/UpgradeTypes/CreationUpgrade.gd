@@ -1,6 +1,7 @@
 extends SpawningUpgrade
 ## Spawning Upgrade that specifically spawns Creations
 class_name CreationUpgrade
+var active_creations: Array[Turret] = []
 func _process(delta: float) -> void:
 	super(delta)
 ## Enables the functionality of this upgrade
@@ -23,6 +24,14 @@ func despawn():
 	UpgradeStatics.active_creations -= 1
 ## Override to setup spawn
 func initialize_object(object: Node2D) -> bool:
-	if object is Projectile: ## object is Creation:
+	if object is Creation: ## object is Creation:
+		object = object as Creation
+		object.setup(self, get_spawning_duration())
+		get_spawn_parent().add_child(object)
+		object.global_position = get_spawning_position()
+		active_creations.append(object)
 		return true
 	return false
+## Add in creation duration buff
+func get_spawning_duration() -> float:
+	return super() + UpgradeStatics.creation_duration_buff

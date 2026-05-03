@@ -7,6 +7,8 @@ class_name SpawningUpgrade
 @export var spawn_with_cd: bool = false
 @export var spawn_every_seconds: float = 0
 @export var scene_to_spawn: PackedScene
+@export var spawn_radius: float = 40
+@export var spawn_duration: float = 10
 static var spawn_every_seconds_cd_reduction_factor: float = 1
 static var spawn_on_enemy_kills_reduction_factor: float = 1
 var reloads_since_last_spawn: int = 0
@@ -38,12 +40,22 @@ func _process(delta: float) -> void:
 func spawn() -> bool:
 	var object = scene_to_spawn.instantiate()
 	if initialize_object(object):
-		get_spawn_parent().add_child(object)
+		print("spawn one")
+		reloads_since_last_spawn = 0
 		return true
 	return false
 ## Override to setup the spawned object
 func initialize_object(object: Node2D) -> bool:
+	#object.global_position = get_spawning_position()
+	#get_spawn_parent().add_child(object)
 	return false
+## Get a random position using "spawn radius"
+func get_spawning_position() -> Vector2:
+	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))
+	print("position: ", spawn_position)
+	return spawn_position
+func get_spawning_duration() -> float:
+	return spawn_duration + duration_stat + UpgradeStatics.spawn_duration_buff
 func reload(weapon: Weapon) -> void:
 	super(weapon)
 	reloads_since_last_spawn += 1

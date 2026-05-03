@@ -23,30 +23,36 @@ static var summon_count_buff: int = 0
 static var trap_count_buff: int = 0
 static var creation_count_buff: int = 0
 static var projectile_count_buff: int = 0
+static var spawn_count_buff: float = 0 ## For every spawn type
 ## Duration Increases for each spawn (I think this is probably percent)
 static var summon_duration_buff: float = 0
 static var trap_duration_buff: float = 0
 static var creation_duration_buff: float = 0
 static var projectile_duration_buff: float = 0
+static var spawn_duration_buff: float = 0 ## For every spawn type
 ## Damage Increases for each spawn (I think this is probably percent too)
 static var summon_damage_buff: float = 0
 static var trap_damage_buff: float = 0
 static var creation_damage_buff: float = 0
 static var projectile_damage_buff: float = 0
+static var spawn_damage_buff: float = 0 ## For every spawn type
 ## Size Increases for each spawn (I think this is probably percent (but out of 100))
 static var summon_size_buff: float = 0
 static var trap_size_buff: float = 0
 static var creation_size_buff: float = 0
 static var projectile_size_buff: float = 0
+static var spawn_size_buff: float = 0 ## For every spawn type
 ## 
 static var summon_attackspeed_buff: float = 0
 static var trap_attackspeed_buff: float = 0
 static var creation_attackspeed_buff: float = 0
 static var projectile_attackspeed_buff: float = 0
+static var spawn_attackspeed_buff: float = 0 ## For every spawn type
 ## 
 static var summon_hp_buff: float = 0
 static var trap_hp_buff: float = 0
 static var creation_hp_buff: float = 0
+static var spawn_hp_buff: float = 0 ## For every spawn type
 ## Projectile Only Buff
 static var projectile_piercing_buff: float = 0
 ## Summon Only Buffs

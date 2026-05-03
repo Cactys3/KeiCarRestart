@@ -7,6 +7,5 @@ class_name Summon
 enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Unique}
 @export var AimType: AimTypes = AimTypes.default
 
-
 func _process(delta: float) -> void:
 	pass

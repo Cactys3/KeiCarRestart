@@ -5,7 +5,7 @@ extends CreationUpgrade
 func activate(new_player: Character):
 	super(new_player)
 func deactivate():
-	for turret in active_turrets:
+	for turret in active_creations:
 		if is_instance_valid(turret):
 			turret.queue_free()
 	super()
@@ -21,14 +21,5 @@ func edit_attack(attack: Attack) -> Attack:
 	return attack
 
 const turret_duration: float = 10
-var active_turrets: Array[Turret] = []
-## Override to setup the spawned object
-func initialize_object(object: Node2D) -> bool:
-	if object is Turret:
-		object = object as Turret
-		object.setup(self, turret_duration + duration_stat + UpgradeStatics.creation_duration_buff)
-		active_turrets.append(object)
-		return true
-	return false
 
 ## TODO: Implement Blood Puddles

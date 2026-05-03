@@ -42,3 +42,7 @@ func initialize_projectile(projectile: Projectile) -> Projectile:
 ## Projectile variables
 @export var homing: bool = false
 @export var homing_speed: float = 0
+
+## Add in duration buff
+func get_spawning_duration() -> float:
+	return super() + UpgradeStatics.projectile_duration_buff

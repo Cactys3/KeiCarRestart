@@ -5,6 +5,7 @@ enum ActivationTypes{enemy_entered, timer, activation}
 @export var spawn_scene_on_activation: PackedScene
 @export var activation_type: ActivationTypes = ActivationTypes.enemy_entered
 signal activation_signal
+
 ## Setup trap to start
 func setup():
 	match activation_type:

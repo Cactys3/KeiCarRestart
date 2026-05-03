@@ -23,6 +23,10 @@ func despawn():
 	UpgradeStatics.active_traps -= 1
 ## Override to setup spawn
 func initialize_object(object: Node2D) -> bool:
-	if object is Projectile: ## object is Trap:
+	if object is Trap: ## object is Trap:
 		return true
 	return false
+
+## Add in creation duration buff
+func get_spawning_duration() -> float:
+	return super() + UpgradeStatics.trap_duration_buff

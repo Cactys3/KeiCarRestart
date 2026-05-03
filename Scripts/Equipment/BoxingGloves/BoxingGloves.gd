@@ -113,6 +113,7 @@ func create_last_projectile():
 	play_anim(Idle)
 	right_collision.disabled = true
 	left_collision.disabled = true
+	game_man.WeaponReloaded.emit(self) 
 ## Override to calculate time_one_projectile_takes_to_create
 func _time_one_projectile_takes_to_create() -> float:
 	#("Frames: ", float(anim.sprite_frames.get_frame_count(AttackLeft)), " at fps: ",  float(get_punch_speed()), " is: ", float(anim.sprite_frames.get_frame_count(AttackLeft)) / float(get_punch_speed()))

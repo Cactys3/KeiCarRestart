@@ -15,7 +15,17 @@ func get_nearest_enemy() -> Variant:
 	return nearest_enemy
 func get_random_enemy() -> Variant:
 	return get_tree().get_nodes_in_group("enemy").pick_random()
-
 func _on_area_entered(area: Area2D) -> void:
 	## Damage enemy
 	pass
+## Returns if weapon is pointing towards the given enemy, within degree of leniency
+func IsAimingAtEnemyWithinDegree(enemy: Node2D, degree: float, current_rotation: float) -> bool:
+	if enemy != null:
+		var angle = rad_to_deg(acos(Vector2(cos(current_rotation), sin(current_rotation)).dot((enemy.global_position - global_position).normalized())))
+		return angle <= degree
+	return false
+## Returns if weapon is pointing towards any enemy TODO: not setup
+func IsAimingAtAnyEnemy(current_rotation: float) -> bool:
+	if false: #TODO: setup with raycasts
+		return true
+	return false

@@ -143,7 +143,8 @@ func create_projectile():
 ## Create any projectiles but also do any melee attacks, also do last ammo attacks/reloading stuff
 func create_last_projectile():
 	create_projectile()
-	game_man.WeaponReloaded.emit(self)
+	## Remember to add this line to any override functions 
+	game_man.WeaponReloaded.emit(self) 
 ## Previous implementation of Attack(), Create and setup all the projectiles for an attack from this Weapon
 func create_all_projectiles():
 	## Create the first bullet by default
