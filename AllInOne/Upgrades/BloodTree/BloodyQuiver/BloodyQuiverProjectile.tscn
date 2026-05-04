@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://jsps8aqsiw12"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_o7poi"]
+[ext_resource type="Texture2D" uid="uid://dd6cu3epbk71g" path="res://AllInOne/Upgrades/BloodTree/BloodyQuiver/BloodQuiverProjectile.png" id="2_a1k3g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsba0"]
+atlas = ExtResource("2_a1k3g")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jxnr3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsba0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7poi"]
+size = Vector2(8, 5)
+
+[node name="BloodQuiverProjectile" type="Area2D" unique_id=1341003424]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_o7poi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2118981883]
+sprite_frames = SubResource("SpriteFrames_jxnr3")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=752319349]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_o7poi")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

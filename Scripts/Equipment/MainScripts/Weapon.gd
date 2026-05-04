@@ -33,7 +33,7 @@ var weapon_position_offset: float = 0
 ## Can ignore the ready_to_fire variable and assume always ready to fire = true
 ## Offset that additional projectiles are given when firing multiple, should be different for different weapons and also scale with inaccuracy
 var weapon_slot: float = 1
-var weapon_count: float = 0
+static var weapon_count: float = 0
 var current_angle: float = 0  #Stores the angle for smooth circular motion
 enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Unique}
 var temp_value = 0
@@ -324,6 +324,9 @@ func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
 	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance + GetWeaponOffsetPosition(target_angle)
 func GetWeaponOffsetPosition(target_angle: float) -> Vector2:
 	return weapon_position_offset * Vector2(cos(target_angle), sin(target_angle))
+
+
+
 
 class AttackEvent:
 	var attackee: Node

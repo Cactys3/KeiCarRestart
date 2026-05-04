@@ -37,7 +37,6 @@ var check_nearest_cd: float = 1 ## Check every 1 seconds
 var check_aiming_stopwatch: float = 0
 var check_aiming_cd: float = 0.25 ## Check every 0.25 seconds
 func _ready() -> void:
-	has_self_hitbox = false
 	super()
 	current_rotation = rotation
 func _process(delta: float) -> void:

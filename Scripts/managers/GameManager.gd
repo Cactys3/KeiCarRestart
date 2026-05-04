@@ -124,6 +124,9 @@ signal PlayerDodged(player: Character, attack: Attack)
 signal PlayerRevived(player: Character)
 signal PlayerKilled(player: Character, attack: Attack)
 signal EventKilled(event: Event, attack: Attack)
+signal CreationDamaged(creation: Creation, attack: Attack)
+signal CreationKilled(creation: Creation, attack: Attack)
+signal CreationDodged(creation: Creation, attack: Attack)
 signal WeaponReloaded(weapon: Weapon)
 signal WeaponFired(weapon: Weapon, projectile: Projectile)
 signal RoundEnded(round_number: int)
@@ -168,6 +171,7 @@ func _ready() -> void:
 		queue_free() 
 		return
 	instance = self  
+	CreationDodged.connect(creation_dodged)
 func _process(_delta: float) -> void:
 	if GameInstance.is_game_over:
 		return
@@ -326,4 +330,7 @@ func get_random_equipped_upgrade_except(avoided_upgrades: Array[Upgrade]) -> Upg
 		if !avoided_upgrades.has(upgrade):
 			return upgrade
 	return null
-## Returns all upgrades that are valid to obtain given prereqs
+
+func creation_dodged(creation: Creation, attack: Attack):
+	if UpgradeStatics.creation_dodges_count_for_player > 0:
+		PlayerDodged.emit(player, attack)

@@ -29,6 +29,9 @@ signal died(pos: Vector2, cloned: bool)
 @export var can_spawn_multiple: bool = true
 @export var face_rotation: bool = true
 @export var can_knockback: bool = true
+@export var can_move: bool = true
+@export var die_on_anim_end: bool = false
+@export var anim: AnimatedSprite2D
 var status: StatusEffects
 var prebuilt_attack: Attack = null
 var death_method: Callable
@@ -37,6 +40,8 @@ func _init() -> void:
 func _ready() -> void:
 	flash()
 	gravity = 0
+	if die_on_anim_end && anim:
+		anim.animation_finished.connect(die)
 func flash():
 	await get_tree().create_timer(0.1).timeout
 	visible = true
@@ -45,13 +50,14 @@ func _process(delta: float) -> void:
 	#print("dead: ", dead, "distance: ", GameManager.instance.player.global_position.distance_to(global_position))
 	if dead:
 		return
-	## Acceleration
-	velocity += velocity * acceleration * delta
-	## Process Movement
-	if homing:
-		process_movement_homing(delta)
-	else:
-		process_movement(delta)
+	if can_move:
+		## Acceleration
+		velocity += velocity * acceleration * delta
+		## Process Movement
+		if homing:
+			process_movement_homing(delta)
+		else:
+			process_movement(delta)
 	## Face Rotation
 	if face_rotation:
 		rotation = direction.angle()
@@ -59,6 +65,8 @@ func _process(delta: float) -> void:
 	stopwatch += delta
 	if (stopwatch > lifetime) || (collision_counter > piercing):
 		die()
+	if die_on_anim_end && anim && !anim.animation_finished.is_connected(die):
+		anim.animation_finished.connect(die)
 func process_movement(delta: float) -> void:
 	global_position += (direction).normalized() * velocity * delta
 var homing_stopwatch: float = 0

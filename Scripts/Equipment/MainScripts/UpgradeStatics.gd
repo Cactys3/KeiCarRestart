@@ -56,5 +56,5 @@ static var spawn_hp_buff: float = 0 ## For every spawn type
 ## Projectile Only Buff
 static var projectile_piercing_buff: float = 0
 ## Summon Only Buffs
-static var summon_dodge_buff: float = 0
-static var summon_dodges_count_for_player: float = 0 # value > 0 means true
+static var creation_dodge_buff: float = 0
+static var creation_dodges_count_for_player: float = 0 # value > 0 means true

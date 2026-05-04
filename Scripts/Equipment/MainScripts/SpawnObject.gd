@@ -1,7 +1,16 @@
 extends Area2D
 ## Objects spawned by the player or upgrades
 class_name SpawnObject
-
+## Return enemy within range
+func get_enemy_nearby(distance: float) -> Variant:
+	var nearest_enemy = null
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
+			if !nearest_enemy:
+				nearest_enemy = enemy
+			elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
+				nearest_enemy = enemy
+	return nearest_enemy
 ## Returns nearest enemy or null
 func get_nearest_enemy() -> Variant:
 	if get_tree() == null:

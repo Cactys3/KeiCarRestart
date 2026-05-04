@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://do5ml7xerejcq"]
 
 [ext_resource type="Script" uid="uid://c0as4vidgov1h" path="res://AllInOne/Upgrades/BloodTree/BloodyQuiver/BloodyQuiver.gd" id="1_ir410"]
+[ext_resource type="PackedScene" uid="uid://jsps8aqsiw12" path="res://AllInOne/Upgrades/BloodTree/BloodyQuiver/BloodyQuiverProjectile.tscn" id="2_r4nbt"]
 
 [node name="BloodyQuiver" type="Node2D" unique_id=1819395772]
 script = ExtResource("1_ir410")
+scene_to_spawn = ExtResource("2_r4nbt")

@@ -1,16 +1,103 @@
 [gd_scene format=3 uid="uid://hwgphgu8fcjy"]
 
 [ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_288sq"]
+[ext_resource type="Texture2D" uid="uid://bh8jlb7jqott4" path="res://AllInOne/Upgrades/BloodTree/BloodSphere/BloodSphereProjectile.png" id="2_d11dk"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_288sq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5p0c"]
+atlas = ExtResource("2_d11dk")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_288sq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bux23"]
+atlas = ExtResource("2_d11dk")
+region = Rect2(32, 0, 32, 32)
 
-[node name="BloodSphereProjectile" type="Area2D" unique_id=2136569903]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tj5ix"]
+atlas = ExtResource("2_d11dk")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmhvi"]
+atlas = ExtResource("2_d11dk")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txp22"]
+atlas = ExtResource("2_d11dk")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_docrg"]
+atlas = ExtResource("2_d11dk")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5l4u"]
+atlas = ExtResource("2_d11dk")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqnlh"]
+atlas = ExtResource("2_d11dk")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76tq6"]
+atlas = ExtResource("2_d11dk")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8ch1"]
+atlas = ExtResource("2_d11dk")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3k3oo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5p0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bux23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tj5ix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmhvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txp22")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_docrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5l4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqnlh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76tq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8ch1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d11dk"]
+
+[node name="SphereOBlood" type="Area2D" unique_id=1052976383]
+collision_layer = 4
+collision_mask = 8
 script = ExtResource("1_288sq")
+face_rotation = false
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1856059290]
-sprite_frames = SubResource("SpriteFrames_288sq")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_3k3oo")
+autoplay = "default"
+frame_progress = 0.46453193
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=807999439]
-shape = SubResource("RectangleShape2D_288sq")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1754514067]
+rotation = 1.5707964
+shape = SubResource("CircleShape2D_d11dk")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
