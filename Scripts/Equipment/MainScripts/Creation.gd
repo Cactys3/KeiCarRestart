@@ -21,32 +21,43 @@ var creation_duration: float = 0
 var duration_stopwatch: float = 0
 var parent: CreationUpgrade
 var is_ready: bool = false
+var update_target_stopwatch: float = 0
+var update_target: bool = true
+## Update once a second
+var update_target_cooldown: float = 1
+var target: Node2D 
+var set_random_direction: bool = false
 func _ready() -> void:
 	pass
 func setup(new_parent: Equipment, new_duration: float):
 	parent = new_parent
 	creation_duration = new_duration
 	is_ready = true
+func set_direction(new_direction: Vector2):
+	direction = new_direction
 func _process(delta: float) -> void:
 	if stun_time_left > 0:
 		stun_time_left -= delta
 		stunning = true
 	elif stunning:
 		stunning = false
-	
 	if !stunning:
+		if update_target:
+			update_target_stopwatch += delta
+			if update_target_stopwatch >= update_target_cooldown:
+				update_target_stopwatch = 0
+				target = get_enemy_nearby(get_detection_radius())
 		match movement_type:
 			MovementTypes.GivenDirection:
-				pass
+				ProcessGivenDirection(delta)
 			MovementTypes.NearestEnemy:
-				pass
+				ProcessNearestEnemy(delta)
 			MovementTypes.RandomEnemy:
-				pass
+				ProcessRandomEnemy(delta)
 			MovementTypes.RandomDirection:
-				pass
+				ProcessRandomDirection(delta)
 		velocity += velocity * acceleration
 		position += direction.normalized() * velocity
-	
 	duration_stopwatch += delta
 	if duration_stopwatch > creation_duration:
 		die()
@@ -55,7 +66,6 @@ func _on_area_entered(area: Area2D) -> void:
 func die():
 	parent.active_creations.erase(self)
 	queue_free()
-
 func damage(attack: Attack):
 	if GameInstance.is_game_over || !can_be_damaged:
 		return
@@ -92,3 +102,18 @@ func damage(attack: Attack):
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
 	dmg_text.setup_color(str(int(round(attack.get_damage()))), net_damage + 36, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), Color.RED)
+
+func ProcessGivenDirection(delta: float):
+	position += direction * velocity * delta
+func ProcessNearestEnemy(delta: float):
+	if target:
+		direction = target.global_position - global_position
+	position += direction * velocity * delta
+func ProcessRandomEnemy(delta: float):
+	if target:
+		direction = target.global_position - global_position
+	position += direction * velocity * delta
+func ProcessRandomDirection(delta: float):
+	if !set_random_direction:
+		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
+	position += direction * velocity * delta

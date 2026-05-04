@@ -17,10 +17,6 @@ var stopwatch: float = 0
 ## Additional Spawns for only this SpawningUpgrade
 var additional_spawns: int = 0
 func _ready() -> void:
-	if spawn_on_reload:
-		connect_reload = true
-	if spawn_on_enemy_kills:
-		connect_enemy_killed = true
 	super()
 ## Spawn the object from 'scene_to_spawn' every spawn_every_seconds seconds
 func _process(delta: float) -> void:
@@ -36,6 +32,13 @@ func _process(delta: float) -> void:
 			stopwatch += delta
 			if stopwatch >= (spawn_every_seconds * spawn_every_seconds_cd_reduction_factor) && spawn():
 				stopwatch = 0
+## Enables the functionality of this upgrade
+func activate(new_player: Character):
+	if spawn_on_reload:
+		connect_reload = true
+	if spawn_on_enemy_kills:
+		connect_enemy_killed = true
+	super(new_player)
 ## Creates the object, initializes it, returns success
 func spawn() -> bool:
 	var object = scene_to_spawn.instantiate()

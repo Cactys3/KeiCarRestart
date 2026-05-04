@@ -3,6 +3,7 @@ extends CreationUpgrade
 # Create an ally ghost Creation whenever you take damage.
 func activate(new_player: Character):
 	connect_player_damaged = true
+	spawn_on_reload = true
 	super(new_player)
 func deactivate():
 	super()

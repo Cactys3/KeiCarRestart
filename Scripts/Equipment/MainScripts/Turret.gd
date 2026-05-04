@@ -27,7 +27,6 @@ var attack_cd: float:
 @export var homing: bool = false
 var current_rotation: float = 0
 enum AimTypes{Spinning, NearestEnemy, RandomEnemy, AtMouse}
-var target: Node2D
 var attacking: bool = false
 var attack_on_cd: bool = false
 var ready_to_fire: bool = false

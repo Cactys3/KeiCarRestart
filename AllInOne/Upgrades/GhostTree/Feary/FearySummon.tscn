@@ -49,7 +49,7 @@ metadata/_custom_type_script = "uid://ipshp7lqkhjx"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=457721631]
 sprite_frames = SubResource("SpriteFrames_rpv03")
 autoplay = "default"
-frame_progress = 0.7936859
+frame_progress = 0.42987087
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=371887810]
 position = Vector2(0, 1)

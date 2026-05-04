@@ -1,6 +1,7 @@
 extends Area2D
 ## Objects spawned by the player or upgrades
 class_name SpawnObject
+@export var enemy_detection_radius: float = 70
 ## Return enemy within range
 func get_enemy_nearby(distance: float) -> Variant:
 	var nearest_enemy = null
@@ -38,3 +39,5 @@ func IsAimingAtAnyEnemy(current_rotation: float) -> bool:
 	if false: #TODO: setup with raycasts
 		return true
 	return false
+func get_detection_radius() -> float:
+	return enemy_detection_radius

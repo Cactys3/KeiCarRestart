@@ -12,6 +12,7 @@ func deactivate():
 ## Set Vars
 func _ready() -> void:
 	spawn_on_reload = true
+	connect_reload = true
 	edits_attack = true
 	super()
 ## Upgrade Turrets apply bleed

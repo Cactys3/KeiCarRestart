@@ -7,7 +7,6 @@ class_name Summon
 enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, RandomEnemy, ClosestEnemy}
 @export var AimType: AimTypes = AimTypes.default
 @export var anim: AnimatedSprite2D 
-@export var enemy_detection_radius: float = 70
 @export var aim_speed: float = 40
 @export var orbit_distance: float = 25
 @export var max_orbit_distance: float = 50
@@ -36,6 +35,7 @@ func _process(delta: float) -> void:
 	if update_target:
 		update_target_stopwatch += delta
 		if update_target_stopwatch >= update_target_cooldown:
+			update_target_stopwatch = 0
 			target = get_enemy_nearby(get_detection_radius())
 	match AimType:
 		AimTypes.DynamicAtMouse:

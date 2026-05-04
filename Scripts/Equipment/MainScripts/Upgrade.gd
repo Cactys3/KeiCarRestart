@@ -48,7 +48,7 @@ func activate(new_player: Character):
 	if !upgrades_found.is_empty():
 		var error = ""
 		for upgrade in upgrades_found:
-			error += str("Couldn't Find ", upgrade.data.upgrade_name, " to disable them (from ", data.upgrade_name, ")\n")
+			error += str("Couldn't Find ", upgrade.upgrade_name, " to disable them (from ", data.upgrade_name, ")\n")
 		printerr(error)
 	super(new_player)
 ## Disables the functionality of this upgrade

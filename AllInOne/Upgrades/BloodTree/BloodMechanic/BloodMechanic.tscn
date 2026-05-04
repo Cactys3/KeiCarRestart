@@ -7,3 +7,14 @@
 script = ExtResource("1_4k1ff")
 spawn_on_reload = true
 scene_to_spawn = ExtResource("2_x2lp4")
+connect_reload = true
+bleed_apply = 0.5
+damage = 80.0
+_range = 70.0
+attackcooldown = 2.0
+velocity = 80.0
+count = 1.0
+duration = 15.0
+size = 1.0
+inaccuracy = 30.0
+luck = 10.0
