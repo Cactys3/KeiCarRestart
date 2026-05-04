@@ -253,7 +253,7 @@ func remove_weapon(weapon: Weapon) -> bool:
 func remove_equipment(equipment: Equipment) -> void:
 	pass
 ## Pass a player's attack through each active upgrade 
-func handle_player_attack(attack: Attack) -> Attack:
+func handle_attack(attack: Attack) -> Attack:
 	for upgrade in active_upgrades:
 		if upgrade.edits_attack:
 			attack = upgrade.edit_attack(attack)

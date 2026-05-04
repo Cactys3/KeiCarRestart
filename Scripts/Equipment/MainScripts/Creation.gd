@@ -3,11 +3,12 @@ class_name Creation
 
 enum MovementTypes{GivenDirection, NonMoving, NearestEnemy, RandomEnemy, RandomDirection}
 @export var movement_type: MovementTypes = MovementTypes.NonMoving
+## Does this creation damage enemies on collision
+@export var damage_on_collision: bool = true
 @export var can_be_damaged: bool = true
 @export var can_be_stunned: bool = true
 @export var can_be_knockbacked: bool = true
 ## Flat Damage Reduction
-@export var stance: float = 0
 @export var knockback_modifier: float = 0
 var game_man:
 	get():
@@ -70,7 +71,7 @@ func damage(attack: Attack):
 	if GameInstance.is_game_over || !can_be_damaged:
 		return
 	## Consider Stance
-	var net_damage = attack.get_damage() - stance
+	var net_damage = attack.get_damage() - stance_stat
 	if GlobalStats.calculate_avoid_damage(UpgradeStatics.creation_dodge_buff):
 		net_damage = 0
 		game_man.CreationDodged.emit(self, attack)
@@ -117,3 +118,34 @@ func ProcessRandomDirection(delta: float):
 	if !set_random_direction:
 		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
 	position += direction * velocity * delta
+
+var damage_multiplier: float = 1
+var attack_counter: float = 0
+var AttackedObjects: Array = []
+func _on_body_entered(body: Node2D) -> void:
+	if can_attack(body):
+		attack_body(body)
+		attack_counter += 1
+		AttackedObjects.append(body)
+func can_attack(body: Node2D) -> bool:
+	return damage_on_collision && body.is_in_group("enemy") && !AttackedObjects.has(body)
+func attack_body(body: Node2D):
+	body.damage(make_attack(damage_multiplier))
+## Calculate and return an attack with damage multiplier
+func make_attack(attack_damage_multiplier: float) -> Attack:
+	## Make Two Stats Lists
+	var base: GlobalStats.StatsList = GlobalStats.get_statslist_base()
+	var factor: GlobalStats.StatsList = GlobalStats.get_statslist_factor()
+	## Add Self's Base Stats to Base StatList
+	base = add_to_stats_list(base)
+	factor.add_to_stat(GlobalStats.DAMAGE, attack_damage_multiplier - 1) # -1 to make it a multiplier
+	## Make Attack Values
+	var attack_type: Attack.AttackTypes = get_attack_type()
+	## Make attack and Pass attack through each active upgrade
+	var attack: Attack = Attack.new(attack_type, self, global_position, status, base, factor)
+	game_man.handle_attack(attack)
+	return attack
+func get_attack_type() -> Attack.AttackTypes:
+	return Attack.AttackTypes.upgrade_creation
+func get_attack_position() -> Vector2:
+	return global_position

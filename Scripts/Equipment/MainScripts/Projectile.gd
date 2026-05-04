@@ -1,7 +1,7 @@
 extends SpawnObject
 class_name Projectile
 ## Given Variables
-var parent: Equipment
+var parent: StatsObject
 var target: Node2D
 var attack_type: Attack.AttackTypes = Attack.AttackTypes.unset
 var homing: bool
@@ -32,14 +32,12 @@ signal died(pos: Vector2, cloned: bool)
 @export var can_move: bool = true
 @export var die_on_anim_end: bool = false
 @export var anim: AnimatedSprite2D
-var status: StatusEffects
 var prebuilt_attack: Attack = null
 var death_method: Callable
 func _init() -> void:
 	visible = false
 func _ready() -> void:
 	flash()
-	gravity = 0
 	if die_on_anim_end && anim:
 		anim.animation_finished.connect(die)
 func flash():
@@ -88,7 +86,7 @@ func process_movement_homing(delta: float):
 		## No Homing
 		process_movement(delta)
 ## Setup values generic for all BasicProjectile
-func setup_projectile(new_parent: Equipment, new_target: Node2D, enemy_direction:Vector2, is_homing: bool, new_homing_speed: float, new_is_clone: bool, new_acceleration: float): #, new_piercing: float, new_lifetime: float, new_damage: float, new_velocity: float, new_weight: float, new_size: float):
+func setup_projectile(new_parent: StatsObject, new_target: Node2D, enemy_direction:Vector2, is_homing: bool, new_homing_speed: float, new_is_clone: bool, new_acceleration: float): #, new_piercing: float, new_lifetime: float, new_damage: float, new_velocity: float, new_weight: float, new_size: float):
 	parent = new_parent
 	self.scale = Vector2(size, size) #TODO: size calculation
 	target = new_target
@@ -147,10 +145,10 @@ func attack_body(body: Node2D, clone: bool) -> void:
 		attack = make_attack(clone)
 	if attack:
 		body.damage(attack)
-func make_attack(clone: bool) -> Attack:
+func make_attack(attack_damage_multiplier: float) -> Attack:
 	var new_attack: Attack
 	var attack_damage: float = damage
-	if clone:
+	if is_clone:
 		attack_damage = damage * clone_offset
 	var knockback: float = 0
 	new_attack = Attack.new(attack_type, self, global_position, status, null, null)

@@ -59,6 +59,45 @@ size = Vector2(14, 16)
 [node name="GhostlyHelperCreation" type="Area2D" unique_id=947267220]
 script = ExtResource("1_etgow")
 movement_type = 2
+damage_on_collision = null
+can_be_damaged = null
+can_be_stunned = null
+can_be_knockbacked = null
+knockback_modifier = null
+enemy_detection_radius = null
+burn_apply = null
+frost_apply = null
+poison_apply = null
+bleed_apply = null
+shock_apply = null
+wet_apply = null
+_damage = null
+_range = null
+_attackcooldown = null
+_reloadtime = null
+_velocity = null
+_ammo = null
+_count = null
+_piercing = null
+_duration = null
+_size = null
+_inaccuracy = null
+_luck = null
+_critdamage = null
+_weight = null
+_ghostly = null
+_lifesteal = null
+_hp = null
+_stance = null
+_movespeed = null
+_xp = null
+_mogul = null
+_shield = null
+_difficulty = null
+_revies = null
+_thorns = null
+_regen = null
+_magnetize = null
 metadata/_custom_type_script = "uid://r3qfuabi8yoc"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=480336944]
@@ -69,3 +108,6 @@ frame_progress = 0.9691658
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=374812320]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_etgow")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

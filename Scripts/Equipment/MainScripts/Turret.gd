@@ -87,7 +87,7 @@ func process_random_enemy(delta: float) -> void:
 func process_at_mouse(delta: float) -> void:
 	RotateTowardsPosition(get_global_mouse_position(), delta)
 func create_projectile() -> Projectile:
-	var proj: Projectile = init_projectile(global_position, Weapon.get_inaccurate_direction(Vector2(cos(current_rotation), sin(current_rotation)), parent.inaccuracy_stat))
+	var proj: Projectile = init_projectile(global_position, Weapon.get_inaccurate_direction(Vector2(cos(current_rotation), sin(current_rotation)), inaccuracy_stat))
 	return proj
 func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
 	if PROJECTILE == null || !is_instance_valid(PROJECTILE):
@@ -100,7 +100,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 			target = get_nearest_enemy()
 		elif AimType == AimTypes.RandomEnemy:
 			target = get_random_enemy()
-	proj.setup_projectile(parent, target, new_direction, homing, homing_speed, false, 0)
+	proj.setup_projectile(self, target, new_direction, homing, homing_speed, false, 0)
 	GameManager.instance.projectile_parent.add_child(proj)
 	proj.global_position = new_position
 	proj.rotation = new_direction.normalized().angle()
@@ -140,7 +140,6 @@ func check_nearest_enemy():
 		if target.global_position.distance_to(global_position) > detection_range:
 			target = null
 func attack():
-	print("attack")
 	attacking = true
 	for i in parent.count_stat + UpgradeStatics.creation_count_buff + UpgradeStatics.spawn_count_buff:
 		create_projectile()

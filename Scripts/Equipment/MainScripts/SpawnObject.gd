@@ -1,4 +1,4 @@
-extends Area2D
+extends StatsObject
 ## Objects spawned by the player or upgrades
 class_name SpawnObject
 @export var enemy_detection_radius: float = 70
