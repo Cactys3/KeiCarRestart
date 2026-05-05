@@ -22,9 +22,6 @@ var attack_cd: float:
 @export var base_anim:  AnimatedSprite2D
 @export var top_anim:  AnimatedSprite2D
 @export var flip_left_right: bool = false
-## Projectile Settings
-@export var homing_speed: float = 0
-@export var homing: bool = false
 var current_rotation: float = 0
 enum AimTypes{Spinning, NearestEnemy, RandomEnemy, AtMouse}
 var attacking: bool = false
@@ -64,7 +61,6 @@ func _process(delta: float) -> void:
 		if check_aiming_stopwatch > check_aiming_cd:
 			check_aiming_stopwatch = 0
 			ready_to_fire = IsAimingAtEnemyWithinDegree(target, aiming_degree_leniency, current_rotation)
-			print("is aiming? ", ready_to_fire)
 	if ready_to_fire:
 		attack()
 		attack_stopwatch = 0
@@ -100,7 +96,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 			target = get_nearest_enemy()
 		elif AimType == AimTypes.RandomEnemy:
 			target = get_random_enemy()
-	proj.setup_projectile(self, target, new_direction, homing, homing_speed, false, 0)
+	proj.setup_projectile(self, target, new_direction, false, 0)
 	GameManager.instance.projectile_parent.add_child(proj)
 	proj.global_position = new_position
 	proj.rotation = new_direction.normalized().angle()
@@ -124,7 +120,6 @@ func set_turret_rotation(new_rotation: float):
 	top_anim.rotation = current_rotation
 ## Find the nearest enemy and sets 'target' to it, if exists
 func check_nearest_enemy():
-	print("check")
 	check_nearest_stopwatch = 0
 	var group = get_tree().get_nodes_in_group("enemy")
 	if group.size() > 0:

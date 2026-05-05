@@ -4,20 +4,19 @@ class_name Projectile
 var parent: StatsObject
 var target: Node2D
 var attack_type: Attack.AttackTypes = Attack.AttackTypes.unset
-var homing: bool
-var homing_speed: float
 var is_clone: bool 
 var clone_offset: float = 0.5
 var return_to_sender: bool = false
 var sender: Node2D
-var size: float = 1
+var size: float = 1:
+	set(value):
+		scale = Vector2(value, value)
 var damage: float = 10
 var count: float 
 var piercing: float
 var weight: float
-var velocity: float = 20
+var velocity: float = 0
 var direction:Vector2
-var AttackedObjects: Array[Node2D] = []
 var stopwatch: float = 0.0
 var lifetime = 10
 var acceleration: float = 0
@@ -26,6 +25,8 @@ var initial_direction: Vector2
 var collision_counter: float = 0
 var dead: bool = false
 signal died(pos: Vector2, cloned: bool)
+@export var homing: bool = true
+@export var angular_velocity: float = 0.5
 @export var can_spawn_multiple: bool = true
 @export var face_rotation: bool = true
 @export var can_knockback: bool = true
@@ -34,6 +35,7 @@ signal died(pos: Vector2, cloned: bool)
 @export var anim: AnimatedSprite2D
 var prebuilt_attack: Attack = null
 var death_method: Callable
+var specific_target: bool = false
 func _init() -> void:
 	visible = false
 func _ready() -> void:
@@ -62,40 +64,41 @@ func _process(delta: float) -> void:
 	## Death By Old Age
 	stopwatch += delta
 	if (stopwatch > lifetime) || (collision_counter > piercing):
+		print("die")
 		die()
 	if die_on_anim_end && anim && !anim.animation_finished.is_connected(die):
 		anim.animation_finished.connect(die)
 func process_movement(delta: float) -> void:
 	global_position += (direction).normalized() * velocity * delta
-var homing_stopwatch: float = 0
+var check_target_stopwatch: float = 0
+var check_target_cd: float = 2
 func process_movement_homing(delta: float):
-	## Homing on a cooldown:
-	homing_stopwatch += delta
-	if homing_stopwatch >= 30:
-		homing_stopwatch = 0
-		## Try to get a new target if target is gone
-		if !target:
-			print("no target")
-			target = get_nearest_enemy()
-		if target:
-			## Homing
-			#move_toward(rotation, (target.global_position - global_position).angle(), delta * homing_speed)	
-			direction = direction.move_toward((target.global_position - global_position).normalized(), delta * homing_speed)
-			global_position += (direction).normalized() * velocity * delta
-	else:
-		## No Homing
-		process_movement(delta)
+	## Try to get a new target if target is gone
+	check_target_stopwatch += delta
+	if !target || (check_target_stopwatch >= check_target_cd && !specific_target):
+		check_target_stopwatch = 0
+		target = get_nearest_enemy()
+	if target:
+		print("homing")
+		## Homing
+		direction = Vector2.from_angle(move_toward(direction.angle(), (target.global_position - global_position).angle(), delta * angular_velocity))
+		#direction = direction.move_toward((target.global_position - global_position).normalized(), delta * angular_velocity)
+		#direction = lerp(direction, (target.global_position - global_position).normalized(), delta * angular_velocity)
+	process_movement(delta)
 ## Setup values generic for all BasicProjectile
-func setup_projectile(new_parent: StatsObject, new_target: Node2D, enemy_direction:Vector2, is_homing: bool, new_homing_speed: float, new_is_clone: bool, new_acceleration: float): #, new_piercing: float, new_lifetime: float, new_damage: float, new_velocity: float, new_weight: float, new_size: float):
+func setup_projectile(new_parent: StatsObject, new_target: Node2D, enemy_direction:Vector2, new_is_clone: bool, new_acceleration: float): #, new_piercing: float, new_lifetime: float, new_damage: float, new_velocity: float, new_weight: float, new_size: float):
 	parent = new_parent
-	self.scale = Vector2(size, size) #TODO: size calculation
 	target = new_target
 	initial_direction = enemy_direction.normalized()
 	direction = enemy_direction.normalized()
-	homing = is_homing
-	homing_speed = new_homing_speed
 	is_clone = new_is_clone
 	acceleration = new_acceleration
+	size += size_stat
+	piercing += piercing_stat
+	lifetime += duration_stat
+	damage += damage_stat
+	velocity += velocity_stat
+	weight += weight_stat
 	if new_parent is Weapon:
 		attack_type = Attack.AttackTypes.player_weapon_projectile
 	elif new_parent is Upgrade:
@@ -103,12 +106,15 @@ func setup_projectile(new_parent: StatsObject, new_target: Node2D, enemy_directi
 	else:
 		printerr("Projectile setup normally but not from weapon or upgrade")
 	if parent:
-		size = parent.size_stat#size = new_size
-		piercing = parent.piercing_stat#piercing = new_piercing
-		lifetime = parent.duration_stat#lifetime = new_lifetime
-		damage = parent.damage_stat#damage = new_damage
-		velocity = parent.velocity_stat#velocity = new_velocity
-		weight = parent.weight_stat#weight = new_weight
+		## Not x_stat bc that would double up on global stats
+		size += parent._size
+		piercing += parent._piercing
+		lifetime += parent._duration
+		damage += parent._damage
+		velocity += parent._velocity
+		weight += parent._weight
+func setup_specific_target():
+	specific_target = true
 ## Gives the projectile a prebuilt attack to use instead of calling parent.make_attack()
 func setup_projectile_prebuilt_attack(attack: Attack):
 	prebuilt_attack = attack
@@ -125,10 +131,10 @@ func setup_death_method(method: Callable):
 func _on_body_entered(body: Node2D) -> void: 
 	if dead:
 		return
-	if parent.can_attack(body) && !AttackedObjects.has(body):
+	if parent.can_attack(body) && !have_attacked(body):
 		attack_body(body, is_clone)
 		collision_counter += 1
-		AttackedObjects.append(body)
+		append_attack_element(body)
 func attack_body(body: Node2D, clone: bool) -> void:
 	var attack: Attack = null
 	## Use prebuilt attack as 1st prio

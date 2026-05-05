@@ -16,8 +16,6 @@ class_name Weapon
 @export_group("Projectile Settings")
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
-@export var homing: bool = false
-@export var homing_speed: float = 0
 @export var projectile_acceleration: float = 0
 @export var mult_proj_delay_total_time: float = 2
 enum multiple_projectiles_aim_types {delay, spread}
@@ -189,7 +187,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 		return null
 	var new_bullet: Projectile = projectile.instantiate()
 	new_bullet.visible = false
-	new_bullet.setup_projectile(self, null, new_direction, homing, homing_speed, false, 0) # old method extension: , piercing_stat, duration_stat + 5, damage_stat, velocity_stat, buildup_stat, weight_stat, size_stat, projectile_acceleration)
+	new_bullet.setup_projectile(self, null, new_direction, false, 0) # old method extension: , piercing_stat, duration_stat + 5, damage_stat, velocity_stat, buildup_stat, weight_stat, size_stat, projectile_acceleration)
 	if (AimType == AimTypes.Spinning): #handle aim types special cases
 		player.add_child(new_bullet)
 	else:
@@ -221,8 +219,7 @@ func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #T
 	weapon_count = _max #TODO: Only Static Slot (cardinal direction) weapons should add to this thing
 ## Do anything that needs to be done to utilize a stat change
 func apply_stats() -> void: 
-	var _size: float = GlobalStats.calculate_scale(size_stat)
-	scale = Vector2(_size, _size)
+	scale = Vector2(size_stat, size_stat)
 ## Process Aiming Methods
 ## Aim at any enemy in range, else aim at mouse, rotating around player towards mouse
 func ProcessDynamicAtMouse(delta: float) -> void:
@@ -324,8 +321,6 @@ func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
 	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance + GetWeaponOffsetPosition(target_angle)
 func GetWeaponOffsetPosition(target_angle: float) -> Vector2:
 	return weapon_position_offset * Vector2(cos(target_angle), sin(target_angle))
-
-
 
 
 class AttackEvent:

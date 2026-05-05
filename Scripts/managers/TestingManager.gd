@@ -16,12 +16,19 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("test_2"):
 		GameInstance.instance.spawn_enemy(load("uid://cqip08xv6m5no"), player.global_position + Vector2(0, -150))
 	if Input.is_action_just_pressed("test_3"):
+		## Spawning Upgrades
+		## Bleed
+		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_NEEDLES))
+		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_MAGAZINE))
+		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_QUIVER))
+		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_TURRETS))
+		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_MECHANIC))
+		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_SPHERE))
+		## Ghostly
 		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.FEARY))
-		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.GHOSTLY_HELPER))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_MECHANIC))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_NEEDLES))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.ARROWS))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_TURRETS))
+		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.GHOSTSPLOSION))
+		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.GHOSTLY_HELPER))
+
 	if Input.is_action_just_pressed("test_4"):
 		game_man.curr_hp -= 10
 	if Input.is_action_just_pressed("test_5"):

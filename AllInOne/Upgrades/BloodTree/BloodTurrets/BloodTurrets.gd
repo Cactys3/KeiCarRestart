@@ -19,4 +19,3 @@ func _ready() -> void:
 
 func reload(weapon: Weapon) -> void:
 	super(weapon)
-	print("yooooo")

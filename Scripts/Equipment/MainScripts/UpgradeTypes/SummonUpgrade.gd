@@ -43,8 +43,17 @@ func despawn():
 	summons.clear()
 ## Override to setup spawn
 func initialize_object(object: Node2D) -> bool:
-	summons.append(object) ## TODO: Append
+	if object is Summon:
+		object = object as Summon
+		summons.append(object)
+		object.setup(player)
+		return super(object)
 	return false
-## Add in creation duration buff
+## Overrides
+func get_spawning_position() -> Vector2:
+	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))
+	return spawn_position
 func get_spawning_duration() -> float:
 	return super() + UpgradeStatics.summon_duration_buff
+func get_spawn_parent() -> Node2D:
+	return GameManager.instance.projectile_parent

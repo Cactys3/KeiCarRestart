@@ -125,9 +125,9 @@ texture = ExtResource("5_eeah7")
 
 [node name="EventParentForeground" type="Node2D" parent="Window640/Offset" unique_id=494069381]
 
-[node name="ProjectileParent" type="Node2D" parent="Window640/Offset" unique_id=1081666723]
-
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
+
+[node name="ProjectileParent" type="Node2D" parent="Window640/Offset" unique_id=1081666723]
 
 [node name="SpawnArea" type="CollisionShape2D" parent="Window640/Offset" unique_id=1285077429]
 visible = false

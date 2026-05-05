@@ -3,6 +3,10 @@ class_name Creation
 
 enum MovementTypes{GivenDirection, NonMoving, NearestEnemy, RandomEnemy, RandomDirection}
 @export var movement_type: MovementTypes = MovementTypes.NonMoving
+@export var hp: float = 30
+@export var velocity: float = 0.5
+@export var angular_velocity: float = 0.5
+@export var acceleration: float = 0
 ## Does this creation damage enemies on collision
 @export var damage_on_collision: bool = true
 @export var can_be_damaged: bool = true
@@ -10,26 +14,26 @@ enum MovementTypes{GivenDirection, NonMoving, NearestEnemy, RandomEnemy, RandomD
 @export var can_be_knockbacked: bool = true
 ## Flat Damage Reduction
 @export var knockback_modifier: float = 0
-var game_man:
-	get():
-		return GameManager.instance
 var stun_time_left: float = 0
 var stunning: bool = false
-var velocity: float = 0
-var acceleration: float = 0
 var direction: Vector2 = Vector2(0, 0)
 var creation_duration: float = 0
 var duration_stopwatch: float = 0
 var parent: CreationUpgrade
 var is_ready: bool = false
-var update_target_stopwatch: float = 0
+var switch_targets_stopwatch: float = 3
+## Can swap targets MAX once every 2 seconds (unless target dies)
+var switch_targets_cooldown: float = 2
+var update_target_stopwatch: float = 10
 var update_target: bool = true
 ## Update once a second
 var update_target_cooldown: float = 1
 var target: Node2D 
 var set_random_direction: bool = false
+var clockwise: float = -1
 func _ready() -> void:
-	pass
+	if randf() > 0.5:
+		clockwise = 1
 func setup(new_parent: Equipment, new_duration: float):
 	parent = new_parent
 	creation_duration = new_duration
@@ -44,24 +48,35 @@ func _process(delta: float) -> void:
 		stunning = false
 	if !stunning:
 		if update_target:
+			switch_targets_stopwatch += delta
 			update_target_stopwatch += delta
-			if update_target_stopwatch >= update_target_cooldown:
+			## If both cooldowns are reached or there is no target (or have attacked target) and update cd is reached, then update
+			if (update_target_stopwatch >= update_target_cooldown) && (switch_targets_stopwatch >= switch_targets_cooldown || (!target || have_attacked(target))):
 				update_target_stopwatch = 0
-				target = get_enemy_nearby(get_detection_radius())
+				switch_targets_stopwatch = 0
+				get_new_target()
 		match movement_type:
 			MovementTypes.GivenDirection:
-				ProcessGivenDirection(delta)
+				ProcessDirection(delta)
 			MovementTypes.NearestEnemy:
-				ProcessNearestEnemy(delta)
+				ProcessTarget(delta)
 			MovementTypes.RandomEnemy:
-				ProcessRandomEnemy(delta)
+				ProcessTarget(delta)
 			MovementTypes.RandomDirection:
-				ProcessRandomDirection(delta)
+				if !set_random_direction:
+					direction = (Vector2(randf_range(-1, 1), randf_range(-1, 1)))
+				ProcessDirection(delta)
 		velocity += velocity * acceleration
 		position += direction.normalized() * velocity
 	duration_stopwatch += delta
 	if duration_stopwatch > creation_duration:
 		die()
+func get_new_target():
+	match movement_type:
+		MovementTypes.NearestEnemy:
+			target = get_enemy_nearby_except_attacked(get_detection_radius())
+		MovementTypes.RandomEnemy:
+			target = get_random_enemy_in_range_except_attacked(get_detection_radius())
 func _on_area_entered(area: Area2D) -> void:
 	pass
 func die():
@@ -98,39 +113,42 @@ func damage(attack: Attack):
 	if game_man.curr_hp <= 0:
 		game_man.CreationKilled.emit(self, attack)
 		die()
-	
 	## This shit doesn't work for some fucked up reason when it's preloaded
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
 	dmg_text.setup_color(str(int(round(attack.get_damage()))), net_damage + 36, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), Color.RED)
-
-func ProcessGivenDirection(delta: float):
+func ProcessDirection(delta: float):
+	## Setup
+	direction = direction.normalized() 
+	## Move
 	position += direction * velocity * delta
-func ProcessNearestEnemy(delta: float):
+func ProcessTarget(delta: float):
+	## Setup
+	var target_direction: Vector2 = direction.normalized() 
+	direction = direction.normalized() 
+	## Move
 	if target:
-		direction = target.global_position - global_position
+		target_direction = lerp(direction, target.global_position - global_position, delta * angular_velocity)
+	else:
+		## Don't lerp if oribiting player
+		target_direction = (game_man.player.global_position - global_position).rotated(PI / 2 * clockwise)
+	direction = target_direction
 	position += direction * velocity * delta
-func ProcessRandomEnemy(delta: float):
-	if target:
-		direction = target.global_position - global_position
-	position += direction * velocity * delta
-func ProcessRandomDirection(delta: float):
-	if !set_random_direction:
-		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
-	position += direction * velocity * delta
-
 var damage_multiplier: float = 1
 var attack_counter: float = 0
-var AttackedObjects: Array = []
 func _on_body_entered(body: Node2D) -> void:
 	if can_attack(body):
 		attack_body(body)
 		attack_counter += 1
-		AttackedObjects.append(body)
+		append_attack_element(body)
 func can_attack(body: Node2D) -> bool:
-	return damage_on_collision && body.is_in_group("enemy") && !AttackedObjects.has(body)
+	return damage_on_collision && body.is_in_group("enemy") && !have_attacked(body)
 func attack_body(body: Node2D):
 	body.damage(make_attack(damage_multiplier))
+	if target == body:
+		var old_target = target
+		get_new_target()
+		#print("New = ", target != old_target)
 ## Calculate and return an attack with damage multiplier
 func make_attack(attack_damage_multiplier: float) -> Attack:
 	## Make Two Stats Lists

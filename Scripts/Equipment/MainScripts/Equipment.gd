@@ -19,9 +19,6 @@ class_name Equipment
 @export var connect_creation_died: bool = false
 @export var connect_projectile_spawned: bool = false
 @export var connect_: bool = false
-var game_man: GameManager:
-	get():
-		return GameManager.instance
 ## Data Fields
 var player: Character
 ## Generic Fields (always active)

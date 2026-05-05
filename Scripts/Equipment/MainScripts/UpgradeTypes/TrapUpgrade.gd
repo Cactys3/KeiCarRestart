@@ -23,10 +23,15 @@ func despawn():
 	UpgradeStatics.active_traps -= 1
 ## Override to setup spawn
 func initialize_object(object: Node2D) -> bool:
-	if object is Trap: ## object is Trap:
-		return true
+	if object is Trap:
+		## TODO: Do trap specific setup()
+		return super(object)
 	return false
-
-## Add in creation duration buff
+## Overrides
+func get_spawning_position() -> Vector2:
+	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))
+	return spawn_position
 func get_spawning_duration() -> float:
 	return super() + UpgradeStatics.trap_duration_buff
+func get_spawn_parent() -> Node2D:
+	return GameManager.instance.projectile_parent

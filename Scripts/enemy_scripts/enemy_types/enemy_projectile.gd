@@ -2,8 +2,8 @@ extends Projectile
 class_name EnemyProjectile
 var enemy: Enemy
 ## Sets up projectile for enemies
-func setup_enemy(new_enemy: Enemy, new_target: Node2D, enemy_direction:Vector2, is_homing: bool, new_homing_speed: float, new_is_clone: bool, new_acceleration: float):
-	setup_projectile(null, new_target, enemy_direction, is_homing, new_homing_speed, new_is_clone, new_acceleration)
+func setup_enemy(new_enemy: Enemy, new_target: Node2D, enemy_direction:Vector2, new_is_clone: bool, new_acceleration: float):
+	setup_projectile(null, new_target, enemy_direction, new_is_clone, new_acceleration)
 	enemy = new_enemy
 ## Attack Override to use Enemy instead of Equipment
 func attack_body(body: Node2D, clone: bool) -> void:

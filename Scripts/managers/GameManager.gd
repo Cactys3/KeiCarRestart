@@ -268,7 +268,6 @@ func create_level_up_instance():
 	ui_man.pause(level_pause)
 	## get 3 random things w/ variable references
 	var array: Array[LevelUpData] = LevelUpData.get_level_up_options(3)
-	print("yooooo")
 	## setup LevelUpInstance with those random things and their details (color, name, etc)
 	var level_instance = LEVEL_UP_UI.instantiate()
 	level_instance.set_pause(level_pause)

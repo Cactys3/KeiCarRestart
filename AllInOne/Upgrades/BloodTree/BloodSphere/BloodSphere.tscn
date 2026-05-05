@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://b5f0nwp2uny4u"]
 
 [ext_resource type="Script" uid="uid://bcpivypkhg8wl" path="res://AllInOne/Upgrades/BloodTree/BloodSphere/BloodSphere.gd" id="1_4gb2u"]
+[ext_resource type="PackedScene" uid="uid://hwgphgu8fcjy" path="res://AllInOne/Upgrades/BloodTree/BloodSphere/BloodSphereProjectile.tscn" id="2_k2g7o"]
 
 [node name="BloodSphere" type="Node2D" unique_id=602379357]
 script = ExtResource("1_4gb2u")
+spawn_on_reload = true
+scene_to_spawn = ExtResource("2_k2g7o")

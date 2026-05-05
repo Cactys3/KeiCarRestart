@@ -6,8 +6,6 @@ var bleed_procs: int = 0
 ## Set Vars
 func _ready() -> void:
 	connect_bleed_proc = true
-	homing = false
-	homing_speed = 0
 	spawn_every_seconds = true
 	spawn_every_seconds = spawn_every_seconds_base
 	super()

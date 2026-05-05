@@ -27,8 +27,8 @@ class_name StatsObject
 @export var _ammo:  float = 0.0
 @export var _count: float = 0.0
 @export var _piercing: float = 0.0
-@export var _duration: float = 0.0
-@export var _size: float = 0.0
+@export var _duration: float = 1.0 ## base duration and size just so spawned things appear for at least a second by default
+@export var _size: float = 1.0
 ## Loosly/Sometimes Weapon Stats
 @export var _inaccuracy: float = 0.0
 @export var _luck: float = 0.0

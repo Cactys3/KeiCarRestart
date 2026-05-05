@@ -8,8 +8,6 @@ var bleed_procs: int = 0
 func _ready() -> void:
 	edits_attack = true
 	connect_bleed_proc = true
-	homing = false
-	homing_speed = 0
 	spawn_every_seconds = true
 	spawn_every_seconds = spawn_every_seconds_base
 	scene_to_spawn = SCENE
@@ -41,9 +39,9 @@ func initialize_object(object: Node2D) -> bool:
 		object = object as Projectile
 		var enemy: Node2D = get_nearest_enemy()
 		if enemy:
-			object.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized(), homing, homing_speed, false, 0)
+			object.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized(),false, 0)
 		else:
-			object.setup_projectile(self, null, player.transform.x, homing, homing_speed, false, 0)
+			object.setup_projectile(self, null, player.transform.x, false, 0)
 		## Make an attack and pass it to the projectile prebuilt
 		curr_damage_buff = bleed_procs / 10.0 ## TODO: balancing these number
 		curr_size_buff = bleed_procs / 50.0

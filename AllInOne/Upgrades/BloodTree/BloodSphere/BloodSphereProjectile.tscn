@@ -87,7 +87,10 @@ animations = [{
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_288sq")
-face_rotation = false
+_damage = 66.0
+_velocity = 30.0
+_duration = 20.0
+_inaccuracy = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
 rotation = 1.5707964

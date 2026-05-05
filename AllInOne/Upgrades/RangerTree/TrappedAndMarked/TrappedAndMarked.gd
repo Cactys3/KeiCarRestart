@@ -27,7 +27,7 @@ func initialize_projectile(projectile: Projectile) -> Projectile:
 		enemy = last_enemy
 	
 	if enemy:
-		projectile.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized(), homing, homing_speed, false, 0)
+		projectile.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized(), false, 0)
 	else:
-		projectile.setup_projectile(self, null, player.transform.x, homing, homing_speed, false, 0)
+		projectile.setup_projectile(self, null, player.transform.x, false, 0)
 	return projectile

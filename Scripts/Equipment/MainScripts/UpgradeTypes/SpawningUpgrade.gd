@@ -39,32 +39,30 @@ func activate(new_player: Character):
 	if spawn_on_enemy_kills:
 		connect_enemy_killed = true
 	super(new_player)
+	spawn()
 ## Creates the object, initializes it, returns success
 func spawn() -> bool:
 	var object = scene_to_spawn.instantiate()
 	if initialize_object(object):
-		print("spawn one")
 		reloads_since_last_spawn = 0
 		return true
 	return false
 ## Override to setup the spawned object
 func initialize_object(object: Node2D) -> bool:
-	#object.global_position = get_spawning_position()
-	#get_spawn_parent().add_child(object)
-	return false
-## Get a random position using "spawn radius"
-func get_spawning_position() -> Vector2:
-	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))
-	print("position: ", spawn_position)
-	return spawn_position
-func get_spawning_duration() -> float:
-	return spawn_duration + duration_stat + UpgradeStatics.spawn_duration_buff
+	get_spawn_parent().add_child(object)
+	object.global_position = get_spawning_position()
+	return true
 func reload(weapon: Weapon) -> void:
 	super(weapon)
 	reloads_since_last_spawn += 1
 func enemy_killed(enemy: Enemy, attack: Attack) -> void:
 	super(enemy, attack)
 	enemies_killed_since_spawn += 1
-## Returns gamemanager's projectile_parent or override
+## Overrides
+func get_spawning_position() -> Vector2:
+	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))
+	return spawn_position
+func get_spawning_duration() -> float:
+	return spawn_duration + duration_stat + UpgradeStatics.spawn_duration_buff
 func get_spawn_parent() -> Node2D:
 	return GameManager.instance.projectile_parent

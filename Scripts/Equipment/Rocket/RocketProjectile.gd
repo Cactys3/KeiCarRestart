@@ -1,5 +1,4 @@
 extends Projectile
-@export var anim: AnimatedSprite2D
 @export var explosion_collide: CollisionShape2D
 @export var normal_collide: CollisionShape2D
 
@@ -10,12 +9,12 @@ func _ready() -> void:
 
 ## Die on first collision
 func attack_body(body: Node2D, clone: bool) -> void:
-	if !AttackedObjects.has(body) && parent.can_attack(body):
+	if !have_attacked(body) && parent.can_attack(body):
 		var new_attack = make_attack(clone)
 		body.damage(new_attack)
 		collision_counter += 1
 		## Keep AttackedObjects so we don't spam the one guy?
-		AttackedObjects.append(body)
+		append_attack_element(body)
 		## Die on first impact because we Explode on impact
 		die() 
 

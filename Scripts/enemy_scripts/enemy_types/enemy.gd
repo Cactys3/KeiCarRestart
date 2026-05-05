@@ -30,7 +30,6 @@ enum EnemyTypes {unset}
 @export_category("Enemy Projectile Stats")
 @export var projectile: PackedScene
 @export var shoots_projectiles: bool = false
-@export var homing: bool = false
 @export var base_range: float = 100
 @export var base_speed: float = 100
 @export var base_acceleration: float = 2
@@ -213,7 +212,7 @@ func _process(delta: float) -> void:
 				proj.modulate = self.modulate
 				proj.global_position = global_position
 				## 1 damage at minimum
-				proj.setup_enemy(self, player, global_position - player.global_position, homing, 20, false, 0) #curr_piercing, curr_lifetime, max(1, curr_damage + frost_damage_reduction), curr_speed, 1, 1, scale.length(), curr_acceleration)
+				proj.setup_enemy(self, player, global_position - player.global_position, false, 0) #curr_piercing, curr_lifetime, max(1, curr_damage + frost_damage_reduction), curr_speed, 1, 1, scale.length(), curr_acceleration)
 func _physics_process(delta: float) -> void:
 	if !ImReady:
 		return
