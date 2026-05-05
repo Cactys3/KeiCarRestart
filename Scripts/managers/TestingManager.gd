@@ -18,11 +18,11 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("test_3"):
 		## Spawning Upgrades
 		## Bleed
-		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_NEEDLES))
-		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_MAGAZINE))
+		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_NEEDLES))
+		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_MAGAZINE))
 		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_QUIVER))
 		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_TURRETS))
-		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_MECHANIC))
+		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_MECHANIC))
 		game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_SPHERE))
 		## Ghostly
 		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.FEARY))

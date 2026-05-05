@@ -46,9 +46,9 @@ func initialize_projectile(projectile: Projectile) -> Projectile:
 		_:
 			enemy = get_nearest_enemy()
 	if enemy:
-		projectile.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized(), false, 0)
+		projectile.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized())
 	else: ## Random Direction, no homing
-		projectile.setup_projectile(self, null, get_global_mouse_position() - player.global_position, false, 0)
+		projectile.setup_projectile(self, null, get_global_mouse_position() - player.global_position)
 	projectile.setup_death_method(despawn)
 	return projectile
 ## Overrides

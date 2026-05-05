@@ -22,24 +22,24 @@ class_name StatsObject
 @export var _range: float = 0.0
 @export var _attackcooldown: float = 0.0
 @export var _reloadtime: float = 0.0
-## Projectile Stats
-@export var _velocity: float = 0.0
 @export var _ammo:  float = 0.0
 @export var _count: float = 0.0
-@export var _piercing: float = 0.0
-@export var _duration: float = 1.0 ## base duration and size just so spawned things appear for at least a second by default
-@export var _size: float = 1.0
-## Loosly/Sometimes Weapon Stats
 @export var _inaccuracy: float = 0.0
+## Projectile Stats
+@export var _size: float = 0.0
+@export var _velocity: float = 0.0
+@export var _piercing: float = 0.0
+@export var _duration: float = 0.0 ## base duration and size just so spawned things appear for at least a second by default
+## Loosly/Sometimes Weapon Stats
 @export var _luck: float = 0.0
 @export var _critdamage: float = 0.0
 @export var _weight: float = 0.0
-@export var _ghostly: float = 0.0
 @export var _lifesteal: float = 0.0
 @export_subgroup("Non-Weapon Stats")
 ## Non-Weapon Stats
 @export var _hp: float = 0.0
 @export var _stance: float = 0.0
+@export var _ghostly: float = 0.0
 @export var _movespeed: float = 0.0
 @export var _xp: float = 0.0
 @export var _mogul: float = 0.0

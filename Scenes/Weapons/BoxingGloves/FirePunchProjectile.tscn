@@ -50,10 +50,18 @@ animations = [{
 radius = 8.0
 height = 16.0
 
-[node name="FirePunch" type="Area2D" unique_id=1052976383]
+[node name="FirePunch" type="Area2D" unique_id=1052976383 node_paths=PackedStringArray("anim")]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_hqeqx")
+anim = NodePath("AnimatedSprite2D")
+_damage = 1.0
+_size = 1.0
+_velocity = 65.0
+_piercing = 1.0
+_duration = 10.0
+_luck = 1.0
+_weight = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
 rotation = 1.5707964

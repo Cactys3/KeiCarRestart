@@ -74,10 +74,20 @@ animations = [{
 radius = 13.0
 height = 38.0
 
-[node name="GhostsplosionProjectile" type="Area2D" unique_id=1812170956]
+[node name="GhostsplosionProjectile" type="Area2D" unique_id=1812170956 node_paths=PackedStringArray("anim")]
 script = ExtResource("1_5mqoh")
+homing = false
+angular_velocity = 0.0
 face_rotation = false
 can_move = false
+die_on_anim_end = true
+anim = NodePath("AnimatedSprite2D")
+_damage = 70.0
+_piercing = 20.0
+_duration = 5.0
+_size = 1.0
+_luck = 1.0
+_critdamage = 1.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=951767391]
 sprite_frames = SubResource("SpriteFrames_pd4gn")

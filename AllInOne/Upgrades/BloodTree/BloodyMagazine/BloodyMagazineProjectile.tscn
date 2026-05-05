@@ -26,6 +26,14 @@ collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_jivb6")
 anim = NodePath("AnimatedSprite2D")
+bleed_apply = 0.65
+_damage = 30.0
+_velocity = 75.0
+_piercing = 4.0
+_duration = 10.0
+_size = 1.0
+_luck = 1.0
+_critdamage = 1.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2118981883]
 sprite_frames = SubResource("SpriteFrames_k38wt")

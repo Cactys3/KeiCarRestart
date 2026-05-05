@@ -47,8 +47,8 @@ var projectiles: Array[Projectile]
 ## Determines what attackspeed is, attacksperX = 2 means attackspeed is how many attacks every 2 seconds
 const attacksperX: int = 2
 var stopwatch: Timer
-var between_attacks_cooldown_timer: float = 0
-var between_projectiles_cooldown_timer: float = 0
+var between_attacks_cooldown_stopwatch: float = 0
+var between_projectiles_cooldown_stopwatch: float = 0
 var attacking: bool = false:
 	set(value):
 		attacking = value
@@ -75,8 +75,8 @@ func _ready() -> void:
 	super()
 	z_index = 1
 	z_as_relative = false
-	between_attacks_cooldown_timer = 1000
-	between_projectiles_cooldown_timer = 1000
+	between_attacks_cooldown_stopwatch = 1000
+	between_projectiles_cooldown_stopwatch = 1000
 	projectiles_left_in_ammo = ammo_stat
 	stopwatch = Timer.new()
 	add_child(stopwatch)
@@ -109,28 +109,28 @@ func process_cooldown(delta: float) -> void:
 		#print("attacking")
 		return
 	## if cd between attacks -> if cd between projectiles
-	if between_attacks_cooldown_timer > get_cooldown_between_attacks():
-		if between_projectiles_cooldown_timer > get_cooldown_between_projectiles():
+	if between_attacks_cooldown_stopwatch > get_cooldown_between_attacks():
+		if between_projectiles_cooldown_stopwatch > get_cooldown_between_projectiles():
 			if (ready_to_fire || always_ready_to_fire):# || Input.is_action_pressed("left_click"):
-				#print("between projects: ", between_attacks_cooldown_timer, " / ", get_cooldown_between_attacks())
-				#print("between projects: ", between_projectiles_cooldown_timer, " / ", get_cooldown_between_projectiles())
+				#print("between projects: ", between_attacks_cooldown_stopwatch, " / ", get_cooldown_between_attacks())
+				#print("between projects: ", between_projectiles_cooldown_stopwatch, " / ", get_cooldown_between_projectiles())
 				attack()
 		else:
-			#print("between projects: ", between_projectiles_cooldown_timer, " / ", get_cooldown_between_projectiles())
-			between_projectiles_cooldown_timer += delta
+			#print("between projects: ", between_projectiles_cooldown_stopwatch, " / ", get_cooldown_between_projectiles())
+			between_projectiles_cooldown_stopwatch += delta
 	else:
-		between_attacks_cooldown_timer += delta
-		#print("between projects: ", between_attacks_cooldown_timer, " / ", get_cooldown_between_attacks())
+		between_attacks_cooldown_stopwatch += delta
+		#print("between projects: ", between_attacks_cooldown_stopwatch, " / ", get_cooldown_between_attacks())
 ## await's create_projectiles() and resets attack cooldown
 func attack(): 
 	attacking = true
 	if projectiles_left_in_ammo > 1:
 		await create_projectile()
-		between_projectiles_cooldown_timer = 0
+		between_projectiles_cooldown_stopwatch = 0
 		attacking = false
 	else:
 		await create_last_projectile()
-		between_attacks_cooldown_timer = 0
+		between_attacks_cooldown_stopwatch = 0
 		projectiles_left_in_ammo = ammo_stat
 		attacking = false
 ## Create any projectiles but also do any melee attacks
@@ -187,7 +187,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 		return null
 	var new_bullet: Projectile = projectile.instantiate()
 	new_bullet.visible = false
-	new_bullet.setup_projectile(self, null, new_direction, false, 0) # old method extension: , piercing_stat, duration_stat + 5, damage_stat, velocity_stat, buildup_stat, weight_stat, size_stat, projectile_acceleration)
+	new_bullet.setup_projectile(self, null, new_direction)
 	if (AimType == AimTypes.Spinning): #handle aim types special cases
 		player.add_child(new_bullet)
 	else:

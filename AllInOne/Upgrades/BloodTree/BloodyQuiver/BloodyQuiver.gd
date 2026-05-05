@@ -39,9 +39,9 @@ func initialize_object(object: Node2D) -> bool:
 		object = object as Projectile
 		var enemy: Node2D = get_nearest_enemy()
 		if enemy:
-			object.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized(),false, 0)
+			object.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized())
 		else:
-			object.setup_projectile(self, null, player.transform.x, false, 0)
+			object.setup_projectile(self, null, player.transform.x)
 		## Make an attack and pass it to the projectile prebuilt
 		curr_damage_buff = bleed_procs / 10.0 ## TODO: balancing these number
 		curr_size_buff = bleed_procs / 50.0
