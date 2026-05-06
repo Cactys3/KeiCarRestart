@@ -56,11 +56,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hq1os"]
 size = Vector2(5.000001, 18)
 
-[node name="BloodMechanicProjectile" type="Area2D" unique_id=1052976383]
+[node name="BloodMechanicProjectile" type="Area2D" unique_id=1052976383 node_paths=PackedStringArray("anim")]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_hq1os")
-face_rotation = false
+homing = false
+anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
 sprite_frames = SubResource("SpriteFrames_pkdy0")

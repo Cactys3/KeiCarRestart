@@ -83,14 +83,15 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d11dk"]
 
-[node name="SphereOBlood" type="Area2D" unique_id=1052976383]
+[node name="SphereOBlood" type="Area2D" unique_id=1052976383 node_paths=PackedStringArray("anim")]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_288sq")
+anim = NodePath("AnimatedSprite2D")
 _damage = 66.0
+_inaccuracy = 50.0
 _velocity = 30.0
 _duration = 20.0
-_inaccuracy = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
 rotation = 1.5707964

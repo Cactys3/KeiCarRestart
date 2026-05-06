@@ -83,8 +83,9 @@ func deactivate():
 		game_man.FrostDamage.disconnect((frost_proc))
 	active = false
 ## Returns if this Equipment can attack the given node (not the player, has damage() func, can_be_damaged)
-func can_attack(node: Node2D) -> bool:
-	return !node.is_in_group("player") && "can_be_damaged" in node && node.get("can_be_damaged") && node.has_method("damage")
+func get_can_attack_callable() -> Callable:
+	return func(body: Node2D) -> bool:
+		return !body.is_in_group("player") && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage")
 ## FIND ENEMIES
 ## Returns nearest enemy or null
 func get_nearest_enemy() -> Variant:

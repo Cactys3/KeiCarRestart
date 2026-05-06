@@ -45,6 +45,8 @@ _range = 60.0
 _attackcooldown = 0.4
 _reloadtime = 2.0
 _ammo = 4.0
+_count = 1.0
+_inaccuracy = 10.0
 _velocity = 70.0
 
 [node name="BaseAnim" type="AnimatedSprite2D" parent="." unique_id=342397088]

@@ -29,6 +29,8 @@ var update_target_stopwatch: float = 0
 var update_target: bool = true
 ## Update once a second
 var update_target_cooldown: float = 1
+func _ready() -> void:
+	super()
 func setup(new_player: Character):
 	player = new_player
 func _process(delta: float) -> void:

@@ -27,12 +27,11 @@ enum AimTypes{Spinning, NearestEnemy, RandomEnemy, AtMouse}
 var attacking: bool = false
 var attack_on_cd: bool = false
 var ready_to_fire: bool = false
-var attack_stopwatch: float = 50 ## Make it 50 so start ready to attack
 var check_nearest_stopwatch: float = 0
 var check_nearest_cd: float = 1 ## Check every 1 seconds
 var check_aiming_stopwatch: float = 0
-var check_aiming_cd: float = 0.25 ## Check every 0.25 seconds
-
+var check_aiming_cd: float = 0.5 ## Check every 0.5 seconds
+var is_aiming_at_enemy: bool = false
 var projectiles_left_in_ammo: int 
 var between_attacks_cooldown_stopwatch: float = 0
 var between_projectiles_cooldown_stopwatch: float = 0
@@ -58,55 +57,60 @@ func _process(delta: float) -> void:
 	process_cooldown(delta)
 ## Process cooldowns 
 func process_cooldown(delta: float) -> void: 
-	# if attacking, don't even update stopwatches
-	# if on 'between attack cd' update that
-	# if on 'between projectiles cd' update that
-	# if both stopwtaches good, check is aiming at enemy
-	# if that's good, either do delay or spread based proj spawning
-	
-	
-	check_aiming_stopwatch += delta
-	if attack_stopwatch >= attack_cd:
-		attack_on_cd = false
-	else:
-		attack_stopwatch += delta
-		attack_on_cd = true
-	ready_to_fire = !attacking && !attack_on_cd
-	
-	if ready_to_fire && must_aim_at_enemy_to_fire:
+	if attacking:
 		ready_to_fire = false
+	else:
+		## Are we ready to fire and off attack cooldown
+		if (between_attacks_cooldown_stopwatch >= reloadtime_stat) && ready_to_fire:
+			## Should we do delay based projectile attacks or all at once
+			if multiple_projectiles_aim_type == Weapon.multiple_projectiles_aim_types.delay:
+				if (between_projectiles_cooldown_stopwatch >= attackcooldown_stat):
+					print("ready - between_projectiles_cooldown_stopwatch")
+					pass ## we can fire, leave ready_to_fire = true
+				else:
+					print("not ready - between_projectiles_cooldown_stopwatch")
+					ready_to_fire = false
+					between_projectiles_cooldown_stopwatch += delta
+			else:
+				pass ## we can fire, leave ready_to_fire = true
+		else:
+			print("not ready - between_attacks_cooldown_stopwatch: ", ready_to_fire)
+			ready_to_fire = false
+			between_attacks_cooldown_stopwatch += delta
+	## Should we not fire because we need to aim at them?
+	check_aiming_stopwatch += delta
+	if ready_to_fire && must_aim_at_enemy_to_fire:
+		## Update 'is_aiming_at_enemy'
 		if check_aiming_stopwatch > check_aiming_cd:
 			check_aiming_stopwatch = 0
-			ready_to_fire = IsAimingAtEnemyWithinDegree(target, aiming_degree_leniency, current_rotation)
-	
-	## If attacking, simply wait
-	if !attacking:
-		## Delay based attacking cooldowns:
-		if multiple_projectiles_aim_type == Weapon.multiple_projectiles_aim_types.delay:
-			## if cd between attacks -> if cd between projectiles
-			ready_to_fire = ready_to_fire && (between_attacks_cooldown_stopwatch > reloadtime_stat) && (between_projectiles_cooldown_stopwatch > attackcooldown_stat)
-			if !ready_to_fire:
-				between_projectiles_cooldown_stopwatch += delta
-			else:
-				between_attacks_cooldown_stopwatch += delta
-		if ready_to_fire:
-			attack()
-			attack_stopwatch = 0
+			is_aiming_at_enemy = IsAimingAtEnemyWithinDegree(target, aiming_degree_leniency, current_rotation)
+		## Trust 'is_aiming_at_enemy' even if it isn't up to date
+		ready_to_fire = is_aiming_at_enemy
+	## Should we attack after all this checking?
+	if ready_to_fire:
+		print("FIRE!")
+		attack()
 ## Spin around in a circle
 func process_spinning(delta: float) -> void:
+	ready_to_fire = true
 	set_turret_rotation(delta * rotation_speed + current_rotation)
 func process_nearest_enemy(delta: float) -> void:
 	check_nearest_stopwatch += delta
 	if check_nearest_stopwatch >= check_nearest_cd:
 		check_nearest_enemy()
 	if target:
+		ready_to_fire = true
 		RotateTowardsPosition(target.global_position, delta)
+	else:
+		ready_to_fire = false
 func process_random_enemy(delta: float) -> void:
 	if !target:
+		ready_to_fire = false
 		var group = get_tree().get_nodes_in_group("Enemy")
 		if group.size() > 0:
 			target = group.pick_random()
 	else:
+		ready_to_fire = true
 		RotateTowardsPosition(target.global_position, delta)
 func process_at_mouse(delta: float) -> void:
 	RotateTowardsPosition(get_global_mouse_position(), delta)
@@ -174,7 +178,7 @@ func attack_spread():
 	attacking = true
 	for i in count_stat + UpgradeStatics.creation_count_buff + UpgradeStatics.spawn_count_buff:	## TODO: Decide if turrets/spawns should take into account global stats? Global 'count' is just for weapons?
 		create_projectile()
-	attack_stopwatch = 0
+	between_attacks_cooldown_stopwatch = 0
 	attacking = false
 ## await's create_projectiles() and resets attack cooldown
 func attack_delay(): 

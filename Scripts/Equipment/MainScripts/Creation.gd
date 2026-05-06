@@ -32,6 +32,7 @@ var target: Node2D
 var set_random_direction: bool = false
 var clockwise: float = -1
 func _ready() -> void:
+	super()
 	if randf() > 0.5:
 		clockwise = 1
 func setup(new_parent: Equipment, new_duration: float):
@@ -141,8 +142,13 @@ func _on_body_entered(body: Node2D) -> void:
 		attack_body(body)
 		attack_counter += 1
 		append_attack_element(body)
-func can_attack(body: Node2D) -> bool:
+## Use 'can_attack' instead of callable get attack because only melee attacks, no projectiles?
+func can_attack(body: Node2D) -> bool: 
 	return damage_on_collision && body.is_in_group("enemy") && !have_attacked(body)
+## Use this for projectiles?? idk
+func get_can_attack_callable() -> Callable:
+	return func(body: Node2D) -> bool:
+		return !body.is_in_group("player") && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage")
 func attack_body(body: Node2D):
 	body.damage(make_attack(damage_multiplier))
 	if target == body:

@@ -39,18 +39,13 @@ signal died(pos: Vector2, cloned: bool)
 var prebuilt_attack: Attack = null
 var death_method: Callable
 var specific_target: bool = false
-func _init() -> void:
-	visible = false
+var can_attack_method: Callable
+
 func _ready() -> void:
-	flash()
+	super()
 	if die_on_anim_end && anim:
 		anim.animation_finished.connect(die)
-func flash():
-	await get_tree().create_timer(0.1).timeout
-	visible = true
 func _process(delta: float) -> void:
-	#print(visible)
-	#print("dead: ", dead, "distance: ", GameManager.instance.player.global_position.distance_to(global_position))
 	if dead:
 		return
 	if can_move:
@@ -67,7 +62,6 @@ func _process(delta: float) -> void:
 	## Death By Old Age
 	stopwatch += delta
 	if (stopwatch > duration_stat) || (collision_counter > piercing_stat):
-		print("die")
 		die()
 	if die_on_anim_end && anim && !anim.animation_finished.is_connected(die):
 		anim.animation_finished.connect(die)
@@ -90,12 +84,12 @@ func process_movement_homing(delta: float):
 ## Setup values generic for all BasicProjectile
 func setup_projectile(new_parent: StatsObject, new_target: Node2D, enemy_direction:Vector2): 
 	parent = new_parent
+	can_attack_method = parent.get_can_attack_callable()
 	target = new_target
 	initial_direction = enemy_direction.normalized()
 	direction = enemy_direction.normalized()
 	velocity += velocity_stat
 	size += size_stat
-	print('velocity, ', velocity)
 	#piercing += piercing_stat
 	#duration += duration_stat
 	#damage += damage_stat
@@ -134,7 +128,8 @@ func setup_death_method(method: Callable):
 func _on_body_entered(body: Node2D) -> void: 
 	if dead:
 		return
-	if parent.can_attack(body) && !have_attacked(body):
+	## Use callable because parent might be freed while projectile still exists
+	if (can_attack_method && can_attack_method.call(body)) && !have_attacked(body):
 		attack_body(body, is_clone)
 		collision_counter += 1
 		append_attack_element(body)

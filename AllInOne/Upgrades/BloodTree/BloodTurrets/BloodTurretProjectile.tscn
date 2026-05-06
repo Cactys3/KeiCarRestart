@@ -25,12 +25,13 @@ size = Vector2(4, 4)
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_gnqbd")
+homing = false
 anim = NodePath("AnimatedSprite2D")
 bleed_apply = 0.5
 _damage = 15.0
+_size = 1.0
 _velocity = 35.0
 _duration = 15.0
-_size = 1.0
 _luck = 2.0
 _critdamage = 1.5
 
