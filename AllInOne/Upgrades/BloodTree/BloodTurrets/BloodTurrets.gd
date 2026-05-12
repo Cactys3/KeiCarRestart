@@ -14,7 +14,6 @@ func deactivate():
 	super()
 ## Set Vars
 func _ready() -> void:
-	spawn_on_reload = true
 	super()
 
 func reload(weapon: Weapon) -> void:

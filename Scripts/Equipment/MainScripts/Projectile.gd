@@ -17,7 +17,7 @@ var sender: Node2D
 
 var size: float = 0:
 	set(value):
-		scale = Vector2(value, value)
+		scale = Vector2(value + 1, value + 1)
 		size = value
 var velocity: float = 0
 var direction: Vector2 = Vector2(0, 0)
@@ -30,6 +30,8 @@ signal died(pos: Vector2, cloned: bool)
 @export var acceleration: float = 0
 @export var homing: bool = true
 @export var angular_velocity: float = 0.5
+@export var can_die_from_collision: bool = true
+@export var can_die_from_duration: bool = true
 @export var can_spawn_multiple: bool = true
 @export var face_rotation: bool = true
 @export var can_knockback: bool = true
@@ -61,7 +63,7 @@ func _process(delta: float) -> void:
 		rotation = direction.angle()
 	## Death By Old Age
 	stopwatch += delta
-	if (stopwatch > duration_stat) || (collision_counter > piercing_stat):
+	if ((stopwatch > duration_stat) && can_die_from_duration) || ((collision_counter > piercing_stat) && can_die_from_collision):
 		die()
 	if die_on_anim_end && anim && !anim.animation_finished.is_connected(die):
 		anim.animation_finished.connect(die)
@@ -98,6 +100,10 @@ func setup_projectile(new_parent: StatsObject, new_target: Node2D, enemy_directi
 		attack_type = Attack.AttackTypes.player_weapon_projectile
 	elif new_parent is Upgrade:
 		attack_type = Attack.AttackTypes.upgrade_projectile
+	elif new_parent is Turret:
+		attack_type = Attack.AttackTypes.upgrade_creation
+	elif new_parent is Summon:
+		attack_type = Attack.AttackTypes.upgrade_summon
 	else:
 		printerr("Projectile setup normally but not from weapon or upgrade")
 #func setup_add_parent_stats(stats_parent: StatsObject):

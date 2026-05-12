@@ -1,13 +1,10 @@
 extends ProjectileUpgrade
 ## This upgrade:
 #
-const spawn_every_seconds_base: int = 5
 var bleed_procs: int = 0
 ## Set Vars
 func _ready() -> void:
 	connect_bleed_proc = true
-	spawn_every_seconds = true
-	spawn_every_seconds = spawn_every_seconds_base
 	super()
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):

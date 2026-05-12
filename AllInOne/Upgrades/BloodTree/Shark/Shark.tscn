@@ -4,3 +4,4 @@
 
 [node name="Shark" type="Node2D" unique_id=1661261330]
 script = ExtResource("1_tcx7b")
+edits_attack = true

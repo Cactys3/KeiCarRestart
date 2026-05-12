@@ -7,3 +7,4 @@
 script = ExtResource("1_4k1ff")
 spawn_on_reload = true
 scene_to_spawn = ExtResource("2_x2lp4")
+edits_attack = true

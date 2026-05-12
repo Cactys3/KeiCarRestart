@@ -9,7 +9,6 @@ func activate(new_player: Character):
 func deactivate():
 	super()
 func edit_attack(attack: Attack) -> Attack:
-	print("Edit attack! Cutting!")
 	if attack.is_from_weapon():
 		attack.status.applies_bleed = true
 	return attack

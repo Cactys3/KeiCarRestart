@@ -133,6 +133,9 @@ var inaccuracy_stat:
 		return (GlobalStats.get_base_stat(GlobalStats.INACCURACY) + _inaccuracy) * GlobalStats.get_factor_stat(GlobalStats.INACCURACY)
 func _ready() -> void:
 	super()
+func _process(delta: float) -> void:
+	if size_stat == 0 && self is Projectile:
+		print("Size is 0 for ", name, " Path: ", scene_file_path)
 ## Adds Base Stats to given StatsList (Base Stat, not Base Stat + Global Stat)
 func add_to_stats_list(list: GlobalStats.StatsList) -> GlobalStats.StatsList: 
 	list.add_to_stat(GlobalStats.HP, _hp)

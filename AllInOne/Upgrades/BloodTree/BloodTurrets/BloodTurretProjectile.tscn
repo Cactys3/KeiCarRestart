@@ -29,7 +29,6 @@ homing = false
 anim = NodePath("AnimatedSprite2D")
 bleed_apply = 0.5
 _damage = 15.0
-_size = 1.0
 _velocity = 35.0
 _duration = 15.0
 _luck = 2.0

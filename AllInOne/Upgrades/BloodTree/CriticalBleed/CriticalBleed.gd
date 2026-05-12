@@ -9,7 +9,7 @@ func deactivate():
 	super()
 ## Set Vars
 func _ready() -> void:
-	edits_attack = true
+	super()
 ## Apply double bleed on critical hits
 func edit_attack(attack: Attack) -> Attack:
 	if attack.get_crit():

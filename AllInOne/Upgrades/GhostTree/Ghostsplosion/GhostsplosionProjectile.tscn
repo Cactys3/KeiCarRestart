@@ -83,7 +83,6 @@ can_move = false
 die_on_anim_end = true
 anim = NodePath("AnimatedSprite2D")
 _damage = 70.0
-_size = 1.0
 _piercing = 20.0
 _duration = 5.0
 _luck = 1.0

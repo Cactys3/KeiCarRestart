@@ -6,6 +6,7 @@ class_name SpawnObject
 @export var attack_same_enemy_cooldown: float = 2
 var AttackedObjects: Array = []
 func _process(delta: float) -> void:
+	super(delta)
 	for element: AttackedObjectsElement in AttackedObjects:
 		element._process(delta)
 ## Return enemy within range

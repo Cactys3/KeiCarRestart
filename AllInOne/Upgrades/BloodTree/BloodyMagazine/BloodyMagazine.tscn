@@ -5,4 +5,6 @@
 
 [node name="BloodyMagazin" type="Node2D" unique_id=377685898]
 script = ExtResource("1_ddvj2")
+spawn_with_cd = true
+spawn_every_seconds = 3.0
 scene_to_spawn = ExtResource("2_j6lai")

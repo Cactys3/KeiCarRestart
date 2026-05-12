@@ -82,6 +82,7 @@ func _ready() -> void:
 	add_child(stopwatch)
 ## Calls Process_Cooldown
 func _process(delta: float) -> void:
+	super(delta)
 	global_position = player.global_position
 	if !QueuedAttacks.is_empty():
 		for event in QueuedAttacks:
@@ -106,21 +107,16 @@ func _process(delta: float) -> void:
 func process_cooldown(delta: float) -> void: 
 	## If attacking, simply wait
 	if attacking:
-		#print("attacking")
 		return
 	## if cd between attacks -> if cd between projectiles
 	if between_attacks_cooldown_stopwatch > get_cooldown_between_attacks():
 		if between_projectiles_cooldown_stopwatch > get_cooldown_between_projectiles():
 			if (ready_to_fire || always_ready_to_fire):# || Input.is_action_pressed("left_click"):
-				#print("between projects: ", between_attacks_cooldown_stopwatch, " / ", get_cooldown_between_attacks())
-				#print("between projects: ", between_projectiles_cooldown_stopwatch, " / ", get_cooldown_between_projectiles())
 				attack()
 		else:
-			#print("between projects: ", between_projectiles_cooldown_stopwatch, " / ", get_cooldown_between_projectiles())
 			between_projectiles_cooldown_stopwatch += delta
 	else:
 		between_attacks_cooldown_stopwatch += delta
-		#print("between projects: ", between_attacks_cooldown_stopwatch, " / ", get_cooldown_between_attacks())
 ## await's create_projectiles() and resets attack cooldown
 func attack(): 
 	attacking = true
@@ -200,7 +196,6 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 func projectile_died(pos: Vector2, is_clone: bool):
 	pass
 func get_cooldown_between_projectiles() -> float:
-	#print("get_cooldown_between_projectiles ", attacksperX / max(0.1, attackspeed_stat), " attacksperX: ", attacksperX, ", attackspeed: ", attackspeed_stat)
 	return attackcooldown_stat#(attacksperX / max(0.1, attackspeed_stat))
 ## Calculate and return cooldown between attacks
 func get_cooldown_between_attacks() -> float:

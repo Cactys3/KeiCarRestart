@@ -42,10 +42,11 @@ func activate(new_player: Character):
 	spawn()
 ## Creates the object, initializes it, returns success
 func spawn() -> bool:
-	var object = scene_to_spawn.instantiate()
-	if initialize_object(object):
-		reloads_since_last_spawn = 0
-		return true
+	if scene_to_spawn:
+		var object = scene_to_spawn.instantiate()
+		if initialize_object(object):
+			reloads_since_last_spawn = 0
+			return true
 	return false
 ## Override to setup the spawned object
 func initialize_object(object: Node2D) -> bool:

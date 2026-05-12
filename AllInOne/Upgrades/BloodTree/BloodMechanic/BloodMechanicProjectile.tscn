@@ -62,6 +62,8 @@ collision_mask = 8
 script = ExtResource("1_hq1os")
 homing = false
 anim = NodePath("AnimatedSprite2D")
+_velocity = 45.0
+_duration = 20.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
 sprite_frames = SubResource("SpriteFrames_pkdy0")

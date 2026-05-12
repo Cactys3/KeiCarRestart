@@ -57,7 +57,6 @@ script = ExtResource("1_hqeqx")
 homing = false
 anim = NodePath("AnimatedSprite2D")
 _damage = 1.0
-_size = 1.0
 _velocity = 65.0
 _piercing = 1.0
 _duration = 10.0

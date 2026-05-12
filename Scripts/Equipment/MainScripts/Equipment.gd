@@ -16,7 +16,7 @@ class_name Equipment
 @export var connect_dodge: bool = false
 @export var connect_player_damaged: bool = false
 @export var connect_enemy_trapped: bool = false
-@export var connect_creation_died: bool = false
+@export var connect_creation_killed: bool = false
 @export var connect_projectile_spawned: bool = false
 @export var connect_: bool = false
 ## Data Fields
@@ -29,7 +29,7 @@ enum item_types{unset, upgrade, projectile, weapon}
 func _ready() -> void:
 	flash()
 func _process(delta: float) -> void:
-	pass
+	super(delta)
 ## Flashing stuff
 func flash():
 	visible = false
@@ -65,8 +65,8 @@ func activate(new_player: Character):
 		game_man.PlayerDamaged.connect(player_damaged)
 	if connect_enemy_trapped:
 		game_man.EnemyTrapped.connect(enemy_trapped)
-	if connect_creation_died:
-		game_man.CreationDied.connect(creation_died)
+	if connect_creation_killed:
+		game_man.CreationKilled.connect(creation_killed)
 	if connect_projectile_spawned:
 		game_man.ProjectileSpawned.connect(projectile_spawned)
 	player = new_player
@@ -156,7 +156,7 @@ func player_damaged(character: Character, attack: Attack):
 	pass
 func enemy_trapped(enemy: Enemy, trap: Trap):
 	pass
-func creation_died(creation: Creation, attack: Attack):
+func creation_killed(creation: Creation, attack: Attack):
 	pass
 func projectile_spawned(projectile: Projectile):
 	pass

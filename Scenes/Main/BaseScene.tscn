@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cdoowwkvlvfk0" path="res://Art/DarkForest/Setting/Backdrop.png" id="2_pbrr2"]
 [ext_resource type="Script" uid="uid://b2wexepea57hx" path="res://Scripts/misc/MainCamera.gd" id="4_qrryo"]
 [ext_resource type="Texture2D" uid="uid://k1ndatoaiv00" path="res://Art/Lighting/FOV_Radial_Gradient_16-9.png" id="5_eeah7"]
+[ext_resource type="PackedScene" uid="uid://08e3bacvts4n" path="res://Scenes/Misc/TestingManager.tscn" id="6_eeah7"]
 [ext_resource type="PackedScene" uid="uid://bgt57e0022plx" path="res://Scenes/Misc/xp_blip.tscn" id="9_t1qak"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
-[ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
 [ext_resource type="Script" uid="uid://b6808ricdvjjh" path="res://Scripts/UI/relative_to_game.gd" id="17_afe04"]
@@ -164,11 +164,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="TestingManager" type="Node2D" parent="Window1920/Offset" unique_id=774115771 node_paths=PackedStringArray("EnemyParent") groups=["weapon_manager"]]
-position = Vector2(960, 0)
-script = ExtResource("10_cwiy3")
-EnemyParent = NodePath("../../../Window640/Offset/EnemyParent")
 
 [node name="GameManager" type="Node2D" parent="Window1920/Offset" unique_id=2022696012 node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent") groups=["gamemanager"]]
 process_mode = 3
@@ -501,6 +496,11 @@ offset_top = 214.2222
 offset_right = 470.22223
 offset_bottom = 1002.6666
 columns = 4
+
+[node name="TestingManager" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1798274506 node_paths=PackedStringArray("EnemyParent", "grid") instance=ExtResource("6_eeah7")]
+position = Vector2(1397, 422)
+EnemyParent = NodePath("../../../../../Window640/Offset/EnemyParent")
+grid = NodePath("")
 
 [node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1841136718]
 visible = false

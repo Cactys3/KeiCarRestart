@@ -99,7 +99,8 @@ var difficulty: float:
 var luck: float:
 	get():
 		return GlobalStats.get_stat(GlobalStats.LUCK)
-
+## Enabled when typing so keybinds should be disabled
+var typing_disable_keybinds: bool = false
 var paused: bool = false ## Is Game Instance Paused or Not
 var level_up_queue: int = 0
 var leveling_up: bool = false
@@ -107,29 +108,37 @@ var leveling_up: bool = false
 ## For GameManager Systems
 signal pause_game(value: bool)
 signal level_up()
-## For UI Methods
+signal RoundEnded(round_number: int)
+## UI Methods
 signal toggle_inventory() #TODO: add bool value to keep track of toggle state?
 signal toggle_esc()
 signal set_xp(value: float)
 signal set_money(value: float)
 signal set_level(value: float)
 signal set_hp(value: float)
-## For Upgrade Mechanics
+## Enemies
 signal EnemyDamaged(enemy: Enemy, attack: Attack)
 signal EnemyKilled(enemy: Enemy, attack: Attack)
-signal EnemyTrapped(enemy: Enemy, trap: Trap, attack: Attack) ## Attack may be null
+signal EnemyTrapped(enemy: Enemy, trap: Trap, attack: Attack) 
 signal BossKilled(boss: Boss, attack: Attack)
+## Player
 signal PlayerDamaged(player: Character, attack: Attack)
 signal PlayerDodged(player: Character, attack: Attack)
 signal PlayerRevived(player: Character)
 signal PlayerKilled(player: Character, attack: Attack)
 signal EventKilled(event: Event, attack: Attack)
+## Spawns:
+signal ProjectileSpawned(projectile: Projectile)
+signal CreationSpawned(creation: Creation)
+signal TrapSpawned(trap: Trap)
+signal SummonSpawned(summon: Summon)
 signal CreationDamaged(creation: Creation, attack: Attack)
 signal CreationKilled(creation: Creation, attack: Attack)
 signal CreationDodged(creation: Creation, attack: Attack)
+## Main Weapon:
 signal WeaponReloaded(weapon: Weapon)
 signal WeaponFired(weapon: Weapon, projectile: Projectile)
-signal RoundEnded(round_number: int)
+## Status on Enemies
 signal BurnDamage(damage: float, enemy: Enemy)
 signal FrostDamage(damage: float, enemy: Enemy)
 signal PoisonDamage(damage: float, enemy: Enemy)
@@ -142,6 +151,10 @@ signal PoisonApplied(enemy: Enemy)
 signal BleedApplied(enemy: Enemy)
 signal ShockApplied(enemy: Enemy)
 signal WetApplied(enemy: Enemy)
+
+#  ProjectileSpawned
+
+
 func setup(new_player: Character, starting_weapon: String):
 	player = new_player
 	call_deferred("defer_once", starting_weapon)
@@ -180,6 +193,11 @@ func _process(_delta: float) -> void:
 
 func add_upgrade(data: UpgradeData) -> void:
 	var upgrade: Upgrade = data.get_upgrade()
+	if !is_instance_valid(upgrade):
+		## We already error'd before
+		printerr("UpgradeData.get_upgrade() is null for \"", data.upgrade_name, "\", Path: ", data.resource_path)
+		return
+	
 	for active_upgrade in active_upgrades:
 		## Can't use active_upgrades.has() because it's a typed array with resources?
 		if active_upgrade.data == data:

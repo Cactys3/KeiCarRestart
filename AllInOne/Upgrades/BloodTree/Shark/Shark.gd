@@ -11,8 +11,8 @@ func deactivate():
 const damage_buff_to_bled: float = 0.2
 ## Set Vars
 func _ready() -> void:
-	edits_attack = true
-	connect_bleed_proc
+	connect_bleed_proc = true
+	super()
 ## Upgrade Turrets apply bleed
 func edit_attack(attack: Attack) -> Attack:
 	if attack.status.applies_bleed:

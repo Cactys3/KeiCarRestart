@@ -5,4 +5,7 @@
 
 [node name="BloodyQuiver" type="Node2D" unique_id=1819395772]
 script = ExtResource("1_ir410")
+spawn_every_seconds = 1.0
 scene_to_spawn = ExtResource("2_r4nbt")
+edits_attack = true
+_damage = 30.0

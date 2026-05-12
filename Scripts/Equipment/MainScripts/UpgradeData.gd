@@ -121,6 +121,9 @@ func can_obtain(equipped_upgrades: Array[Upgrade]) -> bool:
 	return copy.is_empty() && (prereq_projectile + prereq_creation + prereq_summon + prereq_trap) <= 0
 ## Makes and returns the associated Upgrade scene for this data
 func get_upgrade() -> Upgrade:
+	if !is_instance_valid(scene):
+		printerr("Can't find scene for \"", upgrade_name, "\", Path: ", resource_path)
+		return null
 	var upgrade: Upgrade = scene.instantiate()
 	upgrade.upgrades_to_overwrite_functionality = upgrades_to_overwrite_functionality
 	upgrade.item_name = upgrade_name

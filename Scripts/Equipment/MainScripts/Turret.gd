@@ -65,16 +65,13 @@ func process_cooldown(delta: float) -> void:
 			## Should we do delay based projectile attacks or all at once
 			if multiple_projectiles_aim_type == Weapon.multiple_projectiles_aim_types.delay:
 				if (between_projectiles_cooldown_stopwatch >= attackcooldown_stat):
-					print("ready - between_projectiles_cooldown_stopwatch")
 					pass ## we can fire, leave ready_to_fire = true
 				else:
-					print("not ready - between_projectiles_cooldown_stopwatch")
 					ready_to_fire = false
 					between_projectiles_cooldown_stopwatch += delta
 			else:
 				pass ## we can fire, leave ready_to_fire = true
 		else:
-			print("not ready - between_attacks_cooldown_stopwatch: ", ready_to_fire)
 			ready_to_fire = false
 			between_attacks_cooldown_stopwatch += delta
 	## Should we not fire because we need to aim at them?
@@ -88,7 +85,6 @@ func process_cooldown(delta: float) -> void:
 		ready_to_fire = is_aiming_at_enemy
 	## Should we attack after all this checking?
 	if ready_to_fire:
-		print("FIRE!")
 		attack()
 ## Spin around in a circle
 func process_spinning(delta: float) -> void:

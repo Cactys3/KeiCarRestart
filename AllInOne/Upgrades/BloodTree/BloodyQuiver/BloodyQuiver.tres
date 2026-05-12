@@ -13,6 +13,7 @@ Projectiles spawned by your upgrades apply bleed."
 upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
 upgrade_rarity = 2
 prerequisite_upgrades = Array[ExtResource("1_opth1")]([ExtResource("2_u7ysl")])
+disable_upgrades_names = Array[String](["BloodyNeedles"])
 prereq_num_of_projectile_upgrades = 2
 makes_upgrade_projectiles_do_status = true
 spawns_projectile = true

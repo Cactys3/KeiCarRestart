@@ -1,26 +1,13 @@
 extends ProjectileUpgrade
 ## This upgrade:
 #
-const SCENE = preload("uid://ck86b4m7iaeeu")
-const spawn_every_seconds_base: int = 5
 var bleed_procs: int = 0
 ## Set Vars
 func _ready() -> void:
-	edits_attack = true
 	connect_bleed_proc = true
-	spawn_every_seconds = true
-	spawn_every_seconds = spawn_every_seconds_base
-	scene_to_spawn = SCENE
 	super()
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
-	var found: bool = false
-	for upgrade in GameManager.instance.active_upgrades:
-		if upgrade.data.upgrade_name == "BloodNeedles":
-			upgrade.disabled_by_inherited_upgrade = true
-			found = true
-	if !found:
-		printerr("Couldn't Find BloodNeedles to disable them (from BloodyMagazine)")
 	super(new_player)
 ## Disables the functionality of this upgrade
 func deactivate():
