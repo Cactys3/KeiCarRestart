@@ -1,5 +1,6 @@
 extends Node
 class_name TitleManager
+@onready var audio_manager: AudioManager = $"../AudioManager"
 ## Nodes
 @export var main: Control
 @export var settings: Control 
@@ -17,7 +18,6 @@ class_name TitleManager
 @export var weapon_parent: Control
 @export var item_parent: Control
 static var file_slot: int = 0
-
 const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
 ## Instances
 var TEST: duple = duple.new("TEST", "res://Scenes/Main/TestInstance.tscn")
@@ -34,9 +34,7 @@ var weapon: int ## Chosen weapon
 var characters: Array[duple] = [WEBFISHER, LILY]
 var maps: Array[duple] = [TEST, DARKFOREST]
 var weapons: Array[duple] = [BOXING_GLOVE]
-
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
-
 static var start_playtime: float 
 static var start_gametime: float 
 # Called when the node enters the scene tree for the first time.
@@ -70,11 +68,9 @@ func save():
 	if !Save.check_save_data(0):
 		Save.create_file(0)
 	Save.load_file(0)
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
 ### UI Code
 ## Sets up main buttons to be visible
 func set_main():
@@ -131,6 +127,8 @@ func press_start_game():
 	
 	var base_scene: Node2D = load(BaseScene).instantiate()
 	var instance: GameInstance = setup_instance(base_scene)
+	audio_manager.reparent(base_scene)
+	
 	get_tree().root.add_child(base_scene)
 	get_tree().current_scene = base_scene
 	start_gametime = Time.get_ticks_msec()
@@ -242,7 +240,6 @@ func setup_achievements():
 			new_visual.text += "[color=red]" + str(Save.ITEM_UNLOCKS_DICT[a]) + "[/color]"
 			item_parent.move_child(new_visual, item_parent.get_child_count())
 		setup_label(new_visual)
-
 func setup_label(label: RichTextLabel) -> RichTextLabel:
 		label.bbcode_enabled = true
 		label.fit_content = true
@@ -251,14 +248,11 @@ func setup_label(label: RichTextLabel) -> RichTextLabel:
 		label.add_theme_font_size_override("normal_font_size", 64)
 		label.name += "delete_this"
 		return label
-
 class duple:
 	var key: String
 	var value: String
 	func _init(new_key: String, new_value: String):
 		key = new_key
 		value = new_value
-
-
 func _on_choose_0_pressed(extra_arg_0: int) -> void:
 	pass # Replace with function body.

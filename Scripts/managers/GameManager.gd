@@ -14,7 +14,7 @@ static var instance: GameManager
 @export var enemy_parent: Node2D
 @export var weapon_parent: Node2D
 @export var projectile_parent: Node2D
-
+@export var audio_parent: Node2D
 # Weapons
 var weapon_list: Array[Weapon]
 var weapon_count: int = 0
@@ -168,7 +168,6 @@ func defer_once(starting_weapon: String):
 func defer_twice(starting_weapon: String):
 	player.initialize_stats()
 	revives_used = 0
-	
 	curr_hp = player.health
 	shield = player.shield
 	level = 1

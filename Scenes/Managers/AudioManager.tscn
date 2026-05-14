@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b5s22yev5207a"]
+
+[ext_resource type="Script" uid="uid://bskr25ayii21j" path="res://Scripts/managers/AudioManager.gd" id="1_tyob0"]
+[ext_resource type="AudioStream" uid="uid://b2amtrclsf2oj" path="res://Audio/Sounds/ZapSplat/Blip_1_ZapSplat.mp3" id="2_qes3j"]
+[ext_resource type="Script" uid="uid://cnwrxn55ulo35" path="res://Scripts/misc/Sound.gd" id="2_rhsx5"]
+
+[sub_resource type="Resource" id="Resource_rhsx5"]
+script = ExtResource("2_rhsx5")
+clip = ExtResource("2_qes3j")
+clip_name = "XP Collection"
+spatial_audio = false
+metadata/_custom_type_script = "uid://cnwrxn55ulo35"
+
+[node name="AudioManager" type="Node2D" unique_id=845473939]
+script = ExtResource("1_tyob0")
+XP_COLLECT = SubResource("Resource_rhsx5")

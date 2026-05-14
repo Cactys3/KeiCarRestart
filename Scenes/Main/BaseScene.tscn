@@ -99,6 +99,8 @@ process_mode = 1
 texture_filter = 1
 position = Vector2(320, 180)
 
+[node name="AudioParent" type="Node2D" parent="Window640/Offset" unique_id=738777460]
+
 [node name="BackgroundParent" type="Node2D" parent="Window640/Offset" unique_id=519102949]
 
 [node name="TEST_BackgroundPlaceholder" type="AnimatedSprite2D" parent="Window640/Offset/BackgroundParent" unique_id=1405815988]
@@ -120,6 +122,8 @@ script = ExtResource("4_qrryo")
 [node name="PointLight2D" type="PointLight2D" parent="Window640/Offset/CharacterParent/Camera2D" unique_id=853212192]
 energy = 0.6
 texture = ExtResource("5_eeah7")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Window640/Offset/CharacterParent/Camera2D" unique_id=2030139601]
 
 [node name="WeaponParent" type="Node2D" parent="Window640/Offset" unique_id=2000948482]
 
@@ -165,7 +169,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GameManager" type="Node2D" parent="Window1920/Offset" unique_id=2022696012 node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent") groups=["gamemanager"]]
+[node name="GameManager" type="Node2D" parent="Window1920/Offset" unique_id=2022696012 node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent", "audio_parent") groups=["gamemanager"]]
 process_mode = 3
 position = Vector2(960, 0)
 scale = Vector2(1, 1.021002)
@@ -176,6 +180,7 @@ xp_parent = NodePath("../../../Window640/Offset/XP Parent")
 enemy_parent = NodePath("../../../Window640/Offset/EnemyParent")
 weapon_parent = NodePath("../../../Window640/Offset/WeaponParent")
 projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
+audio_parent = NodePath("../../../Window640/Offset/AudioParent")
 
 [node name="ShopManager" type="Node2D" parent="Window1920/Offset" unique_id=1931691200 groups=["shopmanager"]]
 position = Vector2(960, 0)
@@ -497,10 +502,9 @@ offset_right = 470.22223
 offset_bottom = 1002.6666
 columns = 4
 
-[node name="TestingManager" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1798274506 node_paths=PackedStringArray("EnemyParent", "grid") instance=ExtResource("6_eeah7")]
+[node name="TestingManager" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1798274506 node_paths=PackedStringArray("EnemyParent") instance=ExtResource("6_eeah7")]
 position = Vector2(1397, 422)
 EnemyParent = NodePath("../../../../../Window640/Offset/EnemyParent")
-grid = NodePath("")
 
 [node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1841136718]
 visible = false

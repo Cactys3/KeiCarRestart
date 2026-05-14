@@ -5,6 +5,7 @@ extends ItemDrop
 
 func touched_player():
 	game_man.add_xp(xp_value)
+	AudioManager.instance.play(AudioManager.instance.XP_COLLECT, global_position)
 
 func set_xp(value: float):
 	xp_value = value

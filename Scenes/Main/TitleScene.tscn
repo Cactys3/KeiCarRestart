@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://usy5uswcsdkg"]
 
 [ext_resource type="Script" uid="uid://dlqvwknfyt7ay" path="res://Scripts/managers/TitleManager.gd" id="1_bgkhj"]
+[ext_resource type="PackedScene" uid="uid://b5s22yev5207a" path="res://Scenes/Managers/AudioManager.tscn" id="2_cieon"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bgkhj"]
 font_size = 128
@@ -26,6 +27,8 @@ text_weapon = NodePath("../Always_Active/Text_Weapon")
 achievement_parent = NodePath("../Collection/Achievements")
 weapon_parent = NodePath("../Collection/Weapons")
 item_parent = NodePath("../Collection/Items")
+
+[node name="AudioManager" parent="." unique_id=845473939 instance=ExtResource("2_cieon")]
 
 [node name="Always_Active" type="Node2D" parent="." unique_id=1877056058]
 

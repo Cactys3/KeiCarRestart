@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://uxsjewnlqow3"
-path="res://.godot/imported/ThisCanbeTheMainTheme.wav-ded642d232f89cb80d2fa2c3d158319c.sample"
+path="res://.godot/imported/ThisCanbeTheMainTheme.wav-be5ce9b46dc7bc890e6fb483ecf2c537.sample"
 
 [deps]
 
-source_file="res://Music/MyOriginals/ThisCanbeTheMainTheme.wav"
-dest_files=["res://.godot/imported/ThisCanbeTheMainTheme.wav-ded642d232f89cb80d2fa2c3d158319c.sample"]
+source_file="res://Audio/Music/MyOriginals/ThisCanbeTheMainTheme.wav"
+dest_files=["res://.godot/imported/ThisCanbeTheMainTheme.wav-be5ce9b46dc7bc890e6fb483ecf2c537.sample"]
 
 [params]
 
