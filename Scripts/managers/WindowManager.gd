@@ -55,7 +55,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ability1"):
 		_on_pressed()
 func _on_pressed() -> void:
-	#print("Changed Resolution from: " + str(curr))
+	#print_debug("Changed Resolution from: " + str(curr))
 	match curr:
 		1:
 			set_program_size(Vector2(1920, 1080), false)
@@ -67,7 +67,7 @@ func _on_pressed() -> void:
 			set_program_size(Vector2(1280, 720), false)
 			curr = 1
 	
-	#print("To: " + str(get_tree().root.size.y))
+	#print_debug("To: " + str(get_tree().root.size.y))
 func convert_small_position(position: Vector2) -> Vector2:
 	# Get the content scale size of each window
 	var small_size = Vector2(GameWindow.content_scale_size)  # 640x360
@@ -82,7 +82,7 @@ func convert_small_position(position: Vector2) -> Vector2:
 	var large_center = large_size / 2.0
 	# Spawn at the scaled offset from the center of the large window
 	var pos_in_large = large_center + scaled_offset
-	#print("Small->Large: position: " + str(position) + ", player_position: " + str(player.global_position) + ", small_size: " + str(small_size) + ", large_size: " + str(large_size) + ", offset_from_player: " + str(offset_from_player) + ", normalized_offset: " + str(normalized_offset) + ", scaled_offset: " + str(scaled_offset) + ", large_center: " + str(large_center) + ", pos_in_large: " + str(pos_in_large))
+	#print_debug("Small->Large: position: " + str(position) + ", player_position: " + str(player.global_position) + ", small_size: " + str(small_size) + ", large_size: " + str(large_size) + ", offset_from_player: " + str(offset_from_player) + ", normalized_offset: " + str(normalized_offset) + ", scaled_offset: " + str(scaled_offset) + ", large_center: " + str(large_center) + ", pos_in_large: " + str(pos_in_large))
 	return pos_in_large
 func convert_large_position(position: Vector2) -> Vector2:
 	# Get the content scale size of each window
@@ -98,7 +98,7 @@ func convert_large_position(position: Vector2) -> Vector2:
 	var scaled_offset = normalized_offset * small_size
 	# Apply the scaled offset from the player position
 	var pos_in_small = player.global_position + scaled_offset
-	#print("Large->Small: position: " + str(position) + ", player_position: " + str(player.global_position) + ", large_size: " + str(large_size) + ", small_size: " + str(small_size) + ", large_center: " + str(large_center) + ", offset_from_center: " + str(offset_from_center) + ", normalized_offset: " + str(normalized_offset) + ", scaled_offset: " + str(scaled_offset) + ", pos_in_small: " + str(pos_in_small))
+	#print_debug("Large->Small: position: " + str(position) + ", player_position: " + str(player.global_position) + ", large_size: " + str(large_size) + ", small_size: " + str(small_size) + ", large_center: " + str(large_center) + ", offset_from_center: " + str(offset_from_center) + ", normalized_offset: " + str(normalized_offset) + ", scaled_offset: " + str(scaled_offset) + ", pos_in_small: " + str(pos_in_small))
 	return pos_in_small
 
 ## Also handles saving on close game because this node always exists

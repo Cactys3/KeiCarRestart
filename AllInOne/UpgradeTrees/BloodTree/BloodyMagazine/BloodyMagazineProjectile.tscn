@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://wvs12scscdl3"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_jivb6"]
+[ext_resource type="Texture2D" uid="uid://c6fh44ujexayp" path="res://AllInOne/UpgradeTrees/BloodTree/BloodyMagazine/BloodyMagazineProjectile.png" id="2_24ses"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7jyq"]
+atlas = ExtResource("2_24ses")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k38wt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7jyq")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jivb6"]
+size = Vector2(9, 3)
+
+[node name="BloodyMagazineProjectile" type="Area2D" unique_id=1341003424 node_paths=PackedStringArray("anim")]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_jivb6")
+anim = NodePath("AnimatedSprite2D")
+bleed_apply = 0.65
+_damage = 30.0
+_velocity = 75.0
+_piercing = 4.0
+_duration = 10.0
+_luck = 1.0
+_critdamage = 1.5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2118981883]
+sprite_frames = SubResource("SpriteFrames_k38wt")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=752319349]
+position = Vector2(-1.5, -0.5)
+shape = SubResource("RectangleShape2D_jivb6")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

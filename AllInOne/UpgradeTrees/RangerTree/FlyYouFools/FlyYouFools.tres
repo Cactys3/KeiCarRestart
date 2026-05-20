@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://cgwqvxfx1b1ro"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_ypld3"]
+[ext_resource type="PackedScene" uid="uid://bo47otarfwvnt" path="res://AllInOne/UpgradeTrees/RangerTree/FlyYouFools/FlyYouFools.tscn" id="2_hdich"]
+
+
+[resource]
+script = ExtResource("1_ypld3")
+scene = ExtResource("2_hdich")
+upgrade_name = "Fly You Fools"
+upgrade_description = "Gain 20% movespeed for 3 seconds on reload"
+upgrade_rarity = 1
+gives_player_buff = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

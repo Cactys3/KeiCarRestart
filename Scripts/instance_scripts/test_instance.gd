@@ -26,7 +26,7 @@ func add_tiles():
 func handle_stopwatch(delta: float):
 	super(delta)
 func phase_one():
-	#print("PHASE 1")
+	#print_debug("PHASE 1")
 	spawning_phase = 1
 	enemies.clear()
 	enemies.append(EnemySpawn.new("", null, 0.3, 3))

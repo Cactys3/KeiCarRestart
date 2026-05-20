@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://cvwdet8lpjyow"]
-
-[ext_resource type="Script" uid="uid://cudb6l0c1p2nk" path="res://AllInOne/Upgrades/MageTree/StoneGnomes/StoneGnomes.gd" id="1_03638"]
-
-[node name="StoneGnomes" type="Node2D" unique_id=1358962221]
-script = ExtResource("1_03638")
-metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

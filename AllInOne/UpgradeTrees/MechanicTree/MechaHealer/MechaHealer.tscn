@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cd6kccgeqftq"]
+
+[ext_resource type="Script" uid="uid://dwtmkanooqwqg" path="res://AllInOne/UpgradeTrees/MechanicTree/MechaHealer/MechaHealer.gd" id="1_f7wr1"]
+
+[node name="MechaHealer" type="Node2D" unique_id=1964448951]
+script = ExtResource("1_f7wr1")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

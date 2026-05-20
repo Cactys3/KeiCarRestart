@@ -15,6 +15,7 @@ static var instance: GameManager
 @export var enemy_parent: Node2D
 @export var weapon_parent: Node2D
 @export var projectile_parent: Node2D
+@export var trap_parent: Node2D
 @export var audio_parent: Node2D
 # Weapons
 var weapon_list: Array[Weapon]
@@ -45,7 +46,7 @@ var xp_from_past_levels: float = 0
 var starting_money: float = 15
 var xp_gain_modifier: float:
 	get():
-		print(max(0.1, 1 + (player.xp_gain - 1) / 100))
+		print_debug(max(0.1, 1 + (player.xp_gain - 1) / 100))
 		return max(0.1, 1 + (player.xp_gain - 1) / 100)
 var money_gain_modifier: float:
 	get():
@@ -86,7 +87,7 @@ var xp: float = 0: ## Current (total?) XP Gained
 			xp_to_next_level *= xp_modifier_per_level
 			level += 1
 			emit_signal("level_up")
-			#print("Gained Level Costing: " + str(int(xp_to_next_level)) + " XP Leftover: " + str(int(xp_gained_since_last_level) - int(xp_to_next_level)))
+			#print_debug("Gained Level Costing: " + str(int(xp_to_next_level)) + " XP Leftover: " + str(int(xp_gained_since_last_level) - int(xp_to_next_level)))
 var money: float = 0: ## Current Money Held
 	set(value):
 		if value > money: ## Factor in money_gain when adding money

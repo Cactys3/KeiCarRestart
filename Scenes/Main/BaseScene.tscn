@@ -134,6 +134,8 @@ attenuation = 7.779313e-05
 
 [node name="WeaponParent" type="Node2D" parent="Window640/Offset" unique_id=2000948482]
 
+[node name="TrapParent" type="Node2D" parent="Window640/Offset" unique_id=215055229]
+
 [node name="EventParentForeground" type="Node2D" parent="Window640/Offset" unique_id=494069381]
 
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
@@ -176,17 +178,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GameManager" type="Node2D" parent="Window1920/Offset" unique_id=2022696012 node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent", "audio_parent") groups=["gamemanager"]]
+[node name="GameManager" type="Node2D" parent="Window1920/Offset" unique_id=2022696012 node_paths=PackedStringArray("ui_man", "shop_man", "camera", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent", "trap_parent", "audio_parent") groups=["gamemanager"]]
 process_mode = 3
 position = Vector2(960, 0)
 scale = Vector2(1, 1.021002)
 script = ExtResource("9_u5ctk")
 ui_man = NodePath("../UIManager")
 shop_man = NodePath("../ShopManager")
+camera = NodePath("../../../Window640/Offset/CharacterParent/Camera2D")
 xp_parent = NodePath("../../../Window640/Offset/XP Parent")
 enemy_parent = NodePath("../../../Window640/Offset/EnemyParent")
 weapon_parent = NodePath("../../../Window640/Offset/WeaponParent")
 projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
+trap_parent = NodePath("../../../Window640/Offset/TrapParent")
 audio_parent = NodePath("../../../Window640/Offset/AudioParent")
 
 [node name="ShopManager" type="Node2D" parent="Window1920/Offset" unique_id=1931691200 groups=["shopmanager"]]

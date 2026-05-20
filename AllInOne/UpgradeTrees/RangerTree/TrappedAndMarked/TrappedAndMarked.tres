@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://cpw7ux7hbia5o"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_w1wt8"]
+[ext_resource type="Resource" uid="uid://g0v6sseax4ep" path="res://AllInOne/UpgradeTrees/RangerTree/BearTrap/BearTrap.tres" id="2_ryw8w"]
+[ext_resource type="Resource" uid="uid://bwe0vbaruos8r" path="res://AllInOne/UpgradeTrees/RangerTree/Arrows/Arrows.tres" id="3_p63cm"]
+[ext_resource type="PackedScene" uid="uid://dfg8n6lux202q" path="res://AllInOne/UpgradeTrees/RangerTree/TrappedAndMarked/TrappedAndMarked.tscn" id="4_kj6m3"]
+
+
+[resource]
+script = ExtResource("1_w1wt8")
+scene = ExtResource("4_kj6m3")
+upgrade_name = "Trapped and Marked"
+upgrade_description = "When an enemy steps on a trap, shoot arrows at them!"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_w1wt8")]([ExtResource("2_ryw8w"), ExtResource("3_p63cm")])
+spawns_projectile = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

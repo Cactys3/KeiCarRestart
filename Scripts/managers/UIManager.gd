@@ -76,17 +76,17 @@ var paused_for_misc: bool = false
 func escape_pressed():
 	if current_pause_item == null:
 		## If no current pause, simply pause for escape menu
-		print("current_pause_item == null")
+		print_debug("current_pause_item == null")
 		PauseQueue.append(PauseItem.new(Callable(), PauseItem.PauseTypes.escape, true, false, esc_menu_parent))
 		next_pause_or_unpause()
 	else:
-		print("current_pause_item != null")
+		print_debug("current_pause_item != null")
 		if current_pause_item.can_escape:
 			## If pressing escape should escape current pause, escape current pause
-			print("current_pause_item.can_escape:")
+			print_debug("current_pause_item.can_escape:")
 			next_pause_or_unpause()
 		else:
-			print("!current_pause_item.can_escape:")
+			print_debug("!current_pause_item.can_escape:")
 			## Press Esc while smth of lower priority is active = queue the other thing after new Esc pause
 			PauseQueue.append(PauseItem.new(Callable(), PauseItem.PauseTypes.escape, true, false, esc_menu_parent))
 			PauseQueue.append(current_pause_item)
@@ -177,7 +177,7 @@ func set_hp(value: float) -> void:
 func finished_level_up() -> void:
 	hud.set_xp_visible(false)
 func set_xp(text: String, value: float) -> void:
-	print("xp: ", text, ", ", value)
+	#print_debug("xp: ", text, ", ", value)
 	xp_label.text = text
 	## XP uses xp percent
 	hud.set_xp(value)

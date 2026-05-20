@@ -155,9 +155,9 @@ class StatsList:
 			return true
 		return false
 	func print_stats():
-		print("Stats: ")
+		print_debug("Stats: ")
 		for stat in list.keys():
-			print("\t", stat, " : ", list.get(stat))
+			print_debug("\t", stat, " : ", list.get(stat))
 	## Returns duplicate copy of this StatsList
 	func get_copy() -> StatsList: 
 		var new_list = StatsList.new(0)

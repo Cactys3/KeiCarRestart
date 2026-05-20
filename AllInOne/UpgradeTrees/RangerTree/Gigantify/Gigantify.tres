@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://djsypl1486fbs"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_3bo64"]
+[ext_resource type="Resource" uid="uid://g0v6sseax4ep" path="res://AllInOne/UpgradeTrees/RangerTree/BearTrap/BearTrap.tres" id="3_ppcpd"]
+
+
+[resource]
+script = ExtResource("1_3bo64")
+upgrade_name = "Gigantify"
+upgrade_description = "Your bear trap gains 50% size and damage through magical means"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_3bo64")]([ExtResource("3_ppcpd")])
+prereq_num_of_magical_upgrades = 1
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

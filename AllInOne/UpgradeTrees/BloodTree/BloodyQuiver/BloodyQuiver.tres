@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://br44c2vh2fhtf"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_opth1"]
+[ext_resource type="PackedScene" uid="uid://do5ml7xerejcq" path="res://AllInOne/UpgradeTrees/BloodTree/BloodyQuiver/BloodyQuiver.tscn" id="2_86g43"]
+[ext_resource type="Resource" uid="uid://jxh1upa5f50q" path="res://AllInOne/UpgradeTrees/BloodTree/BloodyNeedles/BloodyNeedles.tres" id="2_u7ysl"]
+
+[resource]
+script = ExtResource("1_opth1")
+scene = ExtResource("2_86g43")
+upgrade_name = "Bloody Quiver"
+upgrade_description = "Your blood needle does more damage, applies more bleed, and is larger based on how many bleed procs since the last blood needle.
+Projectiles spawned by your upgrades apply bleed."
+upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_opth1")]([ExtResource("2_u7ysl")])
+upgrades_to_overwrite_functionality = Array[ExtResource("1_opth1")]([ExtResource("2_u7ysl")])
+prereq_num_of_projectile_upgrades = 2
+makes_upgrade_projectiles_do_status = true
+spawns_projectile = true
+applies_bleed = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

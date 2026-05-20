@@ -227,8 +227,13 @@ func movement_process(_delta: float) ->void:
 var half_second_cd: float = 0
 var second_cd: float = 0
 var two_second_cd: float = 0
+var check_status_now: bool = false
 ## Handles Processing Status Effect defense and effects
 func status_process(delta: float) -> void:
+	
+	## TODO: Rework so that killing enemies with an attack also proc's status effects (it currently skips status)
+	## Also make it so killing enemies with a particular status, still goes on to checking the rest of status
+	
 	## Only process status effects every half second
 	if half_second_cd >= 0.5:
 		half_second_cd = 0
@@ -258,7 +263,7 @@ func status_process(delta: float) -> void:
 				return
 	## FROST: Lower Movespeed based on frost
 	if !immune_to_frost:
-		if (frost / frost_threshhold) > (applied_frost + 1):
+		if (frost / frost_threshhold) >= (applied_frost + 1):
 			most_recent_attack = proc_frost()
 			## Death
 			if check_death(most_recent_attack):
@@ -278,8 +283,8 @@ func status_process(delta: float) -> void:
 				return
 	## BLEED: do nothing until bleed threshold reached, then big damage, then raise bleed threshold
 	if !immune_to_bleed:
-		if (bleed / bleed_threshhold) > (applied_bleed + 1):
-			print("bleed proc: ",(bleed / bleed_threshhold), " > " , applied_bleed + 1)
+		if (bleed / bleed_threshhold) >= (applied_bleed + 1):
+			print_debug("bleed proc: ",(bleed / bleed_threshhold), " > " , applied_bleed + 1)
 			most_recent_attack = proc_bleed()
 			## Death
 			if check_death(most_recent_attack):
@@ -539,12 +544,12 @@ func damage(attack: Attack):
 		GameManager.instance.EnemyDamaged.emit(self, attack)
 		curr_health -= damage_taken
 	if false:
-		print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
-		print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
-		print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
-		print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
-		print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
-		print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
+		print_debug("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
+		print_debug("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
+		print_debug("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
+		print_debug("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
+		print_debug("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
+		print_debug("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
 	## Apply Stun and Knockback
 	if attack.get_stun() > 0 && can_be_stunned:
 			stun_time_left = attack.get_stun()

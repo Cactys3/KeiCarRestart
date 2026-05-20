@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://s4g76vqf3yxt"]
-
-[ext_resource type="Script" uid="uid://bln0eeakwbw6l" path="res://AllInOne/Upgrades/BloodTree/CuttingStrikes/CuttingStrikes.gd" id="1_qjrlg"]
-
-[node name="CuttingStrikes" type="Node2D" unique_id=2003032444]
-script = ExtResource("1_qjrlg")
-edits_attack = true

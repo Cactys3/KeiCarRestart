@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://bmeq3115vg5fh"]
-
-[ext_resource type="Script" uid="uid://xnu1dg8l10x4" path="res://AllInOne/Upgrades/BloodTree/Shark/Shark.gd" id="1_tcx7b"]
-
-[node name="Shark" type="Node2D" unique_id=1661261330]
-script = ExtResource("1_tcx7b")
-edits_attack = true

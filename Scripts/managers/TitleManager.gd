@@ -58,9 +58,9 @@ func _ready() -> void:
 	window.move_to_center()
 	set_main()
 	
-	#print("connect signals")
+	#print_debug("connect signals")
 	button_back.button_down.connect(set_main)
-	#print("Tree paused: ", get_tree().paused)
+	#print_debug("Tree paused: ", get_tree().paused)
 
 	## Make sure file is created
 	call_deferred("save")
@@ -78,40 +78,40 @@ func set_main():
 	page_title.text = "Titlescreen"
 ## Return to previous screen
 func press_back() -> void:
-	play_button_sound()#print("back")
+	play_button_sound()#print_debug("back")
 	set_main()
 ## Go to Character Selection
 func press_play() -> void:
-	play_button_sound()#print("play")
+	play_button_sound()#print_debug("play")
 	press_character_select()
 ## Go to Settings
 func press_settings() -> void:
-	play_button_sound()#print("setting")
+	play_button_sound()#print_debug("setting")
 	set_visible([settings])
 	page_title.text = "Settings"
 ## Go to Collection
 func press_collection() -> void:
-	play_button_sound()#print("collection")
+	play_button_sound()#print_debug("collection")
 	setup_achievements()
 	set_visible([collection])
 	page_title.text = "Collection"
 ## Go to Shop
 func press_shop() -> void:
-	play_button_sound()#print("shop")
+	play_button_sound()#print_debug("shop")
 	set_visible([shop])
 	page_title.text = "Shop"
 ## Go to Character Select
 func press_character_select():
-	play_button_sound()#print("character_select")
+	play_button_sound()#print_debug("character_select")
 	set_visible([character_selection])
 	page_title.text = "Character Selection"
 func press_weapon_select():
-	play_button_sound()#print("weapon_selection")
+	play_button_sound()#print_debug("weapon_selection")
 	set_visible([weapon_selection])
 	page_title.text = "Weapon Select"
 ## Go to Map Select
 func press_map_select():
-	play_button_sound()#print("map_select")
+	play_button_sound()#print_debug("map_select")
 	set_visible([map_selection])
 	page_title.text = "Map Selection"
 ## Go to Game Scene
@@ -134,7 +134,7 @@ func press_start_game():
 	start_gametime = Time.get_ticks_msec()
 ## Creates Instance with Chosen Values
 func setup_instance(base_scene) -> GameInstance:
-	#print("Creating instance with Map: " + maps[map].key + ", Char: " + characters[character].key)
+	#print_debug("Creating instance with Map: " + maps[map].key + ", Char: " + characters[character].key)
 	var game_instance: GameInstance = get_instance()
 	var chosen_character: Character = get_character()
 	var chosen_weapon: String = get_weapon()
@@ -192,7 +192,7 @@ func setup_achievements():
 	## Setup Achievements
 	var first = true
 	for a in Save.ACHIEVEMENTS_DICT:
-		print("a:" + str(a))
+		print_debug("a:" + str(a))
 		if first:
 			first = false
 			continue
@@ -209,7 +209,7 @@ func setup_achievements():
 	## Setup Weapon Unlocks
 	first = true
 	for a in Save.WEAPON_UNLOCKS_DICT:
-		print("a:" + str(a))
+		print_debug("a:" + str(a))
 		if first:
 			first = false
 			continue
@@ -226,7 +226,7 @@ func setup_achievements():
 	## Setup Item Unlocks
 	first = true
 	for a in Save.ITEM_UNLOCKS_DICT:
-		print("a:" + str(a))
+		print_debug("a:" + str(a))
 		if first:
 			first = false
 			continue

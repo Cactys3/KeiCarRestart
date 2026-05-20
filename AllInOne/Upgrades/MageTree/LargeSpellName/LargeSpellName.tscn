@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://ptj4bmdrrdf6"]
-
-[ext_resource type="Script" uid="uid://c0muep24molbk" path="res://AllInOne/Upgrades/MageTree/LargeSpellName/LargeSpellName.gd" id="1_h4wop"]
-
-[node name="LargeSpellName" type="Node2D" unique_id=1358962221]
-script = ExtResource("1_h4wop")
-metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

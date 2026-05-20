@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://mhd4la5xj6fc"]
-
-[ext_resource type="Script" uid="uid://c3fdpbbtue461" path="res://AllInOne/Upgrades/BloodTree/BloodRage/BloodRage.gd" id="1_kifev"]
-
-[node name="BloodRage" type="Node2D" unique_id=1730399209]
-script = ExtResource("1_kifev")

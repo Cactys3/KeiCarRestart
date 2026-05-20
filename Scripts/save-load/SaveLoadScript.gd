@@ -176,7 +176,7 @@ static func create_file(slot: int):
 static func save_file(slot: int):
 	if FileAccess.file_exists(get_filepath(slot)):
 		var file = FileAccess.open(get_filepath(slot) , FileAccess.WRITE)
-		print(generate_save_file(slot))
+		print_debug(generate_save_file(slot))
 		file.store_string(generate_save_file(slot))
 		file.close()
 	else:
@@ -213,7 +213,7 @@ static func load_file(slot: int):
 					## Choose Right Dictionary (-1 offset beacuse metadata isn't in dictionaries array)
 					if dictionaries.size() >= (index) && dictionaries[index - 1].has(key):
 						dictionaries[index - 1][key] = value
-						#print("Set: " + key + " = " + str(value))
+						#print_debug("Set: " + key + " = " + str(value))
 					else:
 						printerr("Didn't find dictionary when setting up Save variables")
 						for dict in dictionaries:

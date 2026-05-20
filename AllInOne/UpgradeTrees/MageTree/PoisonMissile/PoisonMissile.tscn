@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://biu30mjglx5e7"]
+
+[ext_resource type="Script" uid="uid://cidkasams5ufi" path="res://AllInOne/UpgradeTrees/MageTree/PoisonMissile/PoisonMissile.gd" id="1_pgsns"]
+
+[node name="PoisonMissile" type="Node2D" unique_id=1358962221]
+script = ExtResource("1_pgsns")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

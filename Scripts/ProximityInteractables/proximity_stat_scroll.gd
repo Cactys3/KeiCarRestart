@@ -44,7 +44,7 @@ func stat_scroll_function():
 	ui.global_position = Vector2(500, 100)
 	ui.setup("Damage + 10")
 	await ui.decision_made
-	print("awaited!")
+	print_debug("awaited!")
 	## TODO: Unpause, can this cause issues? what if something else is higher priority, we would just unpause that instead of the scroll pause..
 	ui_man.unpause(pause)
 	if ui.decision:

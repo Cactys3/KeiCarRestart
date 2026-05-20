@@ -34,82 +34,82 @@ func _ready() -> void:
 	#events.append(EventSpawn.new("", , 0.3, -1, 3))
 	## Setup Main Events
 func phase_one():
-	print("PHASE 1 - ")
+	print_debug("PHASE 1 - ")
 	generic_phase_setup(1)
 	enemies.append(EnemySpawn.new("Dark Orb", DARKORB, 0.2, 1))
 func phase_two():
-	print("PHASE 2 - ")
+	print_debug("PHASE 2 - ")
 	generic_phase_setup(2)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_three():
-	print("PHASE 3 - ")
+	print_debug("PHASE 3 - ")
 	generic_phase_setup(3)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_four():
-	print("PHASE 4 - ")
+	print_debug("PHASE 4 - ")
 	generic_phase_setup(4)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_five():
-	print("PHASE 5 - ")
+	print_debug("PHASE 5 - ")
 	generic_phase_setup(5)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_six():
-	print("PHASE 6 - ")
+	print_debug("PHASE 6 - ")
 	generic_phase_setup(6)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_seven():
-	print("PHASE 7 - ")
+	print_debug("PHASE 7 - ")
 	generic_phase_setup(7)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_eight():
-	print("PHASE 8 - ")
+	print_debug("PHASE 8 - ")
 	generic_phase_setup(8)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_nine():
-	print("PHASE 9 - ")
+	print_debug("PHASE 9 - ")
 	generic_phase_setup(9)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_ten():
-	print("PHASE 10 - ")
+	print_debug("PHASE 10 - ")
 	generic_phase_setup(10)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_eleven():
-	print("PHASE 11 - ")
+	print_debug("PHASE 11 - ")
 	generic_phase_setup(11)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_twelve():
-	print("PHASE 12 - ")
+	print_debug("PHASE 12 - ")
 	generic_phase_setup(12)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_thirteen():
-	print("PHASE 13 - ")
+	print_debug("PHASE 13 - ")
 	generic_phase_setup(13)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_fourteen():
-	print("PHASE 14 - ")
+	print_debug("PHASE 14 - ")
 	generic_phase_setup(14)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_fifteen():
-	print("PHASE 15 - ")
+	print_debug("PHASE 15 - ")
 	generic_phase_setup(15)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_sixteen():
-	print("PHASE 16 - ")
+	print_debug("PHASE 16 - ")
 	generic_phase_setup(16)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_seventeen():
-	print("PHASE 17 - ")
+	print_debug("PHASE 17 - ")
 	generic_phase_setup(17)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_eighteen():
-	print("PHASE 18 - ")
+	print_debug("PHASE 18 - ")
 	generic_phase_setup(18)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_nineteen():
-	print("PHASE 19 - ")
+	print_debug("PHASE 19 - ")
 	generic_phase_setup(19)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))
 func phase_twenty():
-	print("PHASE 20 - ")
+	print_debug("PHASE 20 - ")
 	generic_phase_setup(20)
 	#enemies.append(EnemySpawn.new("", , 0.2, 1))

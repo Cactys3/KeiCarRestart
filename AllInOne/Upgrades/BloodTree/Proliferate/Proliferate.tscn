@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://ia7wibdf4j6e"]
-
-[ext_resource type="Script" uid="uid://cxtreugt0r11c" path="res://AllInOne/Upgrades/BloodTree/Proliferate/Proliferate.gd" id="1_ms0bk"]
-
-[node name="Proliferate" type="Node2D" unique_id=2039383670]
-script = ExtResource("1_ms0bk")

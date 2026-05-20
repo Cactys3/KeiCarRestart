@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dfg8n6lux202q"]
+
+[ext_resource type="Script" uid="uid://cbs5baj1r1l0c" path="res://AllInOne/UpgradeTrees/RangerTree/TrappedAndMarked/TrappedAndMarked.gd" id="1_boiim"]
+
+[node name="TrappedAndMarked" type="Node2D" unique_id=1902520341]
+script = ExtResource("1_boiim")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://dy8n8p0ymnmak"]
-
-[ext_resource type="Script" uid="uid://bgh5kv4egiort" path="res://AllInOne/Upgrades/MageTree/WetMissile/WetMissile.gd" id="1_jn61f"]
-
-[node name="WetMissile" type="Node2D" unique_id=1358962221]
-script = ExtResource("1_jn61f")
-metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

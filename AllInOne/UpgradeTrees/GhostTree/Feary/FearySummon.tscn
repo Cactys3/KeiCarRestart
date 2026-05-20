@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bxbibkh46cv6d"]
+
+[ext_resource type="Script" uid="uid://ipshp7lqkhjx" path="res://Scripts/Equipment/MainScripts/Summon.gd" id="1_3ff4b"]
+[ext_resource type="Texture2D" uid="uid://dn716wfvb08mg" path="res://AllInOne/UpgradeTrees/GhostTree/Feary/FearySummon.png" id="2_ebcjn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0kr2"]
+atlas = ExtResource("2_ebcjn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1m6k3"]
+atlas = ExtResource("2_ebcjn")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opuva"]
+atlas = ExtResource("2_ebcjn")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7c0m"]
+atlas = ExtResource("2_ebcjn")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rpv03"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0kr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1m6k3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opuva")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7c0m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7l4hv"]
+radius = 6.0
+
+[node name="Feary" type="Area2D" unique_id=1033128346]
+script = ExtResource("1_3ff4b")
+metadata/_custom_type_script = "uid://ipshp7lqkhjx"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=457721631]
+sprite_frames = SubResource("SpriteFrames_rpv03")
+autoplay = "default"
+frame_progress = 0.42987087
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=371887810]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_7l4hv")

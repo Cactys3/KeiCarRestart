@@ -80,10 +80,10 @@ func _enter() -> void:
 	#hovered.append(self)
 	#mouse_hover = true
 	count += 1
-	#print("hover true " + str(count) + " " + str(parent.z_index) + " " + str(z_index) + " " + str(mouse_filter) + " " + str(Control.MOUSE_FILTER_STOP))
+	#print_debug("hover true " + str(count) + " " + str(parent.z_index) + " " + str(z_index) + " " + str(mouse_filter) + " " + str(Control.MOUSE_FILTER_STOP))
 
 func _exit() -> void:
 	#hovered.erase(self)
 	#mouse_hover = false
 	count += 1
-	#print("hover false " + str(count) + " " + str(parent.z_index) + " " + str(z_index) + " " + str(mouse_filter) + " " + str(Control.MOUSE_FILTER_STOP))
+	#print_debug("hover false " + str(count) + " " + str(parent.z_index) + " " + str(z_index) + " " + str(mouse_filter) + " " + str(Control.MOUSE_FILTER_STOP))

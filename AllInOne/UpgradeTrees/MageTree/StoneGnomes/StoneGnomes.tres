@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://cfvrc8mx1505s"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_ldpwb"]
+[ext_resource type="PackedScene" uid="uid://cvwdet8lpjyow" path="res://AllInOne/UpgradeTrees/MageTree/StoneGnomes/StoneGnomes.tscn" id="2_l86ra"]
+
+
+[resource]
+script = ExtResource("1_ldpwb")
+scene = ExtResource("2_l86ra")
+upgrade_name = "Stone Gnmoes"
+upgrade_description = "Summon a gnome that fires magical beams equal to the number of projectiles onscreen every 10 seconds. (magical beams don't count towards number of projectiles, in case multiple gnomes)!"
+upgrade_rarity = 3
+spawns_creation = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

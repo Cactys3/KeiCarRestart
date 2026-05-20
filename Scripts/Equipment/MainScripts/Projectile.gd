@@ -157,7 +157,11 @@ func attack_body(body: Node2D, clone: bool) -> void:
 	else:
 		attack = make_attack(clone)
 	if attack:
+		edit_attack_before_sending(attack)
 		body.damage(attack)
+## In-case overrides want to edit the attack
+func edit_attack_before_sending(attack: Attack):
+	pass
 func make_attack(attack_damage_multiplier: float) -> Attack:
 	var new_attack: Attack
 	var attack_damage: float = damage_stat

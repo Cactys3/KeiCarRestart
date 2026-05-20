@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cioxrsjgwo60r"]
+
+[ext_resource type="Script" uid="uid://dffo5qsy51ys0" path="res://AllInOne/UpgradeTrees/RangerTree/QuantityIsQuality/QuantityIsQuality.gd" id="1_1cu56"]
+
+[node name="QuantityIsQuality" type="Node2D" unique_id=1812471525]
+script = ExtResource("1_1cu56")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

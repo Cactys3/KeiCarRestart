@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://5ah7tqiv3vnn"]
+
+[ext_resource type="Script" uid="uid://dtl8lv3nfprq5" path="res://AllInOne/UpgradeTrees/MageTree/Azarath/Azarath.gd" id="1_u2frt"]
+
+[node name="Azarath" type="Node2D" unique_id=1358962221]
+script = ExtResource("1_u2frt")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

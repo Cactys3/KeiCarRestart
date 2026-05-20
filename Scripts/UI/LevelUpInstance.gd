@@ -28,7 +28,7 @@ func add_choice(data: LevelUpData):
 ## Returns chosen LevelUpData
 func get_choice() -> LevelUpData:
 	await choice_made
-	#print("made choice: " + str(choice.option_name))
+	#print_debug("made choice: " + str(choice.option_name))
 	return choice
 ## Choice calls this method when its selected
 func make_choice(data: LevelUpData):

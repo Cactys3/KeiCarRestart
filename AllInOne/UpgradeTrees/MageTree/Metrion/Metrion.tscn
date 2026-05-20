@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bijhpe2sme56l"]
+
+[ext_resource type="Script" uid="uid://dm0cmcgci1fsx" path="res://AllInOne/UpgradeTrees/MageTree/Metrion/Metrion.gd" id="1_41743"]
+
+[node name="Metrion" type="Node2D" unique_id=1358962221]
+script = ExtResource("1_41743")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

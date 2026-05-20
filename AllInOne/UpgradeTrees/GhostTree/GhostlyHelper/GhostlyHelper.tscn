@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c3fra4wexyqa5"]
+
+[ext_resource type="Script" uid="uid://clya2eyeripn4" path="res://AllInOne/UpgradeTrees/GhostTree/GhostlyHelper/GhostlyHelper.gd" id="1_mu7jn"]
+[ext_resource type="PackedScene" uid="uid://do55fa3vc6c51" path="res://AllInOne/UpgradeTrees/GhostTree/GhostlyHelper/GhostlyHelperCreation.tscn" id="2_my1b4"]
+
+[node name="GhostlyHelper" type="Node2D" unique_id=974839413]
+script = ExtResource("1_mu7jn")
+scene_to_spawn = ExtResource("2_my1b4")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

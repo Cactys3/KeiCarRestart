@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://x0beg1p524s4"]
+
+[ext_resource type="Script" uid="uid://m2oxrh44lyer" path="res://AllInOne/UpgradeTrees/MechanicTree/KamiKami/KamiKami.gd" id="1_ocgb1"]
+
+[node name="KamiKami" type="Node2D" unique_id=511267250]
+script = ExtResource("1_ocgb1")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

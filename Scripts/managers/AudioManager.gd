@@ -24,10 +24,8 @@ func play(sound: Sound, location: Vector2) -> void:
 		sound.decrement_concurrent(sound.audio_stream_player)
 	## Ensure Concurrent Limit
 	if sound.concurrent_count > sound.concurrent_limit:
-		print("Didn't play sound \"", sound.clip_name , "\"", " due to exceeded concurrent_limit")
+		#print_debug("Didn't play sound \"", sound.clip_name , "\"", " due to exceeded concurrent_limit")
 		return
-	else:
-		print(sound.concurrent_count, " ", sound.concurrent_limit)
 	## Setup the player
 	var player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 	if sound.spatial_audio:
@@ -52,7 +50,7 @@ func play(sound: Sound, location: Vector2) -> void:
 	else:
 		player.finished.connect(sound.decrement_concurrent.bind(player))
 	player.play()
-	print("Play: ", sound.clip_name, " Volume: ", player.volume_db)
+	#print_debug("Play: ", sound.clip_name, " Volume: ", player.volume_db)
 ## Pause
 func pause(sound: Sound):
 	pass

@@ -38,7 +38,7 @@ func create_projectile():
 	## Melee Attack
 	if left_or_right:
 		set_anim_speed(get_punch_speed())
-		print(get_punch_speed())
+		#print_debug(get_punch_speed())
 		play_anim(AttackLeft)
 		left_collision.disabled = false
 		#await anim.animation_finished
@@ -130,9 +130,9 @@ func create_all_projectiles():
 	## Make attack take the same total  time no matter how many punches
 	set_anim_speed((num_of_frames / fps) / time_per_punch)
 	var i = 0
-	#print("num punches: ", num_of_punches, " num frames: ", num_of_frames, " fps: ", fps, " time_per_punch: ", time_per_punch)
+	#print_debug("num punches: ", num_of_punches, " num frames: ", num_of_frames, " fps: ", fps, " time_per_punch: ", time_per_punch)
 	while i < num_of_punches:
-		#print("Punches Left: ", i)
+		#print_debug("Punches Left: ", i)
 		i += 1
 		which = !which
 		if which:

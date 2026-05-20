@@ -1,4 +1,5 @@
 extends Event
+class_name NonInteractableEvent
 @export_category("Defense")
 @export var hurtbox: Area2D
 @export var can_be_damaged: bool = false
@@ -155,12 +156,12 @@ func damage(attack: Attack):
 		GameManager.instance.EnemyDamaged.emit(self, attack)
 		curr_health -= damage_taken
 	if false:
-		print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
-		print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
-		print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
-		print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
-		print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
-		print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
+		print_debug("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
+		print_debug("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
+		print_debug("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
+		print_debug("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
+		print_debug("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
+		print_debug("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
 	## Apply Stun and Knockback
 	if attack.get_stun() > 0 && can_be_stunned:
 			pass#stun_time_left = attack.get_stun()
@@ -251,7 +252,7 @@ func status_process(delta: float) -> void:
 	## BLEED: do nothing until bleed threshold reached, then big damage, then raise bleed threshold
 	if !immune_to_bleed:
 		if (bleed / bleed_threshhold) > (applied_bleed + 1):
-			print("bleed proc: ",(bleed / bleed_threshhold), " > " , applied_bleed + 1)
+			print_debug("bleed proc: ",(bleed / bleed_threshhold), " > " , applied_bleed + 1)
 			most_recent_attack = proc_bleed()
 			## Death
 			if check_death(most_recent_attack):

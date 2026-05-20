@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dovy7157t412j"]
+
+[ext_resource type="Script" uid="uid://bu3bamj54eaja" path="res://Scripts/Equipment/MainScripts/Turret.gd" id="1_tlcek"]
+[ext_resource type="PackedScene" uid="uid://cmox0efehx05e" path="res://AllInOne/UpgradeTrees/BloodTree/BloodTurrets/BloodTurretProjectile.tscn" id="2_utgkx"]
+[ext_resource type="Texture2D" uid="uid://chuop6vd85350" path="res://AllInOne/UpgradeTrees/BloodTree/BloodTurrets/BloodTurrets.png" id="3_jqoyn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tw00o"]
+atlas = ExtResource("3_jqoyn")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_utgkx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tw00o")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsfsi"]
+atlas = ExtResource("3_jqoyn")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7sk3o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsfsi")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BloodTurretScene" type="Area2D" unique_id=1279909359 node_paths=PackedStringArray("base_anim", "top_anim")]
+script = ExtResource("1_tlcek")
+detection_range = 150.0
+PROJECTILE = ExtResource("2_utgkx")
+base_anim = NodePath("BaseAnim")
+top_anim = NodePath("TopAnim")
+_damage = 20.0
+_range = 60.0
+_attackcooldown = 0.4
+_reloadtime = 2.0
+_ammo = 4.0
+_count = 1.0
+_inaccuracy = 10.0
+_velocity = 70.0
+
+[node name="BaseAnim" type="AnimatedSprite2D" parent="." unique_id=342397088]
+sprite_frames = SubResource("SpriteFrames_utgkx")
+autoplay = "default"
+
+[node name="TopAnim" type="AnimatedSprite2D" parent="." unique_id=138477864]
+sprite_frames = SubResource("SpriteFrames_7sk3o")
+autoplay = "default"

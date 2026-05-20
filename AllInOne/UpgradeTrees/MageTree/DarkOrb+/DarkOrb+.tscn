@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bwfeuoq0knxfl"]
+
+[ext_resource type="Script" uid="uid://c81lh34bfh7q4" path="res://AllInOne/UpgradeTrees/MageTree/DarkOrb+/DarkOrb+.gd" id="1_dbvsp"]
+
+[node name="DarkOrb+" type="Node2D" unique_id=1443834461]
+script = ExtResource("1_dbvsp")

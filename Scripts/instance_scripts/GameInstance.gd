@@ -210,44 +210,44 @@ func handle_chunks(pos: Vector2):
 		refresh = false
 	if refresh:
 		#draw_new_visual()
-		#print("refresh: " + str(chunk_grid))
+		#print_debug("refresh: " + str(chunk_grid))
 		
 		if !chunks_dic.has(chunk_grid):
 			load_chunk(chunk_grid)
 		else:
-			pass#print("already had: Main")
+			pass#print_debug("already had: Main")
 		if !chunks_dic.has(chunk_grid + Vector2(0, -1)):
 			load_chunk(chunk_grid + Vector2(0, -1))
 		else:
-			pass#print("already had: N")
+			pass#print_debug("already had: N")
 		if !chunks_dic.has(chunk_grid + Vector2(0, 1)):
 			load_chunk(chunk_grid + Vector2(0, 1))
 		else:
-			pass#print("already had: S")
+			pass#print_debug("already had: S")
 		if !chunks_dic.has(chunk_grid + Vector2(1, 0)):
 			load_chunk(chunk_grid + Vector2(1, 0))
 		else:
-			pass#print("already had: E")
+			pass#print_debug("already had: E")
 		if !chunks_dic.has(chunk_grid + Vector2(-1, 0)):
 			load_chunk(chunk_grid + Vector2(-1, 0))
 		else:
-			pass#print("already had: W")
+			pass#print_debug("already had: W")
 		if !chunks_dic.has(chunk_grid + Vector2(-1, -1)):
 			load_chunk(chunk_grid + Vector2(-1, -1))
 		else:
-			pass#print("already had: NW")
+			pass#print_debug("already had: NW")
 		if !chunks_dic.has(chunk_grid + Vector2(-1, 1)):
 			load_chunk(chunk_grid + Vector2(-1, 1))
 		else:
-			pass#print("already had: SW")
+			pass#print_debug("already had: SW")
 		if !chunks_dic.has(chunk_grid + Vector2(1, -1)):
 			load_chunk(chunk_grid + Vector2(1, -1))
 		else:
-			pass#print("already had: NE")
+			pass#print_debug("already had: NE")
 		if !chunks_dic.has(chunk_grid + Vector2(1, 1)):
 			load_chunk(chunk_grid + Vector2(1, 1))
 		else:
-			pass#print("already had: SE")
+			pass#print_debug("already had: SE")
 ## Only spawn enemies / check to spawn bosses every so often
 func handle_enemy_spawning(delta: float, pos: Vector2):
 	enemy_stopwatch += delta
@@ -271,7 +271,7 @@ func load_chunk(chunk_id: Vector2):
 ## Despawns the enemy that is farthest from position
 func despawn_enemies(pos: Vector2, num: int):
 	if num > 0:
-		print("Too many enemies, Despawning " + str(num) + "!")
+		print_debug("Too many enemies, Despawning " + str(num) + "!")
 	var enemie: Array = get_tree().get_nodes_in_group("enemy")
 	enemie.sort_custom(func(a, b): return a.global_position.distance_to(pos) > b.global_position.distance_to(pos))
 	for i: int in num:
@@ -281,14 +281,14 @@ func despawn_enemies(pos: Vector2, num: int):
 			remove_enemy(enemy)
 ## Removes enemy from game without triggering death things like gain xp/money
 func remove_enemy(enemy: Enemy):
-	#print("enemy too far away, -1")
+	#print_debug("enemy too far away, -1")
 	enemy.queue_free()
 	enemies_alive -= 1
 	enemies_spawned -= 1
 ## Spawns backup enemies until min_enemies is met
 func spawn_backups(pos: Vector2, num: int):
 	if num > 0:
-		pass#print("Not enough enemies, Spawning " + str(num) + "! " + str(GlobalStats.calculate_min_enemies(min_enemies, game_man.difficulty)))
+		pass#print_debug("Not enough enemies, Spawning " + str(num) + "! " + str(GlobalStats.calculate_min_enemies(min_enemies, game_man.difficulty)))
 	var counter: int = 0
 	var enemies_added: int = 0
 	var initial_enemies: int = enemies_alive
@@ -338,10 +338,10 @@ func load_event(scene: PackedScene, chunk: Vector2) -> bool:
 	var half_size: Vector2 = new_event.event_size / 2.0
 	var place_min: Vector2 = new_min + half_size
 	var place_max: Vector2 = new_max - half_size
-	#print("load_event: center=", center, " half=", half, " place_min=", place_min, " place_max=", place_max, " half_size=", half_size)
+	#print_debug("load_event: center=", center, " half=", half, " place_min=", place_min, " place_max=", place_max, " half_size=", half_size)
 	# Check if event is too large for chunk, just return true and place it in the center
 	if place_min.x > place_max.x || place_min.y > place_max.y:
-		#print("load_event: event too large for chunk, placing at center")
+		#print_debug("load_event: event too large for chunk, placing at center")
 		new_event.position = center - new_event.event_center_offset
 		event_background_parent.add_child(new_event)
 		new_event.setup(total_stopwatch, level, chunk)
@@ -353,22 +353,22 @@ func load_event(scene: PackedScene, chunk: Vector2) -> bool:
 	for i in attempts:
 		var candidate := Vector2(randf_range(place_min.x, place_max.x), randf_range(place_min.y, place_max.y))
 		var candidate_rect := Rect2(candidate + new_event.event_center_offset - half_size, new_event.event_size)
-		#print("load_event: attempt ", i, " candidate=", candidate, " candidate_rect=", candidate_rect)
+		#print_debug("load_event: attempt ", i, " candidate=", candidate, " candidate_rect=", candidate_rect)
 		var overlaps := false
 		for event in active_events:
 			var existing_rect := Rect2(event.position + event.event_center_offset - event.event_size / 2.0, event.event_size)
-			#print("load_event: checking against event=", event.name, " existing_rect=", existing_rect, " overlaps=", candidate_rect.intersects(existing_rect))
+			#print_debug("load_event: checking against event=", event.name, " existing_rect=", existing_rect, " overlaps=", candidate_rect.intersects(existing_rect))
 			if candidate_rect.intersects(existing_rect):
 				overlaps = true
 				break
 		if !overlaps:
-			#print("load_event: placed at candidate=", candidate)
+			#print_debug("load_event: placed at candidate=", candidate)
 			new_event.position = candidate
 			event_background_parent.add_child(new_event)
 			new_event.setup(total_stopwatch, level, chunk)
 			active_events.append(new_event)
 			return true
-	#print("load_event: failed to place after ", attempts, " attempts")
+	#print_debug("load_event: failed to place after ", attempts, " attempts")
 	new_event.queue_free()
 	return false
 func draw_new_visual():
@@ -420,7 +420,7 @@ func enemy_killed(enemy: Enemy, attack: Attack):
 	enemies_alive -= 1
 	enemies_killed += 1
 	ui_man.set_kills(enemies_killed)
-	#print("Killed: " + str(enemies_killed))
+	#print_debug("Killed: " + str(enemies_killed))
 	if enemies_since_forge >= enemies_per_forge:
 		enemies_since_forge = 0
 		next_enemy_drops_forge = true

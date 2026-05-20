@@ -29,6 +29,8 @@ var temporary_factor_stats: GlobalStats.StatsList
 var calculated_crit: bool = false
 var is_crit: bool = false
 var stun: float = 0
+## TODO: implement slow (in percent movement speed slow)
+var slow: float = 0
 var can_knockback: bool = true
 ## Simple Values
 var simple: bool = false
@@ -99,7 +101,7 @@ func get_stat(key: String) -> float:
 		printerr("Trying to call 'get_stat' on Attack but Attack is setup as simple: ", key)
 		return 0
 	if temporary_base_stats.has(key) && temporary_factor_stats.has(key):
-		#print("Attack getting stat: ", key, " value: ", temporary_base_stats.get_stat(key) * temporary_factor_stats.get_stat(key))
+		#print_debug("Attack getting stat: ", key, " value: ", temporary_base_stats.get_stat(key) * temporary_factor_stats.get_stat(key))
 		return temporary_base_stats.get_stat(key) * temporary_factor_stats.get_stat(key)
 	else:
 		printerr("Trying to get stat that doesn't exist in StatsList: ", key)

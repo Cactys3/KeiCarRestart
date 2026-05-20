@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://36rm6j00arl5"]
-
-[ext_resource type="Script" uid="uid://c8qja6ix1n5ii" path="res://AllInOne/Upgrades/MageTree/BluntMissile/BluntMissile.gd" id="1_4viea"]
-
-[node name="BluntMissile" type="Node2D" unique_id=1358962221]
-script = ExtResource("1_4viea")
-metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

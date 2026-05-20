@@ -154,7 +154,7 @@ func attack_body(body: Node2D):
 	if target == body:
 		var old_target = target
 		get_new_target()
-		#print("New = ", target != old_target)
+		#print_debug("New = ", target != old_target)
 ## Calculate and return an attack with damage multiplier
 func make_attack(attack_damage_multiplier: float) -> Attack:
 	## Make Two Stats Lists

@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://dhg6uutis5jll"]
-
-[ext_resource type="Script" uid="uid://bd0wpcs5opxf1" path="res://AllInOne/Upgrades/MechanicTree/CopyCat/CopyCast.gd" id="1_a8k4s"]
-
-[node name="CopyCat" type="Node2D" unique_id=1869214512]
-script = ExtResource("1_a8k4s")
-metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

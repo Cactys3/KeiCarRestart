@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://b0e0hsmdq668"]
-
-[ext_resource type="Script" uid="uid://cb7lih2chykn2" path="res://AllInOne/Upgrades/BloodTree/BloodMeter/BloodMeter.gd" id="1_th4bk"]
-
-[node name="BloodMeter" type="Node2D" unique_id=2042670368]
-script = ExtResource("1_th4bk")

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://do5ml7xerejcq"]
+
+[ext_resource type="Script" uid="uid://c0as4vidgov1h" path="res://AllInOne/UpgradeTrees/BloodTree/BloodyQuiver/BloodyQuiver.gd" id="1_ir410"]
+[ext_resource type="PackedScene" uid="uid://jsps8aqsiw12" path="res://AllInOne/UpgradeTrees/BloodTree/BloodyQuiver/BloodyQuiverProjectile.tscn" id="2_r4nbt"]
+[ext_resource type="Resource" uid="uid://beyjqsuqbmqtd" path="res://AllInOne/UpgradeTrees/BloodTree/BloodyNeedles/BloodyNeedlesSound.tres" id="3_6jthg"]
+
+[node name="BloodyQuiver" type="Node2D" unique_id=1819395772]
+script = ExtResource("1_ir410")
+delay_spawns_cooldown = 0.25
+spawn_with_cd = true
+spawn_every_seconds = 3.0
+scene_to_spawn = ExtResource("2_r4nbt")
+sound_on_spawn = ExtResource("3_6jthg")
+edits_attack = true
+connect_bleed_proc = true
+_damage = 30.0

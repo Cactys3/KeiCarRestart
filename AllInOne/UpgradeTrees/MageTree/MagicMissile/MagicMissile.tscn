@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dk02i587w1usf"]
+
+[ext_resource type="Script" uid="uid://p6sxgfipbbwe" path="res://AllInOne/UpgradeTrees/MageTree/MagicMissile/MagicMissile.gd" id="1_sp0ne"]
+
+[node name="MagicMissile" type="Node2D" unique_id=1358962221]
+script = ExtResource("1_sp0ne")
+metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

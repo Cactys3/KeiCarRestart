@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://c7ix8j83xl7vr"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_1nj35"]
+[ext_resource type="PackedScene" uid="uid://cioxrsjgwo60r" path="res://AllInOne/UpgradeTrees/RangerTree/QuantityIsQuality/QuantityIsQuality.tscn" id="2_deii2"]
+[ext_resource type="Resource" uid="uid://g0v6sseax4ep" path="res://AllInOne/UpgradeTrees/RangerTree/BearTrap/BearTrap.tres" id="2_dp7j8"]
+
+
+[resource]
+script = ExtResource("1_1nj35")
+scene = ExtResource("2_deii2")
+upgrade_name = "Quantity is Quality"
+upgrade_description = "On reload, spawn 3 additional bear traps!
+Your traps do 15% more damage!"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_1nj35")]([ExtResource("2_dp7j8")])
+prereq_num_of_traps_upgrades = 2
+gives_traps_stats = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

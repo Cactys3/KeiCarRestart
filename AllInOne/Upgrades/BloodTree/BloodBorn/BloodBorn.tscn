@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://cf2gfoj6y8dyq"]
-
-[ext_resource type="Script" uid="uid://drmkuogldwsy7" path="res://AllInOne/Upgrades/BloodTree/BloodBorn/BloodBorn.gd" id="1_3pqq6"]
-
-[node name="BloodBorn" type="Node2D" unique_id=1034821887]
-script = ExtResource("1_3pqq6")

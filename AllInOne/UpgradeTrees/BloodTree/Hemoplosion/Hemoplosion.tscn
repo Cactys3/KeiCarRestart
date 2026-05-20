@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b2fvld5yhlsvm"]
+
+[ext_resource type="Script" uid="uid://60mh2hxxg24k" path="res://AllInOne/UpgradeTrees/BloodTree/Hemoplosion/Hemoplosion.gd" id="1_avd8b"]
+
+
+[node name="Hemoplosion" type="Node2D" unique_id=104369515]
+script = ExtResource("1_avd8b")

@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://ho35bs02kqit"]
-
-[ext_resource type="Script" uid="uid://dikri1m0tr4pr" path="res://AllInOne/Upgrades/MageTree/FrostMissile/FrostMissile.gd" id="1_ifkcq"]
-
-[node name="FrostMissile" type="Node2D" unique_id=1358962221]
-script = ExtResource("1_ifkcq")
-metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

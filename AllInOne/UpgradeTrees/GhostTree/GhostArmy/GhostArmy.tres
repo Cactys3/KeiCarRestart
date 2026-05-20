@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://chg5xi3oq3nq7"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_w8kaw"]
+[ext_resource type="PackedScene" uid="uid://cxbmlxnwof3kq" path="res://AllInOne/UpgradeTrees/GhostTree/GhostArmy/GhostArmy.tscn" id="2_5ddjc"]
+
+
+[resource]
+script = ExtResource("1_w8kaw")
+scene = ExtResource("2_5ddjc")
+upgrade_name = "GhostArmy"
+upgrade_description = "Your creations gain 15% dodge chance!
+Gain 15% dodge chance!"
+upgrade_rarity = 2
+prereq_num_of_creation_upgrades = 2
+prereq_num_of_dodge_upgrades = 1
+gives_player_stats = true
+makes_player_dodge = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

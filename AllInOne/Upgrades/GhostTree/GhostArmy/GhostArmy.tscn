@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://cxbmlxnwof3kq"]
-
-[ext_resource type="Script" uid="uid://dhotonbltooxh" path="res://AllInOne/Upgrades/GhostTree/GhostArmy/GhostArmy.gd" id="1_cmbnt"]
-
-[node name="GhostArmy" type="Node2D" unique_id=726208358]
-script = ExtResource("1_cmbnt")
-metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

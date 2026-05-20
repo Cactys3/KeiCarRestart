@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://b04h5lg0pc86r"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_lwwbi"]
+[ext_resource type="PackedScene" uid="uid://36rm6j00arl5" path="res://AllInOne/UpgradeTrees/MageTree/BluntMissile/BluntMissile.tscn" id="2_nvnj6"]
+[ext_resource type="Resource" uid="uid://crukgotdrboni" path="res://AllInOne/UpgradeTrees/MageTree/MagicMissile/MagicMissile.tres" id="2_u0hwk"]
+
+
+[resource]
+script = ExtResource("1_lwwbi")
+scene = ExtResource("2_nvnj6")
+upgrade_name = "Blunt Missile"
+upgrade_description = "Your magic missiles becomes Fist Missiles!"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_lwwbi")]([ExtResource("2_u0hwk")])
+prereq_num_of_blunt_upgrades = 1
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"
