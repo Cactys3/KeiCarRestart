@@ -5,6 +5,7 @@ class_name Enemy
 @export_placeholder("lil description action?") var enemy_description: String = ""
 @export var enemy_type: EnemyTypes = EnemyTypes.unset
 enum EnemyTypes {unset}
+@export var sound_on_death: Sound
 @export_category("Enemy Stats")
 @export var multiply_hp_by_minute: bool = true
 @export var melee_attacks: bool = true
@@ -430,6 +431,8 @@ func shoot_projectile():
 	pass
 func die():
 	if !dead:
+		if sound_on_death:
+			AudioManager.instance.play(sound_on_death, global_position)
 		var game_man: GameManager = GameManager.instance
 		dead = true
 		death.emit(position)

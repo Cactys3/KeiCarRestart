@@ -3,7 +3,15 @@
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_lqxhm"]
 [ext_resource type="Texture2D" uid="uid://dcqev4gxdwwa0" path="res://Art/Enemies/DarkOrb/DarkOrb.png" id="2_2u64k"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_g120u"]
+[ext_resource type="AudioStream" uid="uid://b028ovelqoay0" path="res://Audio/Sounds/MyOriginals/aggro pop.wav" id="2_hmmha"]
+[ext_resource type="Script" uid="uid://cnwrxn55ulo35" path="res://Scripts/misc/Sound.gd" id="3_8hq2x"]
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="4_2u64k"]
+
+[sub_resource type="Resource" id="Resource_18ivh"]
+script = ExtResource("3_8hq2x")
+clip = ExtResource("2_hmmha")
+volume = 1.0
+metadata/_custom_type_script = "uid://cnwrxn55ulo35"
 
 [sub_resource type="Resource" id="Resource_yjfkj"]
 script = ExtResource("2_g120u")
@@ -129,6 +137,7 @@ gravity_scale = 0.0
 script = ExtResource("1_lqxhm")
 enemy_name = "Dark Orb"
 enemy_description = "An Evil Orb floats towards you.... Scary stuff"
+sound_on_death = SubResource("Resource_18ivh")
 damage_hitbox = NodePath("Damage_Hitbox")
 status = SubResource("Resource_yjfkj")
 turns_towards_movement = true

@@ -130,7 +130,7 @@ func setup(new_character: Character, new_weapon: String, run_modifiers) -> void:
 	chunk_rect = ColorRect.new()
 	call_deferred("connect_signals")
 	setup_events()
-	game_man.setup(new_character, new_weapon)
+	game_man.setup(new_character, new_weapon, camera)
 	character = new_character
 	add_tiles()
 func connect_signals():

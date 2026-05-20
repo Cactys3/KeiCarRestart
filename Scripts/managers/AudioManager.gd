@@ -8,6 +8,7 @@ static var instance: AudioManager
 var playing_sounds: Array[Sound]
 @export var XP_COLLECT: Sound = Sound.new()
 @export var WALKING_SOUND: Sound = Sound.new()
+@export var UI_PRESS: Sound = Sound.new()
 ## Check instance
 func _ready() -> void:
 	if instance != null:
@@ -30,11 +31,12 @@ func play(sound: Sound, location: Vector2) -> void:
 	## Setup the player
 	var player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 	if sound.spatial_audio:
-		GameManager.instance.audio_parent.add_child(player)
+		add_child(player)#GameManager.instance.audio_parent.add_child(player)
 		player.global_position = location
+		player.attenuation = sound.falloff
 	else:
-		## Put on the player so centered audio?
-		GameManager.instance.player.add_child(player)
+		add_child(player)
+		player.attenuation = 0
 	player.stream = sound.clip
 	player.volume_db = sound.volume
 	player.pitch_scale = sound.pitch
@@ -45,8 +47,12 @@ func play(sound: Sound, location: Vector2) -> void:
 	## Increment
 	sound.increment_concurrent(player)
 	## Connect Signals 
-	player.finished.connect(sound.decrement_concurrent.bind(player))
+	if sound.loops:
+		player.finished.connect(sound.loop.bind(player))
+	else:
+		player.finished.connect(sound.decrement_concurrent.bind(player))
 	player.play()
+	print("Play: ", sound.clip_name, " Volume: ", player.volume_db)
 ## Pause
 func pause(sound: Sound):
 	pass

@@ -74,49 +74,49 @@ func _process(delta: float) -> void:
 ### UI Code
 ## Sets up main buttons to be visible
 func set_main():
-	#print("Main")
 	set_visible([main])
 	page_title.text = "Titlescreen"
 ## Return to previous screen
 func press_back() -> void:
-	#print("back")
+	play_button_sound()#print("back")
 	set_main()
 ## Go to Character Selection
 func press_play() -> void:
-	#print("play")
+	play_button_sound()#print("play")
 	press_character_select()
 ## Go to Settings
 func press_settings() -> void:
-	#print("setting")
+	play_button_sound()#print("setting")
 	set_visible([settings])
 	page_title.text = "Settings"
 ## Go to Collection
 func press_collection() -> void:
-	#print("collection")
+	play_button_sound()#print("collection")
 	setup_achievements()
 	set_visible([collection])
 	page_title.text = "Collection"
 ## Go to Shop
 func press_shop() -> void:
-	#print("shop")
+	play_button_sound()#print("shop")
 	set_visible([shop])
 	page_title.text = "Shop"
 ## Go to Character Select
 func press_character_select():
-	#print("character_select")
+	play_button_sound()#print("character_select")
 	set_visible([character_selection])
 	page_title.text = "Character Selection"
 func press_weapon_select():
-	#print("weapon_selection")
+	play_button_sound()#print("weapon_selection")
 	set_visible([weapon_selection])
 	page_title.text = "Weapon Select"
 ## Go to Map Select
 func press_map_select():
-	#print("map_select")
+	play_button_sound()#print("map_select")
 	set_visible([map_selection])
 	page_title.text = "Map Selection"
 ## Go to Game Scene
 func press_start_game():
+	play_button_sound()
 	var window = get_window()
 	window.size = Vector2(3840, 2160)
 	window.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
@@ -256,3 +256,6 @@ class duple:
 		value = new_value
 func _on_choose_0_pressed(extra_arg_0: int) -> void:
 	pass # Replace with function body.
+
+func play_button_sound():
+	AudioManager.instance.play(AudioManager.instance.UI_PRESS, Vector2(0, 0))

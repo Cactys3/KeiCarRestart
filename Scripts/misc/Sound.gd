@@ -4,16 +4,19 @@ class_name Sound
 
 @export var clip: AudioStream
 @export var clip_name: String
+@export var loops: bool = false
 ## Number of this sound that can be played at the same time
 @export var concurrent_limit: int = 3
 @export_range(-80.0, 24.0) var volume: float = 0.0
 @export_range(0.01, 4) var pitch: float = 1.0
 ## Randomness up or down of this sound's volume
-@export var volume_variance: float = 0.0
+@export var volume_variance: float = 0.05
 ## Randomness up or down of this sound's pitch
-@export var pitch_variance: float = 0.0
+@export var pitch_variance: float = 0.05
 ## Is this sound 2D? ie: change volume based on distance from player
 @export var spatial_audio: bool = true
+## How much does this sound 2d falloff
+@export var falloff: float = 1
 ## Can this Sound only play one instance at a time?
 @export var single_instance: bool = false
 var audio_stream_player: AudioStreamPlayer2D
@@ -33,6 +36,9 @@ func decrement_concurrent(player: AudioStreamPlayer2D) -> void:
 	else:
 		multiple_audio_stream_players.erase(player)
 	player.queue_free()
+func loop(player: AudioStreamPlayer2D) -> void:
+	player.seek(0)
+	player.play()
 ## Pause all instances of this sound
 func pause() -> void:
 	if single_instance:

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://kpr8jchtkndd" path="res://AllInOne/Upgrades/BloodTree/BloodyNeedles/BloodyNeedles.gd" id="1_x101a"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_krhkn"]
 [ext_resource type="PackedScene" uid="uid://ck86b4m7iaeeu" path="res://AllInOne/Upgrades/BloodTree/BloodyNeedles/BloodyNeedlesProjectile.tscn" id="2_ov0j7"]
+[ext_resource type="Resource" uid="uid://beyjqsuqbmqtd" path="res://AllInOne/Upgrades/BloodTree/BloodyNeedles/BloodyNeedlesSound.tres" id="3_ydqt4"]
 
 [sub_resource type="Resource" id="Resource_ov0j7"]
 script = ExtResource("2_krhkn")
@@ -14,6 +15,7 @@ script = ExtResource("1_x101a")
 spawn_with_cd = true
 spawn_every_seconds = 1.0
 scene_to_spawn = ExtResource("2_ov0j7")
+sound_on_spawn = ExtResource("3_ydqt4")
 status = SubResource("Resource_ov0j7")
 bleed_apply = 0.45
 _damage = 30.0

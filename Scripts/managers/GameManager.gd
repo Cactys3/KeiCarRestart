@@ -9,6 +9,7 @@ static var instance: GameManager
 @export var ui_man: UIManager 
 @export var shop_man: ShopManager
 @export var player: Character
+@export var camera: Camera2D
 ## Parents
 @export var xp_parent: Node2D
 @export var enemy_parent: Node2D
@@ -154,9 +155,9 @@ signal WetApplied(enemy: Enemy)
 
 #  ProjectileSpawned
 
-
-func setup(new_player: Character, starting_weapon: String):
+func setup(new_player: Character, starting_weapon: String, new_camera: Camera2D):
 	player = new_player
+	camera = new_camera
 	call_deferred("defer_once", starting_weapon)
 	connect("level_up", create_level_up_instance)
 	process_mode = Node.PROCESS_MODE_ALWAYS

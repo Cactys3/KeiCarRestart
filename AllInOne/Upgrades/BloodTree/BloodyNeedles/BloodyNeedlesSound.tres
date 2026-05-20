@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Sound" format=3 uid="uid://beyjqsuqbmqtd"]
+
+[ext_resource type="AudioStream" uid="uid://c8scspkwcw66m" path="res://Audio/Sounds/Commons0/ShortWoosh.wav" id="1_6ubtg"]
+[ext_resource type="Script" uid="uid://cnwrxn55ulo35" path="res://Scripts/misc/Sound.gd" id="1_l7tvt"]
+
+[resource]
+script = ExtResource("1_l7tvt")
+clip = ExtResource("1_6ubtg")
+clip_name = "ShortWoosh"
+volume = -6.0
+spatial_audio = false
+metadata/_custom_type_script = "uid://cnwrxn55ulo35"

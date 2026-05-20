@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://ss0jl8nfe6md" path="res://AllInOne/Upgrades/BloodTree/BloodyMagazine/BloodyMagazine.gd" id="1_ddvj2"]
 [ext_resource type="PackedScene" uid="uid://wvs12scscdl3" path="res://AllInOne/Upgrades/BloodTree/BloodyMagazine/BloodyMagazineProjectile.tscn" id="2_j6lai"]
+[ext_resource type="Resource" uid="uid://beyjqsuqbmqtd" path="res://AllInOne/Upgrades/BloodTree/BloodyNeedles/BloodyNeedlesSound.tres" id="3_x1cb8"]
 
 [node name="BloodyMagazin" type="Node2D" unique_id=377685898]
 script = ExtResource("1_ddvj2")
 spawn_with_cd = true
 spawn_every_seconds = 3.0
 scene_to_spawn = ExtResource("2_j6lai")
+sound_on_spawn = ExtResource("3_x1cb8")

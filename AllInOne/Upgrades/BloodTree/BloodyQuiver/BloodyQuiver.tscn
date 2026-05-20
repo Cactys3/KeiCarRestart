@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://c0as4vidgov1h" path="res://AllInOne/Upgrades/BloodTree/BloodyQuiver/BloodyQuiver.gd" id="1_ir410"]
 [ext_resource type="PackedScene" uid="uid://jsps8aqsiw12" path="res://AllInOne/Upgrades/BloodTree/BloodyQuiver/BloodyQuiverProjectile.tscn" id="2_r4nbt"]
+[ext_resource type="Resource" uid="uid://beyjqsuqbmqtd" path="res://AllInOne/Upgrades/BloodTree/BloodyNeedles/BloodyNeedlesSound.tres" id="3_6jthg"]
 
 [node name="BloodyQuiver" type="Node2D" unique_id=1819395772]
 script = ExtResource("1_ir410")
 spawn_every_seconds = 1.0
 scene_to_spawn = ExtResource("2_r4nbt")
+sound_on_spawn = ExtResource("3_6jthg")
 edits_attack = true
 _damage = 30.0
