@@ -157,6 +157,7 @@ func set_anim_speed(speed: float) -> void:
 	right_sprite.speed_scale = speed
 	left_sprite.speed_scale = speed
 func _hit_enemy(enemy: Node2D) -> void:
+	super(enemy)
 	if get_can_attack_callable().call(enemy) && !hit_enemies.has(enemy):
 		hit_enemies.append(enemy)
 		var new_attack :Attack = make_melee_attack()

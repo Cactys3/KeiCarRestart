@@ -38,6 +38,7 @@ signal died(pos: Vector2, cloned: bool)
 @export var can_move: bool = true
 @export var die_on_anim_end: bool = false
 @export var anim: AnimatedSprite2D
+@export var sound_on_hit: Sound = null
 var prebuilt_attack: Attack = null
 var death_method: Callable
 var specific_target: bool = false
@@ -136,6 +137,8 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	## Use callable because parent might be freed while projectile still exists
 	if (can_attack_method && can_attack_method.call(body)) && !have_attacked(body):
+		if sound_on_hit:
+			AudioManager.instance.play(sound_on_hit, global_position)
 		attack_body(body, is_clone)
 		collision_counter += 1
 		append_attack_element(body)

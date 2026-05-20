@@ -2,6 +2,8 @@ extends Equipment
 ## Weapons Equippable by the player
 class_name Weapon
 @export_group("Weapon Settings")
+@export var sound_on_melee_attack: Sound = null
+@export var sound_on_projectile_spawn: Sound = null
 @export var anim: AnimatedSprite2D
 ## Does this animation flip when facing left vs non-flipped when facing right
 @export var projectile: PackedScene
@@ -120,6 +122,9 @@ func process_cooldown(delta: float) -> void:
 ## await's create_projectiles() and resets attack cooldown
 func attack(): 
 	attacking = true
+	## Make sure to add custom code for weapon-specific sounds
+	if sound_on_projectile_spawn:
+		AudioManager.instance.play(sound_on_projectile_spawn, global_position)
 	if projectiles_left_in_ammo > 1:
 		await create_projectile()
 		between_projectiles_cooldown_stopwatch = 0
@@ -204,6 +209,10 @@ func get_cooldown_between_attacks() -> float:
 ## Calculate and return an attack with melee damage offset
 func make_melee_attack() -> Attack:
 	return make_attack(MeleeDamageFactor)
+## entered body/area with melee attack, Make sure to use this instead of 'body_entered'
+func _hit_enemy(enemy: Node2D) -> void:
+	if sound_on_melee_attack:
+		AudioManager.instance.play(sound_on_melee_attack, global_position)
 static func get_inaccurate_direction(direction: Vector2, given_inaccuracy: float) -> Vector2:
 	if given_inaccuracy == 0:
 		return direction

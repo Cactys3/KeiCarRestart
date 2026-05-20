@@ -14,10 +14,36 @@ class_name Sound
 @export var pitch_variance: float = 0.0
 ## Is this sound 2D? ie: change volume based on distance from player
 @export var spatial_audio: bool = true
+## Can this Sound only play one instance at a time?
+@export var single_instance: bool = false
+var audio_stream_player: AudioStreamPlayer2D
+var multiple_audio_stream_players: Array[AudioStreamPlayer2D]
 ## Number of this sound currently playing
 var concurrent_count: int = 0
-
-func increment_concurrent():
+func increment_concurrent(player: AudioStreamPlayer2D) -> void:
 	concurrent_count += 1
-func decrement_concurrent():
+	if single_instance:
+		audio_stream_player = player
+	else:
+		multiple_audio_stream_players.append(player)
+func decrement_concurrent(player: AudioStreamPlayer2D) -> void:
 	concurrent_count -= 1
+	if single_instance:
+		audio_stream_player = null
+	else:
+		multiple_audio_stream_players.erase(player)
+	player.queue_free()
+## Pause all instances of this sound
+func pause() -> void:
+	if single_instance:
+		audio_stream_player.stop()
+	else:
+		for player in multiple_audio_stream_players:
+			player.stop()
+## Resumes all instances of this sound
+func resume() -> void:
+	if single_instance:
+		audio_stream_player.play()
+	else:
+		for player in multiple_audio_stream_players:
+			player.play()

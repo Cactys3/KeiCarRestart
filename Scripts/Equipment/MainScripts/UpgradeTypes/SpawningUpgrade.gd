@@ -9,6 +9,7 @@ class_name SpawningUpgrade
 @export var scene_to_spawn: PackedScene
 @export var spawn_radius: float = 40
 @export var spawn_duration: float = 10
+@export var sound_on_spawn: Sound = null
 static var spawn_every_seconds_cd_reduction_factor: float = 1
 static var spawn_on_enemy_kills_reduction_factor: float = 1
 var reloads_since_last_spawn: int = 0
@@ -45,6 +46,8 @@ func spawn() -> bool:
 	if scene_to_spawn:
 		var object = scene_to_spawn.instantiate()
 		if initialize_object(object):
+			if sound_on_spawn:
+				AudioManager.instance.play(sound_on_spawn, global_position)
 			reloads_since_last_spawn = 0
 			return true
 	return false

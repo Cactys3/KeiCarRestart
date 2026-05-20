@@ -203,6 +203,7 @@ func on_gain_money(new_money: float, old_money: float) -> void:
 	pass
 func moving(is_moving: bool):
 	if is_moving && is_instance_valid(anim) && anim.sprite_frames.has_animation("move"):
+		
 		anim.play("move")
 	elif anim.sprite_frames.has_animation("idle"):
 		anim.play("idle")

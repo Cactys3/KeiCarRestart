@@ -22,6 +22,7 @@ var attack_cd: float:
 @export var base_anim:  AnimatedSprite2D
 @export var top_anim:  AnimatedSprite2D
 @export var flip_left_right: bool = false
+@export var sound_on_spawn: Sound = null
 var current_rotation: float = 0
 enum AimTypes{Spinning, NearestEnemy, RandomEnemy, AtMouse}
 var attacking: bool = false
@@ -171,6 +172,9 @@ func attack():
 		Weapon.multiple_projectiles_aim_types.spread:
 			attack_spread()
 func attack_spread():
+	## Play the sound multiple times for spread attack? maybe louder? diff pitch based on num of projects? 
+	if sound_on_spawn:
+		AudioManager.instance.play(sound_on_spawn, global_position)
 	attacking = true
 	for i in count_stat + UpgradeStatics.creation_count_buff + UpgradeStatics.spawn_count_buff:	## TODO: Decide if turrets/spawns should take into account global stats? Global 'count' is just for weapons?
 		create_projectile()
@@ -178,6 +182,8 @@ func attack_spread():
 	attacking = false
 ## await's create_projectiles() and resets attack cooldown
 func attack_delay(): 
+	if sound_on_spawn:
+		AudioManager.instance.play(sound_on_spawn, global_position)
 	attacking = true
 	if projectiles_left_in_ammo > 1:
 		await create_projectile()
