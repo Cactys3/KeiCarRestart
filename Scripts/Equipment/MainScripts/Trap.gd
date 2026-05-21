@@ -8,15 +8,26 @@ enum ActivationTypes{entered, timer, activation}
 @export var activate_for_enemies: bool = true
 @export var activate_for_bosses: bool = true
 @export var activate_for_events: bool = false
+@export var can_die_from_duration: bool = true
+@export var can_die_from_piercing: bool = true
 var parent: StatsObject
+var lifetime: float = 10
+var piercing: float = 0
+var dead: bool = false
+var stopwatch: float = 0
 signal activation_signal
 func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
 	super(delta)
+	if can_die_from_duration && stopwatch >= lifetime:
+		die()
+	else:
+		stopwatch += delta
 ## Setup trap to start
 func setup(new_parent: StatsObject):
 	parent = new_parent
+	lifetime = duration_stat + 1 ## +1 for making sure it appears for testing 
 	match activation_type:
 		ActivationTypes.entered:
 			pass
@@ -41,3 +52,11 @@ func _on_entered(body: Node2D) -> void:
 			activate(body)
 		elif body is NonInteractableEvent && activate_for_events:
 			activate(body)
+func die():
+	if !dead:
+		dead = true
+		queue_free()
+func hit_enemy(enemy: Node2D):
+	piercing += 1
+	if can_die_from_piercing && piercing > piercing_stat:
+		die()

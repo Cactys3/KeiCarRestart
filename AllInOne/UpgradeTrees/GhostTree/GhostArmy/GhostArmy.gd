@@ -3,11 +3,11 @@ extends Upgrade
 # Your summons gain 15% dodge chance
 # Gain 15% dodge chance
 func activate(new_player: Character):
-	UpgradeStatics.creation_dodge_buff += creation_dodge_buff
+	Statics.creation_dodge_buff += creation_dodge_buff
 	GlobalStats.add_to_stats_base(GlobalStats.GHOSTLY, ghostly_buff)
 	super(new_player)
 func deactivate():
-	UpgradeStatics.creation_dodge_buff -= creation_dodge_buff
+	Statics.creation_dodge_buff -= creation_dodge_buff
 	GlobalStats.add_to_stats_base(GlobalStats.GHOSTLY, -ghostly_buff)
 	super()
 func edit_attack(attack: Attack) -> Attack:

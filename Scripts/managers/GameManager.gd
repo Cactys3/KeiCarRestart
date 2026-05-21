@@ -46,7 +46,7 @@ var xp_from_past_levels: float = 0
 var starting_money: float = 15
 var xp_gain_modifier: float:
 	get():
-		print_debug(max(0.1, 1 + (player.xp_gain - 1) / 100))
+		print(max(0.1, 1 + (player.xp_gain - 1) / 100))
 		return max(0.1, 1 + (player.xp_gain - 1) / 100)
 var money_gain_modifier: float:
 	get():
@@ -87,7 +87,7 @@ var xp: float = 0: ## Current (total?) XP Gained
 			xp_to_next_level *= xp_modifier_per_level
 			level += 1
 			emit_signal("level_up")
-			#print_debug("Gained Level Costing: " + str(int(xp_to_next_level)) + " XP Leftover: " + str(int(xp_gained_since_last_level) - int(xp_to_next_level)))
+			#print("Gained Level Costing: " + str(int(xp_to_next_level)) + " XP Leftover: " + str(int(xp_gained_since_last_level) - int(xp_to_next_level)))
 var money: float = 0: ## Current Money Held
 	set(value):
 		if value > money: ## Factor in money_gain when adding money
@@ -350,5 +350,5 @@ func get_random_equipped_upgrade_except(avoided_upgrades: Array[Upgrade]) -> Upg
 	return null
 
 func creation_dodged(creation: Creation, attack: Attack):
-	if UpgradeStatics.creation_dodges_count_for_player > 0:
+	if Statics.creation_dodges_count_for_player > 0:
 		PlayerDodged.emit(player, attack)

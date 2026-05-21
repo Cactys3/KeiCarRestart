@@ -1,5 +1,5 @@
 extends Resource
-class_name UpgradeStatics
+class_name Statics
 
 ## Tracking Variables
 
@@ -14,6 +14,16 @@ static var active_projectiles: int = 0
 ## Global Buffs
 static var global_damage_buff: float = 0
 static var global_projectile_size_buff: float = 0
+
+## Status Buffs
+## Increase debuff by x each proc
+static var enemy_frost_frozen_duration: float = 2
+static var enemy_frost_movespeed_reduction: float = 5
+static var enemy_shock_defense_reduction: float = 5
+## Multiplier increase of enemy status threshold after each proc
+static var enemy_bleed_threshold_multiplier: float = 1.7
+static var enemy_frost_threshold_multiplier: float = 2
+
 
 ## Trigger based buffs (applied in places where things are spawned via specific triggers)
 static var reload_spawns_count_buff: int = 0

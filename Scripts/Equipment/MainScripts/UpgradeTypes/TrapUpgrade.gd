@@ -14,17 +14,18 @@ func deactivate():
 func spawn():
 	## If we spawn, increase active spawn counter
 	if super():
-		UpgradeStatics.active_traps += 1
-	## Spawn for count
-	for i in UpgradeStatics.trap_count_buff + additional_spawns:
-		if super():
-			UpgradeStatics.active_traps += 1
+		Statics.active_traps += 1
+	if can_spawn_multiple:
+		## Spawn for count
+		for i in Statics.trap_count_buff + additional_spawns:
+			if super():
+				Statics.active_traps += 1
 func despawn():
-	UpgradeStatics.active_traps -= 1
+	Statics.active_traps -= 1
 ## Override to setup spawn
 func initialize_object(object: Node2D) -> bool:
 	if object is Trap:
-		## TODO: Do trap specific setup()
+		object.setup(self)
 		return super(object)
 	return false
 ## Overrides
@@ -32,6 +33,6 @@ func get_spawning_position() -> Vector2:
 	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))
 	return spawn_position
 func get_spawning_duration() -> float:
-	return super() + UpgradeStatics.trap_duration_buff
+	return super() + Statics.trap_duration_buff
 func get_spawn_parent() -> Node2D:
 	return GameManager.instance.projectile_parent

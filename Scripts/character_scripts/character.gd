@@ -84,7 +84,7 @@ func _process(_delta: float) -> void:
 		character_ability(3)
 func _physics_process(delta : float) -> void:
 	if GameInstance.is_game_over:
-		print_debug("game over")
+		print("game over")
 		move_and_slide()
 		return
 	if stun_time_left > 0:
@@ -148,7 +148,7 @@ func damage(attack: Attack):
 	var net_damage = attack.get_damage() - stance
 	if GlobalStats.calculate_avoid_damage(GlobalStats.get_stat(GlobalStats.GHOSTLY)):
 		net_damage = 0
-		print_debug("PLAYER AVOIDED DAMAGE")
+		print("PLAYER AVOIDED DAMAGE")
 	if net_damage > 0:
 		game_man.PlayerDamaged.emit(self, attack)
 		time_since_taken_damage = 0
@@ -194,7 +194,7 @@ func stat_changed_method():
 	game_man.curr_hp = game_man.curr_hp ## checks maxhp to setup UI properly
 	game_man.shield = game_man.shield ## checks maxshield to setup UI properly
 func character_ability(number: int) -> void:
-	pass#print_debug("ability " + str(number))
+	pass#print("ability " + str(number))
 func on_level_up(new_level: float, old_level: float) -> void:
 	pass
 func on_gain_xp(new_xp: float, old_xp: float) -> void:

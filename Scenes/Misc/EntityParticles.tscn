@@ -3,7 +3,23 @@
 [ext_resource type="Script" uid="uid://oxot0e5mrv0h" path="res://Scripts/EntityParticles.gd" id="1_sfwyy"]
 [ext_resource type="PackedScene" uid="uid://gy3vfni2yby5" path="res://AllInOne/Particles/FireParticles.tscn" id="2_sp3yq"]
 [ext_resource type="PackedScene" uid="uid://cwdekcvqhawws" path="res://AllInOne/Particles/FrostParticles.tscn" id="3_k4jr8"]
+[ext_resource type="Texture2D" uid="uid://e2og6uf0xcli" path="res://Art/Particles/FrozenAnimation.png" id="4_k4jr8"]
 [ext_resource type="Texture2D" uid="uid://djs3rmq4tgvy7" path="res://Art/Particles/BleedAnimation.png" id="4_sp3yq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucvxw"]
+atlas = ExtResource("4_k4jr8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r1g5x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ucvxw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4jr8"]
 atlas = ExtResource("4_sp3yq")
@@ -69,6 +85,12 @@ visible = false
 
 [node name="FrostParticles" parent="Frost" unique_id=1616397393 instance=ExtResource("3_k4jr8")]
 emitting = false
+
+[node name="Frozen" type="Node2D" parent="." unique_id=1236869748]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Frozen" unique_id=2110391999]
+sprite_frames = SubResource("SpriteFrames_r1g5x")
 
 [node name="Poison" type="Node2D" parent="." unique_id=804694694]
 visible = false

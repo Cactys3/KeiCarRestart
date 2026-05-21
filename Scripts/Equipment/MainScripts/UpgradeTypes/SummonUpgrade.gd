@@ -22,21 +22,27 @@ func deactivate():
 	super()
 func spawn():
 	## Calculate total number we should spawn (do nothing if we have already spawned)
-	var summons_to_spawn: int = (UpgradeStatics.summon_count_buff + additional_spawns) - summons.size()
+	var summons_to_spawn: int = (Statics.summon_count_buff + additional_spawns) - summons.size()
+	if !can_spawn_multiple:
+		## Make sure we only spawn one total
+		if summons.size() >= 1:
+			summons_to_spawn = 0
+		else:
+			summons_to_spawn = 1
 	if summons_to_spawn > 0:
 		## If we spawn, increase active spawn counter
 		if super():
 			summons_to_spawn -= 1
-			UpgradeStatics.active_summons += 1
+			Statics.active_summons += 1
 			spawned = true
 	if summons_to_spawn > 0:
 		## Spawn for count left to spawn
 		for i in summons_to_spawn:
 			if super():
-				UpgradeStatics.active_summons += 1
+				Statics.active_summons += 1
 				spawned = true
 func despawn():
-	UpgradeStatics.active_summons -= 1
+	Statics.active_summons -= 1
 	spawned = false
 	for summon in summons:
 		summon.queue_free()
@@ -54,6 +60,6 @@ func get_spawning_position() -> Vector2:
 	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))
 	return spawn_position
 func get_spawning_duration() -> float:
-	return super() + UpgradeStatics.summon_duration_buff
+	return super() + Statics.summon_duration_buff
 func get_spawn_parent() -> Node2D:
 	return GameManager.instance.projectile_parent

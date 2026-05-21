@@ -88,7 +88,7 @@ func damage(attack: Attack):
 		return
 	## Consider Stance
 	var net_damage = attack.get_damage() - stance_stat
-	if GlobalStats.calculate_avoid_damage(UpgradeStatics.creation_dodge_buff):
+	if GlobalStats.calculate_avoid_damage(Statics.creation_dodge_buff):
 		net_damage = 0
 		game_man.CreationDodged.emit(self, attack)
 	if net_damage > 0:
@@ -154,7 +154,7 @@ func attack_body(body: Node2D):
 	if target == body:
 		var old_target = target
 		get_new_target()
-		#print_debug("New = ", target != old_target)
+		#print("New = ", target != old_target)
 ## Calculate and return an attack with damage multiplier
 func make_attack(attack_damage_multiplier: float) -> Attack:
 	## Make Two Stats Lists

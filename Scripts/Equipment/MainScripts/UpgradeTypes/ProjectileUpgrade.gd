@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 			## Reset
 			delay_spawns_stopwatch = 0
 			delay_spawns_left -= 1
-			#print_debug(delay_spawns_left, " left")
+			#print(delay_spawns_left, " left")
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
 	super(new_player)
@@ -32,31 +32,32 @@ func spawn() -> bool:
 	var spawned_successfully: bool = false
 	## If we spawn, increase active spawn counter
 	if super():
-		UpgradeStatics.active_projectiles += 1
+		Statics.active_projectiles += 1
 		spawned_successfully = true
 	## Spawn Multiple:
-	var spawn_count = UpgradeStatics.projectile_count_buff + additional_spawns
-	match multiple_spawns_type:
-		MultipleSpawnsTypes.delay_hard_coded:
-			## Delay hard-coded
-			delay_spawns_stopwatch = 0
-			delay_spawns_left += spawn_count
-		MultipleSpawnsTypes.delay_stats:
-			## Delay but based on stats
-			delay_spawns_stopwatch = 0
-			delay_spawns_cooldown = attackcooldown_stat
-			delay_spawns_left += spawn_count
-		MultipleSpawnsTypes.spread:
-			## Spawn all at once with offsets
-			for i in spawn_count:
-				spread_offset = Vector2(randf_range(-spread_offset_radius, spread_offset_radius), randf_range(-spread_offset_radius, spread_offset_radius))
-				if super():
-					UpgradeStatics.active_projectiles += 1
-					spawned_successfully = true
-			spread_offset = Vector2(0, 0)
+	if can_spawn_multiple:
+		var spawn_count = Statics.projectile_count_buff + additional_spawns
+		match multiple_spawns_type:
+			MultipleSpawnsTypes.delay_hard_coded:
+				## Delay hard-coded
+				delay_spawns_stopwatch = 0
+				delay_spawns_left += spawn_count
+			MultipleSpawnsTypes.delay_stats:
+				## Delay but based on stats
+				delay_spawns_stopwatch = 0
+				delay_spawns_cooldown = attackcooldown_stat
+				delay_spawns_left += spawn_count
+			MultipleSpawnsTypes.spread:
+				## Spawn all at once with offsets
+				for i in spawn_count:
+					spread_offset = Vector2(randf_range(-spread_offset_radius, spread_offset_radius), randf_range(-spread_offset_radius, spread_offset_radius))
+					if super():
+						Statics.active_projectiles += 1
+						spawned_successfully = true
+				spread_offset = Vector2(0, 0)
 	return spawned_successfully
 func despawn():
-	UpgradeStatics.active_projectiles -= 1
+	Statics.active_projectiles -= 1
 func initialize_object(object: Node2D) -> bool:
 	if object is Projectile:
 		var projectile: Projectile = initialize_projectile(object as Projectile)
@@ -87,6 +88,6 @@ func get_spawning_position() -> Vector2:
 	var spawn_position = game_man.player.global_position + spread_offset
 	return spawn_position
 func get_spawning_duration() -> float:
-	return super() + UpgradeStatics.projectile_duration_buff
+	return super() + Statics.projectile_duration_buff
 func get_spawn_parent() -> Node2D:
 	return GameManager.instance.projectile_parent

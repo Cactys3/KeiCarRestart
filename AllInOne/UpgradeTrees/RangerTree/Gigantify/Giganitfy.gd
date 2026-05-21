@@ -4,10 +4,10 @@ extends TrapUpgrade
 # Your traps gain 20% size
 func activate(new_player: Character):
 	connect_reload = true
-	UpgradeStatics.trap_size_buff += trap_size_buff
+	Statics.trap_size_buff += trap_size_buff
 	super(new_player)
 func deactivate():
-	UpgradeStatics.trap_size_buff -= trap_size_buff
+	Statics.trap_size_buff -= trap_size_buff
 	super()
 func edit_attack(attack: Attack) -> Attack:
 	return attack

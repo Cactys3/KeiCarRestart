@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://b3gs60rx8eg8u"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_d1og7"]
-[ext_resource type="PackedScene" uid="uid://b2fvld5yhlsvm" path="res://AllInOne/UpgradeTrees/BloodTree/Hemoplosion/Hemoplosion.tscn" id="2_cjyih"]
-
+[ext_resource type="PackedScene" uid="uid://cpddv1omtu17r" path="res://AllInOne/UpgradeTrees/BloodTree/GelidHeolfor/GelidHeolfor.tscn" id="2_3kjxs"]
 
 [resource]
 script = ExtResource("1_d1og7")
-scene = ExtResource("2_cjyih")
+scene = ExtResource("2_3kjxs")
 upgrade_name = "Gelid Heolfor"
 upgrade_description = "Proc'ing bleed on a frozen enemy causes them to explode into shards of ice, dealing nearby enemies!
 The ice shards count as projectiles."

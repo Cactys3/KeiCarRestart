@@ -23,7 +23,6 @@ const EXCLUSIVE_COLOR: Color = Color.LIGHT_GOLDENROD
 var data: UpgradeData
 ## Disable all functions 
 var disabled_by_inherited_upgrade: bool = false
-## statics
 static var upgrade_buffs_duration_factor: float = 1
 ## Check to remove buffs or other stuff on leaving scene
 func _notification(what: int) -> void:

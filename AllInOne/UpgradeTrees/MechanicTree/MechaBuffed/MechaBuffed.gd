@@ -38,14 +38,14 @@ func _process(delta: float) -> void:
 func apply_buff(value: int):
 	buff_stopwatch = buff_expire_cooldown
 	buff_stacks += value
-	UpgradeStatics.creation_damage_buff += (creation_per_stack_buff) * value
-	UpgradeStatics.creation_size_buff += (creation_per_stack_buff) * value
+	Statics.creation_damage_buff += (creation_per_stack_buff) * value
+	Statics.creation_size_buff += (creation_per_stack_buff) * value
 	## Check max stacks
 	if buff_stacks == max_buff_stacks && !at_max_stacks:
 		at_max_stacks = true
-		UpgradeStatics.creation_attackspeed_buff += max_stacks_attackspeed_buff
-		UpgradeStatics.creation_size_buff += max_stacks_size_buff
+		Statics.creation_attackspeed_buff += max_stacks_attackspeed_buff
+		Statics.creation_size_buff += max_stacks_size_buff
 	if buff_stacks != max_buff_stacks && at_max_stacks:
 		at_max_stacks = false
-		UpgradeStatics.creation_attackspeed_buff -= max_stacks_attackspeed_buff
-		UpgradeStatics.creation_size_buff -= max_stacks_size_buff
+		Statics.creation_attackspeed_buff -= max_stacks_attackspeed_buff
+		Statics.creation_size_buff -= max_stacks_size_buff

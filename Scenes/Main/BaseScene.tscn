@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://k1ndatoaiv00" path="res://Art/Lighting/FOV_Radial_Gradient_16-9.png" id="5_eeah7"]
 [ext_resource type="PackedScene" uid="uid://08e3bacvts4n" path="res://Scenes/Misc/TestingManager.tscn" id="6_eeah7"]
 [ext_resource type="AudioStream" uid="uid://uxsjewnlqow3" path="res://Audio/Music/MyOriginals/ThisCanbeTheMainTheme.wav" id="6_qq1a1"]
+[ext_resource type="PackedScene" uid="uid://bxvepkp6mbdc4" path="res://Scenes/Misc/TestDummy.tscn" id="7_kvhik"]
 [ext_resource type="PackedScene" uid="uid://bgt57e0022plx" path="res://Scenes/Misc/xp_blip.tscn" id="9_t1qak"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
@@ -139,6 +140,9 @@ attenuation = 7.779313e-05
 [node name="EventParentForeground" type="Node2D" parent="Window640/Offset" unique_id=494069381]
 
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
+
+[node name="TestDummy" parent="Window640/Offset/EnemyParent" unique_id=394138288 instance=ExtResource("7_kvhik")]
+position = Vector2(-22, -29)
 
 [node name="ProjectileParent" type="Node2D" parent="Window640/Offset" unique_id=1081666723]
 

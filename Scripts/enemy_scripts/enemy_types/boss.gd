@@ -10,6 +10,8 @@ const PROXIMITY_LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 ## handle dropping loot chest on death
 ## handle unlocking new weapons on death if that happens
 ## handle health bar to see if we want that just for bosses
+func _ready() -> void:
+	can_be_frozen = false
 func die():
 	drop_chest()
 	unlock_weapon()

@@ -40,6 +40,7 @@ signal died(pos: Vector2, cloned: bool)
 @export var anim: AnimatedSprite2D
 @export var sound_on_hit: Sound = null
 var prebuilt_attack: Attack = null
+var make_own_attack: bool = false
 var death_method: Callable
 var specific_target: bool = false
 var can_attack_method: Callable
@@ -147,15 +148,24 @@ func attack_body(body: Node2D, clone: bool) -> void:
 	## Use prebuilt attack as 1st prio
 	if prebuilt_attack:
 		attack = prebuilt_attack
+	## Then check make_own_attack
+	elif make_own_attack:
+		if is_clone:
+			attack = make_attack(clone_offset)
+		else:
+			attack = make_attack(1)
 	## Then request an attack from parent
 	elif is_instance_valid(parent):
 		if is_clone:
 			attack = parent.make_attack(clone_offset)
 		else:
 			attack = parent.make_attack(1)
-	## Lastly try making own attack
+	## Lastly fallback on making own attack
 	else:
-		attack = make_attack(clone)
+		if is_clone:
+			attack = make_attack(clone_offset)
+		else:
+			attack = make_attack(1)
 	if attack:
 		edit_attack_before_sending(attack)
 		body.damage(attack)
@@ -163,17 +173,10 @@ func attack_body(body: Node2D, clone: bool) -> void:
 func edit_attack_before_sending(attack: Attack):
 	pass
 func make_attack(attack_damage_multiplier: float) -> Attack:
-	var new_attack: Attack
-	var attack_damage: float = damage_stat
-	if is_clone:
-		attack_damage = attack_damage * clone_offset
-	var knockback: float = 0
-	new_attack = Attack.new(attack_type, self, global_position, status, null, null)
-	new_attack.simple_setup(attack_damage, weight_stat * (attack_damage / 30))
-	if !can_knockback:
-		## Only set false on !can_knockback (don't set true here incase disabled elsewhere)
-		new_attack.can_knockback = false
-	return new_attack
+	var attack: Attack = super(attack_damage_multiplier)
+	attack.attack_type = attack_type
+	attack.can_knockback = can_knockback
+	return attack
 func die():
 	if dead:
 		return

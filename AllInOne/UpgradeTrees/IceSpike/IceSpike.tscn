@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://chj43d2om60tu"]
+
+[ext_resource type="Script" uid="uid://c4o6puddsql5m" path="res://AllInOne/UpgradeTrees/IceSpike/IceSpike.gd" id="1_507t2"]
+[ext_resource type="PackedScene" uid="uid://bpmcugbb062fx" path="res://AllInOne/UpgradeTrees/IceSpike/IceShard.tscn" id="2_tvlx8"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="3_5svck"]
+[ext_resource type="Texture2D" uid="uid://dbodm8vwcqyl0" path="res://AllInOne/UpgradeTrees/IceSpike/IceSpike.png" id="4_i1mgk"]
+
+[sub_resource type="Resource" id="Resource_rone8"]
+script = ExtResource("3_5svck")
+applies_frost = true
+applies_bleed = true
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcvfo"]
+atlas = ExtResource("4_i1mgk")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rone8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcvfo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pfwok"]
+radius = 9.0
+
+[node name="IceSpike" type="Area2D" unique_id=959584502]
+collision_layer = 4
+collision_mask = 136
+script = ExtResource("1_507t2")
+ice_shard = ExtResource("2_tvlx8")
+status = SubResource("Resource_rone8")
+_damage = 20.0
+_piercing = 10.0
+_duration = 5.0
+_luck = 1.0
+_weight = 20.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=724846328]
+sprite_frames = SubResource("SpriteFrames_rone8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1882012049]
+position = Vector2(0, -6)
+shape = SubResource("CapsuleShape2D_pfwok")
+
+[connection signal="area_entered" from="." to="." method="_on_entered"]
+[connection signal="body_entered" from="." to="." method="_on_entered"]

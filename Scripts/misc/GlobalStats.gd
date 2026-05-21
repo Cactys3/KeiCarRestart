@@ -55,17 +55,6 @@ const WET_DAMAGE = "wet damage"
 static var statsbase = StatsList.new(0)
 ## Stats Multiplied to Stat Getters
 static var statsfactor = StatsList.new(1)
-
-## Variables in one place which are changed during gameplay
-## Reduce enemy movespeed by x when frosted
-static var enemy_frost_movespeed_reduction: float = 5
-## Increase enemy damage taken by x when shocked
-static var enemy_shock_defense_reduction: float = 5
-## Multiplier increase of enemy bleed threshold after bleed proc
-static var enemy_bleed_threshold_multiplier: float = 1.7
-## Multiplier increase of enemy frost threshold after frost proc
-static var enemy_frost_threshold_multiplier: float = 2
-
 ## Likely resets everything in preparation for a new run
 static func reset():
 	statsbase = StatsList.new(0)
@@ -155,9 +144,9 @@ class StatsList:
 			return true
 		return false
 	func print_stats():
-		print_debug("Stats: ")
+		print("Stats: ")
 		for stat in list.keys():
-			print_debug("\t", stat, " : ", list.get(stat))
+			print("\t", stat, " : ", list.get(stat))
 	## Returns duplicate copy of this StatsList
 	func get_copy() -> StatsList: 
 		var new_list = StatsList.new(0)
@@ -187,8 +176,9 @@ static func calculate_critdamage(critdamage: float) -> float:
 static func calculate_crit(luck: float) -> bool:
 	return luck >= randf_range(0, 100)
 static func calculate_damage(damage: float, luck: float, critdamage: float):
-	if (luck / 100) > randf():
-		return damage * (1 + (critdamage / 100))
+	if calculate_crit(luck):
+		print("Crit!")
+		return damage * (1 + ((critdamage + 150) / 100))
 	else:
 		return damage
 static func calculate_knockback(damage: float, weight: float) -> float:

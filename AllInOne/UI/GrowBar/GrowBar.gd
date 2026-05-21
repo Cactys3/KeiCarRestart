@@ -93,12 +93,12 @@ func _process(delta: float) -> void:
 ## Sets the foreground size to value (expands if valid)
 func set_value(value: float) -> void:
 	value = value * value_multiplier
-	#print_debug("set Value")
+	#print("set Value")
 	## If value is maxxed out
 	if value >= max_value:
 		reset_foreground()
 		if reset_on_full:
-			#print_debug("Less 0, ", max_value)
+			#print("Less 0, ", max_value)
 			_set_width(max_value, false)
 		else:
 			if expand_bar || expand_bar_without_raising_max:
@@ -107,22 +107,22 @@ func set_value(value: float) -> void:
 					set_max(value)
 				_set_width(value, true)
 			else:
-				#print_debug("Maxxed Out, ", value, ", ", foreground_middle.size.x, ", ", bar_background.size.x)
+				#print("Maxxed Out, ", value, ", ", foreground_middle.size.x, ", ", bar_background.size.x)
 				## If Value can go above max without expanding, consider changing the color for the 'above-max' portion
 				_set_width(max_value, true)
-				#print_debug("value maxxed, ", value, " max: ", max_value, " wdith, ", foreground_middle.size.x)
+				#print("value maxxed, ", value, " max: ", max_value, " wdith, ", foreground_middle.size.x)
 	## If value is 0
 	elif value <= 0.0:
-		#print_debug("Less 0, ", value)
+		#print("Less 0, ", value)
 		reset_foreground()
 		_set_width(0, false)
 	## If value is not special case
 	else:
 		_set_width(value, true)
-		#print_debug("Normal Value ", value, ", ", foreground_middle.size.x)
+		#print("Normal Value ", value, ", ", foreground_middle.size.x)
 ## Sets the foreground size to percent value
 func set_value_percent(percent: float) -> void:
-	#print_debug("set Value")
+	#print("set Value")
 	## If value is maxxed out
 	if percent >= 1:
 		if reset_on_full:
@@ -134,17 +134,17 @@ func set_value_percent(percent: float) -> void:
 					set_max(percent * max_value)
 				_set_width(max_value, true)
 			else:
-				#print_debug("Maxxed Out, ", value, ", ", bar_foreground.size.x, ", ", bar_background.size.x)
+				#print("Maxxed Out, ", value, ", ", bar_foreground.size.x, ", ", bar_background.size.x)
 				## If Value can go above max without expanding, consider changing the color for the 'above-max' portion
 				_set_width(max_value, true)
 	## If value is 0
 	elif percent <= 0.0:
-		#print_debug("Less 0, ", value)
+		#print("Less 0, ", value)
 		_set_width(0, false)
 	## If value is not special case
 	else:
 		_set_width(min(max_value * percent, max_value), true)
-		#print_debug("Normal Value ", value, ", ", bar_foreground.size.x)
+		#print("Normal Value ", value, ", ", bar_foreground.size.x)
 ## Sets the background value and max value to given value
 func set_max(value: float) -> void:
 	value = value * value_multiplier
@@ -180,25 +180,25 @@ func set_foreground_visible(value: bool) -> void:
 ## Old version that stretches left/right images
 func set_value_funky_implementation(value: float) -> void:
 	value = value * value_multiplier
-	#print_debug("set Value")
+	#print("set Value")
 	## If value is maxxed out
 	if value >= max_value:
 		reset_foreground()
 		if reset_on_full:
-			#print_debug("Less 0, ", value)
+			#print("Less 0, ", value)
 			_set_width(max_value, false)
 		else:
 			if expand_bar:
-				#print_debug("Expanding bar, ", value)
+				#print("Expanding bar, ", value)
 				set_max(value)
 				_set_width(value, true)
 			else:
-				#print_debug("Maxxed Out, ", value, ", ", bar_foreground.size.x, ", ", bar_background.size.x)
+				#print("Maxxed Out, ", value, ", ", bar_foreground.size.x, ", ", bar_background.size.x)
 				## If Value can go above max without expanding, consider changing the color for the 'above-max' portion
 				_set_width(max_value, true)
 	## If value is 0
 	elif value <= 0.0:
-		#print_debug("Less 0, ", value)
+		#print("Less 0, ", value)
 		reset_foreground()
 		_set_width(0, false)
 	## If value is not special case
@@ -206,27 +206,27 @@ func set_value_funky_implementation(value: float) -> void:
 		_set_width(value, true)
 		## If middle of bar is 0 width, check if we should visible = false the side images yet
 		if foreground_middle.size.x <= 0:
-			#print_debug("Middle is zero, ", foreground_middle.size.x )
+			#print("Middle is zero, ", foreground_middle.size.x )
 			if value >= foreground_right_image.size.x + foreground_left_image.size.x:
-				#print_debug("Bar: ", value, " vs ", foreground_right_image.size.x + (foreground_left_image.size.x / 2))
+				#print("Bar: ", value, " vs ", foreground_right_image.size.x + (foreground_left_image.size.x / 2))
 				## Bigger than both images
 				#foreground_left_image.visible = true
 				reset_foreground()
 			elif value >= foreground_right_image.size.x:
-				#print_debug("elif: ", value, " >= ", foreground_right_image.size.x)
+				#print("elif: ", value, " >= ", foreground_right_image.size.x)
 				## Bigger than one image
 				#foreground_right_image.visible = false
 				foreground_right_image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 				foreground_left_image.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 			else:
 				## Smaller than one image
-				#print_debug("else: ", value, " >= ", foreground_right_image.size.x)
+				#print("else: ", value, " >= ", foreground_right_image.size.x)
 				#foreground_right_image.visible = false
 				foreground_right_image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 				foreground_left_image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		## Try again
 		_set_width(value, true)
-		#print_debug("Normal Value ", value, ", ", bar_foreground.size.x)
+		#print("Normal Value ", value, ", ", bar_foreground.size.x)
 func reset_foreground():
 	foreground_right_image.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	foreground_left_image.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL

@@ -31,7 +31,7 @@ func initialize_object(object: Node2D) -> bool:
 		var curr_damage_buff = bleed_procs * 2.0 ## TODO: balancing these number
 		var curr_size_buff = bleed_procs / 10.0
 		var curr_bleed_buff = bleed_procs / 5.0
-		print_debug("With: ", bleed_procs, " procs, dmg: ", curr_damage_buff, ", size: ", curr_size_buff, ", bleed: ", curr_bleed_buff)
+		print("With: ", bleed_procs, " procs, dmg: ", curr_damage_buff, ", size: ", curr_size_buff, ", bleed: ", curr_bleed_buff)
 		bleed_procs = 0
 		var attack: Attack = make_attack(1)
 		attack.temporary_base_stats.add_to_stat(GlobalStats.DAMAGE, curr_damage_buff)
@@ -45,6 +45,6 @@ func initialize_object(object: Node2D) -> bool:
 
 ## On (enemy) Bleed Proc Signal 
 func bleed_proc(bleed_damage: float, enemy: Enemy):
-	print_debug("bleed += 1, = ", bleed_procs)
+	print("bleed += 1, = ", bleed_procs)
 	bleed_procs += 1
 	super(bleed_damage, enemy)

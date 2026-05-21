@@ -11,7 +11,8 @@ enum EnemyTypes {unset}
 @export var melee_attacks: bool = true
 @export var damage_hitbox: Area2D
 @export var can_be_knockbacked: bool = true
-@export var can_be_stunned:bool = true
+@export var can_be_stunned :bool = true
+@export var can_be_frozen: bool = true
 @export var xp_on_death: int = 10
 @export var money_on_death: int = 3
 @export var weapon_knockback: float = 50
@@ -92,6 +93,8 @@ var applied_bleed: int = 0
 var applied_shock: int = 0
 var applied_wet: int = 0
 # Values
+var frozen: bool = false
+var movespeed_frozen_time_left: float = 0
 var frost_movespeed_reduction: float = 0
 var shock_defense_reduction: float = 0
 @export_category("Misc")
@@ -138,7 +141,6 @@ var difficulty: float
 var dead: bool = false
 
 func _ready() -> void:
-	
 	anim.visible = false
 	flash()
 	call_deferred("set_stats")
@@ -165,7 +167,7 @@ func set_stats():
 	curr_health = base_health
 	curr_critchance = base_critchance
 	curr_critdamage = base_critdamage
-	
+
 ##
 func setup():
 	player = get_tree().get_first_node_in_group("player")
@@ -176,23 +178,29 @@ func initialize(new_minute: float, new_level: float, new_difficulty: float):
 	level = new_level
 	difficulty = new_difficulty
 	minute = new_minute
-	#call_deferred("set_stats")
-	#call_deferred("setup")
-	#add_to_group("enemy")
 func _process(delta: float) -> void:
 	if !ImReady || dead:
 		return
-	
+	## Too far
 	if GameInstance.instance && global_position.distance_to(player.global_position) > GameInstance.instance.enemy_max_distance_to_player:
 		GameInstance.instance.remove_enemy(self)
 		dead = true
 		return
-	
+	## Stun
 	if stun_time_left > 0:
 		stun_time_left -= delta
 	elif stunned:
 		stunned = false
-	
+	## Frozen
+	if movespeed_frozen_time_left > 0:
+		particles.toggle_frozen(true)
+		frozen = true
+		movespeed_frozen_time_left -= delta
+	elif frozen:
+		particles.toggle_frozen(false)
+		frozen = false
+		movespeed_frozen_time_left = 0
+	## attack cooldown
 	if cooldown_stopwatch < curr_cooldown_max:
 		cooldown_stopwatch += delta
 		attack_on_cd = true
@@ -201,7 +209,7 @@ func _process(delta: float) -> void:
 		if melee_attacks:
 			if damage_hitbox.monitoring == false:
 				damage_hitbox.set_deferred("monitoring", true) #handles the hitbox turning off for a CD after hitting the player
-	
+	## Projectile Shoot
 	if shoots_projectiles:
 		if projectile_cooldown_stopwatch < curr_cooldown_max:
 			projectile_cooldown_stopwatch += delta
@@ -219,11 +227,10 @@ func _physics_process(delta: float) -> void:
 		return
 	if !stunned:
 		movement_process(delta)
-		
 	status_process(delta)
 ## Overriden by extender for custom enemy movement
 func movement_process(_delta: float) ->void:
-	move_towards(player.global_position, curr_movespeed + frost_movespeed_reduction, _delta)
+	move_towards(player.global_position, max(0, curr_movespeed + frost_movespeed_reduction), _delta)
 var half_second_cd: float = 0
 var second_cd: float = 0
 var two_second_cd: float = 0
@@ -284,7 +291,6 @@ func status_process(delta: float) -> void:
 	## BLEED: do nothing until bleed threshold reached, then big damage, then raise bleed threshold
 	if !immune_to_bleed:
 		if (bleed / bleed_threshhold) >= (applied_bleed + 1):
-			print_debug("bleed proc: ",(bleed / bleed_threshhold), " > " , applied_bleed + 1)
 			most_recent_attack = proc_bleed()
 			## Death
 			if check_death(most_recent_attack):
@@ -326,11 +332,14 @@ func proc_burn() -> Attack:
 	curr_health -= current_burn_damage
 	## Do the display dmg
 	display_damage(current_burn_damage, Color.RED)
+	if DebugManager.StatusProc:
+		print("Burn Proc, Dmg: ", current_burn_damage, ", Enemy: ", enemy_name)
 	return attack
 func proc_frost() -> Attack:
 	if particles:
 		particles.toggle_frost(true)
 	applied_frost = floor(frost / frost_threshhold)
+	movespeed_frozen_time_left += Statics.enemy_frost_frozen_duration
 	frost_movespeed_reduction = get_frost_movespeed_reduction()
 	## Do the math
 	var current_frost_damage: float = get_frost_damage()
@@ -342,7 +351,9 @@ func proc_frost() -> Attack:
 	## Do the display dmg
 	display_damage(current_frost_damage, Color.LIGHT_CYAN)
 	## Raise the threshold
-	frost_threshhold *= GlobalStats.enemy_frost_threshold_multiplier
+	frost_threshhold *= Statics.enemy_frost_threshold_multiplier
+	if DebugManager.StatusProc:
+		print("Frost Proc, Dmg: ", current_frost_damage, ", Slow: ", frost_movespeed_reduction, ", Enemy: ", enemy_name)
 	return attack
 func proc_poison() -> Attack:
 	if particles:
@@ -356,6 +367,8 @@ func proc_poison() -> Attack:
 	curr_health -= current_poison_damage
 	## Do the display dmg
 	display_damage(current_poison_damage, Color.GREEN)
+	if DebugManager.StatusProc:
+		print("Poison Proc, Dmg: ", current_poison_damage, ", Enemy: ", enemy_name)
 	return attack
 func proc_bleed() -> Attack:
 	if particles:
@@ -371,28 +384,34 @@ func proc_bleed() -> Attack:
 	## Do the display dmg
 	display_damage(current_bleed_damage, Color.ORANGE_RED)
 	## Raise bleed threshold
-	bleed_threshhold *= GlobalStats.enemy_bleed_threshold_multiplier
+	bleed_threshhold *= Statics.enemy_bleed_threshold_multiplier
+	if DebugManager.StatusProc:
+		print("Bleed Proc, Dmg: ", current_bleed_damage, ", Enemy: ", enemy_name)
 	return attack
 func proc_shock():
 	if particles:
 		particles.toggle_shock(true)
 	applied_shock = floor(shock / shock_threshhold)
 	shock_defense_reduction = get_shock_defense_reduction()
+	if DebugManager.StatusProc:
+		print("Shock Proc, Defense Reduction: ", shock_defense_reduction, ", Enemy: ", enemy_name)
 func proc_wet():
 	if particles:
 		particles.toggle_wet(true)
 	applied_wet = floor(wet / wet_threshhold)
+	if DebugManager.StatusProc:
+		print("Wet Proc, Applied Wet: ", applied_wet, ", Enemy: ", enemy_name)
 
 func get_burn_damage() -> float:
 	return GlobalStats.get_stat(GlobalStats.BURN_DAMAGE)
 func get_frost_movespeed_reduction() -> float:
-	## -base * number of times threshold has been reached
-	return -1 * (frost / frost_threshhold) * GlobalStats.enemy_frost_movespeed_reduction
+	## -base * number of times threshold has been reached / 3
+	return -Statics.enemy_frost_movespeed_reduction * (frost / frost_threshhold) / 3
 func get_frost_damage() -> float:
 	return curr_health * (GlobalStats.get_stat(GlobalStats.FROST_DAMAGE) / 100)
 func get_shock_defense_reduction() -> float:
 	## base * number of times threshold has been reached
-	return (shock / shock_threshhold) * GlobalStats.enemy_shock_defense_reduction
+	return (shock / shock_threshhold) * Statics.enemy_shock_defense_reduction
 func get_bleed_damage() -> float:
 	return base_health * (GlobalStats.get_stat(GlobalStats.BLEED_DAMAGE) / 100)
 func get_poison_damage() -> float:
@@ -484,7 +503,6 @@ func display_damage(damage_value: float, color: Color):
 		dmg_text.setup(str(int(round(damage_value))), damage_value + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10))
 	else:
 		dmg_text.setup_color(str(int(round(damage_value))), damage_value + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), color)
-
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 	if can_attack(body):
 		damage_player(body, false)
@@ -505,6 +523,8 @@ func damage_player(_damage_player: Node2D, from_projectile: bool):
 		damage_hitbox.set_deferred("monitoring", false)
 func move_towards(new_position: Vector2, movespeed: float, _delta:float):
 	var direction: Vector2 = (new_position - global_position).normalized()
+	if can_be_frozen && frozen:
+		movespeed = 0
 	linear_velocity = linear_velocity.move_toward(Vector2(direction.x * movespeed, direction.y * movespeed), 9)
 	
 	var new_facing_left: bool = linear_velocity.x < 0
@@ -530,7 +550,10 @@ func damage(attack: Attack):
 	var attack_damage: float = attack.get_damage()
 	var shock_damage: float = 0
 	var wet_damage: float = 0
-	
+	## Apply Crit
+	var is_crit: bool = attack.get_crit()
+	if is_crit:
+		pass
 	## Shock
 	if attack.status.applies_shock:
 		shock_damage = get_shock_damage()
@@ -543,13 +566,19 @@ func damage(attack: Attack):
 	if damage_taken > 0:
 		GameManager.instance.EnemyDamaged.emit(self, attack)
 		curr_health -= damage_taken
-	if false:
-		print_debug("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
-		print_debug("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
-		print_debug("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
-		print_debug("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
-		print_debug("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
-		print_debug("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
+	if DebugManager.StatusApplied:
+		if attack.status.applies_burn && attack.get_burn() > 0:
+			print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
+		if attack.status.applies_frost && attack.get_frost() > 0:
+			print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
+		if attack.status.applies_poison && attack.get_poison() > 0:
+			print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
+		if attack.status.applies_bleed && attack.get_bleed() > 0:
+			print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
+		if attack.status.applies_shock && attack.get_shock() > 0:
+			print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
+		if attack.status.applies_wet && attack.get_wet() > 0:
+			print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
 	## Apply Stun and Knockback
 	if attack.get_stun() > 0 && can_be_stunned:
 			stun_time_left = attack.get_stun()

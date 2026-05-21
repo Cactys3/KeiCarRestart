@@ -1,7 +1,11 @@
 [gd_scene format=3 uid="uid://cpddv1omtu17r"]
 
 [ext_resource type="Script" uid="uid://colp26apigtr5" path="res://AllInOne/UpgradeTrees/BloodTree/GelidHeolfor/GelidHeolfor.gd" id="1_k16fo"]
-
+[ext_resource type="PackedScene" uid="uid://chj43d2om60tu" path="res://AllInOne/UpgradeTrees/IceSpike/IceSpike.tscn" id="2_rxy1x"]
 
 [node name="GelidHeolfor" type="Node2D" unique_id=634924965]
 script = ExtResource("1_k16fo")
+scene_to_spawn = ExtResource("2_rxy1x")
+can_spawn_multiple = false
+connect_bleed_proc = true
+connect_frost_proc = true

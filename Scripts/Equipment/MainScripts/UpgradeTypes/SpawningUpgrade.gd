@@ -10,6 +10,7 @@ class_name SpawningUpgrade
 @export var spawn_radius: float = 40
 @export var spawn_duration: float = 10
 @export var sound_on_spawn: Sound = null
+@export var can_spawn_multiple: bool = true
 static var spawn_every_seconds_cd_reduction_factor: float = 1
 static var spawn_on_enemy_kills_reduction_factor: float = 1
 var reloads_since_last_spawn: int = 0
@@ -67,6 +68,6 @@ func get_spawning_position() -> Vector2:
 	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))
 	return spawn_position
 func get_spawning_duration() -> float:
-	return spawn_duration + duration_stat + UpgradeStatics.spawn_duration_buff
+	return spawn_duration + duration_stat + Statics.spawn_duration_buff
 func get_spawn_parent() -> Node2D:
 	return GameManager.instance.projectile_parent

@@ -4,3 +4,6 @@
 
 [node name="CriticalBleed" type="Node2D" unique_id=902373751]
 script = ExtResource("1_om5tu")
+edits_attack = true
+item_name = "Critical Bleed"
+item_description = ""

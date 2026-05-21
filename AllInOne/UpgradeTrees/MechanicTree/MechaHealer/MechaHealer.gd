@@ -4,10 +4,10 @@ extends CreationUpgrade
 # Your creations gain 15% damage
 func activate(new_player: Character):
 	connect_creation_killed = true
-	UpgradeStatics.creation_damage_buff = creation_damage_buff
+	Statics.creation_damage_buff = creation_damage_buff
 	super(new_player)
 func deactivate():
-	UpgradeStatics.creation_damage_buff = -creation_damage_buff
+	Statics.creation_damage_buff = -creation_damage_buff
 	super()
 func edit_attack(attack: Attack) -> Attack:
 	return attack

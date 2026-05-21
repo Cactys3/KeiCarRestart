@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3fdpbbtue461" path="res://AllInOne/UpgradeTrees/BloodTree/BloodRage/BloodRage.gd" id="1_kifev"]
 
-
 [node name="BloodRage" type="Node2D" unique_id=1730399209]
 script = ExtResource("1_kifev")
+buffs_weapon_stats = true
+connect_bleed_proc = true

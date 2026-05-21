@@ -36,5 +36,5 @@ func _process(delta: float) -> void:
 func apply_buff(value: int):
 	buff_stopwatch = buff_expire_cooldown
 	buff_stacks += value
-	UpgradeStatics.global_damage_buff += (damage_per_stack_buff) * value
-	UpgradeStatics.global_projectile_size_buff += (size_per_stack_buff) * value
+	Statics.global_damage_buff += (damage_per_stack_buff) * value
+	Statics.global_projectile_size_buff += (size_per_stack_buff) * value

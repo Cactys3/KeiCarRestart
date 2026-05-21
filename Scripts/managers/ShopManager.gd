@@ -14,6 +14,7 @@ const BLOOD_TURRETS = "Blood Turrets"
 const BLOODY_MAGAZINE = "Bloody Magazine"
 const BLOODY_NEEDLES = "Bloody Needles"
 const BLOODY_QUIVER = "Bloody Quiver"
+const CRITICAL_BLEED = "Critical Bleed"
 const CUTTING_STRIKES = "Cutting Strikes"
 const GELID_HEOLFOR = "Gelid Heolfor"
 const HEMOPLOSION = "Hemoplosion"
@@ -73,6 +74,7 @@ const BLOOD_TURRETS_SCENE = preload("uid://c5wosxw2gtbd5")
 const BLOODY_MAGAZINE_SCENE = preload("uid://d1f0stejlye0n")
 const BLOODY_NEEDLES_SCENE = preload("uid://jxh1upa5f50q")
 const BLOODY_QUIVER_SCENE = preload("uid://br44c2vh2fhtf")
+const CRITICAL_BLEED_SCENE = preload("uid://dj8tjwhyanqfg")
 const CUTTING_STRIKES_SCENE = preload("uid://e4ho6vfqngai")
 const GELID_HEOLFOR_SCENE = preload("uid://b3gs60rx8eg8u")
 const HEMOPLOSION_SCENE = preload("uid://clsx2ugtfnojs")
@@ -131,6 +133,7 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	BLOOD_TURRETS: BLOOD_TURRETS_SCENE,
 	BLOODY_MAGAZINE: BLOODY_MAGAZINE_SCENE,
 	BLOODY_QUIVER: BLOODY_QUIVER_SCENE,
+	CRITICAL_BLEED: CRITICAL_BLEED_SCENE,
 	CUTTING_STRIKES: CUTTING_STRIKES_SCENE,
 	GELID_HEOLFOR: GELID_HEOLFOR_SCENE,
 	HEMOPLOSION: HEMOPLOSION_SCENE,

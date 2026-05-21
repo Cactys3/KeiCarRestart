@@ -5,16 +5,16 @@ extends TrapUpgrade
 func activate(new_player: Character):
 	spawn_with_cd = true
 	spawn_every_seconds = 5
-	UpgradeStatics.trap_duration_buff += duration_buffs
-	UpgradeStatics.projectile_duration_buff += duration_buffs
-	UpgradeStatics.creation_duration_buff += duration_buffs
-	UpgradeStatics.summon_duration_buff += duration_buffs
+	Statics.trap_duration_buff += duration_buffs
+	Statics.projectile_duration_buff += duration_buffs
+	Statics.creation_duration_buff += duration_buffs
+	Statics.summon_duration_buff += duration_buffs
 	super(new_player)
 func deactivate():
-	UpgradeStatics.trap_duration_buff -= duration_buffs
-	UpgradeStatics.projectile_duration_buff -= duration_buffs
-	UpgradeStatics.creation_duration_buff -= duration_buffs
-	UpgradeStatics.summon_duration_buff -= duration_buffs
+	Statics.trap_duration_buff -= duration_buffs
+	Statics.projectile_duration_buff -= duration_buffs
+	Statics.creation_duration_buff -= duration_buffs
+	Statics.summon_duration_buff -= duration_buffs
 	super()
 func edit_attack(attack: Attack) -> Attack:
 	return attack

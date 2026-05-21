@@ -46,9 +46,12 @@ func _init(type: AttackTypes, attackerNode: Node2D, pos: Vector2, attacker_statu
 	temporary_factor_stats = factorstats
 ## Sets this Attack up as simple
 func simple_setup(damage: float, knockback: float):
+	## TODO: Remove simple setup and just allow variables to be null/check for nulls (everything will setup a base/factor stats when attacking)
 	simple = true
 	simple_damage = damage
 	simple_knockback = knockback
+	temporary_base_stats = GlobalStats.StatsList.new(0)
+	temporary_factor_stats = GlobalStats.StatsList.new(1)
 func get_damage() -> float:
 	if simple:
 		return simple_damage
@@ -101,7 +104,7 @@ func get_stat(key: String) -> float:
 		printerr("Trying to call 'get_stat' on Attack but Attack is setup as simple: ", key)
 		return 0
 	if temporary_base_stats.has(key) && temporary_factor_stats.has(key):
-		#print_debug("Attack getting stat: ", key, " value: ", temporary_base_stats.get_stat(key) * temporary_factor_stats.get_stat(key))
+		#print("Attack getting stat: ", key, " value: ", temporary_base_stats.get_stat(key) * temporary_factor_stats.get_stat(key))
 		return temporary_base_stats.get_stat(key) * temporary_factor_stats.get_stat(key)
 	else:
 		printerr("Trying to get stat that doesn't exist in StatsList: ", key)

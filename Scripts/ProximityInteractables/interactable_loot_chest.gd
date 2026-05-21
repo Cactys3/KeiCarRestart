@@ -41,7 +41,7 @@ func setup(new_time: int, new_level: int):
 	else:
 		setup_item("New Component! " + item.item_name, item)
 func calculate_price():
-	print_debug("caclulating price: " + str(GameInstance.loot_chests_purchased) + " + 20 + " + str(level))
+	print("caclulating price: " + str(GameInstance.loot_chests_purchased) + " + 20 + " + str(level))
 	price =  round((GameInstance.loot_chests_purchased + 1) * (20 + time * randf_range(0.3, 3)))
 	price_setup = true
 func setup_weapon(new_title: String, a: ItemData, h: ItemData, proj: ItemData, weaponframe: ItemData):

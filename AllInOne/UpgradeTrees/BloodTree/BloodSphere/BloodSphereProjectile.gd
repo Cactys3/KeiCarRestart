@@ -14,10 +14,10 @@ func attack_body(body: Node2D, clone: bool) -> void:
 		body.bleed += ((body.applied_bleed + 1) - (body.bleed / body.bleed_threshhold)) / 2
 	elif body is Enemy:
 		## all of remaining bleed for normal enemies
-		#print_debug("Before: ", body.bleed)
-		#print_debug("Required: ", (body.bleed / body.bleed_threshhold), " > ", (body.applied_bleed + 1))
+		#print("Before: ", body.bleed)
+		#print("Required: ", (body.bleed / body.bleed_threshhold), " > ", (body.applied_bleed + 1))
 		body.bleed += (body.applied_bleed + 1) - (body.bleed / body.bleed_threshhold)
-		#print_debug("After: ", body.bleed)
+		#print("After: ", body.bleed)
 	elif body is NonInteractableEvent:
 		## half of remaining bleed for events?
 		body.bleed += ((body.applied_bleed + 1) - (body.bleed / body.bleed_threshhold)) / 2

@@ -6,10 +6,10 @@ extends CreationUpgrade
 func activate(new_player: Character):
 	spawn_with_cd = true
 	spawn_every_seconds = spawning_cd
-	UpgradeStatics.creation_hp_buff += creation_hp_buff
+	Statics.creation_hp_buff += creation_hp_buff
 	super(new_player)
 func deactivate():
-	UpgradeStatics.creation_hp_buff -= creation_hp_buff
+	Statics.creation_hp_buff -= creation_hp_buff
 	super()
 func edit_attack(attack: Attack) -> Attack:
 	return attack

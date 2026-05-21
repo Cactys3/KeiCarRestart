@@ -176,7 +176,7 @@ func attack_spread():
 	if sound_on_spawn:
 		AudioManager.instance.play(sound_on_spawn, global_position)
 	attacking = true
-	for i in count_stat + UpgradeStatics.creation_count_buff + UpgradeStatics.spawn_count_buff:	## TODO: Decide if turrets/spawns should take into account global stats? Global 'count' is just for weapons?
+	for i in count_stat + Statics.creation_count_buff + Statics.spawn_count_buff:	## TODO: Decide if turrets/spawns should take into account global stats? Global 'count' is just for weapons?
 		create_projectile()
 	between_attacks_cooldown_stopwatch = 0
 	attacking = false

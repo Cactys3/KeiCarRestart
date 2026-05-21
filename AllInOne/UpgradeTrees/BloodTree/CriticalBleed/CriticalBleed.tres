@@ -3,12 +3,14 @@
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_aygln"]
 [ext_resource type="PackedScene" uid="uid://cok2k8hgsw433" path="res://AllInOne/UpgradeTrees/BloodTree/CriticalBleed/CriticalBleed.tscn" id="2_b4vx2"]
 
-
 [resource]
 script = ExtResource("1_aygln")
 scene = ExtResource("2_b4vx2")
+upgrade_name = "Critical Bleed"
 upgrade_description = "Apply heavy (red and dripping text effect goes here)Bleed on critical hits from any source!"
 upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
 upgrade_rarity = 1
+prereq_num_of_bleed_upgrades = 1
+prereq_num_of_crit_upgrades = 1
 applies_bleed = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

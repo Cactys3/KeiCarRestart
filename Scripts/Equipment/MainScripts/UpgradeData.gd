@@ -26,6 +26,7 @@ class_name UpgradeData
 @export var prereq_num_of_shock_upgrades: int = 0
 @export var prereq_num_of_wet_upgrades: int = 0
 @export var prereq_num_of_dodge_upgrades: int = 0
+@export var prereq_num_of_crit_upgrades: int = 0
 @export var prereq_num_of_magical_upgrades: int = 0
 @export var prereq_num_of_blunt_upgrades: int = 0
 @export var prereq_num_of_player_buffs_upgrades: int = 0

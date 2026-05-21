@@ -4,10 +4,10 @@ extends TrapUpgrade
 # Your traps do 10% more damage
 func activate(new_player: Character):
 	connect_reload = true
-	UpgradeStatics.trap_damage_buff += trap_damage_buff
+	Statics.trap_damage_buff += trap_damage_buff
 	super(new_player)
 func deactivate():
-	UpgradeStatics.trap_damage_buff -= trap_damage_buff
+	Statics.trap_damage_buff -= trap_damage_buff
 	super()
 func edit_attack(attack: Attack) -> Attack:
 	return attack

@@ -5,7 +5,8 @@ class_name EntityParticles
 @export var status_scale: Vector2 = Vector2(1, 1)
 @export_group("Toggle Effects")
 @export var enabled_burn: bool = true
-@export var enabled_frost: bool = true
+@export var enabled_frost: bool = true ## Frost Status
+@export var enabled_frozen: bool = true ## Frozen Solid
 @export var enabled_poison: bool = true
 @export var enabled_bleed: bool = true
 @export var enabled_shock: bool = true
@@ -13,6 +14,7 @@ class_name EntityParticles
 
 @onready var burn: Node2D = $Burn
 @onready var frost: Node2D = $Frost
+@onready var frozen: Node2D = $Frozen
 @onready var poison: Node2D = $Poison
 @onready var bleed: Node2D = $Bleed
 @onready var shock: Node2D = $Shock
@@ -25,6 +27,8 @@ func toggle_burn(value: bool) -> void:
 	burn.visible = value
 func toggle_frost(value: bool) -> void:
 	frost.visible = value
+func toggle_frozen(value: bool) -> void:
+	frozen.visible = value
 func toggle_poison(value: bool) -> void:
 	poison.visible = value
 func toggle_bleed(value: bool) -> void:

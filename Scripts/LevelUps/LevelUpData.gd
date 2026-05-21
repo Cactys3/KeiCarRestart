@@ -52,9 +52,9 @@ static func get_level_up_options(count: int) -> Array[LevelUpData]:
 	var array: Array[LevelUpData] = []
 	## Get the upgrade
 	var upgrades = ShopManager.get_rand_upgrades(count, GameManager.instance)
-	print_debug("so we want, ", count, " upgrades, but we only got, ", upgrades.size())
+	print("so we want, ", count, " upgrades, but we only got, ", upgrades.size())
 	for upgrade in upgrades:
-		print_debug("Make leve of upgrade: ", upgrade.upgrade_name, ", ", upgrade.upgrade_description, ", ", upgrade.resource_path)
+		print("Make leve of upgrade: ", upgrade.upgrade_name, ", ", upgrade.upgrade_description, ", ", upgrade.resource_path)
 		var level_up: LevelUpData = LevelUpData.new()
 		level_up.set_equipment(upgrade, LevelUpData.types.upgrade)
 		array.append(level_up)
