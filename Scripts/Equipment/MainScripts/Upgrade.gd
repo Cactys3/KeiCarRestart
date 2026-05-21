@@ -57,6 +57,9 @@ func deactivate():
 ## Override method to edit an attack and return
 func edit_attack(attack: Attack) -> Attack:
 	return attack
+## Override method to edit an attack and return (with enemy)
+func edit_attack_enemy(attack: Attack, enemy: Enemy) -> Attack:
+	return attack
 ## Overide method to edit the list of stats
 func edit_stats():
 	pass

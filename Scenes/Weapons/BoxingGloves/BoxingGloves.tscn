@@ -9,8 +9,6 @@
 [sub_resource type="Resource" id="Resource_hdjnv"]
 script = ExtResource("3_ig0w8")
 applies_burn = true
-applies_frost = true
-applies_bleed = true
 metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37iyi"]
@@ -444,7 +442,6 @@ item_description = "Punch your way to victory!"
 item_type = 3
 status = SubResource("Resource_hdjnv")
 burn_apply = 0.2
-frost_apply = 4.0
 _damage = 45.0
 _range = 40.0
 _attackcooldown = 0.35

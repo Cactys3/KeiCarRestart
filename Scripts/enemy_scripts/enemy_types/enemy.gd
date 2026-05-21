@@ -538,6 +538,8 @@ func is_player_nearby(distance: float) -> bool:
 func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
+	## Pass attack through upgrades
+	attack = GameManager.instance.handle_attack_enemy(attack, self)
 	## Apply Status Effect Changes (doesn't apply status effect effects yet)
 	burn += attack.get_burn()
 	frost += attack.get_frost()

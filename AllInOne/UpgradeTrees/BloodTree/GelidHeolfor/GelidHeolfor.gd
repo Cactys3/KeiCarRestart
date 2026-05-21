@@ -1,4 +1,4 @@
-extends TrapUpgrade
+extends ProjectileUpgrade
 ## This upgrade:
 #
 ## Enables the functionality of this upgrade
@@ -27,5 +27,6 @@ func explode(enemy: Enemy):
 		enemy_position = enemy.global_position
 		enemies_exploded.append(enemy)
 		spawn()
+		print("explode")
 func get_spawning_position() -> Vector2:
 	return enemy_position

@@ -39,8 +39,8 @@ signal died(pos: Vector2, cloned: bool)
 @export var die_on_anim_end: bool = false
 @export var anim: AnimatedSprite2D
 @export var sound_on_hit: Sound = null
+@export var make_own_attack: bool = false
 var prebuilt_attack: Attack = null
-var make_own_attack: bool = false
 var death_method: Callable
 var specific_target: bool = false
 var can_attack_method: Callable

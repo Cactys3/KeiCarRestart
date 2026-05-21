@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://b3x3afw5oh1ux"]
+
+[ext_resource type="Texture2D" uid="uid://cbe713m2tsdix" path="res://AllInOne/UpgradeTrees/BloodTree/GelidHeolfor/IceBloodSwirlProjectile.png" id="1_3g366"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_jxhw6"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_hx1xd"]
+
+[sub_resource type="Resource" id="Resource_doutl"]
+script = ExtResource("2_hx1xd")
+applies_frost = true
+applies_bleed = true
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxhw6"]
+atlas = ExtResource("1_3g366")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hx1xd"]
+atlas = ExtResource("1_3g366")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_doutl"]
+atlas = ExtResource("1_3g366")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgbg6"]
+atlas = ExtResource("1_3g366")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukh5p"]
+atlas = ExtResource("1_3g366")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tj2h"]
+atlas = ExtResource("1_3g366")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqshy"]
+atlas = ExtResource("1_3g366")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8t25"]
+atlas = ExtResource("1_3g366")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1ixs"]
+atlas = ExtResource("1_3g366")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rme8g"]
+atlas = ExtResource("1_3g366")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4baqk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxhw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hx1xd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_doutl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgbg6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukh5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tj2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqshy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8t25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1ixs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rme8g")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hx1xd"]
+radius = 13.0
+
+[node name="IceBloodSwirlProjectile" type="Area2D" unique_id=1833216951 node_paths=PackedStringArray("anim")]
+collision_layer = 4
+collision_mask = 136
+script = ExtResource("1_jxhw6")
+homing = false
+can_die_from_collision = false
+can_spawn_multiple = false
+face_rotation = false
+can_knockback = false
+can_move = false
+die_on_anim_end = true
+anim = NodePath("AnimatedSprite2D")
+make_own_attack = true
+status = SubResource("Resource_doutl")
+_damage = 80.0
+_piercing = 10.0
+_duration = 10.0
+_luck = 1.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1820812362]
+position = Vector2(1, -2)
+sprite_frames = SubResource("SpriteFrames_4baqk")
+autoplay = "default"
+frame = 9
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1148421727]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_hx1xd")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

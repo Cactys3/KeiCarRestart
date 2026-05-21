@@ -277,6 +277,12 @@ func handle_attack(attack: Attack) -> Attack:
 		if upgrade.edits_attack:
 			attack = upgrade.edit_attack(attack)
 	return attack
+## Pass a player's attack through each active upgrade - called right before applying to enemy
+func handle_attack_enemy(attack: Attack, enemy: Enemy) -> Attack:
+	for upgrade in active_upgrades:
+		if upgrade.edits_attack:
+			attack = upgrade.edit_attack_enemy(attack, enemy)
+	return attack
 
 func create_level_up_instance():
 	if leveling_up:
