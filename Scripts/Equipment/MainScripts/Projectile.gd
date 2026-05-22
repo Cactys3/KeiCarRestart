@@ -176,6 +176,8 @@ func make_attack(attack_damage_multiplier: float) -> Attack:
 	var attack: Attack = super(attack_damage_multiplier)
 	attack.attack_type = attack_type
 	attack.can_knockback = can_knockback
+	## Set Color
+	attack.set_attack_color(attack_color)
 	return attack
 func die():
 	if dead:

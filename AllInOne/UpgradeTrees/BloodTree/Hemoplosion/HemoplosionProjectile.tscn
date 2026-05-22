@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://bkjf4k5k627b0"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_dtx78"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_bu6i4"]
+[ext_resource type="Texture2D" uid="uid://d1ogf1hs50g0a" path="res://AllInOne/UpgradeTrees/BloodTree/Hemoplosion/HemoplosionProjectile.png" id="3_2ag7h"]
+
+[sub_resource type="Resource" id="Resource_2ag7h"]
+script = ExtResource("2_bu6i4")
+applies_bleed = true
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7goyl"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2c5r6"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nt3le"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55e3i"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fy8v6"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vpta"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80msc"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1n3pb"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvjra"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14mm1"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(1024, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_it5je"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbxbf"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lt4me"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(512, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53tdv"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(768, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_au48i"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(1024, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr4lo"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utp7n"]
+atlas = ExtResource("3_2ag7h")
+region = Rect2(256, 768, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r17ot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7goyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2c5r6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nt3le")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55e3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fy8v6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vpta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80msc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1n3pb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvjra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14mm1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_it5je")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbxbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lt4me")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53tdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_au48i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr4lo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utp7n")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ag7h"]
+radius = 120.01666
+
+[node name="HemoplosionProjectile" type="Area2D" unique_id=1425503357 node_paths=PackedStringArray("anim")]
+collision_layer = 4
+collision_mask = 136
+script = ExtResource("1_dtx78")
+homing = false
+angular_velocity = 0.0
+can_die_from_collision = false
+can_die_from_duration = false
+can_spawn_multiple = false
+face_rotation = false
+can_move = false
+die_on_anim_end = true
+anim = NodePath("AnimatedSprite2D")
+make_own_attack = true
+attack_color = Color(0.86343604, 5.318448e-06, 7.70092e-07, 0)
+status = SubResource("Resource_2ag7h")
+bleed_apply = 1.5
+_damage = 99.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1501509429]
+sprite_frames = SubResource("SpriteFrames_r17ot")
+autoplay = "default"
+frame = 16
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=35637352]
+shape = SubResource("CircleShape2D_2ag7h")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

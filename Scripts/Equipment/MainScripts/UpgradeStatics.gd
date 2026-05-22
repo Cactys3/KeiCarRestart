@@ -1,7 +1,7 @@
 extends Resource
 class_name Statics
 
-## Tracking Variables
+## Tracking Variables:
 
 ## Number of currently active spawns
 static var active_summons: int = 0
@@ -9,9 +9,10 @@ static var active_traps: int = 0
 static var active_creations: int = 0
 static var active_projectiles: int = 0
 
-## Buff Variables
+## Buff Variables:
 
 ## Global Buffs
+static var global_crit_damage_factor: float = 1.5 
 static var global_damage_buff: float = 0
 static var global_projectile_size_buff: float = 0
 
@@ -23,7 +24,8 @@ static var enemy_shock_defense_reduction: float = 5
 ## Multiplier increase of enemy status threshold after each proc
 static var enemy_bleed_threshold_multiplier: float = 1.7
 static var enemy_frost_threshold_multiplier: float = 2
-
+## Crits
+static var bleeds_crit_on_enemy: bool = false
 
 ## Trigger based buffs (applied in places where things are spawned via specific triggers)
 static var reload_spawns_count_buff: int = 0

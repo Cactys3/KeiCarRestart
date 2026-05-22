@@ -167,6 +167,8 @@ func make_attack(attack_damage_multiplier: float) -> Attack:
 	var attack_type: Attack.AttackTypes = get_attack_type()
 	## Make attack and Pass attack through each active upgrade
 	var attack: Attack = Attack.new(attack_type, self, global_position, status, base, factor)
+	## Set Color
+	attack.set_attack_color(attack_color)
 	game_man.handle_attack(attack)
 	return attack
 func get_attack_type() -> Attack.AttackTypes:

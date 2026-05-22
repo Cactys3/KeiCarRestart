@@ -36,6 +36,7 @@ script = ExtResource("1_vdjik")
 enemy_name = "Test Dummy"
 enemy_description = "Dummy to test on"
 damage_hitbox = NodePath("Damage_Hitbox")
+can_be_knockbacked = false
 base_movespeed = 0.0
 base_health = 300.0
 

@@ -58,6 +58,9 @@ func activate(new_player: Character):
 		setup_cooldown_ui()
 	super(new_player)
 	spawn()
+func deactivate():
+	kill_cooldown_ui()
+	super()
 ## Creates the object, initializes it, returns success
 func spawn() -> bool:
 	if scene_to_spawn:

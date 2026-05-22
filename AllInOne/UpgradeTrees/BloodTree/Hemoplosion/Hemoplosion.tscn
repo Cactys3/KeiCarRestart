@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b2fvld5yhlsvm"]
 
 [ext_resource type="Script" uid="uid://60mh2hxxg24k" path="res://AllInOne/UpgradeTrees/BloodTree/Hemoplosion/Hemoplosion.gd" id="1_avd8b"]
-
+[ext_resource type="PackedScene" uid="uid://bkjf4k5k627b0" path="res://AllInOne/UpgradeTrees/BloodTree/Hemoplosion/HemoplosionProjectile.tscn" id="2_grqfh"]
 
 [node name="Hemoplosion" type="Node2D" unique_id=104369515]
 script = ExtResource("1_avd8b")
+scene_to_spawn = ExtResource("2_grqfh")

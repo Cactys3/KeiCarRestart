@@ -9,6 +9,7 @@ const COOLDOWN_UI = preload("uid://brjmxsn8spmpe")
 @export var edits_attack: bool = false
 @export var buffs_weapon_stats: bool = false
 @export var buffs_player_stats: bool = false
+@export var has_meter: bool = false
 ## Variables given by UpgradeData
 var spawns_projectile: bool = false
 var spawns_summon: bool = false
@@ -43,7 +44,7 @@ func activate(new_player: Character):
 	var upgrades_found: Array[UpgradeData] = upgrades_to_overwrite_functionality
 	for upgrade in GameManager.instance.active_upgrades:
 		if upgrades_to_overwrite_functionality.has(upgrade.data):
-			upgrade.disabled_by_inherited_upgrade = true
+			disable_upgrade(upgrade)
 			upgrades_found.erase(upgrade.data)
 	if !upgrades_found.is_empty():
 		var error = ""
@@ -55,6 +56,12 @@ func activate(new_player: Character):
 func deactivate():
 	check_remove()
 	super()
+## Overwrite so you can access upgrade data before disabling them
+func disable_upgrade(upgrade: Upgrade):
+	upgrade.disable_by_inherited(self)
+func disable_by_inherited(inherited_upgrade: Upgrade):
+	disabled_by_inherited_upgrade = true
+	deactivate()
 ## Override method to edit an attack and return
 func edit_attack(attack: Attack) -> Attack:
 	return attack
@@ -72,4 +79,10 @@ func check_remove():
 		remove_buff()
 func remove_buff():
 	buff_applied = false
-	pass
+func apply_buff():
+	buff_applied = true
+func find_upgrade(upgrade_name: String) -> Upgrade:
+	for upgrade in GameManager.instance.active_upgrades:
+		if upgrade.data.upgrade_name == upgrade_name:
+			return upgrade
+	return null

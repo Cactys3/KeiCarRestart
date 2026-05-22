@@ -175,10 +175,9 @@ static func calculate_critdamage(critdamage: float) -> float:
 ## Calculate if this move is a critical strike
 static func calculate_crit(luck: float) -> bool:
 	return luck >= randf_range(0, 100)
-static func calculate_damage(damage: float, luck: float, critdamage: float):
-	if calculate_crit(luck):
-		print("Crit!")
-		return damage * (1 + ((critdamage + 150) / 100))
+static func calculate_damage(damage: float, crit: bool, critdamage: float):
+	if crit:
+		return damage * Statics.global_crit_damage_factor * (1 + critdamage)
 	else:
 		return damage
 static func calculate_knockback(damage: float, weight: float) -> float:

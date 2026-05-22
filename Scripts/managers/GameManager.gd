@@ -191,7 +191,7 @@ func _process(_delta: float) -> void:
 		return
 	if !leveling_up && level_up_queue > 0:
 		create_level_up_instance()
-
+## Weapons/Upgrades
 func add_upgrade(data: UpgradeData) -> void:
 	var upgrade: Upgrade = data.get_upgrade()
 	if !is_instance_valid(upgrade):
@@ -236,7 +236,6 @@ func add_weapon(weapon: Weapon) -> void:
 	weapon.activate(player)
 func add_equipment(equipment: Equipment) -> void:
 	pass
-
 func remove_upgrade(upgrade: Upgrade) -> void:
 	upgrade.deactivate()
 	active_upgrades.erase(upgrade)
@@ -271,6 +270,11 @@ func remove_weapon(weapon: Weapon) -> bool:
 	return false
 func remove_equipment(equipment: Equipment) -> void:
 	pass
+signal whatup ## TODO: simple input system
+## Returns an unused keybind avaliable for use by an upgrade
+func get_avaliable_combat_keybind() -> Signal:
+	return whatup
+
 ## Pass a player's attack through each active upgrade 
 func handle_attack(attack: Attack) -> Attack:
 	for upgrade in active_upgrades:
@@ -333,6 +337,8 @@ func player_damaged(playah: Character, attack: Attack):
 		var new_attack = Attack.new(Attack.AttackTypes.player_misc, player, player.position, null, null, null)
 		new_attack.simple_setup(player.thorns, 0)
 		attack.attacker.damage(new_attack)
+
+## Shop
 func has_upgrade_room():
 	return upgrade_count <= upgrade_limit
 func has_weapon_room():

@@ -25,6 +25,7 @@ var status: StatusEffects # Attacker's Offensive Status Effects
 var attacker: Node2D # Reference to attacker
 var temporary_base_stats: GlobalStats.StatsList 
 var temporary_factor_stats: GlobalStats.StatsList 
+var attack_color: Color = Color.TRANSPARENT
 ## Values
 var calculated_crit: bool = false
 var is_crit: bool = false
@@ -44,6 +45,8 @@ func _init(type: AttackTypes, attackerNode: Node2D, pos: Vector2, attacker_statu
 	status = attacker_status
 	temporary_base_stats = basestats
 	temporary_factor_stats = factorstats
+func set_attack_color(color: Color):
+	attack_color = color
 ## Sets this Attack up as simple
 func simple_setup(damage: float, knockback: float):
 	## TODO: Remove simple setup and just allow variables to be null/check for nulls (everything will setup a base/factor stats when attacking)
@@ -55,7 +58,8 @@ func simple_setup(damage: float, knockback: float):
 func get_damage() -> float:
 	if simple:
 		return simple_damage
-	return GlobalStats.calculate_damage(get_stat(GlobalStats.DAMAGE), get_stat(GlobalStats.LUCK), get_stat(GlobalStats.CRITDAMAGE))
+	calculate_crit()
+	return GlobalStats.calculate_damage(get_stat(GlobalStats.DAMAGE), is_crit, get_stat(GlobalStats.CRITDAMAGE))
 func get_knockback() -> float:
 	if can_knockback:
 		if simple:
@@ -89,6 +93,8 @@ func get_wet() -> float:
 	if status.applies_wet:
 		return get_stat(GlobalStats.WET_APPLY)
 	return 0
+func has_color() -> bool:
+	return attack_color != Color.TRANSPARENT
 ## Returns if this attack is a critical strike
 func get_crit() -> bool:
 	if !calculated_crit:
@@ -98,7 +104,7 @@ func get_crit() -> bool:
 func calculate_crit() -> void:
 	if temporary_base_stats && temporary_factor_stats:
 		calculated_crit = true
-		is_crit = GlobalStats.calculate_crit(temporary_base_stats.get_stat(GlobalStats.LUCK) * temporary_factor_stats.get_stat(GlobalStats.LUCK))
+		is_crit = GlobalStats.calculate_crit(get_stat(GlobalStats.LUCK))
 func get_stat(key: String) -> float:
 	if simple:
 		printerr("Trying to call 'get_stat' on Attack but Attack is setup as simple: ", key)

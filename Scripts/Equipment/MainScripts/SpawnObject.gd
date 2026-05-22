@@ -1,9 +1,11 @@
 extends StatsObject
 ## Objects spawned by the player or upgrades
 class_name SpawnObject
+@export var attack_color: Color = Color.TRANSPARENT
 @export var enemy_detection_radius: float = 150
 ## How long until we can attack an enemy for a second time?
 @export var attack_same_enemy_cooldown: float = 2
+
 var AttackedObjects: Array = []
 func _process(delta: float) -> void:
 	super(delta)

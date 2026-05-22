@@ -4,7 +4,7 @@ class_name Equipment
 @export_placeholder("Name Go Here") var item_name: String = "unset"
 @export_multiline var item_description: String = "default description"
 @export var item_type: item_types
-@export var item_color: Color = Color.DARK_SLATE_BLUE
+@export var item_color: Color = Color.TRANSPARENT
 @export var border_color: Color = Color.WHITE
 @export var item_image: Texture2D = preload("uid://d0wip1h85ishb")
 @export_group("Signal Connections")
@@ -177,6 +177,8 @@ func make_attack(attack_damage_multiplier: float) -> Attack:
 	## Make attack and Pass attack through each active upgrade
 	var attack: Attack = Attack.new(attack_type, self, player.global_position, status, base, factor)
 	game_man.handle_attack(attack)
+	## Set Color
+	attack.set_attack_color(item_color)
 	return attack
 func get_attack_type() -> Attack.AttackTypes:
 	if item_type == item_types.upgrade:

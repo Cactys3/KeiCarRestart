@@ -19,6 +19,8 @@ class_name GrowBar
 
 ## Only displays foreground (so can't see how far we are from a full bar)
 var old_version_toggle: bool = false
+## If null, don't play
+@export var sound_on_bar_full: Sound
 @export var no_background: bool = false
 ## Should the bar expand upon being given a value larger than max_value
 @export var expand_bar: bool = false
@@ -35,8 +37,8 @@ var old_version_toggle: bool = false
 @export_subgroup("Sizes (at 1080p)")
 ## If false, won't use the below values
 @export var use_custom_sizes: bool = true
-@export var background_height: float = 40
-@export var foreground_height: float = 40
+@export var background_height: float = 25
+@export var foreground_height: float = 25
 @export var min_width: float = 1920
 @export var top_offset_height: float = 5
 @export var bottom_offset_height: float = 5
@@ -95,6 +97,7 @@ func set_value(value: float) -> void:
 	#print("set Value")
 	## If value is maxxed out
 	if value >= max_value:
+		bar_full()
 		reset_foreground()
 		if reset_on_full:
 			#print("Less 0, ", max_value)
@@ -228,3 +231,7 @@ func set_value_funky_implementation(value: float) -> void:
 func reset_foreground():
 	foreground_right_image.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	foreground_left_image.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+## On Bar Full (or expanding bar)
+func bar_full():
+	if sound_on_bar_full:
+		AudioManager.instance.play(sound_on_bar_full, Vector2(0, 0))

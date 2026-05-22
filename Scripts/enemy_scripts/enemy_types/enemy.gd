@@ -331,7 +331,7 @@ func proc_burn() -> Attack:
 	applied_burn += 1
 	curr_health -= current_burn_damage
 	## Do the display dmg
-	display_damage(current_burn_damage, Color.RED)
+	display_damage(current_burn_damage, Color.RED, false)
 	if DebugManager.StatusProc:
 		print("Burn Proc, Dmg: ", current_burn_damage, ", Enemy: ", enemy_name)
 	return attack
@@ -349,7 +349,7 @@ func proc_frost() -> Attack:
 	applied_frost += 1
 	curr_health -= current_frost_damage
 	## Do the display dmg
-	display_damage(current_frost_damage, Color.LIGHT_CYAN)
+	display_damage(current_frost_damage, Color.LIGHT_CYAN, false)
 	## Raise the threshold
 	frost_threshhold *= Statics.enemy_frost_threshold_multiplier
 	if DebugManager.StatusProc:
@@ -366,7 +366,7 @@ func proc_poison() -> Attack:
 	applied_poison += 1
 	curr_health -= current_poison_damage
 	## Do the display dmg
-	display_damage(current_poison_damage, Color.GREEN)
+	display_damage(current_poison_damage, Color.GREEN, false)
 	if DebugManager.StatusProc:
 		print("Poison Proc, Dmg: ", current_poison_damage, ", Enemy: ", enemy_name)
 	return attack
@@ -382,7 +382,7 @@ func proc_bleed() -> Attack:
 	applied_bleed += 1
 	curr_health -= current_bleed_damage
 	## Do the display dmg
-	display_damage(current_bleed_damage, Color.ORANGE_RED)
+	display_damage(current_bleed_damage, Color.ORANGE_RED, false)
 	## Raise bleed threshold
 	bleed_threshhold *= Statics.enemy_bleed_threshold_multiplier
 	if DebugManager.StatusProc:
@@ -413,7 +413,10 @@ func get_shock_defense_reduction() -> float:
 	## base * number of times threshold has been reached
 	return (shock / shock_threshhold) * Statics.enemy_shock_defense_reduction
 func get_bleed_damage() -> float:
-	return base_health * (GlobalStats.get_stat(GlobalStats.BLEED_DAMAGE) / 100)
+	var value: float = base_health * (GlobalStats.get_stat(GlobalStats.BLEED_DAMAGE) / 100)
+	if Statics.bleeds_crit_on_enemy:
+		value *= Statics.global_crit_damage_factor
+	return value
 func get_poison_damage() -> float:
 	# 1/4 of max health for each time above threshold
 	var mulitplier: float = floor(poison / poison_threshhold)
@@ -496,13 +499,20 @@ func drop_chest():
 func drop_powerup():
 	GameInstance.drop_powerup(global_position)
 ## Makes a PopupText for the given damage and color, Color.TRANSPARENT for random color
-func display_damage(damage_value: float, color: Color):
+func display_damage(damage_value: float, color: Color, crit: bool):
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
+	var text: String = str(int(round(damage_value)))
+	if crit:
+		text += "!"
+	var size: float = damage_value + randi_range(-5, 5)
+	var location: Vector2 = WindowManager.instance.convert_small_position(global_position)
+	var lifetime: float = 1.5
+	var random_location_range: Vector2 = Vector2(10, 10)
 	if color == Color.TRANSPARENT:
-		dmg_text.setup(str(int(round(damage_value))), damage_value + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10))
+		dmg_text.setup(text, size, location, lifetime, random_location_range)
 	else:
-		dmg_text.setup_color(str(int(round(damage_value))), damage_value + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), color)
+		dmg_text.setup_color(text, size, location, lifetime, random_location_range, color)
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 	if can_attack(body):
 		damage_player(body, false)
@@ -517,7 +527,7 @@ func damage_player(_damage_player: Node2D, from_projectile: bool):
 	else:
 		attack = Attack.new(Attack.AttackTypes.enemy_melee, self, global_position, status, null, null)
 	## Simple Setup for Attack
-	attack.simple_setup(GlobalStats.calculate_damage(curr_damage, curr_critchance, curr_critdamage), weapon_knockback)
+	attack.simple_setup(GlobalStats.calculate_damage(curr_damage, GlobalStats.calculate_crit(curr_critchance), curr_critdamage), weapon_knockback)
 	_damage_player.damage(attack) #TODO: put into game manager?
 	if melee_attacks:
 		damage_hitbox.set_deferred("monitoring", false)
@@ -592,11 +602,11 @@ func damage(attack: Attack):
 			stunned = true
 		apply_knockback(attack.position, attack.get_knockback())
 	if attack_damage > 0:
-		display_damage(attack_damage, Color.TRANSPARENT)
+		display_damage(attack_damage, attack.attack_color, attack.get_crit())
 	if shock_damage > 0:
-		display_damage(shock_damage, Color.GOLD)
+		display_damage(shock_damage, Color.GOLD, attack.get_crit())
 	if wet_damage > 0:
-		display_damage(wet_damage, Color.BLUE)
+		display_damage(wet_damage, Color.BLUE, attack.get_crit())
 	## Die.
 	check_death(attack)
 func death_signal(attack: Attack):

@@ -174,7 +174,7 @@ func damage(attack: Attack):
 			#stunned = true
 		#apply_knockback(attack.position, attack.get_knockback())
 	if attack_damage > 0:
-		display_damage(attack_damage, Color.TRANSPARENT)
+		display_damage(attack_damage, attack.attack_color)
 	if shock_damage > 0:
 		display_damage(shock_damage, Color.GOLD)
 	if wet_damage > 0:

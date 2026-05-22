@@ -7,7 +7,7 @@ func activate(new_player: Character):
 	super(new_player)
 func deactivate():
 	if buff_stacks > 0:
-		apply_buff(-buff_stacks)
+		apply_buffs(-buff_stacks)
 	super()
 func edit_attack(attack: Attack) -> Attack:
 	return attack
@@ -25,15 +25,15 @@ var buff_stopwatch: float = 0
 func projectile_spawned(projectile: Projectile):
 	## Add a stack and reset stacks resetting cooldown
 	if buff_stacks < max_buff_stacks:
-		apply_buff(1)
+		apply_buffs(1)
 func _process(delta: float) -> void:
 	if buff_stacks > 0:
 		buff_stopwatch -= delta
 		if buff_stopwatch <= 0:
-			apply_buff(-1)
+			apply_buffs(-1)
 	super(delta)
 ## Value is Either -1 or 1
-func apply_buff(value: int):
+func apply_buffs(value: int):
 	buff_stopwatch = buff_expire_cooldown
 	buff_stacks += value
 	Statics.global_damage_buff += (damage_per_stack_buff) * value
