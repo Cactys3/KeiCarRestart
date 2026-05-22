@@ -2,6 +2,7 @@ extends Equipment
 ## An upgrade can be: an active weapon that damages enemies, a global stat buff, a passive to weapons, etc
 class_name Upgrade
 ## variables set in ready() method or by UpgradeData
+const COOLDOWN_UI = preload("uid://brjmxsn8spmpe")
 
 ## Booleans that say what this upgrade does
 ## Should attacks be passed through this upgrade before being sent to enemy

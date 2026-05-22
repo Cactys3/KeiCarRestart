@@ -6,7 +6,7 @@ class_name Equipment
 @export var item_type: item_types
 @export var item_color: Color = Color.DARK_SLATE_BLUE
 @export var border_color: Color = Color.WHITE
-@export var item_image: Texture2D 
+@export var item_image: Texture2D = preload("uid://d0wip1h85ishb")
 @export_group("Signal Connections")
 @export var connect_enemy_killed: bool = false
 @export var connect_boss_killed: bool = false

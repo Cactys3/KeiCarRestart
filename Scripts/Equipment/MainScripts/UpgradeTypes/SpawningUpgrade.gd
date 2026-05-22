@@ -5,6 +5,7 @@ class_name SpawningUpgrade
 @export var enemy_kills_to_spawn: int = 0
 @export var spawn_on_reload: bool = false
 @export var spawn_with_cd: bool = false
+@export var create_radial_ui_for_cd: bool = true
 @export var spawn_every_seconds: float = 0
 @export var scene_to_spawn: PackedScene
 @export var spawn_radius: float = 40
@@ -16,6 +17,8 @@ static var spawn_on_enemy_kills_reduction_factor: float = 1
 var reloads_since_last_spawn: int = 0
 var enemies_killed_since_spawn: int = 0
 var stopwatch: float = 0
+var cooldownUI_stopwatch: float = 0
+var cooldownUI: CooldownUI
 ## Additional Spawns for only this SpawningUpgrade
 var additional_spawns: int = 0
 func _ready() -> void:
@@ -32,14 +35,27 @@ func _process(delta: float) -> void:
 				reloads_since_last_spawn -= 1
 		elif spawn_with_cd:
 			stopwatch += delta
+			var spawned: bool = false
 			if stopwatch >= (spawn_every_seconds * spawn_every_seconds_cd_reduction_factor) && spawn():
 				stopwatch = 0
+			## Every x sec, update cd UI
+			if cooldownUI != null:
+				if cooldownUI_stopwatch >= 0.05:
+					cooldownUI_stopwatch = 0
+					if spawned:
+						cooldownUI.set_progress(1)
+					else:
+						cooldownUI.set_progress(stopwatch / spawn_every_seconds)
+				else:
+					cooldownUI_stopwatch += delta
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
 	if spawn_on_reload:
 		connect_reload = true
 	if spawn_on_enemy_kills:
 		connect_enemy_killed = true
+	if spawn_with_cd && create_radial_ui_for_cd:
+		setup_cooldown_ui()
 	super(new_player)
 	spawn()
 ## Creates the object, initializes it, returns success
@@ -71,3 +87,12 @@ func get_spawning_duration() -> float:
 	return spawn_duration + duration_stat + Statics.spawn_duration_buff
 func get_spawn_parent() -> Node2D:
 	return GameManager.instance.projectile_parent
+func setup_cooldown_ui():
+	if cooldownUI != null:
+		kill_cooldown_ui()
+	cooldownUI = preload("uid://brjmxsn8spmpe").instantiate()
+	GameManager.instance.ui_man.hud.add_upgrade_cooldown_ui(cooldownUI)
+	cooldownUI.setup(item_name + " cd", Color.BLACK, item_image)
+func kill_cooldown_ui():
+	if cooldownUI != null:
+		cooldownUI.kill()

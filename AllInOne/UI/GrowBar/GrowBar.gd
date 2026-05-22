@@ -89,7 +89,6 @@ func _process(delta: float) -> void:
 		#if foreground_middle.size.x != curr_value:
 			#foreground_middle.custom_minimum_size.x = curr_value
 			#foreground_middle.size.x = curr_value
-
 ## Sets the foreground size to value (expands if valid)
 func set_value(value: float) -> void:
 	value = value * value_multiplier
@@ -152,7 +151,6 @@ func set_max(value: float) -> void:
 		_set_max_width(value)
 	else:
 		printerr("trying to set max_width lower than 1")
-
 func _set_max_width(value: float):
 	max_value = value
 	if old_version_toggle:

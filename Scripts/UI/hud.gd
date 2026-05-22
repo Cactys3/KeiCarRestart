@@ -1,5 +1,7 @@
 extends Control
 class_name HUD
+## Parents
+@onready var upgrade_cooldowns: GridContainer = $UpgradeCooldowns
 ## Labels
 @onready var silver: Label = $Labels/Silver
 @onready var money: Label = $Labels/Money
@@ -31,3 +33,7 @@ func set_time(value: float):
 ## Sets the xp's foreground bar's visible to value, used after finishing a level up (xp at 100%)
 func set_xp_visible(value: bool) -> void:
 	xp.set_foreground_visible(value)
+
+func add_upgrade_cooldown_ui(ui: CooldownUI):
+	if ui:
+		upgrade_cooldowns.add_child(ui)

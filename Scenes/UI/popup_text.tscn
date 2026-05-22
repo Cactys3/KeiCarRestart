@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://brldrnbhcexcm"]
+[gd_scene format=3 uid="uid://brldrnbhcexcm"]
 
 [ext_resource type="Script" uid="uid://tb20asul7ns7" path="res://Scripts/UI/popup_text.gd" id="1_e0m3v"]
 
@@ -52,7 +52,7 @@ _data = {
 &"fade": SubResource("Animation_ty17l")
 }
 
-[node name="PopupText" type="RichTextLabel"]
+[node name="PopupText" type="RichTextLabel" unique_id=906277075]
 texture_filter = 1
 anchors_preset = -1
 anchor_left = 0.464
@@ -76,7 +76,5 @@ shortcut_keys_enabled = false
 meta_underlined = false
 script = ExtResource("1_e0m3v")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_qtp4o")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1935972796]
+libraries/ = SubResource("AnimationLibrary_qtp4o")

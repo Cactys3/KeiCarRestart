@@ -17,15 +17,12 @@ var done: bool = false
 var never_die: bool = false
 # Overview: given stuff, plays 
 
-
 func _ready() -> void:
 	if lifetime < 1:
 		lifetime += 1
-
 func _process(delta: float) -> void:
 	if done:
-		pass
-	
+		return
 	stopwatch += delta
 	if !never_die && stopwatch > lifetime:
 		anim.play("fade")
@@ -56,10 +53,12 @@ func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lif
 	text = curr_text
 	alpha = 0.9
 	call_deferred("set", "global_position", new_position - Vector2(get_content_width(), get_content_height()) / 2) #offset so it's centered text (idk why this best solution)
-
 func center():
 	horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-
 func addtag(new_text: String, tag1: String, tag2: String):
 	new_text = tag1 + new_text + tag2
+## Fade away and free
+func fade():
+	anim.play("fade")
+	done = true
