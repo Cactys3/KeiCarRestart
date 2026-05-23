@@ -27,7 +27,7 @@ func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
 	super(delta)
-	if blood_meter && meter_full && Input.is_action_just_pressed("ability1"):
+	if blood_meter && meter_full && Input.is_action_just_pressed(assigned_input):
 		if blood_meter.spend_percent_of_max_meter(1):
 			explode()
 ## Spawn an explosion on the player

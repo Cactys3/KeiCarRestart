@@ -76,11 +76,11 @@ func initialize_stats() -> void:
 func _process(_delta: float) -> void:
 	if GameInstance.is_game_over:
 		return
-	if Input.is_action_just_pressed("ability1"):
+	if Input.is_action_just_pressed(InputManager.ABILITY_1):
 		character_ability(1)
-	if Input.is_action_just_pressed("ability2"):
+	if Input.is_action_just_pressed(InputManager.ABILITY_2):
 		character_ability(2)
-	if Input.is_action_just_pressed("ability3"):
+	if Input.is_action_just_pressed(InputManager.ABILITY_3):
 		character_ability(3)
 func _physics_process(delta : float) -> void:
 	if GameInstance.is_game_over:
@@ -119,7 +119,7 @@ func handle_regens(delta) -> void:
 			game_man.curr_hp += GlobalStats.calculate_regen(regen)
 func handle_moving(delta) -> void:
 	var is_moving = false
-	var directionX := Input.get_axis("left", "right")
+	var directionX := Input.get_axis(InputManager.LEFT, InputManager.RIGHT)
 	if !stunning: ## Stun Time prevents the player from inputting movement commands, but doesn't change their current velocity
 		var new_velocity: Vector2
 		if directionX:
@@ -127,7 +127,7 @@ func handle_moving(delta) -> void:
 			is_moving = true
 		else:
 			new_velocity.x = 0
-		var directionY := Input.get_axis("up", "down")
+		var directionY := Input.get_axis(InputManager.UP, InputManager.DOWN)
 		if directionY:
 			new_velocity.y = round(directionY) * curr_speed
 			is_moving = true

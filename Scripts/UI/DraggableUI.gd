@@ -16,10 +16,8 @@ func _ready() -> void:
 	if !parent:
 		parent = self
 	call_deferred("connect_signals")
-
 func connect_signals():
 	GameManager.instance.connect("toggle_inventory", toggle_ui)
-
 func _process(delta: float) -> void:
 	if !(dragging_some_ui && !dragging) && visible && parent.visible && process_mode != PROCESS_MODE_DISABLED && parent.process_mode != PROCESS_MODE_DISABLED:
 		var hovering_drag_bar = get_global_rect().has_point(get_global_mouse_position())

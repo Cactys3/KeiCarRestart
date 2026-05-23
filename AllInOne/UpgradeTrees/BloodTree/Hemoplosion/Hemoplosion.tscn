@@ -6,3 +6,4 @@
 [node name="Hemoplosion" type="Node2D" unique_id=104369515]
 script = ExtResource("1_avd8b")
 scene_to_spawn = ExtResource("2_grqfh")
+has_custom_input = true

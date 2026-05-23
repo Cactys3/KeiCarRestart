@@ -40,9 +40,9 @@ func _ready() -> void:
 	if misc_parent.visible:
 		misc_parent.visible = false
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("Escape_Menu"):
+	if Input.is_action_just_pressed(InputManager.SETTINGS_MENU):
 		escape_pressed()
-	if Input.is_action_just_pressed("Tab_Menu"):
+	if Input.is_action_just_pressed(InputManager.GAMEPLAY_MENU):
 		tab_pressed()
 func _connect_signals():
 	pass#GameManager.instance.toggle_inventory.connect(toggle_inventory)

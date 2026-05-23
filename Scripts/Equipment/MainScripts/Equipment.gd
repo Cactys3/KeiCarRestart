@@ -1,5 +1,7 @@
 extends StatsObject
 class_name Equipment
+## Does this Equipment require its own input?
+@export var has_custom_input: bool = false
 @export_group("Information")
 @export_placeholder("Name Go Here") var item_name: String = "unset"
 @export_multiline var item_description: String = "default description"
@@ -21,6 +23,7 @@ class_name Equipment
 @export var connect_: bool = false
 ## Data Fields
 var player: Character
+var assigned_input: String = ""
 ## Generic Fields (always active)
 ## is this weapon or upgrade equipped
 var active: bool = false
@@ -49,6 +52,8 @@ static func get_type(i: int) -> String:
 	return "Type: " + str(i)
 ## enable and apply the functionality of this Equipment
 func activate(new_player: Character):
+	if has_custom_input:
+		InputManager.assign_input(self)
 	if connect_enemy_killed:
 		game_man.EnemyKilled.connect(enemy_killed)
 	if connect_boss_killed:
@@ -73,6 +78,8 @@ func activate(new_player: Character):
 	active = true
 ## disable and halt the functionality of this Equipment
 func deactivate():
+	if has_custom_input:
+		InputManager.free_input(assigned_input)
 	if connect_enemy_killed && game_man.EnemyKilled.is_connected(enemy_killed):
 		game_man.EnemyKilled.disconnect(enemy_killed)
 	if connect_reload && game_man.WeaponReloaded.is_connected(reload):
@@ -132,8 +139,16 @@ func IsAimingAtAnyEnemy() -> bool:
 		return true
 	return false
 
-## SIGNALS
+## Input
+## Attempt to assign input to this Equipment
+func assign_input(input: String) -> void:
+	assigned_input = input
+## Remove input, override if there are conditions where you don't want to allow remove input
+func remove_input() -> bool:
+	assigned_input = ""
+	return true
 
+## SIGNALS
 ## On Enemy Killed Signal
 func enemy_killed(enemy: Enemy, attack: Attack) -> void:
 	pass

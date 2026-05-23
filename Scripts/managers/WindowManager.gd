@@ -52,7 +52,7 @@ var curr: int = 2
 func _process(delta: float) -> void:
 	if !instance:
 		instance = self
-	if Input.is_action_just_pressed("ability1"):
+	if Input.is_action_just_pressed(InputManager.ABILITY_1):
 		_on_pressed()
 func _on_pressed() -> void:
 	#print("Changed Resolution from: " + str(curr))

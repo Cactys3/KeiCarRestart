@@ -3,28 +3,82 @@
 [ext_resource type="Script" uid="uid://cb83sv1b16det" path="res://Scripts/UI/hud.gd" id="1_fdl0h"]
 [ext_resource type="PackedScene" uid="uid://b18b5v5lx44ak" path="res://AllInOne/UI/GrowBar/GrowBar.tscn" id="4_8glcj"]
 
-[node name="hud" type="Control" unique_id=1869617289]
+[node name="hud" type="Control" unique_id=1869617289 node_paths=PackedStringArray("upgrade_cooldowns", "upgrade_bars", "assigned_inputs", "silver", "money", "kills", "time", "hp", "shield", "xp")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 3
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_right = -1920.0
-offset_bottom = 30.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 mouse_filter = 2
 script = ExtResource("1_fdl0h")
+upgrade_cooldowns = NodePath("UpgradeCooldowns")
+upgrade_bars = NodePath("UpgradeBars")
+assigned_inputs = NodePath("UpgradeInputs")
+silver = NodePath("Labels/Silver")
+money = NodePath("Labels/Money")
+kills = NodePath("Labels/Kills")
+time = NodePath("Time")
+hp = NodePath("hp")
+shield = NodePath("shield")
+xp = NodePath("xp")
+
+[node name="xp" parent="." unique_id=253769573 instance=ExtResource("4_8glcj")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 1930.0
+offset_bottom = 40.0
+value_multiplier = 18.7
+foreground_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
+background_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
+use_custom_sizes = false
+
+[node name="shield" parent="." unique_id=265244614 instance=ExtResource("4_8glcj")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 100.0
+offset_top = 116.0
+offset_right = 255.0
+offset_bottom = 126.0
+expand_bar_without_raising_max = true
+start_max = 0.0
+foreground_color = Color(0.3882353, 0.60784316, 1, 1)
+background_color = Color(0, 0, 0, 1)
+use_custom_sizes = false
+
+[node name="hp" parent="." unique_id=109577131 instance=ExtResource("4_8glcj")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 100.0
+offset_top = 126.0
+offset_right = 255.0
+offset_bottom = 146.0
+expand_bar_without_raising_max = true
+value_multiplier = 1.55
+foreground_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
+background_color = Color(0.79607844, 0.85882354, 0.9882353, 1)
+use_custom_sizes = false
 
 [node name="Labels" type="HBoxContainer" parent="." unique_id=1737964501]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 372.0
-offset_bottom = 66.0
+offset_left = 116.0
+offset_top = -1014.0
+offset_right = 448.0
+offset_bottom = -988.0
 grow_vertical = 2
 theme_override_constants/separation = 40
 
@@ -57,72 +111,51 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -60.0
-offset_top = 43.0
-offset_right = 60.0
-offset_bottom = 94.0
+offset_left = -36.0
+offset_top = 65.0
+offset_right = 36.0
+offset_bottom = 116.0
 grow_horizontal = 2
+size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 0.41960785, 0.41960785, 1)
 theme_override_font_sizes/font_size = 64
 text = "0:0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="hp" parent="." unique_id=109577131 instance=ExtResource("4_8glcj")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 32.0
-offset_top = 121.0
-offset_right = 187.0
-offset_bottom = 141.0
-expand_bar_without_raising_max = true
-value_multiplier = 1.55
-foreground_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
-background_color = Color(0.79607844, 0.85882354, 0.9882353, 1)
-use_custom_sizes = false
-
-[node name="shield" parent="." unique_id=265244614 instance=ExtResource("4_8glcj")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 36.0
-offset_top = 111.0
-offset_right = 182.0
-offset_bottom = 121.0
-expand_bar_without_raising_max = true
-start_max = 0.0
-foreground_color = Color(0.3882353, 0.60784316, 1, 1)
-background_color = Color(0, 0, 0, 1)
-use_custom_sizes = false
-
-[node name="xp" parent="." unique_id=253769573 instance=ExtResource("4_8glcj")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 1930.0
-offset_bottom = 40.0
-value_multiplier = 18.7
-foreground_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
-background_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
-use_custom_sizes = false
+[node name="UpgradeInputs" type="HBoxContainer" parent="." unique_id=1996201626]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -203.0
+offset_right = 20.0
+offset_bottom = -203.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="UpgradeCooldowns" type="GridContainer" parent="." unique_id=1922107071]
-layout_mode = 0
-offset_left = 892.0
-offset_top = 53.0
-offset_right = 1110.0
-offset_bottom = 162.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1020.0
+offset_top = 222.0
+offset_right = -802.0
+offset_bottom = 331.0
+grow_horizontal = 0
 columns = 4
 
 [node name="UpgradeBars" type="VBoxContainer" parent="." unique_id=575090051]
-layout_mode = 0
-offset_left = 1137.0
-offset_top = 52.0
-offset_right = 1888.0
-offset_bottom = 168.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -819.0
+offset_top = 196.0
+offset_right = -68.0
+offset_bottom = 312.0
+grow_horizontal = 0

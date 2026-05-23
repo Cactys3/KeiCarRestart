@@ -113,7 +113,7 @@ func process_cooldown(delta: float) -> void:
 	## if cd between attacks -> if cd between projectiles
 	if between_attacks_cooldown_stopwatch > get_cooldown_between_attacks():
 		if between_projectiles_cooldown_stopwatch > get_cooldown_between_projectiles():
-			if (ready_to_fire || always_ready_to_fire):# || Input.is_action_pressed("left_click"):
+			if (ready_to_fire || always_ready_to_fire):
 				attack()
 		else:
 			between_projectiles_cooldown_stopwatch += delta
@@ -268,7 +268,7 @@ func ProcessAlwaysAtMouse(delta: float) -> void:
 	global_position = GetOrbitPositionAtMouse((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
 	var nearest_enemy: Node2D = get_enemy_nearby(range_stat)
-	ready_to_fire = Input.is_action_pressed("left_click")
+	ready_to_fire = Input.is_action_pressed(InputManager.PRIMARY)
 	RotateTowardsPosition(get_global_mouse_position(), delta)
 ## Aim at nearest enemy from static slot
 func ProcessStaticSlot(delta: float) -> void:

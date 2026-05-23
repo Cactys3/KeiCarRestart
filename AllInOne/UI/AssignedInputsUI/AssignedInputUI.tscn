@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://jpvvjna8n8bx"]
+
+[ext_resource type="Texture2D" uid="uid://d0wip1h85ishb" path="res://Art/UI/MISSING.png" id="1_a1287"]
+[ext_resource type="Script" uid="uid://dq3wqhx70cxqx" path="res://AllInOne/UI/AssignedInputsUI/AssignedInputUI.gd" id="1_jmu3t"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n5d7r"]
+
+[node name="AssignedInputUI" type="VBoxContainer" unique_id=1338293031]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 0
+script = ExtResource("1_jmu3t")
+
+[node name="Label" type="Label" parent="." unique_id=711731392]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_n5d7r")
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1028703954]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_a1287")
+stretch_mode = 2

@@ -20,46 +20,8 @@ func _ready() -> void:
 			button.pressed.connect(add_upgrade.bind(upgrade))
 			buttons.append(button)
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("space"):
-		var list = ShopManager.get_rand_upgrades(1, GameManager.instance)
-		if !list.is_empty():
-			pass#GameManager.instance.add_upgrade(list[0])
-	if Input.is_action_just_pressed("test_2"):
+	if Input.is_action_just_pressed(InputManager.INPUT_9):
 		GameInstance.instance.spawn_enemy(load("uid://cqip08xv6m5no"), player.global_position + Vector2(0, -150))
-	if Input.is_action_just_pressed("test_3"):
-		## Spawning Upgrades
-		## Bleed
-		pass
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_NEEDLES))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_MAGAZINE))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOODY_QUIVER))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_TURRETS))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_MECHANIC))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.BLOOD_SPHERE))
-		## Ghostly
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.FEARY))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.GHOSTSPLOSION))
-		#game_man.add_upgrade(ShopManager.get_upgrade(ShopManager.GHOSTLY_HELPER))
-	if Input.is_action_just_pressed("test_4"):
-		pass#game_man.curr_hp -= 10
-	if Input.is_action_just_pressed("test_5"):
-		pass#game_man.curr_hp += 1
-	if Input.is_action_just_pressed("test_6"):
-		pass#game_man.curr_hp += 10
-	if Input.is_action_just_pressed("test_7"):
-		pass#game_man.xp += game_man.xp_to_next_level + 1
-	if Input.is_action_just_pressed("test_0"):
-		pass#GameManager.instance.level_up.emit()
-	if Input.is_action_just_pressed("ability1"):
-		pass
-	if Input.is_action_just_pressed("ability2"):
-		pass
-	if Input.is_action_just_pressed("ability3"):
-		pass
-	if Input.is_action_just_pressed("test_5"):
-		pass
-	if Input.is_action_just_pressed("test_6"):
-		pass
 func add_upgrade(upgrade_name: String) -> void:
 	if upgrade_name == "Add All Upgrades!":
 		for upgrade in ShopManager.upgrade_list.keys():
