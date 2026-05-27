@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://i67yvxkh1d8o"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_8m6q1"]
+[ext_resource type="Resource" uid="uid://bgyvl04jup1je" path="res://AllInOne/UpgradeTrees/NerdTree/Anime/Anime.tres" id="2_byqlh"]
+[ext_resource type="PackedScene" uid="uid://bxtf3q3ll02gf" path="res://AllInOne/UpgradeTrees/NerdTree/Hobbies/Hobbies.tscn" id="2_chocs"]
+[ext_resource type="Resource" uid="uid://bq7siy68bu76r" path="res://AllInOne/UpgradeTrees/NerdTree/Printin/Printin.tres" id="3_tupc7"]
+[ext_resource type="Resource" uid="uid://dx6wgy5svc6kc" path="res://AllInOne/UpgradeTrees/NerdTree/Procrastination/Procrastination.tres" id="4_ihhpu"]
+[ext_resource type="Resource" uid="uid://c4yvh1gs3ahmv" path="res://AllInOne/UpgradeTrees/NerdTree/BuildPlateXL/BuldPlateXL.tres" id="5_tupc7"]
+
+[resource]
+script = ExtResource("1_8m6q1")
+scene = ExtResource("2_chocs")
+upgrade_name = "Hobbies"
+upgrade_description = "Each time you complete a hobby..."
+upgrade_rarity = 3
+prerequisite_upgrades = Array[ExtResource("1_8m6q1")]([ExtResource("2_byqlh"), ExtResource("3_tupc7"), ExtResource("4_ihhpu"), ExtResource("5_tupc7")])
+prereq_num_of_cooldown_upgrades = 3
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

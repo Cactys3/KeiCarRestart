@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://j60crhb84rib"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_uc5ho"]
+[ext_resource type="Resource" uid="uid://3ox6n5x2jdtb" path="res://AllInOne/UpgradeTrees/NerdTree/A+/A+.tres" id="2_3ag44"]
+[ext_resource type="PackedScene" uid="uid://2hlg7qe1n0we" path="res://AllInOne/UpgradeTrees/NerdTree/StackingStacks/StackingStacks.tscn" id="2_04xmb"]
+
+[resource]
+script = ExtResource("1_uc5ho")
+scene = ExtResource("2_04xmb")
+upgrade_name = "Stacking Stacks"
+upgrade_description = "Gain a stacking buff whenever you finish a cooldown. Stack up to 100 times, stacks decay after 2 seconds.
+
+Gain 2% size for all spawns per stack."
+prerequisite_upgrades = Array[ExtResource("1_uc5ho")]([ExtResource("2_3ag44")])
+prereq_num_of_any_spawn_upgrades = 3
+prereq_num_of_cooldown_upgrades = 3
+gives_projectiles_stats = true
+gives_creations_stats = true
+gives_summons_stats = true
+gives_traps_stats = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://2hlg7qe1n0we"]
+
+[ext_resource type="Script" uid="uid://d0wjq21m4r2vf" path="res://AllInOne/UpgradeTrees/NerdTree/StackingStacks/StackingStacks.gd" id="1_fp754"]
+
+[node name="StackingStacks" type="Node2D" unique_id=1094621014]
+script = ExtResource("1_fp754")
+connect_upgrade_cooldown_finished = true

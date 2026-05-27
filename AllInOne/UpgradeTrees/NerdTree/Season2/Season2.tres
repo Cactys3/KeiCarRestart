@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://ddcrdjhonahcv"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_ckda4"]
+[ext_resource type="Resource" uid="uid://bgyvl04jup1je" path="res://AllInOne/UpgradeTrees/NerdTree/Anime/Anime.tres" id="2_081bk"]
+[ext_resource type="PackedScene" uid="uid://puuopv2rskd4" path="res://AllInOne/UpgradeTrees/NerdTree/Season2/Season2.tscn" id="3_qvwkq"]
+
+[resource]
+script = ExtResource("1_ckda4")
+scene = ExtResource("3_qvwkq")
+upgrade_name = "Season 2"
+upgrade_description = "Everytime you finish an anime episode, create a catboy creation that fights for you."
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_ckda4")]([ExtResource("2_081bk")])
+spawns_creation = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

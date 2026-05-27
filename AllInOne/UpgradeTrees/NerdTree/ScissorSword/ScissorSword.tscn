@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bv0ae34ijrt50"]
+
+[ext_resource type="Script" uid="uid://bk57i73wqs2wr" path="res://AllInOne/UpgradeTrees/NerdTree/ScissorSword/ScissorSword.gd" id="1_j3ptc"]
+[ext_resource type="PackedScene" uid="uid://s0so6s1t1cw4" path="res://AllInOne/UpgradeTrees/NerdTree/ScissorSword/ScissorSwordSummon.tscn" id="2_ejl1n"]
+
+[node name="ScissorSword" type="Node2D" unique_id=2049874971]
+script = ExtResource("1_j3ptc")
+create_radial_ui_for_cd = false
+scene_to_spawn = ExtResource("2_ejl1n")
+connect_upgrade_cooldown_finished = true

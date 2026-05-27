@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bxtf3q3ll02gf"]
+
+[ext_resource type="Script" uid="uid://xf5ydctihtuf" path="res://AllInOne/UpgradeTrees/NerdTree/Hobbies/Hobbies.gd" id="1_id0gi"]
+
+[node name="Hobbies" type="Node2D" unique_id=642811938]
+script = ExtResource("1_id0gi")

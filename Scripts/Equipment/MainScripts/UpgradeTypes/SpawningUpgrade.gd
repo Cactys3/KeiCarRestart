@@ -42,6 +42,7 @@ func _process(delta: float) -> void:
 			if cooldownUI != null:
 				if cooldownUI_stopwatch >= 0.05:
 					cooldownUI_stopwatch = 0
+					emit_cooldown_finished()
 					if spawned:
 						cooldownUI.set_progress(1)
 					else:

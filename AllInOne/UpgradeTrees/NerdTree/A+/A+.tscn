@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dmi4lcl2t74fb"]
+
+[ext_resource type="Script" uid="uid://c4kmekx88eda2" path="res://AllInOne/UpgradeTrees/NerdTree/A+/A+.gd" id="1_0ppcd"]
+[ext_resource type="PackedScene" uid="uid://b7ygw342b2kb3" path="res://AllInOne/UpgradeTrees/NerdTree/A+/PencilProjectile.tscn" id="2_2ihi6"]
+
+[node name="A+" type="Node2D" unique_id=701852710]
+script = ExtResource("1_0ppcd")
+create_radial_ui_for_cd = false
+scene_to_spawn = ExtResource("2_2ihi6")

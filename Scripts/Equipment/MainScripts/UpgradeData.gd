@@ -15,6 +15,7 @@ class_name UpgradeData
 @export var disable_upgrades_names: Array[String] 
 ## Prereq other Upgrades tags
 @export_group("Prereqs")
+@export var prereq_num_of_any_spawn_upgrades: int = 0
 @export var prereq_num_of_projectile_upgrades: int = 0
 @export var prereq_num_of_creation_upgrades: int = 0
 @export var prereq_num_of_summons_upgrades: int = 0
@@ -27,6 +28,7 @@ class_name UpgradeData
 @export var prereq_num_of_wet_upgrades: int = 0
 @export var prereq_num_of_dodge_upgrades: int = 0
 @export var prereq_num_of_crit_upgrades: int = 0
+@export var prereq_num_of_cooldown_upgrades: int = 0
 @export var prereq_num_of_magical_upgrades: int = 0
 @export var prereq_num_of_blunt_upgrades: int = 0
 @export var prereq_num_of_player_buffs_upgrades: int = 0
@@ -38,7 +40,8 @@ class_name UpgradeData
 ## Tags this upgrade has
 @export_group("Upgrade Tags")
 ## Buffs
-#@export_placeholder("Buffs Player") var Buffs_Player: String
+@export_subgroup("Has Things")
+@export var has_cooldown: bool = false
 @export_subgroup("Buffs")
 @export var gives_player_buff: bool = false
 @export var gives_player_stats: bool = false

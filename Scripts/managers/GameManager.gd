@@ -137,6 +137,8 @@ signal SummonSpawned(summon: Summon)
 signal CreationDamaged(creation: Creation, attack: Attack)
 signal CreationKilled(creation: Creation, attack: Attack)
 signal CreationDodged(creation: Creation, attack: Attack)
+## Upgrades:
+signal UpgradeCooldownFinished(upgrade: Upgrade)
 ## Main Weapon:
 signal WeaponReloaded(weapon: Weapon)
 signal WeaponFired(weapon: Weapon, projectile: Projectile)

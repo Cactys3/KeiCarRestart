@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bq7siy68bu76r"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_04wca"]
+[ext_resource type="PackedScene" uid="uid://b0je1y2u5gn3g" path="res://AllInOne/UpgradeTrees/NerdTree/Printin/Printin.tscn" id="2_7ntei"]
+
+[resource]
+script = ExtResource("1_04wca")
+scene = ExtResource("2_7ntei")
+upgrade_name = "Printin"
+upgrade_description = "Each time you finish a 3d print, spawn a toy land mine.
+Finish a 3d print every 10 seconds. (this is a hobby)"
+upgrade_rarity = 1
+has_cooldown = true
+spawns_trap = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

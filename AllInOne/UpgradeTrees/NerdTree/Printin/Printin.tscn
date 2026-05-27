@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b0je1y2u5gn3g"]
+
+[ext_resource type="Script" uid="uid://cxdghvgmrhqul" path="res://AllInOne/UpgradeTrees/NerdTree/Printin/Printin.gd" id="1_7b50d"]
+[ext_resource type="PackedScene" uid="uid://bpc0ljx1yiqod" path="res://AllInOne/UpgradeTrees/NerdTree/Printin/ToyLandMineTrap.tscn" id="2_2k8nd"]
+
+[node name="Printin" type="Node2D" unique_id=1397698681]
+script = ExtResource("1_7b50d")
+spawn_with_cd = true
+spawn_every_seconds = 10.0
+scene_to_spawn = ExtResource("2_2k8nd")

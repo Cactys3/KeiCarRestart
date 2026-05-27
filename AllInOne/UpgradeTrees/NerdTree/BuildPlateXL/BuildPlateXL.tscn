@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ck0ver56fk3nv"]
+
+[ext_resource type="Script" uid="uid://cguh5lst7l87u" path="res://AllInOne/UpgradeTrees/NerdTree/BuildPlateXL/BuildPlateXL.gd" id="1_rm5ok"]
+[ext_resource type="PackedScene" uid="uid://bb0cs5gcm5u03" path="res://AllInOne/UpgradeTrees/NerdTree/BuildPlateXL/UnpaintedFigureCreation.tscn" id="2_6eajt"]
+
+[node name="BuildPlateXL" type="Node2D" unique_id=1329183165]
+script = ExtResource("1_rm5ok")
+create_radial_ui_for_cd = false
+scene_to_spawn = ExtResource("2_6eajt")

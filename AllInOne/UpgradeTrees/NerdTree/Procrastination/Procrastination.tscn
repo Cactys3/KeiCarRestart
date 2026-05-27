@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dcfg07cj1bs1d"]
+
+[ext_resource type="Script" uid="uid://cjjg4fds14y5u" path="res://AllInOne/UpgradeTrees/NerdTree/Procrastination/Procrastination.gd" id="1_pgvj6"]
+[ext_resource type="PackedScene" uid="uid://bm11ampgmgdkt" path="res://AllInOne/UpgradeTrees/NerdTree/Procrastination/HomeworkProjectile.tscn" id="2_qvm5g"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="3_vd73l"]
+
+[sub_resource type="Resource" id="Resource_hwccc"]
+script = ExtResource("3_vd73l")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[node name="Procrastination" type="Node2D" unique_id=150735132]
+script = ExtResource("1_pgvj6")
+spawn_with_cd = true
+spawn_every_seconds = 6.0
+scene_to_spawn = ExtResource("2_qvm5g")
+status = SubResource("Resource_hwccc")

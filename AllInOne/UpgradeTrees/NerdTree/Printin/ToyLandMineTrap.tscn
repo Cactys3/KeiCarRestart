@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bpc0ljx1yiqod"]
+
+[ext_resource type="Script" uid="uid://n1ju48vj1iw7" path="res://Scripts/Equipment/MainScripts/Trap.gd" id="1_fspsm"]
+
+[node name="ToyLandMineTrap" type="Area2D" unique_id=1190892289]
+script = ExtResource("1_fspsm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2052318506]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1243990497]

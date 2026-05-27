@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://puuopv2rskd4"]
+
+[ext_resource type="Script" uid="uid://d114h5uf6vdm" path="res://AllInOne/UpgradeTrees/NerdTree/Season2/Season2.gd" id="1_vm2gw"]
+[ext_resource type="PackedScene" uid="uid://cvnqobkk8gj0q" path="res://AllInOne/UpgradeTrees/NerdTree/Season2/CatBoyCreation.tscn" id="2_3cj4r"]
+
+[node name="Season2" type="Node2D" unique_id=732396365]
+script = ExtResource("1_vm2gw")
+create_radial_ui_for_cd = false
+scene_to_spawn = ExtResource("2_3cj4r")

@@ -20,6 +20,7 @@ class_name Equipment
 @export var connect_enemy_trapped: bool = false
 @export var connect_creation_killed: bool = false
 @export var connect_projectile_spawned: bool = false
+@export var connect_upgrade_cooldown_finished: bool = false
 @export var connect_: bool = false
 ## Data Fields
 var player: Character
@@ -74,6 +75,8 @@ func activate(new_player: Character):
 		game_man.CreationKilled.connect(creation_killed)
 	if connect_projectile_spawned:
 		game_man.ProjectileSpawned.connect(projectile_spawned)
+	if connect_upgrade_cooldown_finished:
+		game_man.UpgradeCooldownFinished.connect(upgrade_cooldown_finished)
 	player = new_player
 	active = true
 ## disable and halt the functionality of this Equipment
@@ -82,12 +85,26 @@ func deactivate():
 		InputManager.free_input(assigned_input)
 	if connect_enemy_killed && game_man.EnemyKilled.is_connected(enemy_killed):
 		game_man.EnemyKilled.disconnect(enemy_killed)
+	if connect_boss_killed && game_man.BossKilled.is_connected(boss_killed):
+		game_man.BossKilled.disconnect(boss_killed)
 	if connect_reload && game_man.WeaponReloaded.is_connected(reload):
 		game_man.WeaponReloaded.disconnect(reload)
 	if connect_bleed_proc && game_man.BleedDamage.is_connected(bleed_proc):
 		game_man.BleedDamage.disconnect(bleed_proc)
-	if connect_frost_proc && game_man.FrostDamage.is_connected((frost_proc)):
-		game_man.FrostDamage.disconnect((frost_proc))
+	if connect_frost_proc && game_man.FrostDamage.is_connected(frost_proc):
+		game_man.FrostDamage.disconnect(frost_proc)
+	if connect_dodge && game_man.PlayerDodged.is_connected(dodge):
+		game_man.PlayerDodged.disconnect(dodge)
+	if connect_player_damaged && game_man.PlayerDamaged.is_connected(player_damaged):
+		game_man.PlayerDamaged.disconnect(player_damaged)
+	if connect_enemy_trapped && game_man.EnemyTrapped.is_connected(enemy_trapped):
+		game_man.EnemyTrapped.disconnect(enemy_trapped)
+	if connect_creation_killed && game_man.CreationKilled.is_connected(creation_killed):
+		game_man.CreationKilled.disconnect(creation_killed)
+	if connect_projectile_spawned && game_man.ProjectileSpawned.is_connected(projectile_spawned):
+		game_man.ProjectileSpawned.disconnect(projectile_spawned)
+	if connect_upgrade_cooldown_finished && game_man.UpgradeCooldownFinished.is_connected(upgrade_cooldown_finished):
+		game_man.UpgradeCooldownFinished.disconnect(upgrade_cooldown_finished)
 	active = false
 ## Returns if this Equipment can attack the given node (not the player, has damage() func, can_be_damaged)
 func get_can_attack_callable() -> Callable:
@@ -174,6 +191,8 @@ func enemy_trapped(enemy: Enemy, trap: Trap):
 func creation_killed(creation: Creation, attack: Attack):
 	pass
 func projectile_spawned(projectile: Projectile):
+	pass
+func upgrade_cooldown_finished(upgrade: Upgrade):
 	pass
 ## Calculate and return an attack with damage multiplier
 func make_attack(attack_damage_multiplier: float) -> Attack:

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://s0so6s1t1cw4"]
+
+[ext_resource type="Script" uid="uid://ipshp7lqkhjx" path="res://Scripts/Equipment/MainScripts/Summon.gd" id="1_bs7c3"]
+
+[node name="ScissorSwordSummon" type="Area2D" unique_id=810024965]
+script = ExtResource("1_bs7c3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1872407926]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=424109782]

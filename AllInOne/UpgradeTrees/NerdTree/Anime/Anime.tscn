@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b8cnrh32ha0fu"]
+
+[ext_resource type="Script" uid="uid://b1msk03eerj3m" path="res://AllInOne/UpgradeTrees/NerdTree/Anime/Anime.gd" id="1_huuhw"]
+[ext_resource type="PackedScene" uid="uid://bfvp4mwqdgaqa" path="res://AllInOne/UpgradeTrees/NerdTree/Anime/CatGirlCreation.tscn" id="2_mam87"]
+
+[node name="Anime" type="Node2D" unique_id=1527858361]
+script = ExtResource("1_huuhw")
+spawn_with_cd = true
+spawn_every_seconds = 8.0
+scene_to_spawn = ExtResource("2_mam87")
