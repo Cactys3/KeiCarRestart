@@ -9,12 +9,12 @@ func _process(delta: float) -> void:
 	## Check if we should summon more summons (copies)
 	if spawned && active:
 		check_spawn_cd += delta
-		if check_spawn_cd > 1:
+		if check_spawn_cd > 5:
 			check_spawn_cd = 0
 			spawn()
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
-	spawn()
+	#spawn()
 	super(new_player)
 ## Disables the functionality of this upgrade
 func deactivate():
@@ -22,7 +22,8 @@ func deactivate():
 	super()
 func spawn():
 	## Calculate total number we should spawn (do nothing if we have already spawned)
-	var summons_to_spawn: int = (Statics.summon_count_buff + additional_spawns) - summons.size()
+	var summons_to_spawn: int = 1 + (Statics.summon_count_buff + additional_spawns) - summons.size()
+	print("Spawning: ", summons_to_spawn)
 	if !can_spawn_multiple:
 		## Make sure we only spawn one total
 		if summons.size() >= 1:
@@ -57,9 +58,8 @@ func initialize_object(object: Node2D) -> bool:
 	return false
 ## Overrides
 func get_spawning_position() -> Vector2:
-	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))
-	return spawn_position
+	return game_man.player.global_position
 func get_spawning_duration() -> float:
 	return super() + Statics.summon_duration_buff
 func get_spawn_parent() -> Node2D:
-	return GameManager.instance.projectile_parent
+	return GameManager.instance.player

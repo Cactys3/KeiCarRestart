@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bxtf3q3ll02gf" path="res://AllInOne/UpgradeTrees/NerdTree/Hobbies/Hobbies.tscn" id="2_chocs"]
 [ext_resource type="Resource" uid="uid://bq7siy68bu76r" path="res://AllInOne/UpgradeTrees/NerdTree/Printin/Printin.tres" id="3_tupc7"]
 [ext_resource type="Resource" uid="uid://dx6wgy5svc6kc" path="res://AllInOne/UpgradeTrees/NerdTree/Procrastination/Procrastination.tres" id="4_ihhpu"]
-[ext_resource type="Resource" uid="uid://c4yvh1gs3ahmv" path="res://AllInOne/UpgradeTrees/NerdTree/BuildPlateXL/BuldPlateXL.tres" id="5_tupc7"]
+[ext_resource type="Resource" uid="uid://c4yvh1gs3ahmv" path="res://AllInOne/UpgradeTrees/NerdTree/BuildPlateXL/BuildPlateXL.tres" id="5_tupc7"]
 
 [resource]
 script = ExtResource("1_8m6q1")

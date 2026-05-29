@@ -48,6 +48,7 @@ gamemanager="game manager object"
 instancemanager=""
 uimanager=""
 shopmanager=""
+event="Game Instance Event Object"
 
 [gui]
 
@@ -200,6 +201,7 @@ Cancel={
 2d_physics/layer_9="xp_range"
 2d_physics/layer_10="Creations"
 2d_physics/layer_11="Traps"
+2d_physics/layer_12="Summons"
 
 [physics]
 

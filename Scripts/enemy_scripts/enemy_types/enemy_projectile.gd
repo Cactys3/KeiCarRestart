@@ -6,7 +6,7 @@ func setup_enemy(new_enemy: Enemy, new_target: Node2D, enemy_direction:Vector2, 
 	setup_projectile(null, new_target, enemy_direction)
 	enemy = new_enemy
 ## Attack Override to use Enemy instead of Equipment
-func attack_body(body: Node2D, clone: bool) -> void:
+func attack_body(body: Node2D) -> void:
 	## If enemy that shot us still exists
 	if is_instance_valid(enemy):
 		enemy.damage_player_projectile(body)

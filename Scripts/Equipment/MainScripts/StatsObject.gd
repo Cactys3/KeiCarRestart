@@ -49,88 +49,7 @@ class_name StatsObject
 @export var _thorns: float = 0.0
 @export var _regen: float = 0.0
 @export var _magnetize: float = 0.0
-## Stat variables that return stat + globalstats.stat
-var hp_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.HP) + _hp) * GlobalStats.get_factor_stat(GlobalStats.HP)
-var stance_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.STANCE) + _stance) * GlobalStats.get_factor_stat(GlobalStats.STANCE)
-var movespeed_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.MOVESPEED) + _movespeed) * GlobalStats.get_factor_stat(GlobalStats.MOVESPEED)
-var xp_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.XP) + _xp) * GlobalStats.get_factor_stat(GlobalStats.XP)
-var mogul_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.MOGUL) + _mogul) * GlobalStats.get_factor_stat(GlobalStats.MOGUL)
-var luck_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.LUCK) + _luck) * GlobalStats.get_factor_stat(GlobalStats.LUCK)
-var damage_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.DAMAGE) + _damage) * GlobalStats.get_factor_stat(GlobalStats.DAMAGE)
-var range_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.RANGE) + _range) * GlobalStats.get_factor_stat(GlobalStats.RANGE)
-var weight_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.WEIGHT) + _weight) * GlobalStats.get_factor_stat(GlobalStats.WEIGHT)
-var attackcooldown_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.ATTACKCOOLDOWN) + _attackcooldown) * GlobalStats.get_factor_stat(GlobalStats.ATTACKCOOLDOWN)
-var reloadtime_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.RELOADTIME) + _reloadtime) * GlobalStats.get_factor_stat(GlobalStats.RELOADTIME)
-var velocity_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.VELOCITY) + _velocity) * GlobalStats.get_factor_stat(GlobalStats.VELOCITY)
-var ammo_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.AMMO) + _ammo) * GlobalStats.get_factor_stat(GlobalStats.AMMO)
-var count_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.COUNT) + _count) * GlobalStats.get_factor_stat(GlobalStats.COUNT)
-var piercing_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.PIERCING) + _piercing) * GlobalStats.get_factor_stat(GlobalStats.PIERCING)
-var duration_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.DURATION) + _duration) * GlobalStats.get_factor_stat(GlobalStats.DURATION)
-var size_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.SIZE) + _size) * GlobalStats.get_factor_stat(GlobalStats.SIZE)
-var critdamage_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.CRITDAMAGE) + _critdamage) * GlobalStats.get_factor_stat(GlobalStats.CRITDAMAGE)
-var ghostly_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.GHOSTLY) + _ghostly) * GlobalStats.get_factor_stat(GlobalStats.GHOSTLY)
-var regen_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.REGEN) + _regen) * GlobalStats.get_factor_stat(GlobalStats.REGEN)
-var magnetize_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.MAGNETIZE) + _magnetize) * GlobalStats.get_factor_stat(GlobalStats.MAGNETIZE)
-var lifesteal_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.LIFESTEAL) + _lifesteal) * GlobalStats.get_factor_stat(GlobalStats.LIFESTEAL)
-var shield_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.SHIELD) + _shield) * GlobalStats.get_factor_stat(GlobalStats.SHIELD)
-var difficulty_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.DIFFICULTY) + _difficulty) * GlobalStats.get_factor_stat(GlobalStats.DIFFICULTY)
-var revies_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.REVIES) + _revies) * GlobalStats.get_factor_stat(GlobalStats.REVIES)
-var thorns_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.THORNS) + _thorns) * GlobalStats.get_factor_stat(GlobalStats.THORNS)
-var inaccuracy_stat:
-	get():
-		return (GlobalStats.get_base_stat(GlobalStats.INACCURACY) + _inaccuracy) * GlobalStats.get_factor_stat(GlobalStats.INACCURACY)
+
 func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
@@ -194,3 +113,140 @@ func get_attack_type() -> Attack.AttackTypes:
 	return Attack.AttackTypes.unset
 func get_attack_position() -> Vector2:
 	return global_position
+
+## Getters
+var hp_stat:
+	get():
+		return _get_hp_stat()
+var stance_stat:
+	get():
+		return _get_stance_stat()
+var movespeed_stat:
+	get():
+		return _get_movespeed_stat()
+var xp_stat:
+	get():
+		return _get_xp_stat()
+var mogul_stat:
+	get():
+		return _get_mogul_stat()
+var luck_stat:
+	get():
+		return _get_luck_stat()
+var damage_stat:
+	get():
+		return _get_damage_stat()
+var range_stat:
+	get():
+		return _get_range_stat()
+var weight_stat:
+	get():
+		return _get_weight_stat()
+var attackcooldown_stat:
+	get():
+		return _get_attackcooldown_stat()
+var reloadtime_stat:
+	get():
+		return _get_reloadtime_stat()
+var velocity_stat:
+	get():
+		return _get_velocity_stat()
+var ammo_stat:
+	get():
+		return _get_ammo_stat()
+var count_stat:
+	get():
+		return _get_count_stat()
+var piercing_stat:
+	get():
+		return _get_piercing_stat()
+var duration_stat:
+	get():
+		return _get_duration_stat()
+var size_stat:
+	get():
+		return _get_size_stat()
+var critdamage_stat:
+	get():
+		return _get_critdamage_stat()
+var ghostly_stat:
+	get():
+		return _get_ghostly_stat()
+var regen_stat:
+	get():
+		return _get_regen_stat()
+var magnetize_stat:
+	get():
+		return _get_magnetize_stat()
+var lifesteal_stat:
+	get():
+		return _get_lifesteal_stat()
+var shield_stat:
+	get():
+		return _get_shield_stat()
+var difficulty_stat:
+	get():
+		return _get_difficulty_stat()
+var revies_stat:
+	get():
+		return _get_revies_stat()
+var thorns_stat:
+	get():
+		return _get_thorns_stat()
+var inaccuracy_stat:
+	get():
+		return _get_inaccuracy_stat()
+func _get_hp_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.HP) + _hp) * GlobalStats.get_factor_stat(GlobalStats.HP)
+func _get_stance_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.STANCE) + _stance) * GlobalStats.get_factor_stat(GlobalStats.STANCE)
+func _get_movespeed_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.MOVESPEED) + _movespeed) * GlobalStats.get_factor_stat(GlobalStats.MOVESPEED)
+func _get_xp_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.XP) + _xp) * GlobalStats.get_factor_stat(GlobalStats.XP)
+func _get_mogul_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.MOGUL) + _mogul) * GlobalStats.get_factor_stat(GlobalStats.MOGUL)
+func _get_luck_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.LUCK) + _luck) * GlobalStats.get_factor_stat(GlobalStats.LUCK)
+func _get_damage_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.DAMAGE) + _damage) * GlobalStats.get_factor_stat(GlobalStats.DAMAGE)
+func _get_range_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.RANGE) + _range) * GlobalStats.get_factor_stat(GlobalStats.RANGE)
+func _get_weight_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.WEIGHT) + _weight) * GlobalStats.get_factor_stat(GlobalStats.WEIGHT)
+func _get_attackcooldown_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.ATTACKCOOLDOWN) + _attackcooldown) * GlobalStats.get_factor_stat(GlobalStats.ATTACKCOOLDOWN)
+func _get_reloadtime_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.RELOADTIME) + _reloadtime) * GlobalStats.get_factor_stat(GlobalStats.RELOADTIME)
+func _get_velocity_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.VELOCITY) + _velocity) * GlobalStats.get_factor_stat(GlobalStats.VELOCITY)
+func _get_ammo_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.AMMO) + _ammo) * GlobalStats.get_factor_stat(GlobalStats.AMMO)
+func _get_count_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.COUNT) + _count) * GlobalStats.get_factor_stat(GlobalStats.COUNT)
+func _get_piercing_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.PIERCING) + _piercing) * GlobalStats.get_factor_stat(GlobalStats.PIERCING)
+func _get_duration_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.DURATION) + _duration) * GlobalStats.get_factor_stat(GlobalStats.DURATION)
+func _get_size_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.SIZE) + _size) * GlobalStats.get_factor_stat(GlobalStats.SIZE)
+func _get_critdamage_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.CRITDAMAGE) + _critdamage) * GlobalStats.get_factor_stat(GlobalStats.CRITDAMAGE)
+func _get_ghostly_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.GHOSTLY) + _ghostly) * GlobalStats.get_factor_stat(GlobalStats.GHOSTLY)
+func _get_regen_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.REGEN) + _regen) * GlobalStats.get_factor_stat(GlobalStats.REGEN)
+func _get_magnetize_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.MAGNETIZE) + _magnetize) * GlobalStats.get_factor_stat(GlobalStats.MAGNETIZE)
+func _get_lifesteal_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.LIFESTEAL) + _lifesteal) * GlobalStats.get_factor_stat(GlobalStats.LIFESTEAL)
+func _get_shield_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.SHIELD) + _shield) * GlobalStats.get_factor_stat(GlobalStats.SHIELD)
+func _get_difficulty_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.DIFFICULTY) + _difficulty) * GlobalStats.get_factor_stat(GlobalStats.DIFFICULTY)
+func _get_revies_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.REVIES) + _revies) * GlobalStats.get_factor_stat(GlobalStats.REVIES)
+func _get_thorns_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.THORNS) + _thorns) * GlobalStats.get_factor_stat(GlobalStats.THORNS)
+func _get_inaccuracy_stat():
+	return (GlobalStats.get_base_stat(GlobalStats.INACCURACY) + _inaccuracy) * GlobalStats.get_factor_stat(GlobalStats.INACCURACY)

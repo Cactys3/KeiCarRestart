@@ -166,7 +166,7 @@ collision_mask = 32
 [node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=1652375899]
 shape = SubResource("CircleShape2D_lqxhm")
 
-[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=36205081 groups=["enemy"]]
+[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=36205081]
 shape = SubResource("CircleShape2D_2u64k")
 
 [connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

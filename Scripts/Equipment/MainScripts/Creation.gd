@@ -14,6 +14,9 @@ enum MovementTypes{GivenDirection, NonMoving, NearestEnemy, RandomEnemy, RandomD
 @export var can_be_knockbacked: bool = true
 ## Flat Damage Reduction
 @export var knockback_modifier: float = 0
+var creation_range: float:
+	get():
+		return range_stat + Statics.creation_range_buff
 var stun_time_left: float = 0
 var stunning: bool = false
 var direction: Vector2 = Vector2(0, 0)
@@ -75,11 +78,9 @@ func _process(delta: float) -> void:
 func get_new_target():
 	match movement_type:
 		MovementTypes.NearestEnemy:
-			target = get_enemy_nearby_except_attacked(get_detection_radius())
+			target = get_enemy_nearby_except_attacked(creation_range)
 		MovementTypes.RandomEnemy:
-			target = get_random_enemy_in_range_except_attacked(get_detection_radius())
-func _on_area_entered(area: Area2D) -> void:
-	pass
+			target = get_random_enemy_in_range_except_attacked(creation_range)
 func die():
 	parent.active_creations.erase(self)
 	queue_free()
@@ -136,7 +137,6 @@ func ProcessTarget(delta: float):
 	direction = target_direction
 	position += direction * velocity * delta
 var damage_multiplier: float = 1
-var attack_counter: float = 0
 func _on_body_entered(body: Node2D) -> void:
 	if can_attack(body):
 		attack_body(body)
@@ -175,3 +175,58 @@ func get_attack_type() -> Attack.AttackTypes:
 	return Attack.AttackTypes.upgrade_creation
 func get_attack_position() -> Vector2:
 	return global_position
+
+func _get_hp_stat():
+	return super() + Statics.creation_hp_buff
+func _get_stance_stat():
+	return super() + Statics.creation_stance_buff
+func _get_movespeed_stat():
+	return super() + Statics.creation_movespeed_buff
+func _get_xp_stat():
+	return super() + Statics.creation_xp_buff
+func _get_mogul_stat():
+	return super() + Statics.creation_mogul_buff
+func _get_luck_stat():
+	return super() + Statics.creation_luck_buff
+func _get_damage_stat():
+	return super() + Statics.creation_damage_buff
+func _get_range_stat():
+	return super() + Statics.creation_range_buff
+func _get_weight_stat():
+	return super() + Statics.creation_weight_buff
+func _get_attackcooldown_stat():
+	return super() + Statics.creation_attackcooldown_buff
+func _get_reloadtime_stat():
+	return super() + Statics.creation_reloadtime_buff
+func _get_velocity_stat():
+	return super() + Statics.creation_velocity_buff
+func _get_ammo_stat():
+	return super() + Statics.creation_ammo_buff
+func _get_count_stat():
+	return super() + Statics.creation_count_buff
+func _get_piercing_stat():
+	return super() + Statics.creation_piercing_buff
+func _get_duration_stat():
+	return super() + Statics.creation_duration_buff
+func _get_size_stat():
+	return super() + Statics.creation_size_buff
+func _get_critdamage_stat():
+	return super() + Statics.creation_critdamage_buff
+func _get_ghostly_stat():
+	return super() + Statics.creation_ghostly_buff
+func _get_regen_stat():
+	return super() + Statics.creation_regen_buff
+func _get_magnetize_stat():
+	return super() + Statics.creation_magnetize_buff
+func _get_lifesteal_stat():
+	return super() + Statics.creation_lifesteal_buff
+func _get_shield_stat():
+	return super() + Statics.creation_shield_buff
+func _get_difficulty_stat():
+	return super() + Statics.creation_difficulty_buff
+func _get_revies_stat():
+	return super() + Statics.creation_revies_buff
+func _get_thorns_stat():
+	return super() + Statics.creation_thorns_buff
+func _get_inaccuracy_stat():
+	return super() + Statics.creation_inaccuracy_buff

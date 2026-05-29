@@ -6,8 +6,8 @@ func _process(delta: float) -> void:
 	super(delta)
 
 ## Extend to attempt to instantly proc bleed
-func attack_body(body: Node2D, clone: bool) -> void:
-	super(body, clone)
+func attack_body(body: Node2D) -> void:
+	super(body)
 	# (bleed / bleed_threshhold) > (applied_bleed + 1)
 	if body is Boss:
 		## half of remaining bleed for bosses

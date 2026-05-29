@@ -54,8 +54,8 @@ must_aim_at_enemy_to_fire = false
 update_target = false
 status = SubResource("Resource_vg3fk")
 _damage = 20.0
-_range = 145.0
-_velocity = 150.0
+_range = 60.0
+_velocity = 90.0
 
 [node name="RightSword" type="Area2D" parent="." unique_id=632898308]
 collision_layer = 2048

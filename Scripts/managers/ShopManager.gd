@@ -20,6 +20,16 @@ const GELID_HEOLFOR = "Gelid Heolfor"
 const HEMOPLOSION = "Hemoplosion"
 const PROLIFERATE = "Proliferate"
 const SHARK = "Shark"
+## Nerd Tree
+const A_PLUS = "A+"
+const ANIME = "Anime"
+const BUILD_PLATE_XL = "BuildPlateXL"
+const HOBBIES = "Hobbies"
+const PRINTIN = "Printin"
+const PROCRASTINATION = "Procrastination"
+const SCISSOR_SWORD = "ScissorSword"
+const SEASON_2 = "Season2"
+const STACKING_STACKS = "StackingStacks"
 ## Ghost Tree
 const FEARY = "Feary"
 const GHOST_ARMY = "Ghost Army"
@@ -80,6 +90,16 @@ const GELID_HEOLFOR_SCENE = preload("uid://b3gs60rx8eg8u")
 const HEMOPLOSION_SCENE = preload("uid://clsx2ugtfnojs")
 const PROLIFERATE_SCENE = preload("uid://kers0tuck4se")
 const SHARK_SCENE = preload("uid://swik15ufuq4a")
+## Nerd Tree
+const A_PLUS_SCENE = preload("uid://3ox6n5x2jdtb")
+const ANIME_SCENE = preload("uid://bgyvl04jup1je")
+const BUILD_PLATE_XL_SCENE = preload("uid://c4yvh1gs3ahmv")
+const HOBBIES_SCENE = preload("uid://i67yvxkh1d8o")
+const PRINTIN_SCENE = preload("uid://bq7siy68bu76r")
+const PROCRASTINATION_SCENE = preload("uid://dx6wgy5svc6kc")
+const SCISSOR_SWORD_SCENE = preload("uid://buhep55sdrfhg")
+const SEASON_2_SCENE = preload("uid://ddcrdjhonahcv")
+const STACKING_STACKS_SCENE = preload("uid://j60crhb84rib")
 ## Ghost Tree
 const FEARY_SCENE = preload("uid://b3yf4m2mleant")
 const GHOST_ARMY_SCENE = preload("uid://chg5xi3oq3nq7")
@@ -123,6 +143,34 @@ const TRAPPED_AND_MARKED_SCENE = preload("uid://cpw7ux7hbia5o")
 static var unlocked_projectiles_keys: Array [String] = []
 static var unlocked_weapon_keys: Array [String] = []
 static var unlocked_upgrade_keys: Array [String] = []
+## Upgrade Lists
+const blood_tree: Dictionary [String, UpgradeData] = {
+	BLOOD_BORN: BLOOD_BORN_SCENE,
+	BLOOD_MECHANIC: BLOOD_MECHANIC_SCENE,
+	BLOOD_METER: BLOOD_METER_SCENE,
+	BLOOD_RAGE: BLOOD_RAGE_SCENE,
+	BLOOD_SPHERE: BLOOD_SPHERE_SCENE,
+	BLOODY_NEEDLES: BLOODY_NEEDLES_SCENE,
+	BLOOD_TURRETS: BLOOD_TURRETS_SCENE,
+	BLOODY_MAGAZINE: BLOODY_MAGAZINE_SCENE,
+	BLOODY_QUIVER: BLOODY_QUIVER_SCENE,
+	CRITICAL_BLEED: CRITICAL_BLEED_SCENE,
+	CUTTING_STRIKES: CUTTING_STRIKES_SCENE,
+	GELID_HEOLFOR: GELID_HEOLFOR_SCENE,
+	HEMOPLOSION: HEMOPLOSION_SCENE,
+	PROLIFERATE: PROLIFERATE_SCENE,
+	SHARK: SHARK_SCENE}
+const nerd_tree: Dictionary [String, UpgradeData] = {
+	A_PLUS: A_PLUS_SCENE,
+	ANIME: ANIME_SCENE,
+	BUILD_PLATE_XL: BUILD_PLATE_XL_SCENE,
+	HOBBIES: HOBBIES_SCENE,
+	PRINTIN: PRINTIN_SCENE,
+	PROCRASTINATION: PROCRASTINATION_SCENE,
+	SCISSOR_SWORD: SCISSOR_SWORD_SCENE,
+	SEASON_2: SEASON_2_SCENE,
+	STACKING_STACKS: STACKING_STACKS_SCENE}
+
 const upgrade_list: Dictionary [String, UpgradeData] = {
 	BLOOD_BORN: BLOOD_BORN_SCENE,
 	BLOOD_MECHANIC: BLOOD_MECHANIC_SCENE,
@@ -139,6 +187,15 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	HEMOPLOSION: HEMOPLOSION_SCENE,
 	PROLIFERATE: PROLIFERATE_SCENE,
 	SHARK: SHARK_SCENE,
+	A_PLUS: A_PLUS_SCENE,
+	ANIME: ANIME_SCENE,
+	BUILD_PLATE_XL: BUILD_PLATE_XL_SCENE,
+	HOBBIES: HOBBIES_SCENE,
+	PRINTIN: PRINTIN_SCENE,
+	PROCRASTINATION: PROCRASTINATION_SCENE,
+	SCISSOR_SWORD: SCISSOR_SWORD_SCENE,
+	SEASON_2: SEASON_2_SCENE,
+	STACKING_STACKS: STACKING_STACKS_SCENE,
 	FEARY: FEARY_SCENE,
 	GHOST_ARMY: GHOST_ARMY_SCENE,
 	GHOSTLY_HELPER: GHOSTLY_HELPER_SCENE,

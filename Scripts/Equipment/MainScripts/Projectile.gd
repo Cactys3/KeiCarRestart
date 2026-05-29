@@ -140,10 +140,10 @@ func _on_body_entered(body: Node2D) -> void:
 	if (can_attack_method && can_attack_method.call(body)) && !have_attacked(body):
 		if sound_on_hit:
 			AudioManager.instance.play(sound_on_hit, global_position)
-		attack_body(body, is_clone)
+		attack_body(body)
 		collision_counter += 1
 		append_attack_element(body)
-func attack_body(body: Node2D, clone: bool) -> void:
+func attack_body(body: Node2D) -> void:
 	var attack: Attack = null
 	## Use prebuilt attack as 1st prio
 	if prebuilt_attack:
@@ -188,3 +188,60 @@ func die():
 	dead = true
 	died.emit(global_position, is_clone)
 	queue_free()
+
+
+
+func _get_hp_stat():
+	return super() + Statics.projectile_hp_buff
+func _get_stance_stat():
+	return super() + Statics.projectile_stance_buff
+func _get_movespeed_stat():
+	return super() + Statics.projectile_movespeed_buff
+func _get_xp_stat():
+	return super() + Statics.projectile_xp_buff
+func _get_mogul_stat():
+	return super() + Statics.projectile_mogul_buff
+func _get_luck_stat():
+	return super() + Statics.projectile_luck_buff
+func _get_damage_stat():
+	return super() + Statics.projectile_damage_buff
+func _get_range_stat():
+	return super() + Statics.projectile_range_buff
+func _get_weight_stat():
+	return super() + Statics.projectile_weight_buff
+func _get_attackcooldown_stat():
+	return super() + Statics.projectile_attackcooldown_buff
+func _get_reloadtime_stat():
+	return super() + Statics.projectile_reloadtime_buff
+func _get_velocity_stat():
+	return super() + Statics.projectile_velocity_buff
+func _get_ammo_stat():
+	return super() + Statics.projectile_ammo_buff
+func _get_count_stat():
+	return super() + Statics.projectile_count_buff
+func _get_piercing_stat():
+	return super() + Statics.projectile_piercing_buff
+func _get_duration_stat():
+	return super() + Statics.projectile_duration_buff
+func _get_size_stat():
+	return super() + Statics.projectile_size_buff
+func _get_critdamage_stat():
+	return super() + Statics.projectile_critdamage_buff
+func _get_ghostly_stat():
+	return super() + Statics.projectile_ghostly_buff
+func _get_regen_stat():
+	return super() + Statics.projectile_regen_buff
+func _get_magnetize_stat():
+	return super() + Statics.projectile_magnetize_buff
+func _get_lifesteal_stat():
+	return super() + Statics.projectile_lifesteal_buff
+func _get_shield_stat():
+	return super() + Statics.projectile_shield_buff
+func _get_difficulty_stat():
+	return super() + Statics.projectile_difficulty_buff
+func _get_revies_stat():
+	return super() + Statics.projectile_revies_buff
+func _get_thorns_stat():
+	return super() + Statics.projectile_thorns_buff
+func _get_inaccuracy_stat():
+	return super() + Statics.projectile_inaccuracy_buff

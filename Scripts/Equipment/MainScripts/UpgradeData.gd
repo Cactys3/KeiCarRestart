@@ -3,6 +3,8 @@ class_name UpgradeData
 @export var scene: PackedScene
 @export var save_key: String = "unset"
 @export var upgrade_name: String
+@export var upgrade_tree: UpgradeTrees = UpgradeTrees.unset
+enum UpgradeTrees {unset, blood, nerd, ghost, mage, mechanic, pyrolunatic, ranger, tank}
 @export_multiline("Description") var upgrade_description: String
 @export var upgrade_color: Color = Color.DARK_SLATE_BLUE
 @export var upgrade_image: Texture2D 

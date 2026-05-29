@@ -1,17 +1,26 @@
 extends StatsObject
 ## Objects spawned by the player or upgrades
 class_name SpawnObject
-@export var attack_color: Color = Color.TRANSPARENT
-@export var enemy_detection_radius: float = 150
+
+@export var can_attack_enemies: bool = true
+@export var can_atack_events: bool = true
 ## How long until we can attack an enemy for a second time?
 @export var attack_same_enemy_cooldown: float = 2
+@export var attack_color: Color = Color.TRANSPARENT
+@export var show_debug_range: bool = false
 
+
+var attack_counter: int = 0
 var AttackedObjects: Array = []
+func _draw() -> void:
+	draw_arc(Vector2.ZERO, range_stat, 0, TAU, 64, Color.RED.lerp(Color.TRANSPARENT, 0.7), 1)
 func _process(delta: float) -> void:
 	super(delta)
 	for element: AttackedObjectsElement in AttackedObjects:
 		element._process(delta)
-## Return enemy within range
+	if show_debug_range:
+		queue_redraw()
+## Return enemy within range, try to use detection_range by default
 func get_enemy_nearby(distance: float) -> Variant:
 	var nearest_enemy = null
 	for enemy in get_tree().get_nodes_in_group("enemy"):
@@ -83,11 +92,26 @@ func get_random_enemy_in_range_avoid_attacked(distance: float) -> Variant:
 			else:
 				return enemy
 	return backup_enemy
+func get_random_enemy_in_range_avoid_list(distance: float, avoided_enemies: Array[Enemy]) -> Variant:
+	var list = get_tree().get_nodes_in_group("enemy")
+	list.shuffle()
+	var backup_enemy = null
+	for enemy: Node2D in list:
+		if !enemy is Enemy:
+			## In case random nodes have group 'enemy'
+			#print("Not an enemy Fail")
+			continue
+		if enemy.global_position.distance_to(global_position) < distance:
+			## If they're in the list, look for an enemy we haven't attacked first
+			if avoided_enemies.has(enemy):
+				backup_enemy = enemy
+			else:
+				return enemy
+		else:
+			pass#print("Too far fail: ", enemy.global_position.distance_to(global_position), " > ", distance)
+	return backup_enemy
 func get_random_enemy() -> Variant:
 	return get_tree().get_nodes_in_group("enemy").pick_random()
-func _on_area_entered(area: Area2D) -> void:
-	## Damage enemy
-	pass
 ## Returns if weapon is pointing towards the given enemy, within degree of leniency
 func IsAimingAtEnemyWithinDegree(enemy: Node2D, degree: float, current_rotation: float) -> bool:
 	if enemy != null:
@@ -99,8 +123,20 @@ func IsAimingAtAnyEnemy(current_rotation: float) -> bool:
 	if false: #TODO: setup with raycasts
 		return true
 	return false
-func get_detection_radius() -> float:
-	return enemy_detection_radius
+## Check if can attack body, then call attack_body
+func _on_body_entered(body: Node2D) -> void:
+	if can_attack(body):
+		attack_body(body)
+		attack_counter += 1
+		append_attack_element(body)
+## Check if we can attack body using @export variables
+func can_attack(body: Node2D) -> bool: 
+	var right_type: bool = (can_attack_enemies && body.is_in_group("enemy")) || (can_atack_events && body.is_in_group("event"))
+	return right_type && !have_attacked(body)
+## Override this to attack the body
+func attack_body(body: Node2D):
+	if body.has_method("damage"):
+		body.damage(make_attack(1))
 
 func have_attacked(node: Node) -> bool:
 	for element: AttackedObjectsElement in AttackedObjects:
@@ -127,3 +163,58 @@ class AttackedObjectsElement:
 			remove()
 	func remove():
 		list.erase(self)
+
+func _get_hp_stat():
+	return super() + Statics.spawn_hp_buff
+func _get_stance_stat():
+	return super() + Statics.spawn_stance_buff
+func _get_movespeed_stat():
+	return super() + Statics.spawn_movespeed_buff
+func _get_xp_stat():
+	return super() + Statics.spawn_xp_buff
+func _get_mogul_stat():
+	return super() + Statics.spawn_mogul_buff
+func _get_luck_stat():
+	return super() + Statics.spawn_luck_buff
+func _get_damage_stat():
+	return super() + Statics.spawn_damage_buff
+func _get_range_stat():
+	return super() + Statics.spawn_range_buff
+func _get_weight_stat():
+	return super() + Statics.spawn_weight_buff
+func _get_attackcooldown_stat():
+	return super() + Statics.spawn_attackcooldown_buff
+func _get_reloadtime_stat():
+	return super() + Statics.spawn_reloadtime_buff
+func _get_velocity_stat():
+	return super() + Statics.spawn_velocity_buff
+func _get_ammo_stat():
+	return super() + Statics.spawn_ammo_buff
+func _get_count_stat():
+	return super() + Statics.spawn_count_buff
+func _get_piercing_stat():
+	return super() + Statics.spawn_piercing_buff
+func _get_duration_stat():
+	return super() + Statics.spawn_duration_buff
+func _get_size_stat():
+	return super() + Statics.spawn_size_buff
+func _get_critdamage_stat():
+	return super() + Statics.spawn_critdamage_buff
+func _get_ghostly_stat():
+	return super() + Statics.spawn_ghostly_buff
+func _get_regen_stat():
+	return super() + Statics.spawn_regen_buff
+func _get_magnetize_stat():
+	return super() + Statics.spawn_magnetize_buff
+func _get_lifesteal_stat():
+	return super() + Statics.spawn_lifesteal_buff
+func _get_shield_stat():
+	return super() + Statics.spawn_shield_buff
+func _get_difficulty_stat():
+	return super() + Statics.spawn_difficulty_buff
+func _get_revies_stat():
+	return super() + Statics.spawn_revies_buff
+func _get_thorns_stat():
+	return super() + Statics.spawn_thorns_buff
+func _get_inaccuracy_stat():
+	return super() + Statics.spawn_inaccuracy_buff

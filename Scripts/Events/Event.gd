@@ -30,6 +30,7 @@ func setup(new_time: float, new_level: float, new_chunk: Vector2):
 func _init() -> void:
 	visible = false
 func _ready() -> void:
+	add_to_group("event")
 	flash()
 func flash():
 	await get_tree().create_timer(0.1).timeout

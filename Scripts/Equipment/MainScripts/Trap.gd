@@ -60,3 +60,60 @@ func hit_enemy(enemy: Node2D):
 	piercing += 1
 	if can_die_from_piercing && piercing > piercing_stat:
 		die()
+
+
+
+func _get_hp_stat():
+	return super() + Statics.trap_hp_buff
+func _get_stance_stat():
+	return super() + Statics.trap_stance_buff
+func _get_movespeed_stat():
+	return super() + Statics.trap_movespeed_buff
+func _get_xp_stat():
+	return super() + Statics.trap_xp_buff
+func _get_mogul_stat():
+	return super() + Statics.trap_mogul_buff
+func _get_luck_stat():
+	return super() + Statics.trap_luck_buff
+func _get_damage_stat():
+	return super() + Statics.trap_damage_buff
+func _get_range_stat():
+	return super() + Statics.trap_range_buff
+func _get_weight_stat():
+	return super() + Statics.trap_weight_buff
+func _get_attackcooldown_stat():
+	return super() + Statics.trap_attackcooldown_buff
+func _get_reloadtime_stat():
+	return super() + Statics.trap_reloadtime_buff
+func _get_velocity_stat():
+	return super() + Statics.trap_velocity_buff
+func _get_ammo_stat():
+	return super() + Statics.trap_ammo_buff
+func _get_count_stat():
+	return super() + Statics.trap_count_buff
+func _get_piercing_stat():
+	return super() + Statics.trap_piercing_buff
+func _get_duration_stat():
+	return super() + Statics.trap_duration_buff
+func _get_size_stat():
+	return super() + Statics.trap_size_buff
+func _get_critdamage_stat():
+	return super() + Statics.trap_critdamage_buff
+func _get_ghostly_stat():
+	return super() + Statics.trap_ghostly_buff
+func _get_regen_stat():
+	return super() + Statics.trap_regen_buff
+func _get_magnetize_stat():
+	return super() + Statics.trap_magnetize_buff
+func _get_lifesteal_stat():
+	return super() + Statics.trap_lifesteal_buff
+func _get_shield_stat():
+	return super() + Statics.trap_shield_buff
+func _get_difficulty_stat():
+	return super() + Statics.trap_difficulty_buff
+func _get_revies_stat():
+	return super() + Statics.trap_revies_buff
+func _get_thorns_stat():
+	return super() + Statics.trap_thorns_buff
+func _get_inaccuracy_stat():
+	return super() + Statics.trap_inaccuracy_buff

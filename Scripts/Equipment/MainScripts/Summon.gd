@@ -13,20 +13,22 @@ enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Rand
 @export var min_orbit_distance: float = 5
 @export var attacks_on_cd: bool = false
 @export var shoots_projectile: bool = false
+@export var melee_attacks: bool = false
 @export var must_aim_at_enemy_to_fire: bool = true
 @export var aiming_degree_leniency: float = 25
 @export var lock_transform_while_attacking: bool = false
 @export var while_attacking_locked_rotation: float = 0
 @export var flip_left_right: bool = false
+## Should the 'target' variable be updated every few seconds
+@export var update_target: bool = true
 var weapon_slot: float = 0
 var attacking: bool = false
 ## Used by weapons to offset weapon orbit forward (for use in attacks, etc)
-var weapon_position_offset: float = 0
+var summon_position_offset: float = 0
 var player: Character
 var ready_to_fire: bool = false
 var target: Node2D
 var update_target_stopwatch: float = 0
-var update_target: bool = true
 ## Update once a second
 var update_target_cooldown: float = 1
 func _ready() -> void:
@@ -34,11 +36,12 @@ func _ready() -> void:
 func setup(new_player: Character):
 	player = new_player
 func _process(delta: float) -> void:
+	super(delta)
 	if update_target:
 		update_target_stopwatch += delta
 		if update_target_stopwatch >= update_target_cooldown:
 			update_target_stopwatch = 0
-			target = get_enemy_nearby(get_detection_radius())
+			target = get_enemy_nearby(get_spawn_object_range())
 	match AimType:
 		AimTypes.DynamicAtMouse:
 			ProcessDynamicAtMouse(delta)
@@ -114,30 +117,92 @@ func RotateTowardsPosition(new_position: Vector2, delta: float) -> void:
 func GetOrbitPosition(target_angle: float) -> Vector2:
 	var ret: Vector2 
 	if attacking && lock_transform_while_attacking:
-		ret = player.global_position + (Vector2(cos(while_attacking_locked_rotation), sin(while_attacking_locked_rotation)) * orbit_distance) + GetWeaponOffsetPosition(while_attacking_locked_rotation)
+		ret = player.global_position + (Vector2(cos(while_attacking_locked_rotation), sin(while_attacking_locked_rotation)) * clamp(orbit_distance, min_orbit_distance, max_orbit_distance)) + GetSummonOffsetPosition(while_attacking_locked_rotation)
 	else:
-		ret = player.global_position + (Vector2(cos(target_angle), sin(target_angle)) * orbit_distance) + GetWeaponOffsetPosition(target_angle)
-	return clamp(ret, min_orbit_distance, max_orbit_distance)
+		ret = player.global_position + (Vector2(cos(target_angle), sin(target_angle)) * clamp(orbit_distance, min_orbit_distance, max_orbit_distance)) + GetSummonOffsetPosition(target_angle)
+	return ret
 func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
 	## Position without new rotation
 	if attacking && lock_transform_while_attacking:
 		if player.global_position.distance_to(get_global_mouse_position()) < orbit_distance:
 			return player.global_position + Vector2(cos(while_attacking_locked_rotation), sin(while_attacking_locked_rotation)) * (player.global_position.distance_to(get_global_mouse_position()) - 1)
-		return player.global_position + Vector2(cos(while_attacking_locked_rotation), sin(while_attacking_locked_rotation)) * orbit_distance + GetWeaponOffsetPosition(while_attacking_locked_rotation)
+		return player.global_position + Vector2(cos(while_attacking_locked_rotation), sin(while_attacking_locked_rotation)) * orbit_distance + GetSummonOffsetPosition(while_attacking_locked_rotation)
 	## Position Normally
 	if player.global_position.distance_to(get_global_mouse_position()) < orbit_distance:
 		return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * (player.global_position.distance_to(get_global_mouse_position()) - 1)
-	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance + GetWeaponOffsetPosition(target_angle)
-func GetWeaponOffsetPosition(target_angle: float) -> Vector2:
-	return weapon_position_offset * Vector2(cos(target_angle), sin(target_angle))
+	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance + GetSummonOffsetPosition(target_angle)
+func GetSummonOffsetPosition(target_angle: float) -> Vector2:
+	return summon_position_offset * Vector2(cos(target_angle), sin(target_angle))
 
 func attack():
 	attacking = true
 	if shoots_projectile:
 		await shoot_projectile()
+	if melee_attacks:
+		await melee_attack()
 	attacking = false
 func shoot_projectile():
 	pass
+func melee_attack():
+	pass
 
-func get_detection_radius() -> float:
-	return enemy_detection_radius
+func get_spawn_object_range():
+	return range_stat + Statics.summon_range_buff
+
+func _on_body_entered(body: Node2D) -> void:
+	super(body)
+
+func _get_hp_stat():
+	return super() + Statics.summon_hp_buff
+func _get_stance_stat():
+	return super() + Statics.summon_stance_buff
+func _get_movespeed_stat():
+	return super() + Statics.summon_movespeed_buff
+func _get_xp_stat():
+	return super() + Statics.summon_xp_buff
+func _get_mogul_stat():
+	return super() + Statics.summon_mogul_buff
+func _get_luck_stat():
+	return super() + Statics.summon_luck_buff
+func _get_damage_stat():
+	return super() + Statics.summon_damage_buff
+func _get_range_stat():
+	return super() + Statics.summon_range_buff
+func _get_weight_stat():
+	return super() + Statics.summon_weight_buff
+func _get_attackcooldown_stat():
+	return super() + Statics.summon_attackcooldown_buff
+func _get_reloadtime_stat():
+	return super() + Statics.summon_reloadtime_buff
+func _get_velocity_stat():
+	return super() + Statics.summon_velocity_buff
+func _get_ammo_stat():
+	return super() + Statics.summon_ammo_buff
+func _get_count_stat():
+	return super() + Statics.summon_count_buff
+func _get_piercing_stat():
+	return super() + Statics.summon_piercing_buff
+func _get_duration_stat():
+	return super() + Statics.summon_duration_buff
+func _get_size_stat():
+	return super() + Statics.summon_size_buff
+func _get_critdamage_stat():
+	return super() + Statics.summon_critdamage_buff
+func _get_ghostly_stat():
+	return super() + Statics.summon_ghostly_buff
+func _get_regen_stat():
+	return super() + Statics.summon_regen_buff
+func _get_magnetize_stat():
+	return super() + Statics.summon_magnetize_buff
+func _get_lifesteal_stat():
+	return super() + Statics.summon_lifesteal_buff
+func _get_shield_stat():
+	return super() + Statics.summon_shield_buff
+func _get_difficulty_stat():
+	return super() + Statics.summon_difficulty_buff
+func _get_revies_stat():
+	return super() + Statics.summon_revies_buff
+func _get_thorns_stat():
+	return super() + Statics.summon_thorns_buff
+func _get_inaccuracy_stat():
+	return super() + Statics.summon_inaccuracy_buff
