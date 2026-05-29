@@ -198,6 +198,8 @@ Cancel={
 2d_physics/layer_7="player_minion_block"
 2d_physics/layer_8="Events"
 2d_physics/layer_9="xp_range"
+2d_physics/layer_10="Creations"
+2d_physics/layer_11="Traps"
 
 [physics]
 

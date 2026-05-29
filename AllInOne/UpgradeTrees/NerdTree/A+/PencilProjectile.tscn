@@ -1,10 +1,39 @@
 [gd_scene format=3 uid="uid://b7ygw342b2kb3"]
 
 [ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_vnul4"]
+[ext_resource type="Texture2D" uid="uid://bt1efdd5bag26" path="res://AllInOne/UpgradeTrees/NerdTree/A+/PencilProjectile.png" id="2_ojoin"]
 
-[node name="PencilProjectile" type="Area2D" unique_id=421469085]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ktlv"]
+size = Vector2(9, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xkgc"]
+atlas = ExtResource("2_ojoin")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rdwgm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xkgc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PencilProjectile" type="Area2D" unique_id=421469085 node_paths=PackedStringArray("anim")]
+collision_layer = 4
+collision_mask = 136
 script = ExtResource("1_vnul4")
+homing = false
+anim = NodePath("AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1095618129]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_5ktlv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1309548274]
+sprite_frames = SubResource("SpriteFrames_rdwgm")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
