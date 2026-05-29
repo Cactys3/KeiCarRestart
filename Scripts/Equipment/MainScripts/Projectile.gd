@@ -30,8 +30,6 @@ signal died(pos: Vector2, cloned: bool)
 @export var acceleration: float = 0
 @export var homing: bool = true
 @export var angular_velocity: float = 0.5
-@export var can_die_from_collision: bool = true
-@export var can_die_from_duration: bool = true
 @export var can_spawn_multiple: bool = true
 @export var face_rotation: bool = true
 @export var can_knockback: bool = true

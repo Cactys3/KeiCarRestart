@@ -25,6 +25,17 @@ size = Vector2(10, 14)
 collision_layer = 512
 collision_mask = 136
 script = ExtResource("1_kicxt")
+movement_type = 2
+acceleration = 0.5
+self_knockback_onhit = 100.0
+knockback_modifier = 2.0
+_damage = 35.0
+_range = 35.0
+_attackcooldown = 1.0
+_velocity = 50.0
+_piercing = 1.0
+_duration = 20.0
+_weight = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1369776001]
 sprite_frames = SubResource("SpriteFrames_l1s3k")

@@ -8,7 +8,8 @@ class_name SpawnObject
 @export var attack_same_enemy_cooldown: float = 2
 @export var attack_color: Color = Color.TRANSPARENT
 @export var show_debug_range: bool = false
-
+@export var can_die_from_collision: bool = true
+@export var can_die_from_duration: bool = true
 
 var attack_counter: int = 0
 var AttackedObjects: Array = []

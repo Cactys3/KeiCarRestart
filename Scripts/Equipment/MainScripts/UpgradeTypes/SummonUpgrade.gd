@@ -20,7 +20,7 @@ func activate(new_player: Character):
 func deactivate():
 	despawn()
 	super()
-func spawn():
+func spawn() -> bool:
 	## Calculate total number we should spawn (do nothing if we have already spawned)
 	var summons_to_spawn: int = 1 + (Statics.summon_count_buff + additional_spawns) - summons.size()
 	print("Spawning: ", summons_to_spawn)
@@ -42,6 +42,7 @@ func spawn():
 			if super():
 				Statics.active_summons += 1
 				spawned = true
+	return spawned
 func despawn():
 	Statics.active_summons -= 1
 	spawned = false

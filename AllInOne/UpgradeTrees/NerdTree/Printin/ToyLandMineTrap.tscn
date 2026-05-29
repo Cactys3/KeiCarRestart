@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bpc0ljx1yiqod"]
 
 [ext_resource type="Script" uid="uid://n1ju48vj1iw7" path="res://Scripts/Equipment/MainScripts/Trap.gd" id="1_fspsm"]
-[ext_resource type="Texture2D" uid="uid://bth6vfvngo1uy" path="res://AllInOne/UpgradeTrees/NerdTree/Printin/UnpaintedFigureCreation.png" id="2_tpsv4"]
+[ext_resource type="Texture2D" uid="uid://mhwq7hs5aphp" path="res://AllInOne/UpgradeTrees/NerdTree/Printin/ToyLandMineTrap.png" id="2_tpsv4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_urrsw"]
 atlas = ExtResource("2_tpsv4")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fspsm"]
 animations = [{
@@ -25,10 +25,18 @@ size = Vector2(5, 5)
 collision_layer = 1024
 collision_mask = 136
 script = ExtResource("1_fspsm")
+damage_enemy_on_entered_activation = true
+can_atack_events = false
+_damage = 70.0
+_duration = 15.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2052318506]
 sprite_frames = SubResource("SpriteFrames_fspsm")
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1243990497]
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_v0jo1")
+
+[connection signal="area_entered" from="." to="." method="_on_entered"]
+[connection signal="body_entered" from="." to="." method="_on_entered"]

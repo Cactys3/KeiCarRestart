@@ -11,15 +11,19 @@ func activate(new_player: Character):
 func deactivate():
 	despawn()
 	super()
-func spawn():
+func spawn() -> bool:
+	var ret: bool = false
 	## If we spawn, increase active spawn counter
 	if super():
 		Statics.active_traps += 1
+		ret = true
 	if can_spawn_multiple:
 		## Spawn for count
 		for i in Statics.trap_count_buff + additional_spawns:
 			if super():
 				Statics.active_traps += 1
+				ret = true
+	return ret
 func despawn():
 	Statics.active_traps -= 1
 ## Override to setup spawn

@@ -40,6 +40,15 @@ animations = [{
 collision_layer = 512
 collision_mask = 136
 script = ExtResource("1_05tn2")
+movement_type = 2
+self_knockback_onhit = 60.0
+knockback_modifier = 1.5
+show_debug_range = true
+_damage = 30.0
+_velocity = 65.0
+_piercing = 1.0
+_duration = 15.0
+_weight = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1888708065]
 position = Vector2(0, -0.5)
@@ -47,6 +56,7 @@ shape = SubResource("RectangleShape2D_x1j55")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1551258405]
 sprite_frames = SubResource("SpriteFrames_q8jcf")
+autoplay = "default"
 frame_progress = 1.0
 script = ExtResource("3_x1j55")
 

@@ -8,8 +8,8 @@ enum ActivationTypes{entered, timer, activation}
 @export var activate_for_enemies: bool = true
 @export var activate_for_bosses: bool = true
 @export var activate_for_events: bool = false
-@export var can_die_from_duration: bool = true
-@export var can_die_from_piercing: bool = true
+@export var damage_enemy_on_entered_activation: bool = false
+@export var die_on_activation: bool = false
 var parent: StatsObject
 var lifetime: float = 10
 var piercing: float = 0
@@ -37,6 +37,10 @@ func setup(new_parent: StatsObject):
 			pass
 ## Carryout the functionality of the trap on activation
 func activate(body: Node2D):
+	print("activate")
+	if damage_enemy_on_entered_activation:
+		attack_body(body)
+		hit_enemy(body)
 	if sound_on_activate:
 		AudioManager.instance.play(sound_on_activate, global_position)
 	if spawn_scene_on_activation:
@@ -44,7 +48,10 @@ func activate(body: Node2D):
 		GameManager.instance.projectile_parent.add_child(scene)
 		scene.global_position = global_position
 		scene.setup()
+	if die_on_activation:
+		die()
 func _on_entered(body: Node2D) -> void:
+	print("on enter")
 	if activation_type == ActivationTypes.entered:
 		if body is Enemy && activate_for_enemies:
 			activate(body)
@@ -58,7 +65,7 @@ func die():
 		queue_free()
 func hit_enemy(enemy: Node2D):
 	piercing += 1
-	if can_die_from_piercing && piercing > piercing_stat:
+	if can_die_from_collision && piercing > piercing_stat:
 		die()
 
 

@@ -38,11 +38,12 @@ func _process(delta: float) -> void:
 			var spawned: bool = false
 			if stopwatch >= (spawn_every_seconds * spawn_every_seconds_cd_reduction_factor) && spawn():
 				stopwatch = 0
+				emit_cooldown_finished()
+				spawned = true
 			## Every x sec, update cd UI
 			if cooldownUI != null:
 				if cooldownUI_stopwatch >= 0.05:
 					cooldownUI_stopwatch = 0
-					emit_cooldown_finished()
 					if spawned:
 						cooldownUI.set_progress(1)
 					else:

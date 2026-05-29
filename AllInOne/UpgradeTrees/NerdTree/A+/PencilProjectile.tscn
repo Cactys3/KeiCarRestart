@@ -1,7 +1,12 @@
 [gd_scene format=3 uid="uid://b7ygw342b2kb3"]
 
 [ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_vnul4"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_5ktlv"]
 [ext_resource type="Texture2D" uid="uid://bt1efdd5bag26" path="res://AllInOne/UpgradeTrees/NerdTree/A+/PencilProjectile.png" id="2_ojoin"]
+
+[sub_resource type="Resource" id="Resource_5xkgc"]
+script = ExtResource("2_5ktlv")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ktlv"]
 size = Vector2(9, 2)
@@ -25,8 +30,16 @@ animations = [{
 collision_layer = 4
 collision_mask = 136
 script = ExtResource("1_vnul4")
+acceleration = 0.5
 homing = false
 anim = NodePath("AnimatedSprite2D")
+make_own_attack = true
+status = SubResource("Resource_5xkgc")
+_damage = 30.0
+_velocity = 35.0
+_piercing = 3.0
+_duration = 15.0
+_weight = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1095618129]
 position = Vector2(-0.5, 0)

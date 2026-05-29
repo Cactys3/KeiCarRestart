@@ -3,23 +3,34 @@ class_name Creation
 
 enum MovementTypes{GivenDirection, NonMoving, NearestEnemy, RandomEnemy, RandomDirection}
 @export var movement_type: MovementTypes = MovementTypes.NonMoving
-@export var hp: float = 30
-@export var velocity: float = 0.5
 @export var angular_velocity: float = 0.5
 @export var acceleration: float = 0
 ## Does this creation damage enemies on collision
 @export var damage_on_collision: bool = true
+## 0 for no knockback
+@export var self_knockback_onhit: float = 0
 @export var can_be_damaged: bool = true
 @export var can_be_stunned: bool = true
-@export var can_be_knockbacked: bool = true
+@export var can_be_knockedback: bool = true
 ## Flat Damage Reduction
-@export var knockback_modifier: float = 0
+@export var knockback_modifier: float = 1
+@export var max_knockback_time: float = 0.15
+## Only recieve half velocity as creations should move slower than projectiles, but numbers on buffs can be same
+const creation_velocity_modifier: float = 0.5
+var hp: float = 1000
+var velocity: float = 0.5
+var temporary_velocity: float = 0
 var creation_range: float:
 	get():
 		return range_stat + Statics.creation_range_buff
 var stun_time_left: float = 0
 var stunning: bool = false
+var applying_knockback: bool = false
+var knockback_stopwatch: float = 0
+
 var direction: Vector2 = Vector2(0, 0)
+var knockback_direction := Vector2(0, 0)
+var knockback_strength := 0.0
 var creation_duration: float = 0
 var duration_stopwatch: float = 0
 var parent: CreationUpgrade
@@ -30,7 +41,7 @@ var switch_targets_cooldown: float = 2
 var update_target_stopwatch: float = 10
 var update_target: bool = true
 ## Update once a second
-var update_target_cooldown: float = 1
+var update_target_cooldown: float = 0.5
 var target: Node2D 
 var set_random_direction: bool = false
 var clockwise: float = -1
@@ -39,17 +50,30 @@ func _ready() -> void:
 	if randf() > 0.5:
 		clockwise = 1
 func setup(new_parent: Equipment, new_duration: float):
+	velocity = velocity_stat * creation_velocity_modifier
+	temporary_velocity = velocity
+	hp = hp_stat
 	parent = new_parent
-	creation_duration = new_duration
+	creation_duration = new_duration + duration_stat
 	is_ready = true
 func set_direction(new_direction: Vector2):
 	direction = new_direction
 func _process(delta: float) -> void:
+	## Stun
 	if stun_time_left > 0:
 		stun_time_left -= delta
 		stunning = true
-	elif stunning:
+		## Knockback
+		if applying_knockback && knockback_stopwatch <= max_knockback_time:
+			knockback_stopwatch += delta
+			## Apply knockback
+			position += knockback_direction * knockback_strength * delta
+			## Lose 10% knockback speed a second
+			knockback_direction -= knockback_direction * 0.1 * delta
+	elif stunning || applying_knockback:
 		stunning = false
+		applying_knockback = false
+	## Normal Movement
 	if !stunning:
 		if update_target:
 			switch_targets_stopwatch += delta
@@ -70,8 +94,12 @@ func _process(delta: float) -> void:
 				if !set_random_direction:
 					direction = (Vector2(randf_range(-1, 1), randf_range(-1, 1)))
 				ProcessDirection(delta)
-		velocity += velocity * acceleration
-		position += direction.normalized() * velocity
+			MovementTypes.NonMoving:
+				pass
+		## Apply movement here?
+		velocity += velocity * acceleration * delta
+		temporary_velocity = move_toward(temporary_velocity, velocity, delta * 10)
+		position += direction.normalized() * temporary_velocity * delta
 	duration_stopwatch += delta
 	if duration_stopwatch > creation_duration:
 		die()
@@ -110,8 +138,8 @@ func damage(attack: Attack):
 		stun_time_left += attack.get_stun()
 		stunning = true
 	## Knockback is applied fully for 1 frame as the player's own movement code then overwrites it quickly on the following frames.
-	if can_be_knockbacked && attack.get_knockback() != 0:
-		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.get_knockback() * knockback_modifier)
+	if can_be_knockedback && attack.get_knockback() != 0:
+		apply_knockback(attack.get_knockback() * knockback_modifier, attack.position)
 	if game_man.curr_hp <= 0:
 		game_man.CreationKilled.emit(self, attack)
 		die()
@@ -123,7 +151,7 @@ func ProcessDirection(delta: float):
 	## Setup
 	direction = direction.normalized() 
 	## Move
-	position += direction * velocity * delta
+	#position += direction * velocity * delta
 func ProcessTarget(delta: float):
 	## Setup
 	var target_direction: Vector2 = direction.normalized() 
@@ -135,13 +163,10 @@ func ProcessTarget(delta: float):
 		## Don't lerp if oribiting player
 		target_direction = (game_man.player.global_position - global_position).rotated(PI / 2 * clockwise)
 	direction = target_direction
-	position += direction * velocity * delta
+	#position += direction * velocity * delta
 var damage_multiplier: float = 1
 func _on_body_entered(body: Node2D) -> void:
-	if can_attack(body):
-		attack_body(body)
-		attack_counter += 1
-		append_attack_element(body)
+	super(body)
 ## Use 'can_attack' instead of callable get attack because only melee attacks, no projectiles?
 func can_attack(body: Node2D) -> bool: 
 	return damage_on_collision && body.is_in_group("enemy") && !have_attacked(body)
@@ -151,10 +176,24 @@ func get_can_attack_callable() -> Callable:
 		return !body.is_in_group("player") && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage")
 func attack_body(body: Node2D):
 	body.damage(make_attack(damage_multiplier))
+	if self_knockback_onhit > 0 && can_be_knockedback:
+		apply_knockback(self_knockback_onhit * knockback_modifier, body.global_position)
 	if target == body:
 		var old_target = target
 		get_new_target()
-		#print("New = ", target != old_target)
+	if attack_counter > piercing_stat && can_die_from_collision:
+		die()
+func apply_knockback(knockback: float, location: Vector2):
+	## Max 0.5 seconds of knockback
+	stun_time_left += min(0.1 + knockback / 100, max_knockback_time)
+	knockback_stopwatch = 0
+	applying_knockback = true
+	stunning = true
+	knockback_strength = knockback
+	knockback_direction = (global_position - location).normalized()
+	## decreased ms until it builds back up
+	temporary_velocity = temporary_velocity * 0.2
+	direction = knockback_direction
 ## Calculate and return an attack with damage multiplier
 func make_attack(attack_damage_multiplier: float) -> Attack:
 	## Make Two Stats Lists
