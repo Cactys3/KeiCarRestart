@@ -31,6 +31,7 @@ const SCISSOR_SWORD = "ScissorSword"
 const SEASON_2 = "Season2"
 const STACKING_STACKS = "StackingStacks"
 ## Ghost Tree
+const FEAR = "Fear"
 const FEARY = "Feary"
 const GHOST_ARMY = "Ghost Army"
 const GHOSTLY_HELPER = "Ghostly Helper"
@@ -101,6 +102,7 @@ const SCISSOR_SWORD_SCENE = preload("uid://buhep55sdrfhg")
 const SEASON_2_SCENE = preload("uid://ddcrdjhonahcv")
 const STACKING_STACKS_SCENE = preload("uid://j60crhb84rib")
 ## Ghost Tree
+const FEAR_SCENE = preload("uid://cwxpg0qrpjk8k")
 const FEARY_SCENE = preload("uid://b3yf4m2mleant")
 const GHOST_ARMY_SCENE = preload("uid://chg5xi3oq3nq7")
 const GHOSTLY_HELPER_SCENE = preload("uid://b1njscxfupn3i")
@@ -196,6 +198,7 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	SCISSOR_SWORD: SCISSOR_SWORD_SCENE,
 	SEASON_2: SEASON_2_SCENE,
 	STACKING_STACKS: STACKING_STACKS_SCENE,
+	FEAR: FEAR_SCENE,
 	FEARY: FEARY_SCENE,
 	GHOST_ARMY: GHOST_ARMY_SCENE,
 	GHOSTLY_HELPER: GHOSTLY_HELPER_SCENE,

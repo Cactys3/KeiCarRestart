@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://65qqgcigjhw1"]
+
+[ext_resource type="Script" uid="uid://dytl3dir36266" path="res://AllInOne/UI/UpgradeInteractiveDisplay/UpgradesInteractiveDisplay.gd" id="1_pfl4o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pfl4o"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+
+[node name="UpgradesInteractiveDisplay" type="Control" unique_id=1061954059]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 257.0
+offset_top = 274.0
+offset_right = 1150.0
+offset_bottom = 714.0
+script = ExtResource("1_pfl4o")
+
+[node name="Panel" type="Panel" parent="." unique_id=372968511]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pfl4o")

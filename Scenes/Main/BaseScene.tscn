@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
+[ext_resource type="PackedScene" uid="uid://65qqgcigjhw1" path="res://AllInOne/UI/UpgradeInteractiveDisplay/UpgradesInteractiveDisplay.tscn" id="13_u5ql4"]
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
 [ext_resource type="Script" uid="uid://b6808ricdvjjh" path="res://Scripts/UI/relative_to_game.gd" id="17_afe04"]
 [ext_resource type="Script" uid="uid://xirmq1j15ex1" path="res://Scripts/managers/WindowManager.gd" id="27_fwf5d"]
@@ -279,8 +280,6 @@ mouse_filter = 2
 
 [node name="hud" parent="Window1920/Offset/UIManager/StaticHUDParent" unique_id=1849936535 instance=ExtResource("15_6si6h")]
 layout_mode = 1
-offset_right = 0.0
-offset_bottom = 0.0
 
 [node name="SimpleHUD" type="Panel" parent="Window1920/Offset/UIManager/StaticHUDParent" unique_id=951058699]
 visible = false
@@ -498,12 +497,19 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
+[node name="UpgradesInteractiveDisplay" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1061954059 instance=ExtResource("13_u5ql4")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 193.0
+offset_right = 1381.0
+offset_bottom = 980.0
+
 [node name="Label" type="Label" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=720499549]
 layout_mode = 0
-offset_left = 92.44444
-offset_top = 156.44444
-offset_right = 397.33337
-offset_bottom = 207.44444
+offset_left = 530.0
+offset_top = 119.0
+offset_right = 834.8889
+offset_bottom = 170.0
 theme_override_font_sizes/font_size = 64
 text = "Upgrades!"
 horizontal_alignment = 1
@@ -511,10 +517,10 @@ vertical_alignment = 1
 
 [node name="UpgradeParent" type="GridContainer" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=584677558]
 layout_mode = 0
-offset_left = 80.888885
-offset_top = 214.2222
-offset_right = 470.22223
-offset_bottom = 1002.6666
+offset_left = 1332.0
+offset_top = 59.0
+offset_right = 1926.0
+offset_bottom = 398.0
 columns = 4
 
 [node name="TestingManager" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1798274506 node_paths=PackedStringArray("EnemyParent") instance=ExtResource("6_eeah7")]

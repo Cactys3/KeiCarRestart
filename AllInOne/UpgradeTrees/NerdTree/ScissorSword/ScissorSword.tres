@@ -10,6 +10,6 @@ scene = ExtResource("2_tnidk")
 upgrade_name = "Scissor Sword"
 upgrade_description = "Summon an anime scissor sword that slices and dices around you. The scissor sword attacks each time you complete a cooldown."
 upgrade_rarity = 3
-prerequisite_upgrades = Array[ExtResource("1_p0df8")]([ExtResource("2_10rmx"), null])
+prerequisite_upgrades = Array[ExtResource("1_p0df8")]([ExtResource("2_10rmx")])
 prereq_num_of_cooldown_upgrades = 3
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

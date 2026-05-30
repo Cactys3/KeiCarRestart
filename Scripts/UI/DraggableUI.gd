@@ -17,7 +17,8 @@ func _ready() -> void:
 		parent = self
 	call_deferred("connect_signals")
 func connect_signals():
-	GameManager.instance.connect("toggle_inventory", toggle_ui)
+	if GameManager.instance:
+		GameManager.instance.connect("toggle_inventory", toggle_ui)
 func _process(delta: float) -> void:
 	if !(dragging_some_ui && !dragging) && visible && parent.visible && process_mode != PROCESS_MODE_DISABLED && parent.process_mode != PROCESS_MODE_DISABLED:
 		var hovering_drag_bar = get_global_rect().has_point(get_global_mouse_position())
@@ -33,11 +34,11 @@ func _process(delta: float) -> void:
 		if mouse_hover && hovered.size() == 1:
 			parent.get_parent().move_child(parent, parent.get_parent().get_child_count() - 1)
 	## if dragging and released? left click, undrag
-		if dragging && !Input.is_action_pressed("left_click"):
+		if dragging && !Input.is_action_pressed("M1"):
 			dragging = false
 			dragging_some_ui = false
 	## if if hovering (the drag bar) and left click and we topmost child, we are now dragging
-		if mouse_hover && hovering_drag_bar && Input.is_action_just_pressed("left_click") && visible && parent.get_parent().get_child(parent.get_parent().get_child_count() - 1) == parent:
+		if mouse_hover && hovering_drag_bar && Input.is_action_just_pressed("M1") && visible && parent.get_parent().get_child(parent.get_parent().get_child_count() - 1) == parent:
 			var good: bool = true
 			for bar in hovered:
 				if is_instance_valid(bar) && bar != self && bar.get_priority() > get_priority():

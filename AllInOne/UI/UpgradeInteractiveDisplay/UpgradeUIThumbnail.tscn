@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://kayvs8ppkfos"]
+
+[ext_resource type="Script" uid="uid://da4mkmkwwxvlf" path="res://AllInOne/UI/UpgradeInteractiveDisplay/UpgradeUIThumbnail.gd" id="1_j2ndd"]
+[ext_resource type="Script" uid="uid://opdb2hwlrw6u" path="res://Scripts/UI/ShrinkTextToFit.gd" id="2_ioqsm"]
+[ext_resource type="Texture2D" uid="uid://d0wip1h85ishb" path="res://Art/UI/MISSING.png" id="3_gr4f7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4wtwq"]
+
+[node name="UpgradeUI" type="PanelContainer" unique_id=371955511]
+offset_right = 57.0
+offset_bottom = 59.0
+script = ExtResource("1_j2ndd")
+
+[node name="Label" type="Label" parent="." unique_id=108522304]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Name"
+label_settings = SubResource("LabelSettings_4wtwq")
+horizontal_alignment = 1
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("2_ioqsm")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1701937885]
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("3_gr4f7")
+stretch_mode = 3
+
+[connection signal="mouse_entered" from="." to="." method="_enter"]
+[connection signal="mouse_exited" from="." to="." method="_exit"]
