@@ -15,7 +15,7 @@ enum EnemyTypes {unset}
 @export var can_be_frozen: bool = true
 @export var xp_on_death: int = 10
 @export var money_on_death: int = 3
-@export var weapon_knockback: float = 50
+@export var weapon_knockback: float = 150
 @export var weapon_stun: float = 0
 @export var self_knockback_onhit: float = 100.0
 @export var base_damage: float = 10

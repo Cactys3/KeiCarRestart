@@ -15,7 +15,9 @@ const ATTACKCOOLDOWN = "attack cooldown"
 ## Determines cooldown for reloading
 const RELOADTIME = "reload cooldown"
 const VELOCITY = "velocity"
+## How many times can fire before reloading
 const AMMO = "ammo"
+## How many bullets per fire (if can shoot multiple)
 const COUNT = "count"
 const PIERCING = "piercing"
 const DURATION = "duration"

@@ -57,8 +57,12 @@ var game_man: GameManager:
 var can_be_damaged: bool = true
 var default_pickup_radius: float = 30
 var regen_stopwatch: float = 0
+## Regen every x seconds
+var regen_cooldown: float = 4
 var time_since_taken_damage: float = 0
 var shield_cooldown: float = 3
+## Constants
+const movespeed_delta_modifier: float = 700 # 700 feels like a good place (affects knockback)
 ## States
 var stunning:bool = false
 var stun_time_left: float = 0
@@ -113,7 +117,7 @@ func handle_regens(delta) -> void:
 		game_man.shield += 5 * delta
 	## Regen happens once every second
 	regen_stopwatch += delta
-	if regen_stopwatch >= 1:
+	if regen_stopwatch >= regen_cooldown:
 		regen_stopwatch = 0
 		if regen > 0 && game_man.curr_hp < health:
 			game_man.curr_hp += GlobalStats.calculate_regen(regen)
@@ -133,7 +137,7 @@ func handle_moving(delta) -> void:
 			is_moving = true
 		else:
 			new_velocity.y = 0
-		velocity = velocity.move_toward(new_velocity.normalized() * curr_speed, delta * 7000)
+		velocity = velocity.move_toward(new_velocity.normalized() * curr_speed, delta * movespeed_delta_modifier)
 	moving(is_moving)
 	if is_moving && face_towards_velocity:
 		## if velocity.x = 0, don't change
@@ -169,10 +173,10 @@ func damage(attack: Attack):
 		stunning = true
 	## Knockback is applied fully for 1 frame as the player's own movement code then overwrites it quickly on the following frames.
 	if can_be_knockbacked && attack.get_knockback() != 0:
+		print("knockback: ", (global_position - attack.position).normalized() * attack.get_knockback() * knockback_modifier, " vs velocity: ", velocity)
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.get_knockback() * knockback_modifier)
 	if game_man.curr_hp <= 0:
 		die(attack)
-	
 	## This shit doesn't work for some fucked up reason when it's preloaded
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
