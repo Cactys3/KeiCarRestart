@@ -17,6 +17,7 @@ enum UpgradeTrees {unset, blood, nerd, ghost, mage, mechanic, pyrolunatic, range
 @export var disable_upgrades_names: Array[String] 
 ## Prereq other Upgrades tags
 @export_group("Prereqs")
+@export var prereq_num_of_any_upgrades: int = 0
 @export var prereq_num_of_any_spawn_upgrades: int = 0
 @export var prereq_num_of_projectile_upgrades: int = 0
 @export var prereq_num_of_creation_upgrades: int = 0
@@ -81,6 +82,10 @@ enum UpgradeTrees {unset, blood, nerd, ghost, mage, mechanic, pyrolunatic, range
 @export_subgroup("Vibes")
 @export var is_magical: bool = false
 @export var is_blunt: bool = false
+## Constants
+const intermediate_upgrade_count_req: int = 3
+const advanced_upgrade_count_req: int = 5
+const exclusive_upgrade_count_req: int = 10
 ## Returns a list with the data of all prerequisite required upgrades to obtain this upgrade
 func get_prereqs() -> Array[UpgradeData]:
 	return prerequisite_upgrades
@@ -89,6 +94,21 @@ func get_decedent_upgrades() -> Array[UpgradeData]:
 	return decedent_upgrades
 ## Checks if all the preqreq upgrades are obtained, if self is already obtained, if another upgrade disables self
 func can_obtain(equipped_upgrades: Array[Upgrade]) -> bool:
+	## TODO: do this method a better way
+	
+	## Check requirements for total upgrade count
+	var num_of_upgrades: int = equipped_upgrades.size()
+	if upgrade_rarity == Upgrade.UpgradeRarities.Intermediate:
+		if num_of_upgrades < intermediate_upgrade_count_req:
+			return false
+	elif upgrade_rarity == Upgrade.UpgradeRarities.Advanced:
+		if num_of_upgrades < advanced_upgrade_count_req:
+			return false
+	elif upgrade_rarity == Upgrade.UpgradeRarities.Exclusive:
+		if num_of_upgrades < exclusive_upgrade_count_req:
+			return false
+	if num_of_upgrades < prereq_num_of_any_upgrades:
+		return false
 	## If all prerequisite upgrades are obtained, return true
 	var copy: Array[UpgradeData] = prerequisite_upgrades.duplicate()
 	var prereq_projectile: int = prereq_num_of_projectile_upgrades
