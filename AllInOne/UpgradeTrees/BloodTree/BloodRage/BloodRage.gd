@@ -16,7 +16,7 @@ func bleed_proc(bleed_damage: float, enemy: Enemy):
 	if !buff_applied:
 		buff_applied = true
 		GlobalStats.add_to_stats_factor(GlobalStats.DAMAGE, buff_factor)
-	buff_time_left = (buff_base_duration * upgrade_buffs_duration_factor)
+	add_to_buff_time(buff_base_duration)
 	super(bleed_damage, enemy)
 func remove_buff():
 	GlobalStats.add_to_stats_factor(GlobalStats.DAMAGE, -buff_factor)

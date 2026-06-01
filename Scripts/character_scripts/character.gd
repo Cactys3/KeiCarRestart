@@ -9,9 +9,9 @@ var game_man: GameManager:
 @export var pickup_range: CollisionShape2D
 @export var anim: AnimatedSprite2D
 @export var face_towards_velocity: bool = true
-@export var knockback_modifier:float = 1
-@export var can_be_knockbacked:bool = true
-@export var can_be_stunned:bool = true
+@export var knockback_modifier: float = 1
+@export var can_be_knockbacked: bool = true
+@export var can_be_stunned: bool = true
 ## Stats
 @export var movespeed: float = 30:
 	get():

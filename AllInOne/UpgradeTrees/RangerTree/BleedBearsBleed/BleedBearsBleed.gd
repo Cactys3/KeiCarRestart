@@ -1,7 +1,9 @@
 extends TrapUpgrade
+
 ## This upgrade:
 # Your bear trap applies heavy bleed and immobilizes enemies for 3 seconds
 # Your traps do 10% more damage
+
 func activate(new_player: Character):
 	connect_reload = true
 	Statics.trap_damage_buff += trap_damage_buff

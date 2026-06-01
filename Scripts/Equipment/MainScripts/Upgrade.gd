@@ -27,7 +27,6 @@ var data: UpgradeData
 var disabled_by_inherited_upgrade: bool = false
 ## Called whenever an upgrade cooldown finishes, may be called for multiple cooldowns on one Upgrade
 signal cooldown_finished
-static var upgrade_buffs_duration_factor: float = 1
 ## Check to remove buffs or other stuff on leaving scene
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
@@ -83,6 +82,8 @@ func remove_buff():
 	buff_applied = false
 func apply_buff():
 	buff_applied = true
+func add_to_buff_time(value: float):
+	buff_time_left += value + Statics.upgrade_buff_duration_buff
 func find_upgrade(upgrade_name: String) -> Upgrade:
 	for upgrade in GameManager.instance.active_upgrades:
 		if upgrade.data.upgrade_name == upgrade_name:

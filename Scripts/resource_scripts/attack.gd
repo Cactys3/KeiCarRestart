@@ -141,3 +141,6 @@ func is_from_upgrade() -> bool:
 		|| attack_type == AttackTypes.upgrade_melee
 		|| attack_type == AttackTypes.upgrade_status
 		)
+## Returns if this attack is from a player projectile (does not care about enemy projectiles)
+func is_from_projectile() -> bool:
+	return attack_type == AttackTypes.player_weapon_projectile || attack_type == AttackTypes.upgrade_projectile

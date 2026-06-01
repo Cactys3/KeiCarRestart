@@ -17,7 +17,7 @@ const movespeed_buff: int = 20
 const movespeed_buff_duration: float = 10
 ## Called on dodging
 func dodge(character: Character, attack: Attack):
-	buff_time_left = movespeed_buff_duration
+	add_to_buff_time(movespeed_buff_duration)
 	buff_applied = true
 	GlobalStats.add_to_stats_base(GlobalStats.MOVESPEED, movespeed_buff)
 func remove_buff():

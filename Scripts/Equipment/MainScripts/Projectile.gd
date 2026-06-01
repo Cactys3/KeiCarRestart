@@ -102,8 +102,8 @@ func setup_projectile(new_parent: StatsObject, new_target: Node2D, enemy_directi
 		attack_type = Attack.AttackTypes.upgrade_projectile
 	elif new_parent is Turret:
 		attack_type = Attack.AttackTypes.upgrade_creation
-	elif new_parent is Summon:
-		attack_type = Attack.AttackTypes.upgrade_summon
+	elif new_parent is Projectile:
+		attack_type = Attack.AttackTypes.upgrade_projectile
 	else:
 		printerr("Projectile setup normally but not from weapon or upgrade")
 #func setup_add_parent_stats(stats_parent: StatsObject):
@@ -188,58 +188,57 @@ func die():
 	queue_free()
 
 
-
 func _get_hp_stat():
-	return super() + Statics.projectile_hp_buff
+	return (super() + Statics.projectile_hp_buff) * Statics.projectile_hp_factor
 func _get_stance_stat():
-	return super() + Statics.projectile_stance_buff
+	return (super() + Statics.projectile_stance_buff) * Statics.projectile_stance_factor
 func _get_movespeed_stat():
-	return super() + Statics.projectile_movespeed_buff
+	return (super() + Statics.projectile_movespeed_buff) * Statics.projectile_movespeed_factor
 func _get_xp_stat():
-	return super() + Statics.projectile_xp_buff
+	return (super() + Statics.projectile_xp_buff) * Statics.projectile_xp_factor
 func _get_mogul_stat():
-	return super() + Statics.projectile_mogul_buff
+	return (super() + Statics.projectile_mogul_buff) * Statics.projectile_mogul_factor
 func _get_luck_stat():
-	return super() + Statics.projectile_luck_buff
+	return (super() + Statics.projectile_luck_buff) * Statics.projectile_luck_factor
 func _get_damage_stat():
-	return super() + Statics.projectile_damage_buff
+	return (super() + Statics.projectile_damage_buff) * Statics.projectile_damage_factor
 func _get_range_stat():
-	return super() + Statics.projectile_range_buff
+	return (super() + Statics.projectile_range_buff) * Statics.projectile_range_factor
 func _get_weight_stat():
-	return super() + Statics.projectile_weight_buff
+	return (super() + Statics.projectile_weight_buff) * Statics.projectile_weight_factor
 func _get_attackcooldown_stat():
-	return super() + Statics.projectile_attackcooldown_buff
+	return (super() + Statics.projectile_attackcooldown_buff) * Statics.projectile_attackcooldown_factor
 func _get_reloadtime_stat():
-	return super() + Statics.projectile_reloadtime_buff
+	return (super() + Statics.projectile_reloadtime_buff) * Statics.projectile_reloadtime_factor
 func _get_velocity_stat():
-	return super() + Statics.projectile_velocity_buff
+	return (super() + Statics.projectile_velocity_buff) * Statics.projectile_velocity_factor
 func _get_ammo_stat():
-	return super() + Statics.projectile_ammo_buff
+	return (super() + Statics.projectile_ammo_buff) * Statics.projectile_ammo_factor
 func _get_count_stat():
-	return super() + Statics.projectile_count_buff
+	return (super() + Statics.projectile_count_buff) * Statics.projectile_count_factor
 func _get_piercing_stat():
-	return super() + Statics.projectile_piercing_buff
+	return (super() + Statics.projectile_piercing_buff) * Statics.projectile_piercing_factor
 func _get_duration_stat():
-	return super() + Statics.projectile_duration_buff
+	return (super() + Statics.projectile_duration_buff) * Statics.projectile_duration_factor
 func _get_size_stat():
-	return super() + Statics.projectile_size_buff
+	return (super() + Statics.projectile_size_buff) * Statics.projectile_size_factor
 func _get_critdamage_stat():
-	return super() + Statics.projectile_critdamage_buff
+	return (super() + Statics.projectile_critdamage_buff) * Statics.projectile_critdamage_factor
 func _get_ghostly_stat():
-	return super() + Statics.projectile_ghostly_buff
+	return (super() + Statics.projectile_ghostly_buff) * Statics.projectile_ghostly_factor
 func _get_regen_stat():
-	return super() + Statics.projectile_regen_buff
+	return (super() + Statics.projectile_regen_buff) * Statics.projectile_regen_factor
 func _get_magnetize_stat():
-	return super() + Statics.projectile_magnetize_buff
+	return (super() + Statics.projectile_magnetize_buff) * Statics.projectile_magnetize_factor
 func _get_lifesteal_stat():
-	return super() + Statics.projectile_lifesteal_buff
+	return (super() + Statics.projectile_lifesteal_buff) * Statics.projectile_lifesteal_factor
 func _get_shield_stat():
-	return super() + Statics.projectile_shield_buff
+	return (super() + Statics.projectile_shield_buff) * Statics.projectile_shield_factor
 func _get_difficulty_stat():
-	return super() + Statics.projectile_difficulty_buff
+	return (super() + Statics.projectile_difficulty_buff) * Statics.projectile_difficulty_factor
 func _get_revies_stat():
-	return super() + Statics.projectile_revies_buff
+	return (super() + Statics.projectile_revies_buff) * Statics.projectile_revies_factor
 func _get_thorns_stat():
-	return super() + Statics.projectile_thorns_buff
+	return (super() + Statics.projectile_thorns_buff) * Statics.projectile_thorns_factor
 func _get_inaccuracy_stat():
-	return super() + Statics.projectile_inaccuracy_buff
+	return (super() + Statics.projectile_inaccuracy_buff) * Statics.projectile_inaccuracy_factor

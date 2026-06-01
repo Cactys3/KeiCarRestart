@@ -214,58 +214,57 @@ func get_attack_type() -> Attack.AttackTypes:
 	return Attack.AttackTypes.upgrade_creation
 func get_attack_position() -> Vector2:
 	return global_position
-
 func _get_hp_stat():
-	return super() + Statics.creation_hp_buff
+	return (super() + Statics.creation_hp_buff) * Statics.creation_hp_factor
 func _get_stance_stat():
-	return super() + Statics.creation_stance_buff
+	return (super() + Statics.creation_stance_buff) * Statics.creation_stance_factor
 func _get_movespeed_stat():
-	return super() + Statics.creation_movespeed_buff
+	return (super() + Statics.creation_movespeed_buff) * Statics.creation_movespeed_factor
 func _get_xp_stat():
-	return super() + Statics.creation_xp_buff
+	return (super() + Statics.creation_xp_buff) * Statics.creation_xp_factor
 func _get_mogul_stat():
-	return super() + Statics.creation_mogul_buff
+	return (super() + Statics.creation_mogul_buff) * Statics.creation_mogul_factor
 func _get_luck_stat():
-	return super() + Statics.creation_luck_buff
+	return (super() + Statics.creation_luck_buff) * Statics.creation_luck_factor
 func _get_damage_stat():
-	return super() + Statics.creation_damage_buff
+	return (super() + Statics.creation_damage_buff) * Statics.creation_damage_factor
 func _get_range_stat():
-	return super() + Statics.creation_range_buff
+	return (super() + Statics.creation_range_buff) * Statics.creation_range_factor
 func _get_weight_stat():
-	return super() + Statics.creation_weight_buff
+	return (super() + Statics.creation_weight_buff) * Statics.creation_weight_factor
 func _get_attackcooldown_stat():
-	return super() + Statics.creation_attackcooldown_buff
+	return (super() + Statics.creation_attackcooldown_buff) * Statics.creation_attackcooldown_factor
 func _get_reloadtime_stat():
-	return super() + Statics.creation_reloadtime_buff
+	return (super() + Statics.creation_reloadtime_buff) * Statics.creation_reloadtime_factor
 func _get_velocity_stat():
-	return super() + Statics.creation_velocity_buff
+	return (super() + Statics.creation_velocity_buff) * Statics.creation_velocity_factor
 func _get_ammo_stat():
-	return super() + Statics.creation_ammo_buff
+	return (super() + Statics.creation_ammo_buff) * Statics.creation_ammo_factor
 func _get_count_stat():
-	return super() + Statics.creation_count_buff
+	return (super() + Statics.creation_count_buff) * Statics.creation_count_factor
 func _get_piercing_stat():
-	return super() + Statics.creation_piercing_buff
+	return (super() + Statics.creation_piercing_buff) * Statics.creation_piercing_factor
 func _get_duration_stat():
-	return super() + Statics.creation_duration_buff
+	return (super() + Statics.creation_duration_buff) * Statics.creation_duration_factor
 func _get_size_stat():
-	return super() + Statics.creation_size_buff
+	return (super() + Statics.creation_size_buff) * Statics.creation_size_factor
 func _get_critdamage_stat():
-	return super() + Statics.creation_critdamage_buff
+	return (super() + Statics.creation_critdamage_buff) * Statics.creation_critdamage_factor
 func _get_ghostly_stat():
-	return super() + Statics.creation_ghostly_buff
+	return (super() + Statics.creation_ghostly_buff) * Statics.creation_ghostly_factor
 func _get_regen_stat():
-	return super() + Statics.creation_regen_buff
+	return (super() + Statics.creation_regen_buff) * Statics.creation_regen_factor
 func _get_magnetize_stat():
-	return super() + Statics.creation_magnetize_buff
+	return (super() + Statics.creation_magnetize_buff) * Statics.creation_magnetize_factor
 func _get_lifesteal_stat():
-	return super() + Statics.creation_lifesteal_buff
+	return (super() + Statics.creation_lifesteal_buff) * Statics.creation_lifesteal_factor
 func _get_shield_stat():
-	return super() + Statics.creation_shield_buff
+	return (super() + Statics.creation_shield_buff) * Statics.creation_shield_factor
 func _get_difficulty_stat():
-	return super() + Statics.creation_difficulty_buff
+	return (super() + Statics.creation_difficulty_buff) * Statics.creation_difficulty_factor
 func _get_revies_stat():
-	return super() + Statics.creation_revies_buff
+	return (super() + Statics.creation_revies_buff) * Statics.creation_revies_factor
 func _get_thorns_stat():
-	return super() + Statics.creation_thorns_buff
+	return (super() + Statics.creation_thorns_buff) * Statics.creation_thorns_factor
 func _get_inaccuracy_stat():
-	return super() + Statics.creation_inaccuracy_buff
+	return (super() + Statics.creation_inaccuracy_buff) * Statics.creation_inaccuracy_factor
