@@ -2,8 +2,10 @@ extends Upgrade
 ## This upgrade:
 #
 func activate(new_player: Character):
+	Statics.enemies_lose_health_while_feared += 1
 	super(new_player)
 func deactivate():
+	Statics.enemies_lose_health_while_feared -= 1
 	super()
 func edit_attack(attack: Attack) -> Attack:
 	return super(attack)

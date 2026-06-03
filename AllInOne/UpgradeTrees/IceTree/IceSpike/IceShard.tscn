@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_ptdkb"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_p3l4e"]
-[ext_resource type="Texture2D" uid="uid://d2hac15b3mrie" path="res://AllInOne/UpgradeTrees/IceSpike/IceShard.png" id="3_whut3"]
+[ext_resource type="Texture2D" uid="uid://d2hac15b3mrie" path="res://AllInOne/UpgradeTrees/IceTree/IceSpike/IceShard.png" id="3_whut3"]
 [ext_resource type="Script" uid="uid://mip5cpjwu85k" path="res://Scripts/misc/RandomizeSpriteFrame.gd" id="4_n654x"]
 
 [sub_resource type="Resource" id="Resource_uk2me"]

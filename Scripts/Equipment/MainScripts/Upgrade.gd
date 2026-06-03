@@ -33,6 +33,8 @@ func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
 	super(delta)
+	if has_custom_input && assigned_input != "" && Input.is_action_just_pressed(assigned_input):
+		custom_input_just_pressed()
 	if buff_applied && buff_time_left > 0:
 		buff_time_left -= delta
 	else:
@@ -90,3 +92,5 @@ func find_upgrade(upgrade_name: String) -> Upgrade:
 func emit_cooldown_finished():
 	GameManager.instance.UpgradeCooldownFinished.emit(self)
 	cooldown_finished.emit()
+func custom_input_just_pressed():
+	pass

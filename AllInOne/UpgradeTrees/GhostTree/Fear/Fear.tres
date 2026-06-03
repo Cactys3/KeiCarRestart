@@ -3,16 +3,15 @@
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_0wvri"]
 [ext_resource type="PackedScene" uid="uid://l2ccf55dousr" path="res://AllInOne/UpgradeTrees/GhostTree/Fear/Fear.tscn" id="2_1w43y"]
 
-
 [resource]
 script = ExtResource("1_0wvri")
 scene = ExtResource("2_1w43y")
 upgrade_name = "Fear"
-upgrade_description = "Every 5 seconds, (~tag: Fear)fear(~tag) nearby enemies for 2 seconds. (counts as trap?)
-Gain 10% ghostly."
+upgrade_tree = 4
+upgrade_description = "Every 10 seconds, (~tag: Fear)fear(~tag) nearby enemies for 2 seconds. (counts as trap?)
+Gain 15% ghostly."
 upgrade_rarity = 1
 gives_player_stats = true
 makes_player_dodge = true
-spawns_trap = true
 fears_enemies = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_5pl4n"]
 [ext_resource type="PackedScene" uid="uid://i7cauoirka0a" path="res://AllInOne/UpgradeTrees/GhostTree/Spectre/Spectre.tscn" id="2_fcfn4"]
 
-
 [resource]
 script = ExtResource("1_5pl4n")
 scene = ExtResource("2_fcfn4")
 upgrade_name = "Spectre"
-upgrade_description = "Move 20% faster for 10 seconds after dodging damage.
-Gain 10% (~tag: ghostly)ghostly(~tag)."
+upgrade_tree = 4
+upgrade_description = "Move 20% faster for 5 seconds after dodging damage.
+Gain 15% (~tag: ghostly)ghostly(~tag)."
 upgrade_rarity = 1
 gives_player_buff = true
 gives_player_stats = true

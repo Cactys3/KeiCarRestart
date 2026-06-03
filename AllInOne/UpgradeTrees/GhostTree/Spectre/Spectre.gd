@@ -12,13 +12,14 @@ func edit_attack(attack: Attack) -> Attack:
 	return attack
 func edit_stats():
 	pass
-const ghostly_buff: int = 10
-const movespeed_buff: int = 20
-const movespeed_buff_duration: float = 10
 ## Called on dodging
 func dodge(character: Character, attack: Attack):
 	add_to_buff_time(movespeed_buff_duration)
 	buff_applied = true
-	GlobalStats.add_to_stats_base(GlobalStats.MOVESPEED, movespeed_buff)
+	Statics.player_movespeed_factor += movespeed_buff
 func remove_buff():
-	GlobalStats.add_to_stats_base(GlobalStats.MOVESPEED, -movespeed_buff)
+	Statics.player_movespeed_factor -= movespeed_buff
+
+const ghostly_buff: float = 15
+const movespeed_buff: float = 0.2
+const movespeed_buff_duration: float = 10

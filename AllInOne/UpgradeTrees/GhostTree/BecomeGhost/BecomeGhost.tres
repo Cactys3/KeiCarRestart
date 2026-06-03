@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bl1l043w4a7et"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_a7jat"]
+[ext_resource type="PackedScene" uid="uid://dml2osdgrermq" path="res://AllInOne/UpgradeTrees/GhostTree/BecomeGhost/BecomeGhost.tscn" id="2_2qk8u"]
+[ext_resource type="Resource" uid="uid://dcf3w46hf8b5" path="res://AllInOne/UpgradeTrees/GhostTree/DodgeMeter/DodgeMeter.tres" id="2_6rk4j"]
+
+[resource]
+script = ExtResource("1_a7jat")
+scene = ExtResource("2_2qk8u")
+upgrade_name = "Become Ghost"
+upgrade_tree = 4
+upgrade_description = "At max dodge meter you can spend it all to gain 5 seconds of 100% dodge chance and doubled movespeed"
+upgrade_rarity = 4
+prerequisite_upgrades = Array[ExtResource("1_a7jat")]([ExtResource("2_6rk4j")])
+gives_player_buff = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

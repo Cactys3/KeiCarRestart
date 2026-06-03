@@ -1,15 +1,16 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://b1njscxfupn3i"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_4jno0"]
+[ext_resource type="Resource" uid="uid://cn4ef4p7088y1" path="res://AllInOne/UpgradeTrees/GhostTree/Spectre/Spectre.tres" id="2_dgp5b"]
 [ext_resource type="PackedScene" uid="uid://c3fra4wexyqa5" path="res://AllInOne/UpgradeTrees/GhostTree/GhostlyHelper/GhostlyHelper.tscn" id="2_tjxbh"]
-
 
 [resource]
 script = ExtResource("1_4jno0")
 scene = ExtResource("2_tjxbh")
 upgrade_name = "Ghostly Helper"
+upgrade_tree = 4
 upgrade_description = "Spawn an ally ghost creation whenever you dodge damage!"
 upgrade_rarity = 2
-prereq_num_of_dodge_upgrades = 1
+prerequisite_upgrades = Array[ExtResource("1_4jno0")]([ExtResource("2_dgp5b")])
 spawns_creation = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

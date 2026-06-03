@@ -1,4 +1,4 @@
-extends Upgrade
+extends MeterUpgrade
 func activate(new_player: Character):
 	connect_dodge = true
 	super(new_player)

@@ -2,15 +2,17 @@
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_tmoih"]
 [ext_resource type="PackedScene" uid="uid://cblknk4qtp6wq" path="res://AllInOne/UpgradeTrees/GhostTree/DodgeMeter/DodgeMeter.tscn" id="2_a8xbl"]
-
+[ext_resource type="Resource" uid="uid://6ltv35g54reg" path="res://AllInOne/UpgradeTrees/GhostTree/Ghostsplosion/Ghostsplosion.tres" id="2_y80u7"]
 
 [resource]
 script = ExtResource("1_tmoih")
 scene = ExtResource("2_a8xbl")
 upgrade_name = "Dodge Meter"
-upgrade_description = "Each time you dodge, fill up a ghostly meter.
-Resets on taking damage.
-At max meter, gain damage and movespeed."
+upgrade_tree = 4
+upgrade_description = "Each time you dodge, fill up a dodge meter
+At max meter, gain 10% dodge chance and 5 movespeed"
 upgrade_rarity = 3
-prereq_num_of_dodge_upgrades = 4
+prerequisite_upgrades = Array[ExtResource("1_tmoih")]([ExtResource("2_y80u7")])
+gives_player_buff = true
+makes_player_dodge = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

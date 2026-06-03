@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://csugytbtx0mus"]
+
+[ext_resource type="Script" uid="uid://b5dwhv4bk2ln5" path="res://AllInOne/UpgradeTrees/GhostTree/MasterFear/MasterFear.gd" id="1_2dgtr"]
+
+[node name="MasterFear" type="Node2D" unique_id=850958984]
+script = ExtResource("1_2dgtr")

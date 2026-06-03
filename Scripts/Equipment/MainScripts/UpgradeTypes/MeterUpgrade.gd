@@ -6,7 +6,9 @@ var no_meter_gain_for_seconds: float = 0
 var meter: GrowBar
 var meter_color: Color = Color.RED
 var meter_loss_per_second: float = 0
+## Current Value, from 0 to 100 (probably)
 var curr_value: float = 0
+## Max meter value, is 100
 const max_value: float = 100
 signal meter_changed(curr: float, max_value: float)
 func _process(delta: float) -> void:

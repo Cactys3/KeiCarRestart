@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://chj43d2om60tu"]
 
-[ext_resource type="Script" uid="uid://c4o6puddsql5m" path="res://AllInOne/UpgradeTrees/IceSpike/IceSpike.gd" id="1_507t2"]
-[ext_resource type="PackedScene" uid="uid://bpmcugbb062fx" path="res://AllInOne/UpgradeTrees/IceSpike/IceShard.tscn" id="2_tvlx8"]
+[ext_resource type="Script" uid="uid://c4o6puddsql5m" path="res://AllInOne/UpgradeTrees/IceTree/IceSpike/IceSpike.gd" id="1_507t2"]
+[ext_resource type="PackedScene" uid="uid://bpmcugbb062fx" path="res://AllInOne/UpgradeTrees/IceTree/IceSpike/IceShard.tscn" id="2_tvlx8"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="3_5svck"]
-[ext_resource type="Texture2D" uid="uid://dbodm8vwcqyl0" path="res://AllInOne/UpgradeTrees/IceSpike/IceSpike.png" id="4_i1mgk"]
+[ext_resource type="Texture2D" uid="uid://dbodm8vwcqyl0" path="res://AllInOne/UpgradeTrees/IceTree/IceSpike/IceSpike.png" id="4_i1mgk"]
 
 [sub_resource type="Resource" id="Resource_rone8"]
 script = ExtResource("3_5svck")

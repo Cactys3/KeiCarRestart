@@ -2,17 +2,18 @@
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_w8kaw"]
 [ext_resource type="PackedScene" uid="uid://cxbmlxnwof3kq" path="res://AllInOne/UpgradeTrees/GhostTree/GhostArmy/GhostArmy.tscn" id="2_5ddjc"]
-
+[ext_resource type="Resource" uid="uid://b1njscxfupn3i" path="res://AllInOne/UpgradeTrees/GhostTree/GhostlyHelper/GhostlyHelper.tres" id="2_8i17p"]
 
 [resource]
 script = ExtResource("1_w8kaw")
 scene = ExtResource("2_5ddjc")
-upgrade_name = "GhostArmy"
-upgrade_description = "Your creations gain 15% dodge chance!
-Gain 15% dodge chance!"
-upgrade_rarity = 2
-prereq_num_of_creation_upgrades = 2
-prereq_num_of_dodge_upgrades = 1
+upgrade_name = "Ghost Army"
+upgrade_tree = 4
+upgrade_description = "Your creations' dodge procs count as your own and they share your dodge chance
+Gain 15% ghostly"
+upgrade_rarity = 3
+prerequisite_upgrades = Array[ExtResource("1_w8kaw")]([ExtResource("2_8i17p")])
 gives_player_stats = true
+gives_creations_stats = true
 makes_player_dodge = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

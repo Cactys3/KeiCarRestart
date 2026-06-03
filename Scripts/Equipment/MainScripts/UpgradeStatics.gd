@@ -27,8 +27,6 @@ static var enemy_shock_defense_reduction: float = 5
 ## Multiplier increase of enemy status threshold after each proc
 static var enemy_bleed_threshold_multiplier: float = 1.7
 static var enemy_frost_threshold_multiplier: float = 2
-## Crits
-static var bleeds_crit_on_enemy: bool = false
 
 ## Trigger based buffs (applied in places where things are spawned via specific triggers)
 static var reload_spawns_count_buff: int = 0
@@ -40,6 +38,15 @@ static var creation_dodges_count_for_player: float = 0 # value > 0 means true
 static var projectile_pierce_damage_buff: float = 0 ## Additional percent damage after piercing for projectiles
 static var projectile_pierce_damage_buff_doubled_on_kill: bool = false ## Is the percent doubled if enemy is killed
 static var additional_projectiles_damage_debuff: float = 0 ## percent less damage that projectiles that can spawn multiple do when certian upgrades are active
+## Player Buffs
+static var player_movespeed_buff: float = 0
+static var player_movespeed_factor: float = 0
+static var player_ghostly_buff: float = 0
+
+
+## Trackers for specific Upgrades
+static var enemies_lose_health_while_feared: float = 0 # value > 0 means true
+static var bleeds_crit_on_enemy: float = 0 # value > 0 means true
 
 ## Stat Buffs (adds directly to base stats)
 

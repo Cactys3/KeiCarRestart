@@ -36,7 +36,7 @@ const FEARY = "Feary"
 const GHOST_ARMY = "Ghost Army"
 const GHOSTLY_HELPER = "Ghostly Helper"
 const GHOSTSPLOSION = "Ghostsplosion"
-const LIKE_CREATOR_LIKE_SUMMON = "Like Creator Like Summon"
+const SPECTRE = "Spectre"
 ## Mage Tree
 const AZARATH = "Azarath"
 const BLUNT_MISSILE = "Blunt Missile"
@@ -107,7 +107,7 @@ const FEARY_SCENE = preload("uid://b3yf4m2mleant")
 const GHOST_ARMY_SCENE = preload("uid://chg5xi3oq3nq7")
 const GHOSTLY_HELPER_SCENE = preload("uid://b1njscxfupn3i")
 const GHOSTSPLOSION_SCENE = preload("uid://6ltv35g54reg")
-const LIKE_CREATOR_LIKE_SUMMON_SCENE = preload("uid://btl32vwy7lmj7")
+const SPECTRE_SCENE = preload("uid://cn4ef4p7088y1")
 ## Mage Tree
 const AZARATH_SCENE = preload("uid://cbhsbt4rgm3ds")
 const BLUNT_MISSILE_SCENE = preload("uid://b04h5lg0pc86r")
@@ -203,7 +203,7 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	GHOST_ARMY: GHOST_ARMY_SCENE,
 	GHOSTLY_HELPER: GHOSTLY_HELPER_SCENE,
 	GHOSTSPLOSION: GHOSTSPLOSION_SCENE,
-	LIKE_CREATOR_LIKE_SUMMON: LIKE_CREATOR_LIKE_SUMMON_SCENE,
+	SPECTRE: SPECTRE_SCENE,
 	AZARATH: AZARATH_SCENE,
 	BLUNT_MISSILE: BLUNT_MISSILE_SCENE,
 	CASTER: CASTER_SCENE,

@@ -414,7 +414,7 @@ func get_shock_defense_reduction() -> float:
 	return (shock / shock_threshhold) * Statics.enemy_shock_defense_reduction
 func get_bleed_damage() -> float:
 	var value: float = base_health * (GlobalStats.get_stat(GlobalStats.BLEED_DAMAGE) / 100)
-	if Statics.bleeds_crit_on_enemy:
+	if Statics.bleeds_crit_on_enemy > 0:
 		value *= Statics.global_crit_damage_factor
 	return value
 func get_poison_damage() -> float:
