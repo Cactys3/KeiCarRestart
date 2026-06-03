@@ -4,7 +4,7 @@ class_name UpgradeData
 @export var save_key: String = "unset"
 @export var upgrade_name: String
 @export var upgrade_tree: UpgradeTrees = UpgradeTrees.unset
-enum UpgradeTrees {unset, blood, nerd, ghost, mage, mechanic, pyrolunatic, ranger, tank}
+enum UpgradeTrees {unset, blood, nerd, gun}
 @export_multiline("Description") var upgrade_description: String
 @export var upgrade_color: Color = Color.DARK_SLATE_BLUE
 @export var upgrade_image: Texture2D 
@@ -46,6 +46,7 @@ enum UpgradeTrees {unset, blood, nerd, ghost, mage, mechanic, pyrolunatic, range
 @export_subgroup("Has Things")
 @export var has_cooldown: bool = false
 @export_subgroup("Buffs")
+@export var gives_global_buff: bool = false
 @export var gives_player_buff: bool = false
 @export var gives_player_stats: bool = false
 @export var gives_weapon_stats: bool = false

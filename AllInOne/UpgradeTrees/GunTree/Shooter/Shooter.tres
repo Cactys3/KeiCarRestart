@@ -1,7 +1,14 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bf2piulie2y2j"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_r2ftc"]
+[ext_resource type="PackedScene" uid="uid://idjvfscbp03p" path="res://AllInOne/UpgradeTrees/GunTree/Shooter/Shooter.tscn" id="2_svttt"]
 
 [resource]
 script = ExtResource("1_r2ftc")
+scene = ExtResource("2_svttt")
+upgrade_name = "Shooter"
+upgrade_tree = 3
+upgrade_description = "Increase weapon attack speed by 2 (show that attackspeed is 2 attacks per x seconds on hover text)"
+upgrade_rarity = 1
+gives_weapon_stats = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

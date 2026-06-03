@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://dh4o0ba7t111g"]
 
+[ext_resource type="Script" uid="uid://dsk3gmhp6qj6q" path="res://AllInOne/UpgradeTrees/GunTree/Elite Reloader/Elite Reloader.gd" id="1_gcawl"]
+
 [node name="EliteReloader" type="Node2D" unique_id=1380553318]
+script = ExtResource("1_gcawl")

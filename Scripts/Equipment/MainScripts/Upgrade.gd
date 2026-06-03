@@ -7,8 +7,6 @@ const COOLDOWN_UI = preload("uid://brjmxsn8spmpe")
 ## Booleans that say what this upgrade does
 ## Should attacks be passed through this upgrade before being sent to enemy
 @export var edits_attack: bool = false
-@export var buffs_weapon_stats: bool = false
-@export var buffs_player_stats: bool = false
 @export var has_meter: bool = false
 ## Variables given by UpgradeData
 var spawns_projectile: bool = false

@@ -1,7 +1,17 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://cxs1shm5mrgni"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_od0rj"]
+[ext_resource type="Resource" uid="uid://bbfk1pjw6njcq" path="res://AllInOne/UpgradeTrees/GunTree/Collatter/Collatter.tres" id="2_d64dh"]
+[ext_resource type="PackedScene" uid="uid://dl80ru277byxg" path="res://AllInOne/UpgradeTrees/GunTree/Sniper/Sniper.tscn" id="2_m1mbh"]
 
 [resource]
 script = ExtResource("1_od0rj")
+scene = ExtResource("2_m1mbh")
+upgrade_name = "Sniper"
+upgrade_tree = 3
+upgrade_description = "Weapon range and bullet velocity are increased by 30%"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_od0rj")]([ExtResource("2_d64dh")])
+gives_weapon_stats = true
+gives_projectiles_stats = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://bqjxdnun82r40"]
 
+[ext_resource type="Script" uid="uid://7hxysinyuj7e" path="res://AllInOne/UpgradeTrees/GunTree/Elite Sniper/Elite Sniper.gd" id="1_saeof"]
+
 [node name="EliteSniper" type="Node2D" unique_id=1205349680]
+script = ExtResource("1_saeof")

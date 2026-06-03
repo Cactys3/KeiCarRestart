@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://idjvfscbp03p"]
 
+[ext_resource type="Script" uid="uid://c6hse7wnwihv1" path="res://AllInOne/UpgradeTrees/GunTree/Shooter/Shooter.gd" id="1_ycnb5"]
+
 [node name="Shooter" type="Node2D" unique_id=632897654]
+script = ExtResource("1_ycnb5")

@@ -1,7 +1,14 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://c5mxrb1yvpldj"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_cglep"]
+[ext_resource type="PackedScene" uid="uid://dmivsxjwn8ldq" path="res://AllInOne/UpgradeTrees/GunTree/Larger/Larger.tscn" id="2_y7vvk"]
 
 [resource]
 script = ExtResource("1_cglep")
+scene = ExtResource("2_y7vvk")
+upgrade_name = "Larger"
+upgrade_tree = 3
+upgrade_description = "Projectiles gain 20% size"
+upgrade_rarity = 1
+gives_projectiles_stats = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

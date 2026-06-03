@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://dmivsxjwn8ldq"]
 
+[ext_resource type="Script" uid="uid://bn37i0hjd000x" path="res://AllInOne/UpgradeTrees/GunTree/Larger/Larger.gd" id="1_wa56e"]
+
 [node name="Larger" type="Node2D" unique_id=637967892]
+script = ExtResource("1_wa56e")

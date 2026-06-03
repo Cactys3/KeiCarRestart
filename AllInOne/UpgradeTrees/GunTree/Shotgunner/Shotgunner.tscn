@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://cl7gcvidhhffk"]
 
+[ext_resource type="Script" uid="uid://cvy7bwuqyhs08" path="res://AllInOne/UpgradeTrees/GunTree/Shotgunner/Shotgunner.gd" id="1_fhso2"]
+
 [node name="Shotgunner" type="Node2D" unique_id=1719754271]
+script = ExtResource("1_fhso2")

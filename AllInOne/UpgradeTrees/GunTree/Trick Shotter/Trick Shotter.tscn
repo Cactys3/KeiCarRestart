@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://d3ixk8sd6cuj8"]
 
+[ext_resource type="Script" uid="uid://b265mke80t8sf" path="res://AllInOne/UpgradeTrees/GunTree/Trick Shotter/Trick Shotter.gd" id="1_j76bv"]
+
 [node name="TrickShotter" type="Node2D" unique_id=1089086245]
+script = ExtResource("1_j76bv")

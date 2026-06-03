@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://0pufg6st1oqc"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_emjh2"]
+[ext_resource type="PackedScene" uid="uid://c4lmq3f7gkxm1" path="res://AllInOne/UpgradeTrees/GunTree/Triple Tapper/TripleTapper.tscn" id="2_2jj8p"]
+[ext_resource type="Resource" uid="uid://u660hwlc234c" path="res://AllInOne/UpgradeTrees/GunTree/Double Tapper/Double Tapper.tres" id="2_moe1w"]
+[ext_resource type="Resource" uid="uid://c5mxrb1yvpldj" path="res://AllInOne/UpgradeTrees/GunTree/Larger/Larger.tres" id="3_moe1w"]
+
+[resource]
+script = ExtResource("1_emjh2")
+scene = ExtResource("2_2jj8p")
+upgrade_name = "Tripple Tapper"
+upgrade_tree = 3
+upgrade_description = "Your main weapon fires an additional projectile each time you shoot and your bullet damage penalty is reduced from 40% to 30%"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_emjh2")]([ExtResource("2_moe1w"), ExtResource("3_moe1w")])
+gives_weapon_stats = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

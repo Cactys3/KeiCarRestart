@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://dklc0gjtkaud"]
 
+[ext_resource type="Script" uid="uid://c7bnqy5e3acdj" path="res://AllInOne/UpgradeTrees/GunTree/Reloader/Reloader.gd" id="1_k175e"]
+
 [node name="Reloader" type="Node2D" unique_id=717173461]
+script = ExtResource("1_k175e")

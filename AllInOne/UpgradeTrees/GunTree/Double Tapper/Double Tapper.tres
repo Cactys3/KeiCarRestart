@@ -1,7 +1,14 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://u660hwlc234c"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_vwme2"]
+[ext_resource type="PackedScene" uid="uid://b886ljmujt00c" path="res://AllInOne/UpgradeTrees/GunTree/Double Tapper/Double Tapper.tscn" id="2_xwhka"]
 
 [resource]
 script = ExtResource("1_vwme2")
+scene = ExtResource("2_xwhka")
+upgrade_name = "Double Tapper"
+upgrade_tree = 3
+upgrade_description = "Your main weapon fires an additional projectile each time you shoot. Your main weapon projectile damage is reduced by 40%"
+upgrade_rarity = 1
+gives_weapon_stats = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

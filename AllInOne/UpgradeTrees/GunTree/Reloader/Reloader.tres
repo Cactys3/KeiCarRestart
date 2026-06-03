@@ -1,7 +1,14 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://8g0ffnflg303"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_0h4cr"]
+[ext_resource type="PackedScene" uid="uid://dklc0gjtkaud" path="res://AllInOne/UpgradeTrees/GunTree/Reloader/Reloader.tscn" id="2_scf2u"]
 
 [resource]
 script = ExtResource("1_0h4cr")
+scene = ExtResource("2_scf2u")
+upgrade_name = "Reloader"
+upgrade_tree = 3
+upgrade_description = "Reduce weapon reload time by 20%"
+upgrade_rarity = 1
+gives_weapon_stats = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

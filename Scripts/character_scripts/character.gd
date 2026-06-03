@@ -68,6 +68,27 @@ var stunning:bool = false
 var stun_time_left: float = 0
 ## Current Stats
 var curr_speed: float
+
+func _draw() -> void:
+	if DebugManager.PlayerDistanceRadius:
+		for r in DebugManager.PlayerDistances:
+			## Draw circle range
+			draw_arc(Vector2.ZERO, r, 0, TAU, 64, Color.RED.lerp(Color.TRANSPARENT, 0.7), 1)
+			## Draw label
+			if r >= 10.0:
+				var font := ThemeDB.fallback_font
+				var font_size := 16
+				var label := str(int(r))
+				var text_width := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+				draw_string(
+					font,
+					Vector2(-text_width / 2.0, -r - 2),
+					label,
+					HORIZONTAL_ALIGNMENT_LEFT,
+					-1,
+					font_size,
+					Color.RED.lerp(Color.TRANSPARENT, 0.5))
+
 func _init() -> void:
 	visible = false
 func _ready() -> void:
@@ -80,6 +101,8 @@ func initialize_stats() -> void:
 func _process(_delta: float) -> void:
 	if GameInstance.is_game_over:
 		return
+	if DebugManager.PlayerDistanceRadius:
+		queue_redraw()
 	if Input.is_action_just_pressed(InputManager.ABILITY_1):
 		character_ability(1)
 	if Input.is_action_just_pressed(InputManager.ABILITY_2):

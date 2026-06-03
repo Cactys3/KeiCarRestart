@@ -1,7 +1,16 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://di2lblspui8b"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_ckdqa"]
+[ext_resource type="PackedScene" uid="uid://dh4o0ba7t111g" path="res://AllInOne/UpgradeTrees/GunTree/Elite Reloader/Elite Reloader.tscn" id="2_3bm84"]
+[ext_resource type="Resource" uid="uid://8g0ffnflg303" path="res://AllInOne/UpgradeTrees/GunTree/Reloader/Reloader.tres" id="2_ywf2m"]
 
 [resource]
 script = ExtResource("1_ckdqa")
+scene = ExtResource("2_3bm84")
+upgrade_name = "Elite Reloader"
+upgrade_tree = 3
+upgrade_description = "Deal 5% more damage on everything for 3 seconds after reloading"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_ckdqa")]([ExtResource("2_ywf2m")])
+gives_global_buff = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

@@ -1,7 +1,16 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://c7003eqaba7i1"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_bxjxq"]
+[ext_resource type="PackedScene" uid="uid://csatpi2rirhnh" path="res://AllInOne/UpgradeTrees/GunTree/Doubler/Doubler.tscn" id="2_d5170"]
+[ext_resource type="Resource" uid="uid://b65xtxgjg303p" path="res://AllInOne/UpgradeTrees/GunTree/Sawn-Offer/Sawn-Offer.tres" id="2_spg4t"]
 
 [resource]
 script = ExtResource("1_bxjxq")
+scene = ExtResource("2_d5170")
+upgrade_name = "Doubler"
+upgrade_tree = 3
+upgrade_description = "Double the number of projectiles your main weapon fires"
+upgrade_rarity = 4
+prerequisite_upgrades = Array[ExtResource("1_bxjxq")]([ExtResource("2_spg4t")])
+gives_weapon_stats = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

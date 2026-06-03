@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://4l8a6m6w3c0v"]
 
+[ext_resource type="Script" uid="uid://bmmb7jlnf3hsn" path="res://AllInOne/UpgradeTrees/GunTree/Sawn-Offer/Sawn-Offer.gd" id="1_a2ke8"]
+
 [node name="SawnOffer" type="Node2D" unique_id=1353657485]
+script = ExtResource("1_a2ke8")

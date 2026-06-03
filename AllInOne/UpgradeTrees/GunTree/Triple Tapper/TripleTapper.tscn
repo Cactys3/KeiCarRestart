@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c4lmq3f7gkxm1"]
+
+[ext_resource type="Script" uid="uid://dniibs2cjykjt" path="res://AllInOne/UpgradeTrees/GunTree/Triple Tapper/TripleTapper.gd" id="1_jqdoq"]
+
+[node name="Triple Tapper" type="Node2D" unique_id=1794563962]
+script = ExtResource("1_jqdoq")

@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 	super(delta)
 	for element: AttackedObjectsElement in AttackedObjects:
 		element._process(delta)
-	if show_debug_range:
+	if show_debug_range || DebugManager.SpawnObjectRange:
 		queue_redraw()
 ## Return enemy within range, try to use detection_range by default
 func get_enemy_nearby(distance: float) -> Variant:

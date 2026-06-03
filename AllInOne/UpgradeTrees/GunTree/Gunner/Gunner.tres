@@ -1,7 +1,14 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://qa53sekpaxeg"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_0fp88"]
+[ext_resource type="PackedScene" uid="uid://dtv6lsu325dno" path="res://AllInOne/UpgradeTrees/GunTree/Gunner/Gunner.tscn" id="2_4o2sk"]
 
 [resource]
 script = ExtResource("1_0fp88")
+scene = ExtResource("2_4o2sk")
+upgrade_name = "Gunner"
+upgrade_tree = 3
+upgrade_description = "Projectiles deal 15 additional damage"
+upgrade_rarity = 1
+gives_projectiles_stats = true
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

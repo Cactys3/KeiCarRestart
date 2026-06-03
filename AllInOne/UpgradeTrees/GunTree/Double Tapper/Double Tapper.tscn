@@ -1,3 +1,7 @@
 [gd_scene format=3 uid="uid://b886ljmujt00c"]
 
+[ext_resource type="Script" uid="uid://bsw84728crql2" path="res://AllInOne/UpgradeTrees/GunTree/Double Tapper/Double Tapper.gd" id="1_3j4i0"]
+
 [node name="DoubleTapper" type="Node2D" unique_id=1335559002]
+script = ExtResource("1_3j4i0")
+edits_attack = true

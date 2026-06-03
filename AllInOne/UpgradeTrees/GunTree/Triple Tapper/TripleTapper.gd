@@ -1,18 +1,15 @@
 extends Upgrade
 ## This upgrade:
 #
-const count_buff: float = 3
-const projectile_damage_anti_debuff: float = 0.2
-const inaccuracy_increase: float = 20
+const projectile_damage_debuff_reduction: float = 0.1
+const count_buff = 1
 func activate(new_player: Character):
 	Statics.weapon_count_buff += count_buff
-	Statics.additional_projectiles_damage_debuff -= projectile_damage_anti_debuff
-	Statics.weapon_inaccuracy_buff += inaccuracy_increase
+	Statics.additional_projectiles_damage_debuff -= projectile_damage_debuff_reduction
 	super(new_player)
 func deactivate():
 	Statics.weapon_count_buff -= count_buff
-	Statics.additional_projectiles_damage_debuff += projectile_damage_anti_debuff
-	Statics.weapon_inaccuracy_buff -= inaccuracy_increase
+	Statics.additional_projectiles_damage_debuff += projectile_damage_debuff_reduction
 	super()
 func edit_attack(attack: Attack) -> Attack:
 	return super(attack)
