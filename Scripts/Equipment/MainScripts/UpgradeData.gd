@@ -4,13 +4,12 @@ class_name UpgradeData
 @export var save_key: String = "unset"
 @export var upgrade_name: String
 @export var upgrade_tree: UpgradeTrees = UpgradeTrees.unset
-enum UpgradeTrees {unset, blood, nerd, gun, ghost}
+enum UpgradeTrees {unset, blood, nerd, gun, ghost, egg}
 @export_multiline("Description") var upgrade_description: String
 @export var upgrade_color: Color = Color.DARK_SLATE_BLUE
 @export var upgrade_image: Texture2D 
 @export var upgrade_rarity: Upgrade.UpgradeRarities = Upgrade.UpgradeRarities.unset
 @export var prerequisite_upgrades: Array[UpgradeData]
-@export var decedent_upgrades: Array[UpgradeData]
 @export var upgrades_to_overwrite_functionality: Array[UpgradeData]
 ## This must be a string value of the upgrade's names because if two upgrades disable each other
 # we get compiling looping reference errors
@@ -18,28 +17,41 @@ enum UpgradeTrees {unset, blood, nerd, gun, ghost}
 ## Prereq other Upgrades tags
 @export_group("Prereqs")
 @export var prereq_num_of_any_upgrades: int = 0
+
+@export_subgroup("Spawn Types")
 @export var prereq_num_of_any_spawn_upgrades: int = 0
 @export var prereq_num_of_projectile_upgrades: int = 0
 @export var prereq_num_of_creation_upgrades: int = 0
 @export var prereq_num_of_summons_upgrades: int = 0
 @export var prereq_num_of_traps_upgrades: int = 0
+@export_subgroup("Status")
+@export var prereq_num_of_any_status_upgrades: int = 0
 @export var prereq_num_of_burn_upgrades: int = 0
 @export var prereq_num_of_poison_upgrades: int = 0
 @export var prereq_num_of_bleed_upgrades: int = 0
 @export var prereq_num_of_frost_upgrades: int = 0
 @export var prereq_num_of_shock_upgrades: int = 0
 @export var prereq_num_of_wet_upgrades: int = 0
-@export var prereq_num_of_dodge_upgrades: int = 0
-@export var prereq_num_of_crit_upgrades: int = 0
-@export var prereq_num_of_cooldown_upgrades: int = 0
-@export var prereq_num_of_magical_upgrades: int = 0
-@export var prereq_num_of_blunt_upgrades: int = 0
+@export_subgroup("Stat Increases")
+@export var prereq_num_of_player_stat_increase_upgrades: int = 0
+@export var prereq_num_of_weapon_stat_increase_upgrades: int = 0
+@export var prereq_num_of_projectile_stat_increase_upgrades: int = 0
+@export var prereq_num_of_summon_stat_increase_upgrades: int = 0
+@export var prereq_num_of_creation_stat_increase_upgrades: int = 0
+@export var prereq_num_of_trap_stat_increase_upgrades: int = 0
+@export_subgroup("Buffs")
 @export var prereq_num_of_player_buffs_upgrades: int = 0
 @export var prereq_num_of_weapon_buffs_upgrades: int = 0
 @export var prereq_num_of_projectile_buffs_upgrades: int = 0
 @export var prereq_num_of_summon_buffs_upgrades: int = 0
 @export var prereq_num_of_creation_buffs_upgrades: int = 0
 @export var prereq_num_of_trap_buffs_upgrades: int = 0
+@export_subgroup("Vibe \\ Specific Stats")
+@export var prereq_num_of_dodge_upgrades: int = 0
+@export var prereq_num_of_crit_upgrades: int = 0
+@export var prereq_num_of_cooldown_upgrades: int = 0
+@export var prereq_num_of_magical_upgrades: int = 0
+@export var prereq_num_of_blunt_upgrades: int = 0
 ## Tags this upgrade has
 @export_group("Upgrade Tags")
 ## Buffs
@@ -92,7 +104,7 @@ func get_prereqs() -> Array[UpgradeData]:
 	return prerequisite_upgrades
 ## Returns a list with the data of all upgrades this upgrade is a prereq for 
 func get_decedent_upgrades() -> Array[UpgradeData]:
-	return decedent_upgrades
+	return [] ## TODO: do this
 ## Checks if all the preqreq upgrades are obtained, if self is already obtained, if another upgrade disables self
 func can_obtain(equipped_upgrades: Array[Upgrade]) -> bool:
 	## TODO: do this method a better way

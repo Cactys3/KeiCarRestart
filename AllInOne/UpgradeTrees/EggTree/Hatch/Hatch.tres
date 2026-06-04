@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://cjfyyts1i71rs"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_rms2l"]
+[ext_resource type="Resource" uid="uid://chvdaqkh4o2de" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Egg.tres" id="2_251v1"]
+[ext_resource type="PackedScene" uid="uid://cpofp1mblosg7" path="res://AllInOne/UpgradeTrees/EggTree/Hatch/Hatch.tscn" id="3_2queo"]
+
+[resource]
+script = ExtResource("1_rms2l")
+scene = ExtResource("3_2queo")
+upgrade_name = "Hatch"
+upgrade_tree = 5
+upgrade_description = "Hatch the egg now"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_rms2l")]([ExtResource("2_251v1")])
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dqy0jp48f1hdl"]
+
+[ext_resource type="Script" uid="uid://dubd3e6ijiudu" path="res://AllInOne/UpgradeTrees/EggTree/EnvironmentalFactors/EnvironmentalFactors.gd" id="1_m1eka"]
+
+[node name="EnvironmentalFactors" type="Node2D" unique_id=747072858]
+script = ExtResource("1_m1eka")

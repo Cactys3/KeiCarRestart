@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://t5hnjgnbpaau"]
+
+[ext_resource type="Script" uid="uid://dgfdirxbk0jmv" path="res://AllInOne/UpgradeTrees/EggTree/Nurture/Nurture.gd" id="1_k16sv"]
+
+[node name="Nurture" type="Node2D" unique_id=644447979]
+script = ExtResource("1_k16sv")

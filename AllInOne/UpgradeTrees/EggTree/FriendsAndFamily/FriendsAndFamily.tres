@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://dqoemxqgx77lt"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_0f0st"]
+[ext_resource type="Resource" uid="uid://chvdaqkh4o2de" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Egg.tres" id="2_wk3cw"]
+[ext_resource type="PackedScene" uid="uid://b1utow24tl4ij" path="res://AllInOne/UpgradeTrees/EggTree/FriendsAndFamily/FriendsAndFamily.tscn" id="3_pcswn"]
+
+[resource]
+script = ExtResource("1_0f0st")
+scene = ExtResource("3_pcswn")
+upgrade_name = "Friends and Family"
+upgrade_tree = 5
+upgrade_description = "Upon hatching, the hatchling will gain stats based on how many of each spawn are on screen
+Stat increases lock on hatch
+Creation: Size
+Projectile: Damage
+Summon: Speed
+Trap: Projectile Count
+Status: Status apply and damage
+Weapon Melee: Attackspeed"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_0f0st")]([ExtResource("2_wk3cw")])
+prereq_num_of_any_spawn_upgrades = 3
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

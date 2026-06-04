@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bujxrp5fwfo0o"]
+
+[ext_resource type="Script" uid="uid://cfa135gffiubb" path="res://AllInOne/UpgradeTrees/EggTree/Twins/Twins.gd" id="1_414di"]
+
+[node name="Twins" type="Node2D" unique_id=571252605]
+script = ExtResource("1_414di")

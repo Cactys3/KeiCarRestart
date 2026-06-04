@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b1utow24tl4ij"]
+
+[ext_resource type="Script" uid="uid://clq317ansqkpp" path="res://AllInOne/UpgradeTrees/EggTree/FriendsAndFamily/FriendsAndFamily.gd" id="1_edhi0"]
+
+[node name="FriendsAndFamily" type="Node2D" unique_id=1050368810]
+script = ExtResource("1_edhi0")

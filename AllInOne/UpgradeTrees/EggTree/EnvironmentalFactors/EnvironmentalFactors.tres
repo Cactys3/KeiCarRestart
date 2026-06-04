@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://n8ralq1lfxyw"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_7mnif"]
+[ext_resource type="Resource" uid="uid://chvdaqkh4o2de" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Egg.tres" id="2_bbxim"]
+[ext_resource type="PackedScene" uid="uid://dqy0jp48f1hdl" path="res://AllInOne/UpgradeTrees/EggTree/EnvironmentalFactors/EnvironmentalFactors.tscn" id="2_pvatr"]
+
+[resource]
+script = ExtResource("1_7mnif")
+scene = ExtResource("2_pvatr")
+upgrade_name = "Environmental Factors"
+upgrade_tree = 5
+upgrade_description = "Each time you proc a status, the egg grows a little more towards the element of that status
+Stat increases lock on hatch"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_7mnif")]([ExtResource("2_bbxim")])
+prereq_num_of_any_status_upgrades = 3
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

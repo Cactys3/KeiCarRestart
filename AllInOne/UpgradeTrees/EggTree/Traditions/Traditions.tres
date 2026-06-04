@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bbhxth6v3cwgh"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_2d0vg"]
+[ext_resource type="Resource" uid="uid://chvdaqkh4o2de" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Egg.tres" id="2_u3fia"]
+[ext_resource type="PackedScene" uid="uid://bvt0rs2o66jt4" path="res://AllInOne/UpgradeTrees/EggTree/Traditions/Traditions.tscn" id="2_wvkbw"]
+
+[resource]
+script = ExtResource("1_2d0vg")
+scene = ExtResource("2_wvkbw")
+upgrade_name = "Traditions"
+upgrade_tree = 5
+upgrade_description = "Each time you kill something, the egg gains permanent stats based on what dealt the final blow:
+Stat increases lock on hatch
+Creation: Size
+Projectile: Damage
+Summon: Speed
+Trap: Projectile Count
+Status: Status apply and damage
+Weapon Melee: Attackspeed"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_2d0vg")]([ExtResource("2_u3fia")])
+prereq_num_of_any_spawn_upgrades = 3
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

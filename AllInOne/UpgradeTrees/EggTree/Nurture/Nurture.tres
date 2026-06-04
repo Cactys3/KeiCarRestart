@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://ceorhh4bama3n"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_bld3l"]
+[ext_resource type="Resource" uid="uid://chvdaqkh4o2de" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Egg.tres" id="2_3td0g"]
+[ext_resource type="PackedScene" uid="uid://t5hnjgnbpaau" path="res://AllInOne/UpgradeTrees/EggTree/Nurture/Nurture.tscn" id="3_gpf4p"]
+
+[resource]
+script = ExtResource("1_bld3l")
+scene = ExtResource("3_gpf4p")
+upgrade_name = "Nurture"
+upgrade_tree = 5
+upgrade_description = "All stat increases applied to the player also apply to the egg and what's inside"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_bld3l")]([ExtResource("2_3td0g")])
+prereq_num_of_weapon_stat_increase_upgrades = 3
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

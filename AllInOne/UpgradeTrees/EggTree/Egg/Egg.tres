@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://chvdaqkh4o2de"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_vyuqn"]
+[ext_resource type="PackedScene" uid="uid://dplba380k8vls" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Egg.tscn" id="2_twdyt"]
+
+[resource]
+script = ExtResource("1_vyuqn")
+scene = ExtResource("2_twdyt")
+upgrade_name = "Egg"
+upgrade_tree = 5
+upgrade_description = "Procure an egg, find out what's inside after 4 minutes"
+upgrade_rarity = 1
+disable_upgrades_names = Array[String](["Environmental Factors", "Friends and Family", "Incubate", "Nurture", "Traditions", "Twins"])
+spawns_summon = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

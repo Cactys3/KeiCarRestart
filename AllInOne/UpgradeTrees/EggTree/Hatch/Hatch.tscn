@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cpofp1mblosg7"]
+
+[ext_resource type="Script" uid="uid://5j1ghrkqqls2" path="res://AllInOne/UpgradeTrees/EggTree/Hatch/Hatch.gd" id="1_iroj7"]
+
+[node name="Hatch" type="Node2D" unique_id=480999923]
+script = ExtResource("1_iroj7")

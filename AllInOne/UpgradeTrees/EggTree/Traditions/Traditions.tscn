@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bvt0rs2o66jt4"]
+
+[ext_resource type="Script" uid="uid://ccyxdqhiv6rj1" path="res://AllInOne/UpgradeTrees/EggTree/Traditions/Traditions.gd" id="1_ei212"]
+
+[node name="Traditions" type="Node2D" unique_id=522608036]
+script = ExtResource("1_ei212")

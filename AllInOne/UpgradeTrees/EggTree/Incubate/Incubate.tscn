@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bya3rqkvghblw"]
+
+[ext_resource type="Script" uid="uid://c6i1ft8nwikwx" path="res://AllInOne/UpgradeTrees/EggTree/Incubate/Incubate.gd" id="1_xjscd"]
+
+[node name="Incubate" type="Node2D" unique_id=1364555774]
+script = ExtResource("1_xjscd")
