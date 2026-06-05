@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://b1amdk6u867nt"]
+
+[ext_resource type="Script" uid="uid://cdvm48u6fdfo8" path="res://AllInOne/UpgradeTrees/EggTree/Egg/DragonFireballProjectile.gd" id="1_bqp1s"]
+[ext_resource type="Texture2D" uid="uid://dyasnnitfuc8p" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Fireball.png" id="1_wq5b0"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_juq5r"]
+
+[sub_resource type="Resource" id="Resource_yhtji"]
+script = ExtResource("2_juq5r")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqp1s"]
+atlas = ExtResource("1_wq5b0")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_juq5r"]
+atlas = ExtResource("1_wq5b0")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhtji"]
+atlas = ExtResource("1_wq5b0")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpxqt"]
+atlas = ExtResource("1_wq5b0")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7kif"]
+atlas = ExtResource("1_wq5b0")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apwaq"]
+atlas = ExtResource("1_wq5b0")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8gda"]
+atlas = ExtResource("1_wq5b0")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utmk1"]
+atlas = ExtResource("1_wq5b0")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0ihpk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqp1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_juq5r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhtji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xpxqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7kif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apwaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8gda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utmk1")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_juq5r"]
+radius = 5.0
+height = 16.0
+
+[node name="DragonFireball" type="Area2D" unique_id=1233995899 node_paths=PackedStringArray("anim")]
+collision_layer = 4100
+collision_mask = 136
+script = ExtResource("1_bqp1s")
+anim = NodePath("AnimatedSprite2D")
+make_own_attack = true
+status = SubResource("Resource_yhtji")
+_damage = 50.0
+_velocity = 40.0
+_piercing = 1.0
+_duration = 15.0
+_weight = 30.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1619675448]
+sprite_frames = SubResource("SpriteFrames_0ihpk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=163816713]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_juq5r")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

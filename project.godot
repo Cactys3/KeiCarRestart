@@ -49,6 +49,11 @@ instancemanager=""
 uimanager=""
 shopmanager=""
 event="Game Instance Event Object"
+summon=""
+creation=""
+trap=""
+projectile=""
+weapon=""
 
 [gui]
 
@@ -202,6 +207,7 @@ Cancel={
 2d_physics/layer_10="Creations"
 2d_physics/layer_11="Traps"
 2d_physics/layer_12="Summons"
+2d_physics/layer_13="Projectiles"
 
 [physics]
 

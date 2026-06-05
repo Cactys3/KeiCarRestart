@@ -15,6 +15,10 @@ class_name Equipment
 @export var connect_reload: bool = false
 @export var connect_bleed_proc: bool = false
 @export var connect_frost_proc: bool = false
+@export var connect_shock_proc: bool = false
+@export var connect_wet_proc: bool = false
+@export var connect_burn_proc: bool = false
+@export var connect_poison_proc: bool = false
 @export var connect_dodge: bool = false
 @export var connect_player_damaged: bool = false
 @export var connect_enemy_trapped: bool = false
@@ -180,6 +184,18 @@ func bleed_proc(bleed_damage: float, enemy: Enemy):
 	pass
 ## On (enemy) Frost Proc Signal 
 func frost_proc(frost_damage: float, enemy: Enemy):
+	pass
+## On (enemy) Poison Proc Signal 
+func poison_proc(poison_damage: float, enemy: Enemy):
+	pass
+## On (enemy) Wet Proc Signal 
+func wet_proc(wet_damage: float, enemy: Enemy):
+	pass
+## On (enemy) Shock Proc Signal 
+func shock_proc(shock_damage: float, enemy: Enemy):
+	pass
+## On (enemy) Burn Proc Signal 
+func burn_proc(burn_damage: float, enemy: Enemy):
 	pass
 ## On player dodges damage
 func dodge(character: Character, attack: Attack):

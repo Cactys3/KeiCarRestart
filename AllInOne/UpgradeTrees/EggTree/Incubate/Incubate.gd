@@ -1,8 +1,17 @@
 extends Upgrade
 ## This upgrade:
 #
+var egg_upgrade: EggUpgrade
+const egg_name: String = "Egg"
+const time_addition: float = 60 * 2 
+
 func activate(new_player: Character):
 	super(new_player)
+	egg_upgrade = find_upgrade(egg_name)
+	if egg_upgrade:
+		egg_upgrade.time_until_hatch += time_addition
+		egg_upgrade.total_time_duration += time_addition
+
 func deactivate():
 	super()
 func edit_attack(attack: Attack) -> Attack:

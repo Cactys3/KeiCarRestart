@@ -37,6 +37,15 @@ const GHOST_ARMY = "Ghost Army"
 const GHOSTLY_HELPER = "Ghostly Helper"
 const GHOSTSPLOSION = "Ghostsplosion"
 const SPECTRE = "Spectre"
+## Egg Tree
+const EGG = "Egg"
+const ENVIRONMENTAL_FACTORS = "EnvironmentalFactors"
+const FRIENDS_AND_FAMILY = "FriendsAndFamily"
+const HATCH = "Hatch"
+const INCUBATE = "Incubate"
+const NURTURE = "Nurture"
+const TRADITIONS = "Traditions"
+const TWINS = "Twins"
 ## Mage Tree
 const AZARATH = "Azarath"
 const BLUNT_MISSILE = "Blunt Missile"
@@ -108,6 +117,15 @@ const GHOST_ARMY_SCENE = preload("uid://chg5xi3oq3nq7")
 const GHOSTLY_HELPER_SCENE = preload("uid://b1njscxfupn3i")
 const GHOSTSPLOSION_SCENE = preload("uid://6ltv35g54reg")
 const SPECTRE_SCENE = preload("uid://cn4ef4p7088y1")
+## Egg Tree
+const EGG_SCENE = preload("uid://chvdaqkh4o2de")
+const ENVIRONMENTAL_FACTORS_SCENE = preload("uid://n8ralq1lfxyw")
+const FRIENDS_AND_FAMILY_SCENE = preload("uid://dqoemxqgx77lt")
+const HATCH_SCENE = preload("uid://cjfyyts1i71rs")
+const INCUBATE_SCENE = preload("uid://cy5dmdxdiet7v")
+const NURTURE_SCENE = preload("uid://ceorhh4bama3n")
+const TRADITIONS_SCENE = preload("uid://bbhxth6v3cwgh")
+const TWINS_SCENE = preload("uid://dkpk2ao6erhco")
 ## Mage Tree
 const AZARATH_SCENE = preload("uid://cbhsbt4rgm3ds")
 const BLUNT_MISSILE_SCENE = preload("uid://b04h5lg0pc86r")
@@ -204,6 +222,14 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	GHOSTLY_HELPER: GHOSTLY_HELPER_SCENE,
 	GHOSTSPLOSION: GHOSTSPLOSION_SCENE,
 	SPECTRE: SPECTRE_SCENE,
+	EGG: EGG_SCENE,
+	ENVIRONMENTAL_FACTORS: ENVIRONMENTAL_FACTORS_SCENE,
+	FRIENDS_AND_FAMILY: FRIENDS_AND_FAMILY_SCENE,
+	HATCH: HATCH_SCENE,
+	INCUBATE: INCUBATE_SCENE,
+	NURTURE: NURTURE_SCENE,
+	TRADITIONS: TRADITIONS_SCENE,
+	TWINS: TWINS_SCENE,
 	AZARATH: AZARATH_SCENE,
 	BLUNT_MISSILE: BLUNT_MISSILE_SCENE,
 	CASTER: CASTER_SCENE,

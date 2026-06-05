@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dkp8ee03hmpwd"]
+
+[ext_resource type="Script" uid="uid://qb6m8j1nvu8u" path="res://AllInOne/UpgradeTrees/EggTree/Egg/EggSummon.gd" id="1_1jqqq"]
+[ext_resource type="Texture2D" uid="uid://bbiwrjlsgtfg7" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Egg.png" id="2_1jqqq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7aa5c"]
+atlas = ExtResource("2_1jqqq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hke6r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7aa5c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1jqqq"]
+radius = 7.0
+height = 18.0
+
+[node name="EggSummon" type="Area2D" unique_id=1455206899 node_paths=PackedStringArray("anim")]
+collision_layer = 2052
+collision_mask = 136
+script = ExtResource("1_1jqqq")
+AimType = 4
+anim = NodePath("AnimatedSprite2D")
+aim_speed = 1.0
+rotate_with_orbit = false
+melee_attacks = true
+must_aim_at_enemy_to_fire = false
+update_target = false
+spawn_name = "Egg"
+can_die_from_collision = false
+can_die_from_duration = false
+_damage = 1.0
+_range = 10.0
+_attackcooldown = 1.0
+_velocity = 20.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=762039668]
+sprite_frames = SubResource("SpriteFrames_hke6r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1015400372]
+shape = SubResource("CapsuleShape2D_1jqqq")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

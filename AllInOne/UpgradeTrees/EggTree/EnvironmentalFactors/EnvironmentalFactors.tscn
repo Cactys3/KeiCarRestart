@@ -4,3 +4,9 @@
 
 [node name="EnvironmentalFactors" type="Node2D" unique_id=747072858]
 script = ExtResource("1_m1eka")
+connect_bleed_proc = true
+connect_frost_proc = true
+connect_shock_proc = true
+connect_wet_proc = true
+connect_burn_proc = true
+connect_poison_proc = true

@@ -8,11 +8,15 @@ enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Rand
 @export var AimType: AimTypes = AimTypes.default
 @export var anim: AnimatedSprite2D 
 @export var aim_speed: float = 40
+@export var spin_speed: float = 1
+@export var lerp_speed: float = 40
 @export var orbit_distance: float = 25
 @export var max_orbit_distance: float = 50
 @export var min_orbit_distance: float = 5
+@export var rotate_with_orbit: bool = true
 @export var attacks_on_cd: bool = false
 @export var shoots_projectile: bool = false
+@export var projectile_scene: PackedScene
 @export var melee_attacks: bool = false
 @export var must_aim_at_enemy_to_fire: bool = true
 @export var aiming_degree_leniency: float = 25
@@ -21,6 +25,7 @@ enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Rand
 @export var flip_left_right: bool = false
 ## Should the 'target' variable be updated every few seconds
 @export var update_target: bool = true
+
 var weapon_slot: float = 0
 var attacking: bool = false
 ## Used by weapons to offset weapon orbit forward (for use in attacks, etc)
@@ -57,6 +62,15 @@ func _process(delta: float) -> void:
 			ProcessClosestEnemy(delta)
 		_:
 			ProcessUnique(delta)
+	if ready_to_fire:
+		if must_aim_at_enemy_to_fire:
+			pass
+		attack()
+	if !rotate_with_orbit: 
+		if anim:
+			anim.global_rotation = 0.0
+		else:
+			printerr("Want to use anim on summon, but anim is not set")
 ## Aim at any enemy in range, else aim at mouse, rotating around player towards mouse
 func ProcessDynamicAtMouse(delta: float) -> void:
 	update_target = true
@@ -91,8 +105,8 @@ func ProcessStaticSlot(delta: float) -> void:
 		ready_to_fire = false
 ## Spin around player, aiming directly outward from center
 func ProcessSpinning(delta: float) -> void:
-	var new_angle = rotation + (aim_speed * delta)
-	global_position = GetOrbitPosition(new_angle)
+	var new_angle = rotation + (spin_speed * delta)
+	global_position = lerp(global_position, GetOrbitPosition(new_angle), lerp_speed * delta)
 	rotation = new_angle
 	ready_to_fire = true
 ## Overriden method to aim uniquely
@@ -116,10 +130,13 @@ func RotateTowardsPosition(new_position: Vector2, delta: float) -> void:
 ## Calculates the orbit position for a weapon at given target_angle
 func GetOrbitPosition(target_angle: float) -> Vector2:
 	var ret: Vector2 
-	if attacking && lock_transform_while_attacking:
-		ret = player.global_position + (Vector2(cos(while_attacking_locked_rotation), sin(while_attacking_locked_rotation)) * clamp(orbit_distance, min_orbit_distance, max_orbit_distance)) + GetSummonOffsetPosition(while_attacking_locked_rotation)
+	if player:
+		if attacking && lock_transform_while_attacking:
+			ret = player.global_position + (Vector2(cos(while_attacking_locked_rotation), sin(while_attacking_locked_rotation)) * clamp(orbit_distance, min_orbit_distance, max_orbit_distance)) + GetSummonOffsetPosition(while_attacking_locked_rotation)
+		else:
+			ret = player.global_position + (Vector2(cos(target_angle), sin(target_angle)) * clamp(orbit_distance, min_orbit_distance, max_orbit_distance)) + GetSummonOffsetPosition(target_angle)
 	else:
-		ret = player.global_position + (Vector2(cos(target_angle), sin(target_angle)) * clamp(orbit_distance, min_orbit_distance, max_orbit_distance)) + GetSummonOffsetPosition(target_angle)
+		printerr("No player for this summon")
 	return ret
 func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
 	## Position without new rotation
@@ -135,14 +152,28 @@ func GetSummonOffsetPosition(target_angle: float) -> Vector2:
 	return summon_position_offset * Vector2(cos(target_angle), sin(target_angle))
 
 func attack():
+	print("attacking")
+	while_attacking_locked_rotation = rotation
 	attacking = true
 	if shoots_projectile:
-		await shoot_projectile()
+		shoot_projectile()
 	if melee_attacks:
 		await melee_attack()
 	attacking = false
-func shoot_projectile():
-	pass
+func shoot_projectile() -> Projectile:
+	if projectile_scene:
+		print("projectile")
+		var projectile: Projectile = projectile_scene.instantiate()
+		GameManager.instance.projectile_parent.add_child(projectile)
+		projectile.global_position = global_position
+		if target:
+			projectile.setup_projectile(self, target, target.global_position - global_position)
+		else:
+			projectile.setup_projectile(self, null, Vector2(cos(rotation), sin(rotation)))
+		return projectile
+	else:
+		print("no")
+	return null
 func melee_attack():
 	pass
 

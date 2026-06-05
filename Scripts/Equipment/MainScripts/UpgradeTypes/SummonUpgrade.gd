@@ -1,6 +1,9 @@
 extends SpawningUpgrade
 ## Adds functionality to Upgrade that adds a Summon which follows the player and damages enemies
 class_name SummonUpgrade
+## -1 means infinite
+@export var max_spawns: int = -1
+@export var spawn_on_activate: bool = true
 var spawned: bool = false
 var summons: Array[Summon]
 var check_spawn_cd: float = 0
@@ -14,7 +17,9 @@ func _process(delta: float) -> void:
 			spawn()
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
-	#spawn()
+	player = new_player
+	if spawn_on_activate:
+		spawn()
 	super(new_player)
 ## Disables the functionality of this upgrade
 func deactivate():
@@ -22,8 +27,15 @@ func deactivate():
 	super()
 func spawn() -> bool:
 	## Calculate total number we should spawn (do nothing if we have already spawned)
-	var summons_to_spawn: int = 1 + (Statics.summon_count_buff + additional_spawns) - summons.size()
+	var summons_to_spawn: int = int(1 + (Statics.summon_count_buff + additional_spawns) - summons.size())
 	print("Spawning: ", summons_to_spawn)
+	if max_spawns > -1:
+		if summons.size() >= max_spawns:
+			## Don't spawn more than allowed
+			summons_to_spawn = 0
+		elif summons.size() + summons_to_spawn >= max_spawns:
+			## If we would go over the limit, spawn what is allowed under the limit
+			summons_to_spawn = max_spawns - summons.size()
 	if !can_spawn_multiple:
 		## Make sure we only spawn one total
 		if summons.size() >= 1:
@@ -54,6 +66,7 @@ func initialize_object(object: Node2D) -> bool:
 	if object is Summon:
 		object = object as Summon
 		summons.append(object)
+		print("player:", player.name)
 		object.setup(player)
 		return super(object)
 	return false
@@ -63,4 +76,4 @@ func get_spawning_position() -> Vector2:
 func get_spawning_duration() -> float:
 	return super() + Statics.summon_duration_buff
 func get_spawn_parent() -> Node2D:
-	return GameManager.instance.player
+	return GameManager.instance.projectile_parent

@@ -1,8 +1,18 @@
 extends Upgrade
 ## This upgrade:
 #
+var egg_upgrade: EggUpgrade
+const egg_name: String = "Egg"
+var hatched: bool = false
 func activate(new_player: Character):
 	super(new_player)
+	egg_upgrade = find_upgrade(egg_name)
+	egg_upgrade.cooldown_finished.connect(hatch)
+func hatch():
+	if !hatched:
+		if egg_upgrade:
+			hatched = true
+			egg_upgrade.twins = true
 func deactivate():
 	super()
 func edit_attack(attack: Attack) -> Attack:

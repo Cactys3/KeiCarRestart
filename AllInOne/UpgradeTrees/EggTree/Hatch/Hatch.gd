@@ -1,8 +1,22 @@
 extends Upgrade
 ## This upgrade:
 #
+var egg_upgrade: EggUpgrade
+const egg_name: String = "Egg"
+var hatched: bool = false
+
 func activate(new_player: Character):
 	super(new_player)
+	egg_upgrade = find_upgrade(egg_name)
+	hatch()
+func hatch():
+	if !hatched:
+		if egg_upgrade:
+			hatched = true
+			egg_upgrade.emit_cooldown_finished()
+			egg_upgrade.cooldownUI.queue_free()
+		else:
+			printerr("Couldn't fulfill Hatch upgrade's purpose because can't find Egg upgrade")
 func deactivate():
 	super()
 func edit_attack(attack: Attack) -> Attack:

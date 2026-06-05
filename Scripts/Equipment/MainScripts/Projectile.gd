@@ -104,6 +104,8 @@ func setup_projectile(new_parent: StatsObject, new_target: Node2D, enemy_directi
 		attack_type = Attack.AttackTypes.upgrade_creation
 	elif new_parent is Projectile:
 		attack_type = Attack.AttackTypes.upgrade_projectile
+	elif new_parent is Summon:
+		attack_type = Attack.AttackTypes.upgrade_summon
 	else:
 		printerr("Projectile setup normally but not from weapon or upgrade")
 #func setup_add_parent_stats(stats_parent: StatsObject):

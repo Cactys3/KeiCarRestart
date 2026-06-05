@@ -2,6 +2,7 @@ extends StatsObject
 ## Objects spawned by the player or upgrades
 class_name SpawnObject
 
+@export var spawn_name: String = "unset"
 @export var can_attack_enemies: bool = true
 @export var can_atack_events: bool = true
 ## How long until we can attack an enemy for a second time?

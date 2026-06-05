@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://dplba380k8vls"]
 
 [ext_resource type="Script" uid="uid://bigsj34qq6rot" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Egg.gd" id="1_4c8u1"]
+[ext_resource type="PackedScene" uid="uid://dkp8ee03hmpwd" path="res://AllInOne/UpgradeTrees/EggTree/Egg/EggSummon.tscn" id="2_318qp"]
 
 [node name="Egg" type="Node2D" unique_id=1179794464]
 script = ExtResource("1_4c8u1")
+max_spawns = 1
+scene_to_spawn = ExtResource("2_318qp")

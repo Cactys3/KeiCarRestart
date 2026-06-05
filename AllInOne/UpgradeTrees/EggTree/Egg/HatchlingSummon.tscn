@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://dw7ki5c7gs7cs"]
+
+[ext_resource type="Script" uid="uid://qil70m6isoxe" path="res://AllInOne/UpgradeTrees/EggTree/Egg/HatchlingSummon.gd" id="1_1ua77"]
+[ext_resource type="PackedScene" uid="uid://b1amdk6u867nt" path="res://AllInOne/UpgradeTrees/EggTree/Egg/DragonFireballProjectile.tscn" id="2_k2jw2"]
+[ext_resource type="Texture2D" uid="uid://78amcpu46vo8" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Dragon.png" id="2_mvuwm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_374r3"]
+atlas = ExtResource("2_mvuwm")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxrnq"]
+atlas = ExtResource("2_mvuwm")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk0bd"]
+atlas = ExtResource("2_mvuwm")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77p0o"]
+atlas = ExtResource("2_mvuwm")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kn3sa"]
+atlas = ExtResource("2_mvuwm")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lklxo"]
+atlas = ExtResource("2_mvuwm")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ace6"]
+atlas = ExtResource("2_mvuwm")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o35tt"]
+atlas = ExtResource("2_mvuwm")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_an4lw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_374r3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxrnq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk0bd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77p0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kn3sa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lklxo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ace6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o35tt")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ua77"]
+
+[node name="Hatchling" type="Area2D" unique_id=713074922 node_paths=PackedStringArray("anim")]
+collision_layer = 2052
+collision_mask = 136
+script = ExtResource("1_1ua77")
+AimType = 4
+anim = NodePath("AnimatedSprite2D")
+rotate_with_orbit = false
+shoots_projectile = true
+projectile_scene = ExtResource("2_k2jw2")
+must_aim_at_enemy_to_fire = false
+spawn_name = "Hatchling"
+_range = 60.0
+_attackcooldown = 3.0
+_reloadtime = 2.0
+_ammo = 4.0
+_inaccuracy = 20.0
+_luck = 1.0
+_weight = 60.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2058573766]
+sprite_frames = SubResource("SpriteFrames_an4lw")
+frame = 7
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1265031350]
+shape = SubResource("CircleShape2D_1ua77")
