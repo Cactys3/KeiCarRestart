@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://boiluwpic7kcj"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_gfvqr"]
+[ext_resource type="Resource" uid="uid://dbvwgetpm76ki" path="res://AllInOne/UpgradeTrees/TankTree/MoreHP+/MoreHP+.tres" id="2_2qu2k"]
+[ext_resource type="PackedScene" uid="uid://cj5lpti87dvh1" path="res://AllInOne/UpgradeTrees/TankTree/ScalingAura/ScalingAura.tscn" id="2_r7oks"]
+[ext_resource type="Resource" uid="uid://bu1lj2fh0t080" path="res://AllInOne/UpgradeTrees/TankTree/HealingAura/HealingAura.tres" id="3_87n6m"]
+
+[resource]
+script = ExtResource("1_gfvqr")
+scene = ExtResource("2_r7oks")
+upgrade_name = "Scaling Aura"
+upgrade_tree = 6
+upgrade_description = "Your healing aura's size scales with your hp and its damage scales with your regen and shield
+Gain 2 hp regen"
+upgrade_rarity = 3
+prerequisite_upgrades = Array[ExtResource("1_gfvqr")]([ExtResource("2_2qu2k"), ExtResource("3_87n6m")])
+gives_player_stats = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

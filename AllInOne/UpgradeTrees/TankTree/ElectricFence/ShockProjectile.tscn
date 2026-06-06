@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b3ilfxcfq7n0r"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_mis86"]
+
+[node name="ShockProjectile" type="Area2D" unique_id=2082232616 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_mis86")
+can_knockback = false
+anim = NodePath("AnimatedSprite2D")
+spawn_name = "Statikk Shock"
+can_atack_events = false
+can_die_from_collision = false
+can_die_from_duration = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=625973196]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=709123963]

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://pfahxp46qpaa"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_rppnw"]
+[ext_resource type="Resource" uid="uid://boiluwpic7kcj" path="res://AllInOne/UpgradeTrees/TankTree/ScalingAura/ScalingAura.tres" id="2_85lj0"]
+[ext_resource type="PackedScene" uid="uid://ccxhfgi6nwqjx" path="res://AllInOne/UpgradeTrees/TankTree/Aura/Aura.tscn" id="2_f520e"]
+[ext_resource type="Resource" uid="uid://b4mys831c8mu0" path="res://AllInOne/UpgradeTrees/TankTree/OffensiveDefense/OffensiveDefense.tres" id="3_p8j6u"]
+
+[resource]
+script = ExtResource("1_rppnw")
+scene = ExtResource("2_f520e")
+upgrade_name = "Aura"
+upgrade_tree = 6
+upgrade_description = "gain perma stacking life.."
+upgrade_rarity = 4
+prerequisite_upgrades = Array[ExtResource("1_rppnw")]([ExtResource("2_85lj0"), ExtResource("3_p8j6u")])
+gives_player_stats = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

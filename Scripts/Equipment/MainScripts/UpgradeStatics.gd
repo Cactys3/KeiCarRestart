@@ -42,7 +42,11 @@ static var additional_projectiles_damage_debuff: float = 0 ## percent less damag
 static var player_movespeed_buff: float = 0
 static var player_movespeed_factor: float = 0
 static var player_ghostly_buff: float = 0
-
+static var player_hp_buff: float = 0
+static var player_regen_buff: float = 0
+static var player_shield_buff: float = 0
+static var player_stance_buff: float = 0
+static var player_knockback_resistance_factor: float = 1
 
 ## Trackers for specific Upgrades
 static var enemies_lose_health_while_feared: float = 0 # value > 0 means true

@@ -68,6 +68,8 @@ var stunning:bool = false
 var stun_time_left: float = 0
 ## Current Stats
 var curr_speed: float
+## Last Known velocity (used to check where player is facing when at rest)
+var last_known_velocity: Vector2 = Vector2(0, 0)
 
 func _draw() -> void:
 	if DebugManager.PlayerDistanceRadius:
@@ -134,6 +136,9 @@ func _physics_process(delta : float) -> void:
 			position.x = x
 	handle_regens(delta)
 	time_since_taken_damage += delta
+	## Don't update last_known_velocity if player isn't moving anymore
+	if velocity.length_squared() > 0.0:
+		last_known_velocity = velocity
 func handle_regens(delta) -> void:
 	## Regen shield if hasn't taken damage in awhile
 	if time_since_taken_damage >= shield_cooldown && game_man.shield < shield:
@@ -171,6 +176,8 @@ func handle_moving(delta) -> void:
 func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
+	## Pass attack through upgrades
+	attack = GameManager.instance.handle_incoming_attack(attack, attack.attacker, self)
 	## Consider Stance
 	var net_damage = attack.get_damage() - stance
 	if GlobalStats.calculate_avoid_damage(GlobalStats.get_stat(GlobalStats.GHOSTLY)):
@@ -181,6 +188,8 @@ func damage(attack: Attack):
 		time_since_taken_damage = 0
 	## Consider Sheild
 	if net_damage > 0 && game_man.shield > 0:
+		## Emit shield damaged for upgrades
+		game_man.PlayerShieldDamaged.emit(self, attack, min(net_damage, game_man.shield))
 		if (game_man.shield > net_damage):
 			game_man.shield -= net_damage
 			net_damage = 0

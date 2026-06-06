@@ -1,7 +1,7 @@
 extends SpawningUpgrade
 ## Spawning Upgrade that specifically spawns Projectiles
 class_name ProjectileUpgrade
-enum TargetSelectionTypes {Closest, Random, MostHp, Farthest}
+enum TargetSelectionTypes {Closest, Random, MostHp, Farthest, NoTarget}
 @export var target_selection: TargetSelectionTypes = TargetSelectionTypes.Closest
 @export var multiple_spawns_type: MultipleSpawnsTypes = MultipleSpawnsTypes.delay_hard_coded
 enum MultipleSpawnsTypes{delay_hard_coded, delay_stats, spread}
@@ -61,24 +61,12 @@ func despawn():
 func initialize_object(object: Node2D) -> bool:
 	if object is Projectile:
 		var projectile: Projectile = initialize_projectile(object as Projectile)
-		projectile.setup_death_method(despawn)
 		return super(object)
 	return false
 func initialize_projectile(projectile: Projectile) -> Projectile:
-	var enemy: Node2D ## TODO: Target Selection
-	match target_selection:
-		TargetSelectionTypes.Closest:
-			enemy = get_nearest_enemy()
-		TargetSelectionTypes.Farthest:
-			enemy = get_nearest_enemy()
-		TargetSelectionTypes.Random:
-			enemy = get_nearest_enemy()
-		TargetSelectionTypes.MostHp:
-			enemy = get_nearest_enemy()
-		_:
-			enemy = get_nearest_enemy()
-	if enemy:
-		projectile.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized())
+	var target: Node2D = get_spawn_target()
+	if target:
+		projectile.setup_projectile(self, target, (target.global_position - player.global_position).normalized())
 	else: ## Random Direction, no homing
 		projectile.setup_projectile(self, null, get_global_mouse_position() - player.global_position)
 	projectile.setup_death_method(despawn)
@@ -91,3 +79,19 @@ func get_spawning_duration() -> float:
 	return super() + Statics.projectile_duration_buff
 func get_spawn_parent() -> Node2D:
 	return GameManager.instance.projectile_parent
+func get_spawn_target() -> Node2D:
+	var target: Node2D ## TODO: Setup proper ProjectileUpgrade Target Selection
+	match target_selection:
+		TargetSelectionTypes.Closest:
+			target = get_nearest_enemy()
+		TargetSelectionTypes.Farthest:
+			target = get_nearest_enemy()
+		TargetSelectionTypes.Random:
+			target = get_nearest_enemy()
+		TargetSelectionTypes.MostHp:
+			target = get_nearest_enemy()
+		TargetSelectionTypes.NoTarget:
+			target = null
+		_:
+			target = get_nearest_enemy()
+	return target

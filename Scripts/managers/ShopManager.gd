@@ -46,6 +46,26 @@ const INCUBATE = "Incubate"
 const NURTURE = "Nurture"
 const TRADITIONS = "Traditions"
 const TWINS = "Twins"
+## Tank Tree
+const AURA = "Aura"
+const ELECTRIC_FENCE = "ElectricFence"
+const HEALING_AURA = "HealingAura"
+const INFINITE_SHIELD = "InfiniteShield"
+const LANCE_PROTECTOR = "LanceProtector"
+const MORE_HP = "MoreHP"
+const MORE_HP_PLUS = "MoreHP+"
+const OFFENSIVE_DEFENSE = "OffensiveDefense"
+const QUICK_GETAWAY = "QuickGetaway"
+const RUMP_ARMOR = "RumpArmor"
+const SCALING_AURA = "ScalingAura"
+const SHIELD = "Shield"
+const SHIELD_PLUS = "Shield+"
+const STATIKK_STRIKE = "StatikkStrike"
+const STEEL_CREATIONS = "SteelCreations"
+const STEEL_SKIN = "SteelSkin"
+const STURDY = "Sturdy"
+const STURDY_PLUS = "Sturdy+"
+const VENGEFUL_AURA = "VengefulAura"
 ## Mage Tree
 const AZARATH = "Azarath"
 const BLUNT_MISSILE = "Blunt Missile"
@@ -126,6 +146,26 @@ const INCUBATE_SCENE = preload("uid://cy5dmdxdiet7v")
 const NURTURE_SCENE = preload("uid://ceorhh4bama3n")
 const TRADITIONS_SCENE = preload("uid://bbhxth6v3cwgh")
 const TWINS_SCENE = preload("uid://dkpk2ao6erhco")
+## Tank Tree
+const AURA_SCENE  = preload("uid://pfahxp46qpaa")
+const ELECTRIC_FENCE_SCENE  = preload("uid://mxfquarwvluu")
+const HEALING_AURA_SCENE  = preload("uid://bu1lj2fh0t080")
+const INFINITE_SHIELD_SCENE  = preload("uid://c67rj1yuvuubb")
+const LANCE_PROTECTOR_SCENE  = preload("uid://cukbmdv7efshq")
+const MORE_HP_PLUS_SCENE  = preload("uid://dbvwgetpm76ki")
+const MORE_HP_SCENE  = preload("uid://bq2wq7kyfxpuo")
+const OFFENSIVE_DEFENSE_SCENE  = preload("uid://b4mys831c8mu0")
+const QUICK_GETAWAY_SCENE  = preload("uid://hmkcfxvy6pxv")
+const RUMP_ARMOR_SCENE  = preload("uid://clg8kfxhaqe5j")
+const SCALING_AURA_SCENE  = preload("uid://boiluwpic7kcj")
+const SHIELD_PLUS_SCENE  = preload("uid://b24stvdr7j46r")
+const SHIELD_SCENE  = preload("uid://bisroohu6t0lb")
+const STATIKK_STRIKE_SCENE  = preload("uid://bx8r05v10jdha")
+const STEEL_CREATIONS_SCENE  = preload("uid://fxomucugvo78")
+const STEEL_SKIN_SCENE  = preload("uid://cc846iyo8ia3y")
+const STURDY_PLUS_SCENE  = preload("uid://bay7xw8xgnvyk")
+const STURDY_SCENE  = preload("uid://thp68b7naknu")
+const VENGEFUL_AURA_SCENE  = preload("uid://bou8sdook2uh5")
 ## Mage Tree
 const AZARATH_SCENE = preload("uid://cbhsbt4rgm3ds")
 const BLUNT_MISSILE_SCENE = preload("uid://b04h5lg0pc86r")
@@ -230,6 +270,25 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	NURTURE: NURTURE_SCENE,
 	TRADITIONS: TRADITIONS_SCENE,
 	TWINS: TWINS_SCENE,
+	AURA: AURA_SCENE,
+	ELECTRIC_FENCE: ELECTRIC_FENCE_SCENE,
+	HEALING_AURA: HEALING_AURA_SCENE,
+	INFINITE_SHIELD: INFINITE_SHIELD_SCENE,
+	LANCE_PROTECTOR: LANCE_PROTECTOR_SCENE,
+	MORE_HP: MORE_HP_SCENE,
+	MORE_HP_PLUS: MORE_HP_PLUS_SCENE,
+	OFFENSIVE_DEFENSE: OFFENSIVE_DEFENSE_SCENE,
+	QUICK_GETAWAY: QUICK_GETAWAY_SCENE,
+	RUMP_ARMOR: RUMP_ARMOR_SCENE,
+	SCALING_AURA: SCALING_AURA_SCENE,
+	SHIELD: SHIELD_SCENE,
+	SHIELD_PLUS: SHIELD_PLUS_SCENE,
+	STATIKK_STRIKE: STATIKK_STRIKE_SCENE,
+	STEEL_CREATIONS: STEEL_CREATIONS_SCENE,
+	STEEL_SKIN: STEEL_SKIN_SCENE,
+	STURDY: STURDY_SCENE,
+	STURDY_PLUS: STURDY_PLUS_SCENE,
+	VENGEFUL_AURA: VENGEFUL_AURA_SCENE,
 	AZARATH: AZARATH_SCENE,
 	BLUNT_MISSILE: BLUNT_MISSILE_SCENE,
 	CASTER: CASTER_SCENE,

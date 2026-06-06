@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://prnd7idj0ra1"]
+
+[ext_resource type="Script" uid="uid://c3iay55h2fq81" path="res://AllInOne/UpgradeTrees/TankTree/Shield/Shield.gd" id="1_37qic"]
+
+[node name="Shield" type="Node2D" unique_id=1784106255]
+script = ExtResource("1_37qic")

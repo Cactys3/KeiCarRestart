@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ccqos3u503747"]
+
+[ext_resource type="Script" uid="uid://c7218f1bkqcb3" path="res://AllInOne/UpgradeTrees/TankTree/StatikkStrike/StatikkStrike.gd" id="1_8f042"]
+[ext_resource type="PackedScene" uid="uid://b3ilfxcfq7n0r" path="res://AllInOne/UpgradeTrees/TankTree/ElectricFence/ShockProjectile.tscn" id="2_5kl4b"]
+
+[node name="StatikkStrike" type="Node2D" unique_id=637495800]
+script = ExtResource("1_8f042")
+scene_to_spawn = ExtResource("2_5kl4b")
+connect_shock_proc = true

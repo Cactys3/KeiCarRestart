@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c17ydkwnjlnkt"]
+
+[ext_resource type="Script" uid="uid://crts2dcamd2fq" path="res://AllInOne/UpgradeTrees/TankTree/SteelSkin/SteelSkin.gd" id="1_7l1g8"]
+[ext_resource type="PackedScene" uid="uid://bld5yt6dhvc64" path="res://AllInOne/UpgradeTrees/TankTree/SteelSkin/SteelSkinTrap.tscn" id="2_nxaux"]
+
+[node name="SteelSkin" type="Node2D" unique_id=1626728788]
+script = ExtResource("1_7l1g8")
+scene_to_spawn = ExtResource("2_nxaux")
+connect_player_damaged = true

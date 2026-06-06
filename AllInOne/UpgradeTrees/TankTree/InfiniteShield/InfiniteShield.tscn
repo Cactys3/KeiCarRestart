@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c1u8f30prionq"]
+
+[ext_resource type="Script" uid="uid://dyrqvojp06f8f" path="res://AllInOne/UpgradeTrees/TankTree/InfiniteShield/InfiniteShield.gd" id="1_rgjfc"]
+
+[node name="InfiniteShield" type="Node2D" unique_id=587692564]
+script = ExtResource("1_rgjfc")
+connect_shock_proc = true

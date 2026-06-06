@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b2jtrcri00jvh"]
+
+[ext_resource type="Script" uid="uid://naccpjxmht7a" path="res://AllInOne/UpgradeTrees/TankTree/VengefulAura/VengefulAura.gd" id="1_jto60"]
+
+[node name="VengefulAura" type="Node2D" unique_id=387553496]
+script = ExtResource("1_jto60")

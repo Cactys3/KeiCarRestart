@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://hmkcfxvy6pxv"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_kv8kc"]
+[ext_resource type="Resource" uid="uid://thp68b7naknu" path="res://AllInOne/UpgradeTrees/TankTree/Sturdy/Sturdy.tres" id="2_8p3gc"]
+[ext_resource type="PackedScene" uid="uid://bmaryeql76tma" path="res://AllInOne/UpgradeTrees/TankTree/QuickGetaway/QuickGetaway.tscn" id="2_81aru"]
+
+[resource]
+script = ExtResource("1_kv8kc")
+scene = ExtResource("2_81aru")
+upgrade_name = "Quick Getaway"
+upgrade_tree = 6
+upgrade_description = "Gain 20% movespeed when you are damaged for 2 seconds
+Gain 5 more stance"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_kv8kc")]([ExtResource("2_8p3gc")])
+gives_player_buff = true
+gives_player_stats = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

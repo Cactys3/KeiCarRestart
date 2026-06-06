@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://fxomucugvo78"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_httbj"]
+[ext_resource type="Resource" uid="uid://cc846iyo8ia3y" path="res://AllInOne/UpgradeTrees/TankTree/SteelSkin/SteelSkin.tres" id="2_cjjpt"]
+[ext_resource type="PackedScene" uid="uid://db1lr7tikq0gp" path="res://AllInOne/UpgradeTrees/TankTree/SteelCreations/SteelCreations.tscn" id="2_y3cds"]
+
+[resource]
+script = ExtResource("1_httbj")
+scene = ExtResource("2_y3cds")
+upgrade_name = "Steel Creations"
+upgrade_tree = 6
+upgrade_description = "Your steel skin now damages all enemies in a small AOE around you and procs on knockback your creations take too"
+upgrade_rarity = 4
+prerequisite_upgrades = Array[ExtResource("1_httbj")]([ExtResource("2_cjjpt")])
+prereq_num_of_creation_upgrades = 3
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

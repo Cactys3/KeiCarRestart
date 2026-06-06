@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://bq3d4rjqmx2ys"]
+
+[ext_resource type="Script" uid="uid://b8omaq0lbjvo" path="res://AllInOne/UpgradeTrees/TankTree/LanceProtector/LanceProtectorSummon.gd" id="1_dww5j"]
+[ext_resource type="Texture2D" uid="uid://dnxosp62f661s" path="res://AllInOne/UpgradeTrees/TankTree/LanceProtector/LanceProtectorSummon.png" id="2_awisv"]
+[ext_resource type="PackedScene" uid="uid://d2ibdb5y8e6w6" path="res://AllInOne/UpgradeTrees/TankTree/LanceProtector/LanceProjectile.tscn" id="2_fxmhk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxmhk"]
+atlas = ExtResource("2_awisv")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nvx1"]
+atlas = ExtResource("2_awisv")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68rnr"]
+atlas = ExtResource("2_awisv")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7eaii"]
+atlas = ExtResource("2_awisv")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ey76b"]
+atlas = ExtResource("2_awisv")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ur5k"]
+atlas = ExtResource("2_awisv")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y00qm"]
+atlas = ExtResource("2_awisv")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjbpk"]
+atlas = ExtResource("2_awisv")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxdmc"]
+atlas = ExtResource("2_awisv")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3nvx1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxmhk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nvx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68rnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7eaii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ey76b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ur5k")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y00qm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjbpk")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_yxdmc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LanceProtectorSummon" type="Area2D" unique_id=71003138 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_dww5j")
+anim = NodePath("AnimatedSprite2D")
+shoots_projectile = true
+projectile_scene = ExtResource("2_fxmhk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=521666162]
+sprite_frames = SubResource("SpriteFrames_3nvx1")
+autoplay = "default"

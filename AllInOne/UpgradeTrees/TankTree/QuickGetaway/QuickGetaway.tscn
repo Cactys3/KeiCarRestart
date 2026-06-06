@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bmaryeql76tma"]
+
+[ext_resource type="Script" uid="uid://codt2koir6axa" path="res://AllInOne/UpgradeTrees/TankTree/QuickGetaway/QuickGetaway.gd" id="1_khb65"]
+
+[node name="QuickGetaway" type="Node2D" unique_id=702218246]
+script = ExtResource("1_khb65")
+connect_player_damaged = true

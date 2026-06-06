@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://thp68b7naknu"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_65gyk"]
+[ext_resource type="PackedScene" uid="uid://7bsw5hfdx64s" path="res://AllInOne/UpgradeTrees/TankTree/Sturdy/Sturdy.tscn" id="2_g356c"]
+
+[resource]
+script = ExtResource("1_65gyk")
+scene = ExtResource("2_g356c")
+upgrade_name = "Sturdy"
+upgrade_tree = 6
+upgrade_description = "Gain 20% knockback resistance
+Gain 5 stance (flat damage reduction)"
+upgrade_rarity = 1
+gives_player_stats = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

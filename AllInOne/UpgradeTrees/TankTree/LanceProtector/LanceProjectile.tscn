@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://d2ibdb5y8e6w6"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_rk8wj"]
+[ext_resource type="Texture2D" uid="uid://dnxosp62f661s" path="res://AllInOne/UpgradeTrees/TankTree/LanceProtector/LanceProtectorSummon.png" id="2_feuny"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_feuny"]
+atlas = ExtResource("2_feuny")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_psmep"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_feuny")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_feuny"]
+size = Vector2(21, 3)
+
+[node name="LanceProjectile" type="Area2D" unique_id=695578732 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_rk8wj")
+anim = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=127233840]
+sprite_frames = SubResource("SpriteFrames_psmep")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=531138073]
+position = Vector2(13.5, -0.5)
+shape = SubResource("RectangleShape2D_feuny")

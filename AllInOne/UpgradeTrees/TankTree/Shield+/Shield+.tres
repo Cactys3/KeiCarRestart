@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://b24stvdr7j46r"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_1sjj7"]
+[ext_resource type="Resource" uid="uid://bisroohu6t0lb" path="res://AllInOne/UpgradeTrees/TankTree/Shield/Shield.tres" id="2_38jyw"]
+[ext_resource type="PackedScene" uid="uid://dskg8vyr1q56r" path="res://AllInOne/UpgradeTrees/TankTree/Shield+/Shield+.tscn" id="3_3mbol"]
+
+[resource]
+script = ExtResource("1_1sjj7")
+scene = ExtResource("3_3mbol")
+upgrade_name = "Shield+"
+upgrade_tree = 6
+upgrade_description = "Your shield gains additional hitpoints equal to 15% of your max health"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_1sjj7")]([ExtResource("2_38jyw")])
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

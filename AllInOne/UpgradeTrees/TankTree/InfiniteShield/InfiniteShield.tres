@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://c67rj1yuvuubb"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_plxga"]
+[ext_resource type="PackedScene" uid="uid://c1u8f30prionq" path="res://AllInOne/UpgradeTrees/TankTree/InfiniteShield/InfiniteShield.tscn" id="2_eoo2d"]
+[ext_resource type="Resource" uid="uid://bx8r05v10jdha" path="res://AllInOne/UpgradeTrees/TankTree/StatikkStrike/StatikkStrike.tres" id="2_gsaye"]
+
+[resource]
+script = ExtResource("1_plxga")
+scene = ExtResource("2_eoo2d")
+upgrade_name = "Infinite Shield"
+upgrade_tree = 6
+upgrade_description = "When you apply shock, there's a 5% chance you permanently gain 1 shield"
+upgrade_rarity = 4
+prerequisite_upgrades = Array[ExtResource("1_plxga")]([ExtResource("2_gsaye")])
+prereq_num_of_shock_upgrades = 3
+gives_player_stats = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

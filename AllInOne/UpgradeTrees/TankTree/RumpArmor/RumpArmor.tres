@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://clg8kfxhaqe5j"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_6iytc"]
+[ext_resource type="PackedScene" uid="uid://b1dbrtg1cmaqq" path="res://AllInOne/UpgradeTrees/TankTree/RumpArmor/RumpArmor.tscn" id="2_nybf2"]
+[ext_resource type="Resource" uid="uid://cukbmdv7efshq" path="res://AllInOne/UpgradeTrees/TankTree/LanceProtector/LanceProtector.tres" id="2_uiewi"]
+
+[resource]
+script = ExtResource("1_6iytc")
+scene = ExtResource("2_nybf2")
+upgrade_name = "Rump Armor"
+upgrade_tree = 6
+upgrade_description = "Take 25% less damage from behind 
+Your Lance Protector throws a lance at enemies who damage you this way"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_6iytc")]([ExtResource("2_uiewi")])
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

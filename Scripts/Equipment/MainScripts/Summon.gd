@@ -4,7 +4,7 @@ class_name Summon
 ## Orbit player/have movement
 ## Attacking enemy mode
 # Two modes? One whilst attacking enemy one whilst not attacking
-enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, RandomEnemy, ClosestEnemy}
+enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, RandomEnemy, ClosestEnemy, OnPlayer}
 @export var AimType: AimTypes = AimTypes.default
 @export var anim: AnimatedSprite2D 
 @export var aim_speed: float = 40
@@ -60,6 +60,8 @@ func _process(delta: float) -> void:
 			ProcessRandomEnemy(delta)
 		AimTypes.ClosestEnemy:
 			ProcessClosestEnemy(delta)
+		AimTypes.OnPlayer:
+			ProcessOnPlayer(delta)
 		_:
 			ProcessUnique(delta)
 	if ready_to_fire:
@@ -108,6 +110,9 @@ func ProcessSpinning(delta: float) -> void:
 	var new_angle = rotation + (spin_speed * delta)
 	global_position = lerp(global_position, GetOrbitPosition(new_angle), lerp_speed * delta)
 	rotation = new_angle
+	ready_to_fire = true
+func ProcessOnPlayer(delta: float) -> void:
+	global_position = player.global_position
 	ready_to_fire = true
 ## Overriden method to aim uniquely
 func ProcessUnique(_delta: float) -> void:

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://b4mys831c8mu0"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_fjwqk"]
+[ext_resource type="PackedScene" uid="uid://cmsc5ca0lebs7" path="res://AllInOne/UpgradeTrees/TankTree/OffensiveDefense/OffensiveDefense.tscn" id="2_r4cka"]
+[ext_resource type="Resource" uid="uid://dbvwgetpm76ki" path="res://AllInOne/UpgradeTrees/TankTree/MoreHP+/MoreHP+.tres" id="2_t4ufq"]
+
+[resource]
+script = ExtResource("1_fjwqk")
+scene = ExtResource("2_r4cka")
+upgrade_name = "OffensiveDefense"
+upgrade_tree = 6
+upgrade_description = "Each time you regenerate hp, send out a skull to damage an enemy in range for 4x the heal amount"
+upgrade_rarity = 3
+prerequisite_upgrades = Array[ExtResource("1_fjwqk")]([ExtResource("2_t4ufq")])
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

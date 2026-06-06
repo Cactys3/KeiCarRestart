@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cmsc5ca0lebs7"]
+
+[ext_resource type="Script" uid="uid://bu31h34h777v7" path="res://AllInOne/UpgradeTrees/TankTree/OffensiveDefense/OffensiveDefense.gd" id="1_vfjk0"]
+
+[node name="OffensiveDefense" type="Node2D" unique_id=1118566265]
+script = ExtResource("1_vfjk0")
+connect_player_heal = true

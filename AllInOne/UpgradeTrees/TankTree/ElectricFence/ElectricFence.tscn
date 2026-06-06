@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://brdfd45dp4aef"]
+
+[ext_resource type="Script" uid="uid://b4gbuqiy7khff" path="res://AllInOne/UpgradeTrees/TankTree/ElectricFence/ElectricFence.gd" id="1_bme0q"]
+[ext_resource type="PackedScene" uid="uid://b3ilfxcfq7n0r" path="res://AllInOne/UpgradeTrees/TankTree/ElectricFence/ShockProjectile.tscn" id="2_b47yt"]
+
+[node name="ElectricFence" type="Node2D" unique_id=689694810]
+script = ExtResource("1_bme0q")
+scene_to_spawn = ExtResource("2_b47yt")
+connect_player_shield_damaged = true

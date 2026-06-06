@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://db1lr7tikq0gp"]
+
+[ext_resource type="Script" uid="uid://dnl1fpj7gtp5j" path="res://AllInOne/UpgradeTrees/TankTree/SteelCreations/SteelCreations.gd" id="1_cuyha"]
+
+[node name="SteelCreations" type="Node2D" unique_id=2110908271]
+script = ExtResource("1_cuyha")
+connect_creation_damaged = true

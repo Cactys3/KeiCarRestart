@@ -125,9 +125,12 @@ signal EnemyTrapped(enemy: Enemy, trap: Trap, attack: Attack)
 signal BossKilled(boss: Boss, attack: Attack)
 ## Player
 signal PlayerDamaged(player: Character, attack: Attack)
+signal PlayerShieldDamaged(player: Character, attack: Attack, shield_damage_amount: float)
 signal PlayerDodged(player: Character, attack: Attack)
 signal PlayerRevived(player: Character)
 signal PlayerKilled(player: Character, attack: Attack)
+signal PlayerHeal(hp_change: float, is_regen: bool)
+signal PlayerMaxHealthChange(new_maxhp: float, old_maxhp: float)
 signal EventKilled(event: Event, attack: Attack)
 ## Spawns:
 signal ProjectileSpawned(projectile: Projectile)
@@ -289,6 +292,13 @@ func handle_attack_enemy(attack: Attack, enemy: Enemy) -> Attack:
 		if upgrade.edits_attack:
 			attack = upgrade.edit_attack_enemy(attack, enemy)
 	return attack
+## Pass an enemy's attack through each active upgrade 
+func handle_incoming_attack(attack: Attack, enemy: Enemy, character: Character) -> Attack:
+	for upgrade in active_upgrades:
+		if upgrade.edits_incoming_attack:
+			attack = upgrade.edit_incoming_attack(attack, enemy, character)
+	return attack
+
 
 func create_level_up_instance():
 	if leveling_up:

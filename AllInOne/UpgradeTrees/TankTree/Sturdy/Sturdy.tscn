@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://7bsw5hfdx64s"]
+
+[ext_resource type="Script" uid="uid://cjp0dbbjvndpt" path="res://AllInOne/UpgradeTrees/TankTree/Sturdy/Sturdy.gd" id="1_2eo0u"]
+
+[node name="Sturdy" type="Node2D" unique_id=1393678827]
+script = ExtResource("1_2eo0u")

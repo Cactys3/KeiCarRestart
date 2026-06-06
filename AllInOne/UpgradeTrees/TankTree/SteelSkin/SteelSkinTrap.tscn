@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bld5yt6dhvc64"]
+
+[node name="SteelSkinTrap" type="Area2D" unique_id=1729151954]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=32335155]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1097685777]

@@ -7,6 +7,7 @@ const COOLDOWN_UI = preload("uid://brjmxsn8spmpe")
 ## Booleans that say what this upgrade does
 ## Should attacks be passed through this upgrade before being sent to enemy
 @export var edits_attack: bool = false
+@export var edits_incoming_attack: bool = false
 @export var has_meter: bool = false
 ## Variables given by UpgradeData
 var spawns_projectile: bool = false
@@ -68,6 +69,9 @@ func edit_attack(attack: Attack) -> Attack:
 	return attack
 ## Override method to edit an attack and return (with enemy)
 func edit_attack_enemy(attack: Attack, enemy: Enemy) -> Attack:
+	return attack
+## Override method to edit an attack from an enemy to the player
+func edit_incoming_attack(attack: Attack, enemy: Enemy, character: Character) -> Attack:
 	return attack
 ## Overide method to edit the list of stats
 func edit_stats():

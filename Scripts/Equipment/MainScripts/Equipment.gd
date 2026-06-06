@@ -21,8 +21,12 @@ class_name Equipment
 @export var connect_poison_proc: bool = false
 @export var connect_dodge: bool = false
 @export var connect_player_damaged: bool = false
+@export var connect_player_shield_damaged: bool = false
+@export var connect_player_heal: bool = false
+@export var connect_player_maxhp_changed: bool = false
 @export var connect_enemy_trapped: bool = false
 @export var connect_creation_killed: bool = false
+@export var connect_creation_damaged: bool = false
 @export var connect_projectile_spawned: bool = false
 @export var connect_upgrade_cooldown_finished: bool = false
 @export var connect_: bool = false
@@ -202,10 +206,19 @@ func dodge(character: Character, attack: Attack):
 	pass
 func player_damaged(character: Character, attack: Attack):
 	pass
+func player_shield_damaged(character: Character, attack: Attack, shield_damage_amount: float):
+	pass
+func player_maxhp_changed(new_maxhp: float, old_maxhp: float):
+	pass
+func player_heal(heal: float, is_regen: bool):
+	pass
 func enemy_trapped(enemy: Enemy, trap: Trap):
 	pass
 func creation_killed(creation: Creation, attack: Attack):
 	pass
+func creation_damaged(creation: Creation, attack: Attack):
+	pass
+
 func projectile_spawned(projectile: Projectile):
 	pass
 func upgrade_cooldown_finished(upgrade: Upgrade):

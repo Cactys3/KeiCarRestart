@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ccxhfgi6nwqjx"]
+
+[ext_resource type="Script" uid="uid://c4gtncqjuwwqq" path="res://AllInOne/UpgradeTrees/TankTree/Aura/Aura.gd" id="1_ombxu"]
+
+[node name="Aura" type="Node2D" unique_id=1911541688]
+script = ExtResource("1_ombxu")

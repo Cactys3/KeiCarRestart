@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://dbvwgetpm76ki"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_eh3t1"]
+[ext_resource type="Resource" uid="uid://bq2wq7kyfxpuo" path="res://AllInOne/UpgradeTrees/TankTree/MoreHP/MoreHP.tres" id="2_4qpra"]
+[ext_resource type="PackedScene" uid="uid://bfqworxvnco58" path="res://AllInOne/UpgradeTrees/TankTree/MoreHP+/MoreHP+.tscn" id="2_7ll86"]
+
+[resource]
+script = ExtResource("1_eh3t1")
+scene = ExtResource("2_7ll86")
+upgrade_name = "More HP+"
+upgrade_tree = 6
+upgrade_description = "Gain 4 hp regen
+Gain 20 additional health points"
+upgrade_rarity = 2
+prerequisite_upgrades = Array[ExtResource("1_eh3t1")]([ExtResource("2_4qpra")])
+gives_player_stats = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

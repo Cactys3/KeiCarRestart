@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bs14kvc7xytlj"]
+
+[ext_resource type="Script" uid="uid://ca3osqyha0dy4" path="res://AllInOne/UpgradeTrees/TankTree/HealingAura/HealingAura.gd" id="1_ux555"]
+[ext_resource type="PackedScene" uid="uid://dkt2dre3uo1ob" path="res://AllInOne/UpgradeTrees/TankTree/HealingAura/HealingAuraSummon.tscn" id="2_pcmmm"]
+
+[node name="HealingAura" type="Node2D" unique_id=1371061718]
+script = ExtResource("1_ux555")
+scene_to_spawn = ExtResource("2_pcmmm")

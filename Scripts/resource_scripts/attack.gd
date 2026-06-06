@@ -132,6 +132,10 @@ func is_from_player() -> bool:
 		|| attack_type == AttackTypes.upgrade_melee
 		|| attack_type == AttackTypes.upgrade_status
 		)
+func is_from_enemy() -> bool:
+	return (attack_type == AttackTypes.enemy_projectile 
+		|| attack_type == AttackTypes.enemy_melee
+		|| attack_type == AttackTypes.enemy_status)
 ## Returns if this attack is from anything from an Upgrade
 func is_from_upgrade() -> bool:
 	return (attack_type == AttackTypes.upgrade_projectile

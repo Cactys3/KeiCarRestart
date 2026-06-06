@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://hobxyby5ohb0"]
+
+[ext_resource type="Script" uid="uid://civl3q6vgxcof" path="res://AllInOne/UpgradeTrees/TankTree/LanceProtector/LanceProtector.gd" id="1_y6mql"]
+[ext_resource type="PackedScene" uid="uid://bq3d4rjqmx2ys" path="res://AllInOne/UpgradeTrees/TankTree/LanceProtector/LanceProtectorSummon.tscn" id="2_8no2c"]
+
+[node name="LanceProtector" type="Node2D" unique_id=1495464913]
+script = ExtResource("1_y6mql")
+scene_to_spawn = ExtResource("2_8no2c")

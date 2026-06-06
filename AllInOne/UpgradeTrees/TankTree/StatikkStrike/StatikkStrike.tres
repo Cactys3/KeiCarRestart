@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bx8r05v10jdha"]
+
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_6bwjx"]
+[ext_resource type="Resource" uid="uid://b24stvdr7j46r" path="res://AllInOne/UpgradeTrees/TankTree/Shield+/Shield+.tres" id="2_2vb08"]
+[ext_resource type="Resource" uid="uid://mxfquarwvluu" path="res://AllInOne/UpgradeTrees/TankTree/ElectricFence/ElectricFence.tres" id="3_vwo1j"]
+[ext_resource type="PackedScene" uid="uid://ccqos3u503747" path="res://AllInOne/UpgradeTrees/TankTree/StatikkStrike/StatikkStrike.tscn" id="4_wc4cl"]
+
+[resource]
+script = ExtResource("1_6bwjx")
+scene = ExtResource("4_wc4cl")
+upgrade_name = "Statikk Strike"
+upgrade_tree = 6
+upgrade_description = "Any shock you apply now has a chance scaling with your shield to jump and apply to nearby enemies."
+upgrade_rarity = 3
+prerequisite_upgrades = Array[ExtResource("1_6bwjx")]([ExtResource("2_2vb08"), ExtResource("3_vwo1j")])
+applies_shock = true
+metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

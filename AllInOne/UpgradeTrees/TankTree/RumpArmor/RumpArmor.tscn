@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b1dbrtg1cmaqq"]
+
+[ext_resource type="Script" uid="uid://b6assl0lghb8e" path="res://AllInOne/UpgradeTrees/TankTree/RumpArmor/RumpArmor.gd" id="1_aaton"]
+
+[node name="RumpArmor" type="Node2D" unique_id=960535904]
+script = ExtResource("1_aaton")
+edits_incoming_attack = true

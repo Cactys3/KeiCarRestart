@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ypv0qjxc6w8x"]
+
+[ext_resource type="Script" uid="uid://dam6td36lorln" path="res://AllInOne/UpgradeTrees/TankTree/MoreHP/MoreHP.gd" id="1_emsuk"]
+
+[node name="MoreHp" type="Node2D" unique_id=554649208]
+script = ExtResource("1_emsuk")
