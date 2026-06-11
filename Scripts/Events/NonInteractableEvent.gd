@@ -41,6 +41,7 @@ class_name NonInteractableEvent
 @export var randomly_roll_alternative_art: bool = false
 @export var particles: EntityParticles = null
 
+var dead: bool = false
 var curr_health: float = 1000
 var stopwatch: float = 100
 ##
@@ -139,7 +140,7 @@ func damage(attack: Attack):
 	wet += attack.get_wet()
 
 	## Calculate Damage
-	var attack_damage: float = attack.get_damage()
+	var recieved_damage: float = attack.get_damage()
 	var shock_damage: float = 0
 	var wet_damage: float = 0
 	
@@ -150,7 +151,7 @@ func damage(attack: Attack):
 	if attack.status.applies_wet:
 		wet_damage = get_wet_damage()
 	## The Attack
-	var total_damage: float = attack_damage + wet_damage + shock_damage
+	var total_damage: float = recieved_damage + wet_damage + shock_damage
 	var damage_taken = total_damage
 	if damage_taken > 0:
 		GameManager.instance.EnemyDamaged.emit(self, attack)
@@ -173,8 +174,8 @@ func damage(attack: Attack):
 			#stun_time_left = 0.2
 			#stunned = true
 		#apply_knockback(attack.position, attack.get_knockback())
-	if attack_damage > 0:
-		display_damage(attack_damage, attack.attack_color)
+	if recieved_damage > 0:
+		display_damage(recieved_damage, attack.attack_color)
 	if shock_damage > 0:
 		display_damage(shock_damage, Color.GOLD)
 	if wet_damage > 0:
@@ -182,15 +183,18 @@ func damage(attack: Attack):
 	## Die.
 	check_death(attack)
 func die():
-	if get_parent():
-		get_parent().remove_child(self)
-	for node in foreground:
-		node.queue_free()
-	for node in background:
-		node.queue_free()
-	for node in anims:
-		node.queue_free()
-	queue_free()
+	if !dead:
+		dead = true
+		GameInstance.instance.active_events.erase(self)
+		if get_parent():
+			get_parent().remove_child(self)
+		for node in foreground:
+			node.queue_free()
+		for node in background:
+			node.queue_free()
+		for node in anims:
+			node.queue_free()
+		queue_free()
 var half_second_cd: float = 0
 var second_cd: float = 0
 var two_second_cd: float = 0

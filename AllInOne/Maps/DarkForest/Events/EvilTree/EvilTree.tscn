@@ -2,37 +2,37 @@
 
 [ext_resource type="Script" uid="uid://qsl3fexnb70s" path="res://Scripts/Events/NonInteractableEvent.gd" id="1_pqand"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_cafu0"]
-[ext_resource type="Texture2D" uid="uid://bfqmjyqvuiltk" path="res://Art/DarkForest/EvilTree/EvilTree.png" id="2_j8kdx"]
+[ext_resource type="Texture2D" uid="uid://bfqmjyqvuiltk" path="res://AllInOne/Maps/DarkForest/Events/EvilTree/EvilTree.png" id="2_j8kdx"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_j8kdx"]
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="5_drgie"]
 
 [sub_resource type="Resource" id="Resource_drgie"]
 script = ExtResource("2_cafu0")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h0ay4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_drgie"]
 atlas = ExtResource("2_j8kdx")
-region = Rect2(256, 0, 128, 128)
+region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hp3iw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h0ay4")
+"texture": SubResource("AtlasTexture_drgie")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hp3iw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qsf8"]
 atlas = ExtResource("2_j8kdx")
-region = Rect2(256, 128, 128, 128)
+region = Rect2(512, 128, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_drgie"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hp3iw")
+"texture": SubResource("AtlasTexture_5qsf8")
 }],
 "loop": true,
 "name": &"default",
@@ -43,7 +43,7 @@ animations = [{
 size = Vector2(23, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5qsf8"]
-size = Vector2(52, 37)
+size = Vector2(58, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hp3iw"]
 size = Vector2(25, 18)
@@ -73,8 +73,6 @@ anims = [NodePath("Foreground/Foreground"), NodePath("Background/Background")]
 each_frame_is_alternative_art = true
 randomly_roll_alternative_art = true
 particles = NodePath("Foreground/EntityParticles")
-event_center_offset = Vector2(0, -5)
-event_size = Vector2(100, 120)
 
 [node name="Foreground" type="Node2D" parent="." unique_id=857188290]
 
@@ -103,7 +101,7 @@ position = Vector2(1.5, 19)
 shape = SubResource("RectangleShape2D_j8kdx")
 
 [node name="BackgroundCollision" type="CollisionShape2D" parent="CollisionBody" unique_id=577876295]
-position = Vector2(0, -8.5)
+position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_5qsf8")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=105461919]

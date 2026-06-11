@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdoowwkvlvfk0"
-path="res://.godot/imported/Backdrop.png-8c2a10ca13205522bbae0942d3981329.ctex"
+uid="uid://bfqmjyqvuiltk"
+path="res://.godot/imported/EvilTree.png-6f531881e93d03d70733c601d9db3d6b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/DarkForest/Setting/Backdrop.png"
-dest_files=["res://.godot/imported/Backdrop.png-8c2a10ca13205522bbae0942d3981329.ctex"]
+source_file="res://AllInOne/Maps/DarkForest/Events/EvilTree/EvilTree.png"
+dest_files=["res://.godot/imported/EvilTree.png-6f531881e93d03d70733c601d9db3d6b.ctex"]
 
 [params]
 

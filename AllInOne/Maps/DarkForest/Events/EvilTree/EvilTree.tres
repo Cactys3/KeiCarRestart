@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://cgctjw83xmopn"]
+
+[ext_resource type="PackedScene" uid="uid://dx3vgmeepju4x" path="res://AllInOne/Maps/DarkForest/Events/EvilTree/EvilTree.tscn" id="1_1mdib"]
+[ext_resource type="Script" uid="uid://d4k06wrgbubxe" path="res://Scripts/resource_scripts/event_data.gd" id="1_2iq2g"]
+
+[resource]
+script = ExtResource("1_2iq2g")
+event_scene = ExtResource("1_1mdib")
+event_name = "Evil Tree"
+event_type = 2
+event_size = Vector2(61, 95)
+metadata/_custom_type_script = "uid://d4k06wrgbubxe"

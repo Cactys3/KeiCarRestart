@@ -4,11 +4,16 @@ const TILE1 = preload("uid://cdoowwkvlvfk0")
 
 ## Enemies
 const DARKORB = preload("uid://cqip08xv6m5no")
+const SKELETON = preload("uid://c0shj1jlhrlmv")
 
 ## Enemy Events
 ## Bosses
 ## Objects/Events
-const EVIL_TREE = preload("uid://dx3vgmeepju4x")
+const EVIL_TREE = preload("uid://cgctjw83xmopn")
+const GRAVE = preload("uid://cks1ybymewgsv")
+
+## Update grave values dynamically, so keep a reference
+var grave: EventSpawn
 
 func _process(delta: float) -> void:
 	super(delta)
@@ -21,7 +26,7 @@ func _ready() -> void:
 	default_max_enemies = 90
 	min_enemies = default_min_enemies
 	max_enemies = default_max_enemies
-	win_time = 60*20
+	win_time = 60 * 20
 	enemy_cooldown = 1
 	spawning_phase = -1
 	map_height = 3 ## this many chunks tall
@@ -29,7 +34,9 @@ func _ready() -> void:
 	## Setups Phases
 	phases.append(SpawningPhase.new("", 600, phase_one))
 	## Setup Basic Events
-	events.append(EventSpawn.new("Evil Tree", EVIL_TREE, Vector2(30, 44), 0.5, -1, 10))
+	grave = EventSpawn.new(GRAVE, Vector2(30, 44), 1, -1, 1)
+	events.append(grave)
+	events.append(EventSpawn.new(EVIL_TREE, Vector2(30, 44), 0.5, -1, 15))
 	## Setup Interactable Events
 	#events.append(EventSpawn.new("", , 0.3, -1, 3))
 	## Setup Main Events

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfqmjyqvuiltk"
-path="res://.godot/imported/EvilTree.png-bd690702b428bb554808fcb733029c72.ctex"
+uid="uid://dcqev4gxdwwa0"
+path="res://.godot/imported/DarkOrb.png-76f74be4b1f9151202cc355b9fdac001.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/DarkForest/EvilTree/EvilTree.png"
-dest_files=["res://.godot/imported/EvilTree.png-bd690702b428bb554808fcb733029c72.ctex"]
+source_file="res://AllInOne/Maps/DarkForest/Enemies/DarkOrb/DarkOrb.png"
+dest_files=["res://.godot/imported/DarkOrb.png-76f74be4b1f9151202cc355b9fdac001.ctex"]
 
 [params]
 

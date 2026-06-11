@@ -20,7 +20,11 @@ var weapon_parent: Node2D
 ## Images
 const TileBlank = null
 var TILES: Array = []
+## Specify [tile path, tile vector]
 var preset_tiles: Dictionary = {}
+## Events
+## Specify [event scene, event coordinates]
+var preset_events: Array[PresetEvent]
 ## Enemies
 ## Bosses
 ## Proximity Events
@@ -33,9 +37,6 @@ var bosses: Array[BossSpawn] # stores bosses to spawn
 var phases: Array[SpawningPhase] # stores the phases to spawn enemies in
 var current_phase: SpawningPhase
 ## Drops
-static var FORGE_DROP:
-	get(): ## Doesn't work preloading, idk why
-		return load("uid://xn3lii5356op")
 const ITEM_DROP = preload("uid://d3v2pdpqpmvpe")
 ## Powerup Drop
 static var drop_chance_powerup: float = 0.01:
@@ -167,6 +168,9 @@ func check_max_min_enemies():
 		despawn_enemies(game_man.player.global_position, calculated_max_enemies - max_enemies)
 	elif enemies_alive < calculated_min_enemies:
 		spawn_backups(game_man.player.global_position, calculated_min_enemies - enemies_alive)
+## Is enemy count under max enemy count
+func can_spawn_more_enemies() -> bool:
+	return enemies_alive < GlobalStats.calculate_max_enemies(max_enemies, game_man.difficulty)
 func return_to_main_menu() -> void:
 	## Save
 	Save.save_file(TitleManager.file_slot)
@@ -260,7 +264,7 @@ func load_chunk(chunk_id: Vector2):
 	var new_chunk: Sprite2D = FlashFixSprite.new()
 	# if chunk is without of map bounds
 	if abs(chunk_id.x) > abs(map_width) || abs(chunk_id.y) > abs(map_height):
-		new_chunk.texture = TileBlank
+		new_chunk.texture = get_edge_tile(chunk_id)
 	else:
 		new_chunk.texture = get_tile(chunk_id)
 		spawn_events(chunk_id)
@@ -302,11 +306,16 @@ func spawn_events(chunk_id: Vector2):
 		if event.can_spawn():
 			for i in event.max_per_tile:
 				if randf() < event.spawn_chance:
-					load_event(event.scene, chunk_id)
+					load_event(event.event, chunk_id)
 					event.spawn_count += 1
+	for event in preset_events:
+		if is_position_in_chunk(chunk_id, event.position):
+			place_event(event.event, chunk_id, event.position)
 ## Goes through enemies in enemies and spawns based on data
 func spawn_enemies(pos: Vector2):
 	for enemy in enemies:
+		if !can_spawn_more_enemies():
+			break
 		if enemy.can_spawn():
 			for i in enemy.max_attempts:
 				if randf() < enemy.spawn_chance:
@@ -327,9 +336,7 @@ func spawn_bosses(pos: Vector2):
 				spawn_boss(boss.scene, random_position(pos))
 			for i in boss.get_spawns(enemies_killed, total_stopwatch):
 				spawn_boss(boss.scene, random_position(pos))
-func load_event(scene: PackedScene, chunk: Vector2) -> bool:
-	## Grab event instance
-	var new_event: Event = scene.instantiate()
+func load_event(new_event: EventData, chunk: Vector2) -> bool:
 	## Calculate chunk and event values
 	var center := Vector2(chunk.x * chunk_x, chunk.y * chunk_y)
 	var half := Vector2(chunk_x, chunk_y) / 2.0
@@ -342,12 +349,8 @@ func load_event(scene: PackedScene, chunk: Vector2) -> bool:
 	# Check if event is too large for chunk, just return true and place it in the center
 	if place_min.x > place_max.x || place_min.y > place_max.y:
 		#print("load_event: event too large for chunk, placing at center")
-		new_event.position = center - new_event.event_center_offset
-		event_background_parent.add_child(new_event)
-		new_event.setup(total_stopwatch, level, chunk)
-		active_events.append(new_event)
+		place_event(new_event, chunk, center - new_event.event_center_offset)
 		return true
-	## TODO: Mabye add a system where it checks all valid positions it found and checks which one is furthest from other events and uses that one
 	## Idk how intensive 10 attempts is
 	var attempts: int = 10
 	for i in attempts:
@@ -355,22 +358,25 @@ func load_event(scene: PackedScene, chunk: Vector2) -> bool:
 		var candidate_rect := Rect2(candidate + new_event.event_center_offset - half_size, new_event.event_size)
 		#print("load_event: attempt ", i, " candidate=", candidate, " candidate_rect=", candidate_rect)
 		var overlaps := false
+		## TODO: should really only check against events in this chunk or surrounding chunks
 		for event in active_events:
 			var existing_rect := Rect2(event.position + event.event_center_offset - event.event_size / 2.0, event.event_size)
 			#print("load_event: checking against event=", event.name, " existing_rect=", existing_rect, " overlaps=", candidate_rect.intersects(existing_rect))
-			if candidate_rect.intersects(existing_rect):
+			if rects_overlap(candidate_rect, existing_rect):
 				overlaps = true
 				break
 		if !overlaps:
 			#print("load_event: placed at candidate=", candidate)
-			new_event.position = candidate
-			event_background_parent.add_child(new_event)
-			new_event.setup(total_stopwatch, level, chunk)
-			active_events.append(new_event)
+			place_event(new_event, chunk, candidate)
 			return true
-	#print("load_event: failed to place after ", attempts, " attempts")
-	new_event.queue_free()
+	print("load_event: failed to place after ", attempts, " attempts")
 	return false
+func place_event(new_event: EventData, chunk: Vector2, new_position: Vector2):
+	var event_scene: Event = new_event.create_event()
+	event_scene.position = new_position
+	event_background_parent.add_child(event_scene)
+	event_scene.setup(total_stopwatch, level, chunk)
+	active_events.append(event_scene)
 func draw_new_visual():
 	chunk_rect.color = Color(0, 0, 0, 0)
 	chunk_rect = ColorRect.new()
@@ -489,6 +495,14 @@ static func calculate_component_drop_chance(drop_chance: float, luck: float) -> 
 static func calculate_powerup_drop_chance(drop_chance: float, luck: float) -> float:
 	## 20 luck means 1 percent higher chance
 	return drop_chance + luck / 2000
+static func rects_overlap(a: Rect2, b: Rect2) -> bool:
+	return a.intersects(b, true) or a.encloses(b) or b.encloses(a)
+func is_position_in_chunk(chunk: Vector2, pos: Vector2) -> bool:
+	var x: bool = (pos.x >= chunk.x * chunk_x) && (pos.x <= (chunk.x * chunk_x) + chunk_x)
+	if !x:
+		return false
+	var y: bool = (pos.y >= chunk.y * chunk_y) && (pos.y <= (chunk.y * chunk_y) + chunk_y)
+	return y
 ## Overrides
 func add_tiles():
 	pass
@@ -508,6 +522,9 @@ func get_tile(vector: Vector2) -> Texture2D:
 	if preset_tiles.has(vector):
 		return preset_tiles[vector]
 	return get_rand_tile()
+## Get tiles for the map's border
+func get_edge_tile(vector: Vector2) -> Texture2D:
+	return TileBlank
 ## Gets random tile for map - Override
 func get_rand_tile() -> Texture2D:
 	return TILES[randi_range(0, TILES.size() - 1)]
@@ -601,8 +618,7 @@ class BossSpawn:
 		return true
 ## Contains data for the data to consider each time events are spawned
 class EventSpawn:
-	var name: String = "default"
-	var scene: PackedScene
+	var event: EventData
 	## spawn chance from 0 to 1
 	var spawn_chance: float = 0
 	## number of events that can be created per map, -1 for infinite
@@ -614,9 +630,8 @@ class EventSpawn:
 	## Width and Height of the event (so events don't spawn inside each other)
 	var event_size: Vector2
 	var ready: bool = false
-	func _init(new_name: String, new_scene: PackedScene, new_size: Vector2, new_spawn_chance: float, new_max_spawns: int, new_max_per_tile: int) -> void:
-		name = new_name
-		scene = new_scene
+	func _init(new_event: EventData, new_size: Vector2, new_spawn_chance: float, new_max_spawns: int, new_max_per_tile: int) -> void:
+		event = new_event
 		event_size = new_size
 		spawn_chance = new_spawn_chance
 		max_spawns = new_max_spawns
@@ -652,6 +667,12 @@ class SpawningPhase:
 			completed = true
 			return false
 		return true
+class PresetEvent:
+	var event: EventData
+	var position: Vector2
+	func _init(new_event: EventData, new_position: Vector2):
+		event = new_event
+		position = new_position
 ## Saves data to the file
 func save():
 	Save.save_file(TitleManager.file_slot)

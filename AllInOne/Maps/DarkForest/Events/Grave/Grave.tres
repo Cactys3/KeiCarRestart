@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://cks1ybymewgsv"]
+
+[ext_resource type="Script" uid="uid://d4k06wrgbubxe" path="res://Scripts/resource_scripts/event_data.gd" id="1_j5pt2"]
+[ext_resource type="Texture2D" uid="uid://c33cd31vh0rnk" path="res://AllInOne/Maps/DarkForest/Events/Grave/GraveIcon.png" id="1_megs7"]
+[ext_resource type="PackedScene" uid="uid://c7ut5k0jj3j2r" path="res://AllInOne/Maps/DarkForest/Events/Grave/Grave.tscn" id="2_vpj5i"]
+
+[resource]
+script = ExtResource("1_j5pt2")
+event_scene = ExtResource("2_vpj5i")
+event_minimap_icon = ExtResource("1_megs7")
+event_name = "Grave"
+event_type = 2
+event_size = Vector2(17, 23)
+metadata/_custom_type_script = "uid://d4k06wrgbubxe"

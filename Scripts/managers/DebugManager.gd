@@ -11,3 +11,4 @@ static var UpgradeEditedAttack: bool = true
 static var SpawnObjectRange: bool = false # circle around spawn objects showing their range stat
 static var PlayerDistanceRadius: bool = false # circles around player showing various distances in units
 static var PlayerDistances: Array[float] = [10.0, 20.0, 50.0, 100.0]
+static var EventSize: bool = false
