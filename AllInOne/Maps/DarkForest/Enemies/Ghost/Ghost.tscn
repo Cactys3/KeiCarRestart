@@ -1,12 +1,101 @@
 [gd_scene format=3 uid="uid://td8gxdry4xcs"]
 
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="1_a4was"]
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_ew8bk"]
+[ext_resource type="Texture2D" uid="uid://bl0n4u3o4gwsq" path="res://AllInOne/Maps/DarkForest/Enemies/Ghost/Ghost.png" id="1_ithf0"]
 
-[node name="Ghost" type="RigidBody2D" unique_id=1102968055]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew8bk"]
+atlas = ExtResource("1_ithf0")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glxu0"]
+atlas = ExtResource("1_ithf0")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xact4"]
+atlas = ExtResource("1_ithf0")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7exi"]
+atlas = ExtResource("1_ithf0")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1befn"]
+atlas = ExtResource("1_ithf0")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sryt"]
+atlas = ExtResource("1_ithf0")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70jaj"]
+atlas = ExtResource("1_ithf0")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1k4b3"]
+atlas = ExtResource("1_ithf0")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkrfw"]
+atlas = ExtResource("1_ithf0")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ydv0r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ew8bk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glxu0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xact4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7exi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1befn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sryt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70jaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1k4b3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jkrfw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glxu0"]
+size = Vector2(10, 20)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xact4"]
+radius = 2.0
+height = 12.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ew8bk"]
+size = Vector2(11, 22)
+
+[node name="Ghost" type="RigidBody2D" unique_id=1102968055 node_paths=PackedStringArray("damage_hitbox")]
+script = ExtResource("1_ew8bk")
+enemy_name = "Ghost"
+damage_hitbox = NodePath("Damage_Hitbox")
+turns_towards_movement = true
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1168087996]
 position = Vector2(1, 9)
+sprite_frames = SubResource("SpriteFrames_ydv0r")
 autoplay = "default"
+frame_progress = 0.4168222
 offset = Vector2(0, -8.385)
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("1_a4was")]
@@ -16,11 +105,17 @@ collision_layer = 16
 collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=21513102]
+position = Vector2(-1, 2)
+shape = SubResource("RectangleShape2D_glxu0")
 
 [node name="MinionBlock" type="Area2D" parent="." unique_id=1508071863]
 collision_layer = 32
 collision_mask = 32
 
 [node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=1777167843]
+position = Vector2(-1, 0)
+shape = SubResource("CapsuleShape2D_xact4")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=600332235]
+position = Vector2(-0.5, 2)
+shape = SubResource("RectangleShape2D_ew8bk")

@@ -80,12 +80,13 @@ size = Vector2(16, 8)
 
 [node name="Crawler" type="RigidBody2D" unique_id=1063716386]
 script = ExtResource("1_mtqsy")
+turns_towards_movement = true
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1654011871]
 position = Vector2(0, 8)
 sprite_frames = SubResource("SpriteFrames_4uvcq")
 autoplay = "default"
-frame_progress = 0.078784965
+frame_progress = 0.8791301
 offset = Vector2(0, -8.385)
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("1_7pbwl")]
