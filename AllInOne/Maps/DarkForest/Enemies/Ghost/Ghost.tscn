@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://td8gxdry4xcs"]
+
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="1_a4was"]
+
+[node name="Ghost" type="RigidBody2D" unique_id=1102968055]
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1168087996]
+position = Vector2(1, 9)
+autoplay = "default"
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("1_a4was")]
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=112905060]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=21513102]
+
+[node name="MinionBlock" type="Area2D" parent="." unique_id=1508071863]
+collision_layer = 32
+collision_mask = 32
+
+[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=1777167843]
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=600332235]

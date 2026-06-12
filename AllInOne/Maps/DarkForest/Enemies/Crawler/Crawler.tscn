@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://dqhvvhnltc7yh"]
+
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="1_7pbwl"]
+[ext_resource type="Texture2D" uid="uid://dxws6ebes1b8c" path="res://AllInOne/Maps/DarkForest/Enemies/Crawler/Crawler.png" id="1_gamnu"]
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_mtqsy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtqsy"]
+atlas = ExtResource("1_gamnu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scjbd"]
+atlas = ExtResource("1_gamnu")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iejsk"]
+atlas = ExtResource("1_gamnu")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvx0i"]
+atlas = ExtResource("1_gamnu")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a24hn"]
+atlas = ExtResource("1_gamnu")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbdd1"]
+atlas = ExtResource("1_gamnu")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_in6gn"]
+atlas = ExtResource("1_gamnu")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7xmv"]
+atlas = ExtResource("1_gamnu")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4uvcq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtqsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scjbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iejsk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvx0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a24hn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbdd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_in6gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7xmv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mtqsy"]
+size = Vector2(16, 8)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mtqsy"]
+radius = 1.0
+height = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scjbd"]
+size = Vector2(16, 8)
+
+[node name="Crawler" type="RigidBody2D" unique_id=1063716386]
+script = ExtResource("1_mtqsy")
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1654011871]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_4uvcq")
+autoplay = "default"
+frame_progress = 0.078784965
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("1_7pbwl")]
+position = Vector2(0, -1)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=987305132]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1186352963]
+shape = SubResource("RectangleShape2D_mtqsy")
+
+[node name="MinionBlock" type="Area2D" parent="." unique_id=455430233]
+collision_layer = 32
+collision_mask = 32
+
+[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=885957289]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_mtqsy")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=1267486993]
+shape = SubResource("RectangleShape2D_scjbd")
