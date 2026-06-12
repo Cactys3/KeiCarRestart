@@ -11,7 +11,8 @@ const NO_ANIMATION_NAME: String = "no animation"
 @export_category("Enemy Stats")
 @export var multiply_hp_by_minute: bool = true
 @export var melee_attacks: bool = true
-@export var damage_hitbox: Area2D
+@onready var damage_hitbox: Area2D = $Damage_Hitbox
+@onready var minion_block: Area2D = $MinionBlock
 @export var can_be_knockbacked: bool = true
 @export var can_be_stunned :bool = true
 @export var can_be_frozen: bool = true
@@ -148,6 +149,15 @@ var dead: bool = false
 
 func _ready() -> void:
 	anim.visible = false
+	set_collision_layer_value(4, true)
+	set_collision_layer_value(1, false)
+	damage_hitbox.set_collision_layer_value(5, true)
+	damage_hitbox.set_collision_mask_value(2, true)
+	damage_hitbox.set_collision_mask_value(8, true)
+	minion_block.set_collision_layer_value(6, true)
+	minion_block.set_collision_mask_value(6, true)
+	gravity_scale = 0
+	lock_rotation = true
 	flash()
 	call_deferred("set_stats")
 	call_deferred("setup") 

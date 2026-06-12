@@ -538,15 +538,13 @@ func generic_phase_setup(phase_num: int):
 	max_enemies = default_max_enemies
 ## Contains data for the data to consider each time enemies are spawned
 class EnemySpawn: ## TODO: add in functionality to enemy spawn in a line across the screen? just make a scene with that tbh
-	var name: String = "default"
 	var scene: PackedScene
 	## spawn chance from 0 to 1
 	var spawn_chance: float = 0
 	## number of attempts to try to spawn enemies at spawn chance
 	var max_attempts: int = -1
 	var ready: bool = false
-	func _init(new_name: String, new_scene: PackedScene, new_spawn_chance: float, new_max_attempts: int) -> void:
-		name = new_name
+	func _init(new_scene: PackedScene, new_spawn_chance: float, new_max_attempts: int) -> void:
 		scene = new_scene
 		spawn_chance = new_spawn_chance
 		max_attempts = new_max_attempts

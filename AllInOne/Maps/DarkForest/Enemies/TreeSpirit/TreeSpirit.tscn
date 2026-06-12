@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://cb307rg4gvkxp"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_y8bqw"]
+[ext_resource type="Texture2D" uid="uid://cai6yf6rai1e7" path="res://AllInOne/Maps/DarkForest/Enemies/TreeSpirit/TreeSpirit.png" id="2_voauq"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_8a5n2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc7dk"]
+atlas = ExtResource("2_voauq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xohm4"]
+atlas = ExtResource("2_voauq")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k44qr"]
+atlas = ExtResource("2_voauq")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rgx3"]
+atlas = ExtResource("2_voauq")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b25f"]
+atlas = ExtResource("2_voauq")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gega"]
+atlas = ExtResource("2_voauq")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i1v7"]
+atlas = ExtResource("2_voauq")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ww12h"]
+atlas = ExtResource("2_voauq")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62mu4"]
+atlas = ExtResource("2_voauq")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ww4jw"]
+atlas = ExtResource("2_voauq")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1k73i"]
+atlas = ExtResource("2_voauq")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k27qy"]
+atlas = ExtResource("2_voauq")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpcq0"]
+atlas = ExtResource("2_voauq")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppuxl"]
+atlas = ExtResource("2_voauq")
+region = Rect2(832, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ii71a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc7dk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xohm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k44qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rgx3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b25f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gega")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0i1v7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ww12h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62mu4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ww4jw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1k73i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k27qy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpcq0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ppuxl")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfxr0"]
+size = Vector2(13, 22)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y8bqw"]
+radius = 3.0
+height = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8bqw"]
+size = Vector2(15, 24)
+
+[node name="TreeSpirit" type="RigidBody2D" unique_id=431899027]
+script = ExtResource("1_y8bqw")
+enemy_name = "Tree Spirit"
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=6642732]
+position = Vector2(1, 9)
+sprite_frames = SubResource("SpriteFrames_ii71a")
+autoplay = "default"
+frame_progress = 0.7482591
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_8a5n2")]
+position = Vector2(0, -4)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=152984374]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=901189856]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_qfxr0")
+
+[node name="MinionBlock" type="Area2D" parent="." unique_id=232661499]
+collision_layer = 32
+collision_mask = 32
+
+[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=2115557973]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_y8bqw")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=1638840688]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_y8bqw")

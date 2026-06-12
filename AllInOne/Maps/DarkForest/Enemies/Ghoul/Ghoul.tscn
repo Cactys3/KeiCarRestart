@@ -50,6 +50,7 @@ radius = 3.0
 radius = 8.0
 
 [node name="Ghoul" type="RigidBody2D" unique_id=1543210943 node_paths=PackedStringArray("damage_hitbox")]
+gravity_scale = 0.0
 script = ExtResource("1_r2nhu")
 enemy_name = "Ghoul"
 damage_hitbox = NodePath("Damage_Hitbox")
@@ -59,7 +60,7 @@ turns_towards_movement = true
 position = Vector2(1, 9)
 sprite_frames = SubResource("SpriteFrames_gpt43")
 autoplay = "default"
-frame_progress = 0.8396042
+frame_progress = 0.94388694
 offset = Vector2(0, -8.385)
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("2_r2nhu")]

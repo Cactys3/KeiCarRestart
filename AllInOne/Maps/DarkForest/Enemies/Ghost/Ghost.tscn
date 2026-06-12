@@ -86,6 +86,7 @@ height = 12.0
 size = Vector2(11, 22)
 
 [node name="Ghost" type="RigidBody2D" unique_id=1102968055 node_paths=PackedStringArray("damage_hitbox")]
+gravity_scale = 0.0
 script = ExtResource("1_ew8bk")
 enemy_name = "Ghost"
 damage_hitbox = NodePath("Damage_Hitbox")
@@ -95,7 +96,7 @@ turns_towards_movement = true
 position = Vector2(1, 9)
 sprite_frames = SubResource("SpriteFrames_ydv0r")
 autoplay = "default"
-frame_progress = 0.4168222
+frame_progress = 0.45757708
 offset = Vector2(0, -8.385)
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("1_a4was")]
