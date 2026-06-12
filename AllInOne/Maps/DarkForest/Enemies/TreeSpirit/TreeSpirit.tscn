@@ -128,12 +128,13 @@ size = Vector2(15, 24)
 [node name="TreeSpirit" type="RigidBody2D" unique_id=431899027]
 script = ExtResource("1_y8bqw")
 enemy_name = "Tree Spirit"
+turns_towards_movement = true
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=6642732]
 position = Vector2(1, 9)
 sprite_frames = SubResource("SpriteFrames_ii71a")
 autoplay = "default"
-frame_progress = 0.7482591
+frame_progress = 0.66706365
 offset = Vector2(0, -8.385)
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_8a5n2")]

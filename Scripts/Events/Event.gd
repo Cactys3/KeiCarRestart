@@ -33,3 +33,5 @@ func _ready() -> void:
 func flash():
 	await get_tree().create_timer(0.1).timeout
 	visible = true
+func die():
+	queue_free()

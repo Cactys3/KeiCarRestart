@@ -12,6 +12,7 @@ const PROXIMITY_LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 ## handle health bar to see if we want that just for bosses
 func _ready() -> void:
 	can_be_frozen = false
+	super()
 func die():
 	drop_chest()
 	unlock_weapon()

@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://c6x5kxiq3op78"]
+
+[ext_resource type="Script" uid="uid://bnhsdpro70dgj" path="res://Scripts/enemy_scripts/enemy_types/boss.gd" id="1_cahjr"]
+[ext_resource type="Texture2D" uid="uid://rfmqs7n20et7" path="res://AllInOne/Maps/DarkForest/Bosses/CorruptTree/CorruptTree.png" id="2_yt0y5"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_woowr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbbft"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(1536, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arbmd"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(1664, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h55f1"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(1792, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hl21b"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpyoc"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enofw"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shegw"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8bim"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8e47"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86ywx"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qrap"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2usd"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qv2ub"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqcte"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(1280, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlgf8"]
+atlas = ExtResource("2_yt0y5")
+region = Rect2(1408, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6otp0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbbft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arbmd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h55f1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hl21b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpyoc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_enofw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shegw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8bim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8e47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86ywx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qrap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2usd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qv2ub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqcte")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlgf8")
+}],
+"loop": false,
+"name": &"start",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cahjr"]
+size = Vector2(68, 95)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yt0y5"]
+radius = 25.0
+height = 72.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_woowr"]
+size = Vector2(76, 102)
+
+[node name="CorruptTree" type="RigidBody2D" unique_id=921949867]
+script = ExtResource("1_cahjr")
+enemy_name = "Corrupt Tree"
+play_animation_before_ready = "start"
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=376917444]
+position = Vector2(1, 9)
+sprite_frames = SubResource("SpriteFrames_6otp0")
+autoplay = "default"
+frame_progress = 0.9698308
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_woowr")]
+position = Vector2(0, -4)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1114960930]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1582389295]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_cahjr")
+
+[node name="MinionBlock" type="Area2D" parent="." unique_id=1364044860]
+collision_layer = 32
+collision_mask = 32
+
+[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=1471213736]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_yt0y5")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=1737983782]
+position = Vector2(-1, 2)
+shape = SubResource("RectangleShape2D_woowr")

@@ -4,25 +4,60 @@
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_r2nhu"]
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="2_r2nhu"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fey5p"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2nhu"]
 atlas = ExtResource("1_77pou")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nkg02"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_fey5p"]
 atlas = ExtResource("1_77pou")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_26xsv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkg02"]
 atlas = ExtResource("1_77pou")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fowxb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_26xsv"]
 atlas = ExtResource("1_77pou")
 region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fowxb"]
+atlas = ExtResource("1_77pou")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpt43"]
+atlas = ExtResource("1_77pou")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5j7g"]
+atlas = ExtResource("1_77pou")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rxjp"]
+atlas = ExtResource("1_77pou")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjfeg"]
+atlas = ExtResource("1_77pou")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjipu"]
+atlas = ExtResource("1_77pou")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0020d"]
+atlas = ExtResource("1_77pou")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_piuy5"]
+atlas = ExtResource("1_77pou")
+region = Rect2(512, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gpt43"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2nhu")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fey5p")
 }, {
@@ -31,13 +66,44 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_26xsv")
+}],
+"loop": true,
+"name": &"Dark",
+"speed": 5.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fowxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpt43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5j7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rxjp")
+}],
+"loop": true,
+"name": &"Green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjfeg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjipu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0020d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_piuy5")
 }],
 "loop": true,
 "name": &"default",
-"speed": 9.0
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r2nhu"]
@@ -49,18 +115,17 @@ radius = 3.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_nkg02"]
 radius = 8.0
 
-[node name="Ghoul" type="RigidBody2D" unique_id=1543210943 node_paths=PackedStringArray("damage_hitbox")]
+[node name="Ghoul" type="RigidBody2D" unique_id=1543210943]
 gravity_scale = 0.0
 script = ExtResource("1_r2nhu")
 enemy_name = "Ghoul"
-damage_hitbox = NodePath("Damage_Hitbox")
+animation_variations = Array[String](["Dark", "Green", "default"])
 turns_towards_movement = true
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=368192574]
 position = Vector2(1, 9)
 sprite_frames = SubResource("SpriteFrames_gpt43")
 autoplay = "default"
-frame_progress = 0.94388694
 offset = Vector2(0, -8.385)
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("2_r2nhu")]

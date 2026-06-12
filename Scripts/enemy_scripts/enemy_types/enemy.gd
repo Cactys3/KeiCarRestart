@@ -8,6 +8,8 @@ enum EnemyTypes {unset}
 @export var sound_on_death: Sound
 @export var play_animation_before_ready: String = NO_ANIMATION_NAME
 const NO_ANIMATION_NAME: String = "no animation"
+@export var animation_variations: Array[String] = []
+var my_variation: String = "default"
 @export_category("Enemy Stats")
 @export var multiply_hp_by_minute: bool = true
 @export var melee_attacks: bool = true
@@ -160,7 +162,7 @@ func _ready() -> void:
 	lock_rotation = true
 	flash()
 	call_deferred("set_stats")
-	call_deferred("setup") 
+	call_deferred("setup")
 	add_to_group("enemy")
 func flash():
 	await get_tree().create_timer(0.1).timeout
@@ -186,6 +188,9 @@ func set_stats():
 
 ##
 func setup():
+	if animation_variations.size() > 0:
+		my_variation = animation_variations.pick_random()
+		anim.play(my_variation)
 	player = get_tree().get_first_node_in_group("player")
 	## Check if we play an animation before ready
 	if !anim || play_animation_before_ready == NO_ANIMATION_NAME:
@@ -196,7 +201,9 @@ func setup():
 		else:
 			anim.play(play_animation_before_ready)
 			await anim.animation_finished
-			anim.play("default")
+			anim.play(my_variation)
+			if anim.animation != my_variation:
+				printerr("Tried and fail to play enemy animation variation: ", my_variation, ", on enemy: ", enemy_name)
 		ImReady = true
 	#stats.connect_changed_signal(set_stats)
 ## Calculate HP with given Character Level

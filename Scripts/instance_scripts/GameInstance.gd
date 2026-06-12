@@ -398,8 +398,8 @@ func spawn_boss(scene: PackedScene, pos: Vector2):
 	bosses_spawned += 1
 	var boss = scene.instantiate()
 	boss.visible = false
-	boss.global_position = pos
 	game_man.enemy_parent.add_child(boss)
+	boss.global_position = pos
 	boss.visible = true
 func spawn_enemy_event(scene: PackedScene, pos: Vector2, enemy_event_spawn: EnemyEventSpawn):
 	enemy_events_alive += 1
@@ -581,7 +581,6 @@ class EnemyEventSpawn: ## TODO: add in functionality to enemy spawn in a line ac
 		return curr_spawns < max_spawns
 ## Contains data for a boss to spawn, determines when it will spawn/what makes it spawn
 class BossSpawn:
-	var name: String = "default"
 	var scene: PackedScene
 	## Number of times it can spawn max, per instance
 	var max_spawns: int 
@@ -591,10 +590,9 @@ class BossSpawn:
 	var enemies_killed: int
 	var time_elapsed: float
 	var ready: bool = false
-	func _init(new_enemies_killed: int, new_time_elapsed: float, new_name: String, new_scene: PackedScene, new_spawn_once_on_start: bool, new_kills_per_spawn: int, new_time_per_spawn: float) -> void:
+	func _init(new_enemies_killed: int, new_time_elapsed: float, new_scene: PackedScene, new_spawn_once_on_start: bool, new_kills_per_spawn: int, new_time_per_spawn: float) -> void:
 		enemies_killed = new_enemies_killed
 		time_elapsed = new_time_elapsed
-		name = new_name
 		scene = new_scene
 		kills_per_spawn = new_kills_per_spawn
 		time_per_spawn = new_time_per_spawn

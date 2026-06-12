@@ -12,6 +12,7 @@ const TREE_SPIRIT = preload("uid://cb307rg4gvkxp")
 
 ## Enemy Events
 ## Bosses
+const CORRUPT_TREE = preload("uid://c6x5kxiq3op78")
 ## Objects/Events
 const EVIL_TREE = preload("uid://cgctjw83xmopn")
 const GRAVE = preload("uid://cks1ybymewgsv")
@@ -19,6 +20,43 @@ const GRAVE = preload("uid://cks1ybymewgsv")
 ## Update grave values dynamically, so keep a reference
 var grave: EventSpawn
 
+## Overides
+## Check for corrupt tree, if so, spawn and replace a tree with it
+func spawn_boss(scene: PackedScene, pos: Vector2):
+	if scene == CORRUPT_TREE:
+		spawn_corrupt_tree(scene, pos)
+	else:
+		super(scene, pos)
+func spawn_corrupt_tree(scene: PackedScene, pos: Vector2):
+	bosses_alive += 1
+	bosses_spawned += 1
+	## Get the closest tree event
+	var tree: Event = null
+	var tree_distance: float
+	var tree_position: Vector2 = pos
+	var done_first: bool = false
+	for node in get_tree().get_nodes_in_group("event"):
+		if node.event_name == "Evil Tree":
+			if !done_first:
+				done_first = true
+				tree = node
+				tree_distance = node.global_position.distance_to(character.global_position)
+			else:
+				var new_distance: float = node.global_position.distance_to(character.global_position)
+				print("New: ", new_distance, " vs old: ", tree_distance)
+				if new_distance < tree_distance:
+					tree = node
+					tree_position = tree.global_position
+					tree_distance = new_distance
+					print("set new tree, dostamce:", tree_distance )
+	var boss = scene.instantiate()
+	game_man.enemy_parent.add_child(boss)
+	boss.global_position = tree_position
+	if tree:
+		print("killing tree: ", tree)
+		tree.call_deferred("die")
+	else:
+		print("set no tree")
 func _process(delta: float) -> void:
 	super(delta)
 func add_tiles():
@@ -36,7 +74,8 @@ func _ready() -> void:
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide
 	## Setups Phases
-	phases.append(SpawningPhase.new("", 600, phase_one))
+	phases.append(SpawningPhase.new("1", 5, phase_one))
+	phases.append(SpawningPhase.new("2", 600, phase_two))
 	## Setup Basic Events
 	grave = EventSpawn.new(GRAVE, Vector2(30, 44), 1, -1, 1)
 	events.append(grave)
@@ -53,9 +92,11 @@ func phase_one():
 	enemies.append(EnemySpawn.new(GHOUL, 0.2, 1))
 	enemies.append(EnemySpawn.new(GHOST, 0.2, 1)) 
 	enemies.append(EnemySpawn.new(TREE_SPIRIT, 0.2, 1))
+	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 func phase_two():
 	print("PHASE 2 - ")
 	generic_phase_setup(2)
+	bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#enemies.append(EnemySpawn.new(, 0.2, 1))
 func phase_three():
 	print("PHASE 3 - ")
