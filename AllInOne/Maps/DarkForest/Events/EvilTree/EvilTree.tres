@@ -8,5 +8,5 @@ script = ExtResource("1_2iq2g")
 event_scene = ExtResource("1_1mdib")
 event_name = "Evil Tree"
 event_type = 2
-event_size = Vector2(61, 95)
+event_size = Vector2(71, 105)
 metadata/_custom_type_script = "uid://d4k06wrgbubxe"

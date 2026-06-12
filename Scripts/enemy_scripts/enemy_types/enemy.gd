@@ -6,6 +6,8 @@ class_name Enemy
 @export var enemy_type: EnemyTypes = EnemyTypes.unset
 enum EnemyTypes {unset}
 @export var sound_on_death: Sound
+@export var play_animation_before_ready: String = NO_ANIMATION_NAME
+const NO_ANIMATION_NAME: String = "no animation"
 @export_category("Enemy Stats")
 @export var multiply_hp_by_minute: bool = true
 @export var melee_attacks: bool = true
@@ -130,7 +132,11 @@ var curr_critdamage: float
 var facing_left: bool = true
 var ImReady: bool = false
 var can_drop_stuff: bool = true
-var can_attack_other_enemies: bool = false
+## Can attack variables updated by other things dynamically
+var can_attack_enemies: bool = false
+var can_attack_events: bool = false
+var can_attack_player: bool = true
+var can_attack_creations: bool = true
 ## Called on death with position of death
 signal death(position: Vector2)
 ## Player Level at time Enemy was spawned
@@ -171,7 +177,17 @@ func set_stats():
 ##
 func setup():
 	player = get_tree().get_first_node_in_group("player")
-	ImReady = true
+	## Check if we play an animation before ready
+	if !anim || play_animation_before_ready == NO_ANIMATION_NAME:
+		ImReady = true
+	else:
+		if !anim.sprite_frames.has_animation(play_animation_before_ready):
+			printerr("Trying to play animation for enemy, but doesn't have: ", play_animation_before_ready)
+		else:
+			anim.play(play_animation_before_ready)
+			await anim.animation_finished
+			anim.play("default")
+		ImReady = true
 	#stats.connect_changed_signal(set_stats)
 ## Calculate HP with given Character Level
 func initialize(new_minute: float, new_level: float, new_difficulty: float):
@@ -625,4 +641,20 @@ static func calculate_enemy_damage(base_dmg: float, game_level: float, game_diff
 	return ret
 ## Returns if this can attack the node
 func can_attack(body: Node2D) -> bool:
-	return (can_attack_other_enemies || !body.is_in_group("enemy")) && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage")
+	var ret: bool = true
+	## Damagable bodies have this variable and function pair
+	if !"can_be_damaged" in body || !body.has_method("damage"):
+		ret = false
+	## if enemy, only attack if can attack enemies
+	if body.is_in_group("enemy") && !can_attack_enemies:
+		ret = false
+	## if player, only attack if can attack player
+	if body.is_in_group("player") && !can_attack_player:
+		ret = false
+	## if creation, only attack if can attack creations
+	if body.is_in_group("creation") && !can_attack_creations:
+		ret = false
+	## if event, only attack if can attack events
+	if body.is_in_group("event") && !can_attack_events:
+		ret = false
+	return ret

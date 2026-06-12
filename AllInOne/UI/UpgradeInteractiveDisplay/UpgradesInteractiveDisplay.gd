@@ -56,7 +56,7 @@ func _ready() -> void:
 			line.add_point(start, 0)
 			line.add_point(end, 1)
 			line.width = 3
-			print("Make line from: ", prereq.upgrade_name, " to: ", upgrade.upgrade_name)
+			#print("Make line from: ", prereq.upgrade_name, " to: ", upgrade.upgrade_name)
 			upgrades.get(prereq).set_line(line, 0)
 			upgrades.get(upgrade).set_line(line, 1)
 			line.gradient = Gradient.new()

@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://cavkgqw85lhxw"]
+
+[ext_resource type="Texture2D" uid="uid://dixan8anp0glg" path="res://AllInOne/Maps/DarkForest/Enemies/Ghoul/Ghoul.png" id="1_77pou"]
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_r2nhu"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="2_r2nhu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fey5p"]
+atlas = ExtResource("1_77pou")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkg02"]
+atlas = ExtResource("1_77pou")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26xsv"]
+atlas = ExtResource("1_77pou")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fowxb"]
+atlas = ExtResource("1_77pou")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gpt43"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fey5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nkg02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26xsv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fowxb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r2nhu"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fey5p"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nkg02"]
+radius = 8.0
+
+[node name="Ghoul" type="RigidBody2D" unique_id=1543210943 node_paths=PackedStringArray("damage_hitbox")]
+script = ExtResource("1_r2nhu")
+enemy_name = "Ghoul"
+damage_hitbox = NodePath("Damage_Hitbox")
+turns_towards_movement = true
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=368192574]
+position = Vector2(1, 9)
+sprite_frames = SubResource("SpriteFrames_gpt43")
+autoplay = "default"
+frame_progress = 0.8396042
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("2_r2nhu")]
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1160125059]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1333730517]
+shape = SubResource("CircleShape2D_r2nhu")
+
+[node name="MinionBlock" type="Area2D" parent="." unique_id=270056752]
+collision_layer = 32
+collision_mask = 32
+
+[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=1674176036]
+shape = SubResource("CircleShape2D_fey5p")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=89718615]
+shape = SubResource("CircleShape2D_nkg02")

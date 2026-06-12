@@ -4,18 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="2_j22yq"]
 [ext_resource type="Texture2D" uid="uid://0v5thn2yv84r" path="res://AllInOne/Maps/DarkForest/Enemies/Skeleton/Skeleton.png" id="2_qndeg"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f3f06"]
-atlas = ExtResource("2_qndeg")
-region = Rect2(528, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n6a43"]
-atlas = ExtResource("2_qndeg")
-region = Rect2(576, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aflpf"]
-atlas = ExtResource("2_qndeg")
-region = Rect2(624, 0, 48, 48)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_cokka"]
 atlas = ExtResource("2_qndeg")
 region = Rect2(96, 0, 48, 48)
@@ -52,22 +40,20 @@ region = Rect2(432, 0, 48, 48)
 atlas = ExtResource("2_qndeg")
 region = Rect2(480, 0, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3f06"]
+atlas = ExtResource("2_qndeg")
+region = Rect2(528, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6a43"]
+atlas = ExtResource("2_qndeg")
+region = Rect2(576, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aflpf"]
+atlas = ExtResource("2_qndeg")
+region = Rect2(624, 0, 48, 48)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_qndeg"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f3f06")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n6a43")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aflpf")
-}],
-"loop": true,
-"name": &"Move",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cokka")
@@ -99,6 +85,20 @@ animations = [{
 "loop": false,
 "name": &"Rise",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3f06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6a43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aflpf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f3f06"]
@@ -116,15 +116,15 @@ collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_v4a0o")
 enemy_name = "Skeleton"
+play_animation_before_ready = "Rise"
 damage_hitbox = NodePath("Damage_Hitbox")
 turns_towards_movement = true
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1259447097]
 position = Vector2(1, 7)
 sprite_frames = SubResource("SpriteFrames_qndeg")
-animation = &"Move"
-autoplay = "Move"
-frame_progress = 0.4796224
+animation = &"Rise"
+autoplay = "default"
 offset = Vector2(0, -8.385)
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("2_j22yq")]
