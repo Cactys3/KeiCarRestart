@@ -80,6 +80,8 @@ func _ready() -> void:
 	phases.append(SpawningPhase.new("2", 600, phase_two))
 	## Setup Events
 	grave = EventSpawn.new(GRAVE, Vector2(30, 44), 1, -1, 1)
+	## Try to spawn graves before trees
+	grave.priority = 1
 	tree = EventSpawn.new(EVIL_TREE, Vector2(30, 44), 0.5, -1, 15)
 	events.append(grave)
 	events.append(tree)

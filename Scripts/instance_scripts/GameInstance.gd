@@ -302,6 +302,8 @@ func spawn_backups(pos: Vector2, num: int):
 		counter += 1
 ## Spawns any events that should be spawned in newly created chunk
 func spawn_events(chunk_id: Vector2):
+	## Process events in priority order
+	events.sort_custom(func(a, b): return a.priority > b.priority)
 	for event in events:
 		if event.can_spawn():
 			for i in event.max_per_tile:
@@ -614,6 +616,8 @@ class BossSpawn:
 		return true
 ## Contains data for the data to consider each time events are spawned
 class EventSpawn:
+	## Higher priority means this event is attempted to be spawned first 
+	var priority: float = 0
 	var event: EventData
 	## spawn chance from 0 to 1
 	var spawn_chance: float = 0
