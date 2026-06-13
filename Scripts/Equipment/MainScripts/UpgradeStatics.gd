@@ -27,6 +27,9 @@ static var enemy_shock_defense_reduction: float = 5
 ## Multiplier increase of enemy status threshold after each proc
 static var enemy_bleed_threshold_multiplier: float = 1.7
 static var enemy_frost_threshold_multiplier: float = 2
+## Raw Burn damage
+static var burn_buff_base: float = 0
+static var burn_buff_factor: float = 1
 
 ## Trigger based buffs (applied in places where things are spawned via specific triggers)
 static var reload_spawns_count_buff: int = 0

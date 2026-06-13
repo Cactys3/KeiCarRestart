@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_mis86"]
 
 [node name="ShockProjectile" type="Area2D" unique_id=2082232616 node_paths=PackedStringArray("anim")]
+collision_layer = 4100
+collision_mask = 648
 script = ExtResource("1_mis86")
 can_knockback = false
 anim = NodePath("AnimatedSprite2D")

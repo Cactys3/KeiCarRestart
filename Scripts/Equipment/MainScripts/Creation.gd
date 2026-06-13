@@ -167,13 +167,11 @@ func ProcessTarget(delta: float):
 var damage_multiplier: float = 1
 func _on_body_entered(body: Node2D) -> void:
 	super(body)
-## Use 'can_attack' instead of callable get attack because only melee attacks, no projectiles?
-func can_attack(body: Node2D) -> bool: 
-	return damage_on_collision && body.is_in_group("enemy") && !have_attacked(body)
 ## Use this for projectiles?? idk
 func get_can_attack_callable() -> Callable:
-	return func(body: Node2D) -> bool:
-		return !body.is_in_group("player") && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage")
+	return can_attack
+	#return func(body: Node2D) -> bool:
+		#return !body.is_in_group("player") && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage")
 func attack_body(body: Node2D):
 	body.damage(make_attack(damage_multiplier))
 	if self_knockback_onhit > 0 && can_be_knockedback:
@@ -209,6 +207,8 @@ func make_attack(attack_damage_multiplier: float) -> Attack:
 	## Set Color
 	attack.set_attack_color(attack_color)
 	game_man.handle_attack(attack)
+	## TODO: i want to set impact location if it's a melee attack
+	attack.impact_location = global_position
 	return attack
 func get_attack_type() -> Attack.AttackTypes:
 	return Attack.AttackTypes.upgrade_creation

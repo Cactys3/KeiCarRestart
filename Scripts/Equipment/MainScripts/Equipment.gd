@@ -117,7 +117,7 @@ func deactivate():
 ## Returns if this Equipment can attack the given node (not the player, has damage() func, can_be_damaged)
 func get_can_attack_callable() -> Callable:
 	return func(body: Node2D) -> bool:
-		return !body.is_in_group("player") && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage")
+		return !body.is_in_group("player") && body.has_method("damage") && "can_be_damaged" in body && body.get("can_be_damaged")
 ## FIND ENEMIES
 ## Returns nearest enemy or null
 func get_nearest_enemy() -> Variant:

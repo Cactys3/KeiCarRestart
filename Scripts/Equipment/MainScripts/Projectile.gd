@@ -9,6 +9,7 @@ var clone_offset: float = 0.5
 var return_to_sender: bool = false
 var sender: Node2D
 
+
 #var damage: float = 10
 #var count: float = 1
 #var piercing: float = 0
@@ -47,6 +48,7 @@ func _ready() -> void:
 	super()
 	if die_on_anim_end && anim:
 		anim.animation_finished.connect(die)
+	
 func _process(delta: float) -> void:
 	if dead:
 		return
@@ -178,6 +180,7 @@ func make_attack(attack_damage_multiplier: float) -> Attack:
 	attack.can_knockback = can_knockback
 	## Set Color
 	attack.set_attack_color(attack_color)
+	attack.impact_location = global_position
 	return attack
 func die():
 	if dead:

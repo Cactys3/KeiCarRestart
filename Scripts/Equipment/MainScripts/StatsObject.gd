@@ -53,8 +53,7 @@ class_name StatsObject
 func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
-	if size_stat == 0 && self is Projectile:
-		print("Size is 0 for ", name, " Path: ", scene_file_path)
+	pass
 ## Adds Base Stats to given StatsList (Base Stat, not Base Stat + Global Stat)
 func add_to_stats_list(list: GlobalStats.StatsList) -> GlobalStats.StatsList: 
 	list.add_to_stat(GlobalStats.HP, _hp)
@@ -94,9 +93,13 @@ func add_to_stats_list(list: GlobalStats.StatsList) -> GlobalStats.StatsList:
 var game_man: 
 	get():
 		return GameManager.instance
+## Base check for the body having the methods required to be attacked
+func can_attack(body: Node2D) -> bool:
+	return body.has_method("damage") && "can_be_damaged" in body && body.get("can_be_damaged")
 func get_can_attack_callable() -> Callable:
-	return func(body: Node2D) -> bool:
-		return body.has_method("damage")
+	return can_attack
+	#return func(body: Node2D) -> bool:
+		#return body.has_method("damage") && "can_be_damaged" in body && body.get("can_be_damaged")
 ## Calculate and return an attack with damage multiplier
 func make_attack(attack_damage_multiplier: float) -> Attack:
 	## Make Two Stats Lists

@@ -5,6 +5,7 @@ class_name SpawnObject
 @export var spawn_name: String = "unset"
 @export var can_attack_enemies: bool = true
 @export var can_atack_events: bool = true
+@export var can_attack_player: bool = false
 ## How long until we can attack an enemy for a second time?
 @export var attack_same_enemy_cooldown: float = 2
 @export var attack_color: Color = Color.TRANSPARENT
@@ -133,8 +134,18 @@ func _on_body_entered(body: Node2D) -> void:
 		append_attack_element(body)
 ## Check if we can attack body using @export variables
 func can_attack(body: Node2D) -> bool: 
-	var right_type: bool = (can_attack_enemies && body.is_in_group("enemy")) || (can_atack_events && body.is_in_group("event"))
-	return right_type && !have_attacked(body)
+	## Is it a valid node with required methods/variables
+	if !super(body):
+		return false
+	## Type checks 
+	if body.is_in_group("enemy") && !can_attack_enemies:
+		return false
+	if body.is_in_group("event") && !can_atack_events:
+		return false
+	if body.is_in_group("player") && !can_attack_player:
+		return false
+	## Have we attacked it
+	return !have_attacked(body)
 ## Override this to attack the body
 func attack_body(body: Node2D):
 	if body.has_method("damage"):

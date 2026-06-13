@@ -6,6 +6,8 @@ class_name NonInteractableEvent
 @export var can_be_knockbacked:bool = false
 @export var can_be_stunned:bool = false
 @export var multiply_hp_by_minute: bool = true
+@export var flat_damage_reduction: float = 0
+@export var percent_damage_taken: float = 1
 @export var drop_on_death: PackedScene
 @export var xp_on_death: int = 10
 @export var hp: float = 100
@@ -27,7 +29,7 @@ class_name NonInteractableEvent
 @export var can_damage: bool = false
 @export var only_damage_player: bool = true
 @export var cooldown: float = 5
-@export var attack_damage: float = 10
+@export var event_attack_damage: float = 10
 @export var stun: float = 0
 @export var slow: float = 0
 @export var knockback: float = 0
@@ -126,11 +128,13 @@ func _hitbox_entered(body: Node2D) -> void:
 		if (!only_damage_player || body.is_in_group("player")) && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage"):
 			stopwatch = 0
 			var attack: Attack = Attack.new(Attack.AttackTypes.map_hazard, self, global_position, status, null, null)
-			attack.simple_setup(attack_damage, knockback)
+			attack.simple_setup(event_attack_damage, knockback)
 			GameManager.instance.player.damage(attack)
 func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
+	## Pass attack through upgrades (Can't because this is an event not an enemy)
+	#attack = GameManager.instance.handle_attack_enemy(attack, self)
 	## Apply Status Effect Changes (doesn't apply status effect effects yet)
 	burn += attack.get_burn()
 	frost += attack.get_frost()
@@ -138,50 +142,68 @@ func damage(attack: Attack):
 	bleed += attack.get_bleed()
 	shock += attack.get_shock()
 	wet += attack.get_wet()
-
-	## Calculate Damage
-	var recieved_damage: float = attack.get_damage()
-	var shock_damage: float = 0
-	var wet_damage: float = 0
-	
+	## Flat Damage Reduction, can be negative (take bonus damage)
+	var damage_reduction = flat_damage_reduction - shock_defense_reduction
+	## Calculate Damag
+	var attack_true_damage: float = attack.get_damage()
+	var shock_true_damage: float = 0
+	var wet_true_damage: float = 0
+	## Apply Crit
+	var is_crit: bool = attack.get_crit()
+	if is_crit:
+		pass
 	## Shock
 	if attack.status.applies_shock:
-		shock_damage = get_shock_damage()
+		shock_true_damage = get_shock_damage()
 	## Wet
 	if attack.status.applies_wet:
-		wet_damage = get_wet_damage()
-	## The Attack
-	var total_damage: float = recieved_damage + wet_damage + shock_damage
-	var damage_taken = total_damage
-	if damage_taken > 0:
+		wet_true_damage = get_wet_damage()
+	var pre_reduction_damage: float = attack_true_damage + wet_true_damage + shock_true_damage - damage_reduction
+	## Calculate the percents that each damage type are of total attack
+	var wet_percent: float = wet_true_damage / pre_reduction_damage
+	var shock_percent: float = shock_true_damage / pre_reduction_damage
+	var attack_percent: float = attack_true_damage / pre_reduction_damage
+	## Sum all attack damage values (Include flat and percent damage reductions)
+	var total_damage: float = (attack_true_damage + wet_true_damage + shock_true_damage - damage_reduction) * percent_damage_taken
+	if total_damage > 0:
 		GameManager.instance.EnemyDamaged.emit(self, attack)
-		curr_health -= damage_taken
-	if false:
-		print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
-		print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
-		print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
-		print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
-		print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
-		print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
+		curr_health -= total_damage
+	## Calculate real damages
+	var wet_damage: float = wet_percent * total_damage
+	var shock_damage: float = shock_percent * total_damage
+	var attack_damage: float = attack_percent * total_damage
+	if DebugManager.StatusApplied:
+		if attack.status.applies_burn && attack.get_burn() > 0:
+			print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
+		if attack.status.applies_frost && attack.get_frost() > 0:
+			print("Add Frost: ", attack.get_frost(), " Applied: ", attack.status.applies_frost)
+		if attack.status.applies_poison && attack.get_poison() > 0:
+			print("Add Poison: ", attack.get_poison(), " Applied: ", attack.status.applies_poison)
+		if attack.status.applies_bleed && attack.get_bleed() > 0:
+			print("Add Bleed: ", attack.get_bleed(), " Applied: ", attack.status.applies_bleed)
+		if attack.status.applies_shock && attack.get_shock() > 0:
+			print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
+		if attack.status.applies_wet && attack.get_wet() > 0:
+			print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
 	## Apply Stun and Knockback
 	if attack.get_stun() > 0 && can_be_stunned:
-			pass#stun_time_left = attack.get_stun()
-			#stunned = true
-			#linear_velocity = Vector2.ZERO
+		pass#stun_time_left = attack.get_stun()
+		#stunned = true
+		#linear_velocity = Vector2.ZERO
 	if can_be_knockbacked && attack.get_knockback() != 0:
-		pass
-		#if stun_time_left < 1 && can_be_stunned:
+		pass#if stun_time_left < 1 && can_be_stunned:
 			#stun_time_left = 0.2
 			#stunned = true
 		#apply_knockback(attack.position, attack.get_knockback())
-	if recieved_damage > 0:
-		display_damage(recieved_damage, attack.attack_color)
+	if attack_damage > 0:
+		display_damage(attack_damage, attack.attack_color, attack.get_crit(), attack.impact_location)
 	if shock_damage > 0:
-		display_damage(shock_damage, Color.GOLD)
+		display_damage(shock_damage, Color.GOLD, attack.get_crit(), attack.impact_location)
 	if wet_damage > 0:
-		display_damage(wet_damage, Color.BLUE)
+		display_damage(wet_damage, Color.BLUE, attack.get_crit(), attack.impact_location)
 	## Die.
 	check_death(attack)
+
 func die():
 	if !dead:
 		dead = true
@@ -301,7 +323,7 @@ func proc_burn() -> Attack:
 	applied_burn += 1
 	curr_health -= current_burn_damage
 	## Do the display dmg
-	display_damage(current_burn_damage, Color.RED)
+	display_damage(current_burn_damage, Color.RED, false, Vector2(0, 0))
 	return attack
 func proc_frost() -> Attack:
 	if particles:
@@ -317,7 +339,7 @@ func proc_frost() -> Attack:
 	applied_frost += 1
 	curr_health -= current_frost_damage
 	## Do the display dmg
-	display_damage(current_frost_damage, Color.LIGHT_CYAN)
+	display_damage(current_frost_damage, Color.LIGHT_CYAN, false, Vector2(0, 0))
 	## Raise the threshold
 	frost_threshhold *= Statics.enemy_frost_threshold_multiplier
 	return attack
@@ -333,7 +355,7 @@ func proc_poison() -> Attack:
 	applied_poison += 1
 	curr_health -= current_poison_damage
 	## Do the display dmg
-	display_damage(current_poison_damage, Color.GREEN)
+	display_damage(current_poison_damage, Color.GREEN, false, Vector2(0, 0))
 	return attack
 func proc_bleed() -> Attack:
 	if particles:
@@ -348,7 +370,7 @@ func proc_bleed() -> Attack:
 	applied_bleed += 1
 	curr_health -= current_bleed_damage
 	## Do the display dmg
-	display_damage(current_bleed_damage, Color.ORANGE_RED)
+	display_damage(current_bleed_damage, Color.ORANGE_RED, false, Vector2(0, 0))
 	## Raise bleed threshold
 	bleed_threshhold *= Statics.enemy_bleed_threshold_multiplier
 	return attack
@@ -365,25 +387,32 @@ func proc_wet():
 	applied_wet = floor(wet / wet_threshhold)
 ## Get Damages
 func get_burn_damage() -> float:
-	return GlobalStats.get_stat(GlobalStats.BURN_DAMAGE)
+	return get_damage_reduced_value((GlobalStats.get_stat(GlobalStats.BURN_DAMAGE) + Statics.burn_buff_base) * Statics.burn_buff_factor)
 func get_frost_movespeed_reduction() -> float:
-	## -base * number of times threshold has been reached
-	return -1 * (frost / frost_threshhold) * Statics.enemy_frost_movespeed_reduction
+	## -base * number of times threshold has been reached / 3
+	return -Statics.enemy_frost_movespeed_reduction * (frost / frost_threshhold) / 3
 func get_frost_damage() -> float:
-	return curr_health * (GlobalStats.get_stat(GlobalStats.FROST_DAMAGE) / 100)
+	return get_damage_reduced_value(curr_health * (GlobalStats.get_stat(GlobalStats.FROST_DAMAGE) / 100))
 func get_shock_defense_reduction() -> float:
 	## base * number of times threshold has been reached
 	return (shock / shock_threshhold) * Statics.enemy_shock_defense_reduction
 func get_bleed_damage() -> float:
-	return hp * (GlobalStats.get_stat(GlobalStats.BLEED_DAMAGE) / 100)
+	var value: float = hp * (GlobalStats.get_stat(GlobalStats.BLEED_DAMAGE) / 100)
+	if Statics.bleeds_crit_on_enemy > 0:
+		value *= Statics.global_crit_damage_factor
+	return get_damage_reduced_value(value)
 func get_poison_damage() -> float:
 	# 1/4 of max health for each time above threshold
 	var mulitplier: float = floor(poison / poison_threshhold)
-	return hp * GlobalStats.get_stat(GlobalStats.POISON_DAMAGE) * mulitplier
+	return get_damage_reduced_value(hp * GlobalStats.get_stat(GlobalStats.POISON_DAMAGE) * mulitplier)
 func get_shock_damage() -> float:
+	## Don't calculate in damage reduction as that is done in damage()
 	return GlobalStats.get_stat(GlobalStats.SHOCK_DAMAGE)
 func get_wet_damage() -> float:
+	## Don't calculate in damage reduction as that is done in damage()
 	return GlobalStats.get_stat(GlobalStats.WET_DAMAGE)
+func get_damage_reduced_value(value: float) -> float:
+	return (value - (flat_damage_reduction + shock_defense_reduction)) * percent_damage_taken
 ## Makes a status effect attack to attack self (when a status effect damages this enemy)
 func make_status_attack(status_damage: float, type: StatusEffects.StatusTypes) -> Attack:
 	## Report what type of status effect it was
@@ -411,10 +440,24 @@ func make_status_attack(status_damage: float, type: StatusEffects.StatusTypes) -
 	attack.simple_setup(status_damage, 0)
 	return attack
 ## Makes a PopupText for the given damage and color, Color.TRANSPARENT for random color
-func display_damage(damage_value: float, color: Color):
+func display_damage(damage_value: float, color: Color, crit: bool, attack_position: Vector2):
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
-	dmg_text.global_position = Vector2.ZERO
+	dmg_text.global_position = attack_position
+	var text: String = str(int(round(damage_value)))
+	if crit:
+		text += "!"
+	var size: float = damage_value + randi_range(-5, 5)
+	var location: Vector2 = WindowManager.instance.convert_small_position(global_position)
+	## If attack gives us a valid position of impact
+	if attack_position != Vector2(0, 0):
+		var old = location
+		location = WindowManager.instance.convert_small_position(attack_position)
+		print("Location: ", location, " vs old: ", old)
+	## Offset
+	location = location + Vector2(randf_range(-5, 5), randf_range(-5, 5))
+	var lifetime: float = 1.5
+	var random_location_range: Vector2 = Vector2(10, 10)
 	if color == Color.TRANSPARENT:
-		dmg_text.setup(str(int(round(damage_value))), damage_value + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10))
+		dmg_text.setup(text, size, location, lifetime, random_location_range)
 	else:
-		dmg_text.setup_color(str(int(round(damage_value))), damage_value + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), color)
+		dmg_text.setup_color(text, size, location, lifetime, random_location_range, color)

@@ -63,6 +63,7 @@ collision_mask = 0
 script = ExtResource("1_pqand")
 hurtbox = NodePath("Hitbox")
 can_be_damaged = true
+percent_damage_taken = 0.5
 hp = 10000000000.0
 can_have_status_effect = true
 hitbox = NodePath("Hitbox")

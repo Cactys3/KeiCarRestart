@@ -78,7 +78,7 @@ height = 16.0
 
 [node name="DragonFireball" type="Area2D" unique_id=1233995899 node_paths=PackedStringArray("anim")]
 collision_layer = 4100
-collision_mask = 136
+collision_mask = 648
 script = ExtResource("1_bqp1s")
 anim = NodePath("AnimatedSprite2D")
 make_own_attack = true

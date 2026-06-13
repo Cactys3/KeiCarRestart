@@ -75,6 +75,8 @@ radius = 13.0
 height = 38.0
 
 [node name="GhostsplosionProjectile" type="Area2D" unique_id=1812170956 node_paths=PackedStringArray("anim")]
+collision_layer = 4100
+collision_mask = 648
 script = ExtResource("1_5mqoh")
 homing = false
 angular_velocity = 0.0

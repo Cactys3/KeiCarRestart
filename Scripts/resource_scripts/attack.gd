@@ -20,6 +20,7 @@ enum AttackTypes{
 	enemy_status,
 	map_hazard}
 var position: Vector2 # Position of Attack
+var impact_location: Vector2
 ## Attacker Given Data
 var status: StatusEffects # Attacker's Offensive Status Effects
 var attacker: Node2D # Reference to attacker

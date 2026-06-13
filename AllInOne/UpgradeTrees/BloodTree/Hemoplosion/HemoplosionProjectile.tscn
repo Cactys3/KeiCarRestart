@@ -140,13 +140,11 @@ animations = [{
 radius = 120.01666
 
 [node name="HemoplosionProjectile" type="Area2D" unique_id=1425503357 node_paths=PackedStringArray("anim")]
-collision_layer = 4
-collision_mask = 136
+collision_layer = 4100
+collision_mask = 648
 script = ExtResource("1_dtx78")
 homing = false
 angular_velocity = 0.0
-can_die_from_collision = false
-can_die_from_duration = false
 can_spawn_multiple = false
 face_rotation = false
 can_move = false
@@ -154,6 +152,8 @@ die_on_anim_end = true
 anim = NodePath("AnimatedSprite2D")
 make_own_attack = true
 attack_color = Color(0.86343604, 5.318448e-06, 7.70092e-07, 0)
+can_die_from_collision = false
+can_die_from_duration = false
 status = SubResource("Resource_2ag7h")
 bleed_apply = 1.5
 _damage = 99.0

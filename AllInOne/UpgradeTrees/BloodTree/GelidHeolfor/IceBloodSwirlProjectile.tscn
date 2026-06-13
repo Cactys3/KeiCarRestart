@@ -92,11 +92,10 @@ animations = [{
 radius = 13.0
 
 [node name="IceBloodSwirlProjectile" type="Area2D" unique_id=1833216951 node_paths=PackedStringArray("anim")]
-collision_layer = 4
-collision_mask = 136
+collision_layer = 4100
+collision_mask = 648
 script = ExtResource("1_jxhw6")
 homing = false
-can_die_from_collision = false
 can_spawn_multiple = false
 face_rotation = false
 can_knockback = false
@@ -104,6 +103,7 @@ can_move = false
 die_on_anim_end = true
 anim = NodePath("AnimatedSprite2D")
 make_own_attack = true
+can_die_from_collision = false
 status = SubResource("Resource_doutl")
 _damage = 80.0
 _piercing = 10.0

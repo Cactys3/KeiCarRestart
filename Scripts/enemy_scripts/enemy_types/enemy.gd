@@ -32,7 +32,8 @@ var my_variation: String = "default"
 @export var base_health: float = 50
 @export var base_regen: float = 0
 @export var base_knockback_modifier: float = 1
-@export var base_damage_reduction: float = 0
+@export var base_damage_reduction: float = 5
+@export var percent_damage_taken: float = 1
 @export var base_cooldown: float = 1
 @export_category("Enemy Projectile Stats")
 @export var projectile: PackedScene
@@ -436,12 +437,12 @@ func proc_wet():
 		print("Wet Proc, Applied Wet: ", applied_wet, ", Enemy: ", enemy_name)
 
 func get_burn_damage() -> float:
-	return GlobalStats.get_stat(GlobalStats.BURN_DAMAGE)
+	return get_damage_reduced_value((GlobalStats.get_stat(GlobalStats.BURN_DAMAGE) + Statics.burn_buff_base) * Statics.burn_buff_factor)
 func get_frost_movespeed_reduction() -> float:
 	## -base * number of times threshold has been reached / 3
 	return -Statics.enemy_frost_movespeed_reduction * (frost / frost_threshhold) / 3
 func get_frost_damage() -> float:
-	return curr_health * (GlobalStats.get_stat(GlobalStats.FROST_DAMAGE) / 100)
+	return get_damage_reduced_value(curr_health * (GlobalStats.get_stat(GlobalStats.FROST_DAMAGE) / 100))
 func get_shock_defense_reduction() -> float:
 	## base * number of times threshold has been reached
 	return (shock / shock_threshhold) * Statics.enemy_shock_defense_reduction
@@ -449,15 +450,19 @@ func get_bleed_damage() -> float:
 	var value: float = base_health * (GlobalStats.get_stat(GlobalStats.BLEED_DAMAGE) / 100)
 	if Statics.bleeds_crit_on_enemy > 0:
 		value *= Statics.global_crit_damage_factor
-	return value
+	return get_damage_reduced_value(value)
 func get_poison_damage() -> float:
 	# 1/4 of max health for each time above threshold
 	var mulitplier: float = floor(poison / poison_threshhold)
-	return base_health * GlobalStats.get_stat(GlobalStats.POISON_DAMAGE) * mulitplier
+	return get_damage_reduced_value(base_health * GlobalStats.get_stat(GlobalStats.POISON_DAMAGE) * mulitplier)
 func get_shock_damage() -> float:
+	## Don't calculate in damage reduction as that is done in damage()
 	return GlobalStats.get_stat(GlobalStats.SHOCK_DAMAGE)
 func get_wet_damage() -> float:
+	## Don't calculate in damage reduction as that is done in damage()
 	return GlobalStats.get_stat(GlobalStats.WET_DAMAGE)
+func get_damage_reduced_value(value: float) -> float:
+	return (value - (curr_damage_reduction + shock_defense_reduction)) * percent_damage_taken
 ## Makes a status effect attack to attack self (when a status effect damages this enemy)
 func make_status_attack(status_damage: float, type: StatusEffects.StatusTypes) -> Attack:
 	## Report what type of status effect it was
@@ -579,7 +584,7 @@ func is_player_nearby(distance: float) -> bool:
 		return true
 	return false
 func damage(attack: Attack):
-	if GameInstance.is_game_over:
+	if GameInstance.is_game_over || !ImReady:
 		return
 	## Pass attack through upgrades
 	attack = GameManager.instance.handle_attack_enemy(attack, self)
@@ -590,27 +595,35 @@ func damage(attack: Attack):
 	bleed += attack.get_bleed()
 	shock += attack.get_shock()
 	wet += attack.get_wet()
-
-	## Calculate Damage
-	var attack_damage: float = attack.get_damage()
-	var shock_damage: float = 0
-	var wet_damage: float = 0
+	## Flat Damage Reduction, can be negative (take bonus damage)
+	## Calculate Damag
+	var attack_true_damage: float = attack.get_damage()
+	var shock_true_damage: float = 0
+	var wet_true_damage: float = 0
 	## Apply Crit
 	var is_crit: bool = attack.get_crit()
 	if is_crit:
 		pass
 	## Shock
 	if attack.status.applies_shock:
-		shock_damage = get_shock_damage()
+		shock_true_damage = get_shock_damage()
 	## Wet
 	if attack.status.applies_wet:
-		wet_damage = get_wet_damage()
-	## The Attack
-	var total_damage: float = attack_damage + wet_damage + shock_damage
-	var damage_taken = total_damage - (curr_damage_reduction - shock_defense_reduction)
-	if damage_taken > 0:
+		wet_true_damage = get_wet_damage()
+	var pre_reduction_damage: float = attack_true_damage + wet_true_damage + shock_true_damage
+	## Calculate the percents that each damage type are of total attack
+	var wet_percent: float = wet_true_damage / pre_reduction_damage
+	var shock_percent: float = shock_true_damage / pre_reduction_damage
+	var attack_percent: float = attack_true_damage / pre_reduction_damage
+	## Sum all attack damage values (Include flat and percent damage reductions)
+	var total_damage: float = get_damage_reduced_value(attack_true_damage + wet_true_damage + shock_true_damage)
+	if total_damage > 0:
 		GameManager.instance.EnemyDamaged.emit(self, attack)
-		curr_health -= damage_taken
+		curr_health -= total_damage
+	## Calculate real damages
+	var wet_damage: float = wet_percent * total_damage
+	var shock_damage: float = shock_percent * total_damage
+	var attack_damage: float = attack_percent * total_damage
 	if DebugManager.StatusApplied:
 		if attack.status.applies_burn && attack.get_burn() > 0:
 			print("Add Burn: ", attack.get_burn(), " Applied: ", attack.status.applies_burn)
@@ -642,6 +655,7 @@ func damage(attack: Attack):
 		display_damage(wet_damage, Color.BLUE, attack.get_crit())
 	## Die.
 	check_death(attack)
+
 func death_signal(attack: Attack):
 	GameManager.instance.EnemyKilled.emit(self, attack)
 func apply_knockback(attack_pos: Vector2, knockback: float):
@@ -659,8 +673,8 @@ static func calculate_enemy_damage(base_dmg: float, game_level: float, game_diff
 ## Returns if this can attack the node
 func can_attack(body: Node2D) -> bool:
 	var ret: bool = true
-	## Damagable bodies have this variable and function pair
-	if !"can_be_damaged" in body || !body.has_method("damage"):
+	## Damagable bodies have this variable and function pair, and have can_be_damaged == true
+	if !"can_be_damaged" in body || !body.has_method("damage") || ("can_be_damaged" in body && !body.get("can_be_damaged")):
 		ret = false
 	## if enemy, only attack if can attack enemies
 	if body.is_in_group("enemy") && !can_attack_enemies:

@@ -136,12 +136,20 @@ size = Vector2(76, 102)
 script = ExtResource("1_cahjr")
 enemy_name = "Corrupt Tree"
 play_animation_before_ready = "start"
+can_be_knockbacked = false
+can_be_stunned = false
+can_be_frozen = false
+self_knockback_onhit = 10.0
+base_damage = 40.0
+base_movespeed = 21.0
+base_health = 2000.0
+percent_damage_taken = 0.7
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=376917444]
 position = Vector2(1, 9)
 sprite_frames = SubResource("SpriteFrames_6otp0")
 autoplay = "default"
-frame_progress = 0.9698308
+frame_progress = 0.7116975
 offset = Vector2(0, -8.385)
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_woowr")]
