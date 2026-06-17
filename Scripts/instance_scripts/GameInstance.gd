@@ -17,6 +17,8 @@ var enemy_parent: Node2D
 var xp_parent: Node2D
 var character_parent: Node2D
 var weapon_parent: Node2D
+## Misc
+const MAP_BORDER_COLLISION = preload("uid://c0fcgkctqqqug")
 ## Images
 const TileBlank = null
 var TILES: Array = []
@@ -263,15 +265,24 @@ func handle_enemy_spawning(delta: float, pos: Vector2):
 func load_chunk(chunk_id: Vector2):
 	var new_chunk: Sprite2D = FlashFixSprite.new()
 	# if chunk is without of map bounds
-	if abs(chunk_id.x) > abs(map_width) || abs(chunk_id.y) > abs(map_height):
+	if check_bounds(chunk_id):
 		new_chunk.texture = get_edge_tile(chunk_id)
+		spawn_map_border(chunk_id)
 	else:
 		new_chunk.texture = get_tile(chunk_id)
-		spawn_events(chunk_id)
+		spawn_events(chunk_id) 
 	background_parent.add_child(new_chunk)
-	new_chunk.position = ((chunk_id) * Vector2(640, 360))
+	new_chunk.position = ((chunk_id) * Vector2(chunk_x, chunk_y))
 	chunks.append(new_chunk)
 	chunks_dic.get_or_add(chunk_id, new_chunk)
+## Checks if the chunk is out of bounds for this map (out of bounds = true)
+func check_bounds(chunk_id: Vector2) -> bool:
+	return abs(chunk_id.x) > abs(map_width) || abs(chunk_id.y) > abs(map_height)
+func spawn_map_border(chunk_id: Vector2):
+	var border = MAP_BORDER_COLLISION.instantiate()
+	event_foreground_parent.add_child(border)
+	border.global_position = ((chunk_id) * Vector2(chunk_x, chunk_y))
+	print("Chunk: ", chunk_id, " Position: ", ((chunk_id) * Vector2(chunk_x, chunk_y)), " Result: ", border.global_position )
 ## Despawns the enemy that is farthest from position
 func despawn_enemies(pos: Vector2, num: int):
 	if num > 0:

@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://c0fcgkctqqqug"]
+
+[ext_resource type="Texture2D" uid="uid://ciau1gjxo8ntg" path="res://Art/Characters/Lily/Lily_White.png" id="1_l6b0t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s2uqo"]
+size = Vector2(640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o4h1"]
+atlas = ExtResource("1_l6b0t")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5w8e"]
+atlas = ExtResource("1_l6b0t")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghw2v"]
+atlas = ExtResource("1_l6b0t")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17s56"]
+atlas = ExtResource("1_l6b0t")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yg8m"]
+atlas = ExtResource("1_l6b0t")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gblla"]
+atlas = ExtResource("1_l6b0t")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vhjwt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o4h1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5w8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghw2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17s56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yg8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gblla")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6b0t"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.7300018, 0, 0.1983889, 1)
+
+[node name="MapBorderCollision" type="StaticBody2D" unique_id=1867008374]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=700475117]
+position = Vector2(320, 180)
+shape = SubResource("RectangleShape2D_s2uqo")
+debug_color = Color(0.98215586, 0, 0.36888444, 0.41960785)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1165220433]
+visible = false
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_vhjwt")
+autoplay = "default"
+
+[node name="Panel" type="Panel" parent="." unique_id=157465747]
+visible = false
+offset_top = -4.0
+offset_right = 643.0
+offset_bottom = 358.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l6b0t")
