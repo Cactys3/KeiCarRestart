@@ -328,6 +328,7 @@ func spawn_events(chunk_id: Vector2):
 func spawn_enemies(pos: Vector2):
 	for enemy in enemies:
 		if !can_spawn_more_enemies():
+			print("can't spawn more enemies")
 			break
 		if enemy.can_spawn():
 			for i in enemy.max_attempts:

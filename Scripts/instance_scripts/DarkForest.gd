@@ -236,7 +236,7 @@ func phase_eleven():
 	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
 func phase_twelve():
-	print("PHASE 12 - ")
+	print("PHASE 12 - Tree's Leader")
 	generic_phase_setup(12)
 	grave.spawn_chance = 0
 		#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
@@ -248,7 +248,7 @@ func phase_twelve():
 	bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
 func phase_thirteen():
-	print("PHASE 13 - ")
+	print("PHASE 13 - Spooky Ghosts")
 	generic_phase_setup(13)
 		#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))
@@ -259,7 +259,7 @@ func phase_thirteen():
 	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
 func phase_fourteen():
-	print("PHASE 14 - ")
+	print("PHASE 14 - Ghosts n' Co")
 	generic_phase_setup(14)
 		#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))
@@ -270,7 +270,7 @@ func phase_fourteen():
 	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
 func phase_fifteen():
-	print("PHASE 15 - ")
+	print("PHASE 15 - Ghosts n' Co Deluxe")
 	generic_phase_setup(15)
 		#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))
@@ -281,7 +281,7 @@ func phase_fifteen():
 	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
 func phase_sixteen():
-	print("PHASE 16 - ")
+	print("PHASE 16 - Ghosts n' Co Deluxe Ultimate Edition")
 	generic_phase_setup(16)
 		#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))
@@ -292,7 +292,7 @@ func phase_sixteen():
 	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
 func phase_seventeen():
-	print("PHASE 17 - ")
+	print("PHASE 17 - Orb")
 	generic_phase_setup(17)
 	grave.spawn_chance = 0
 	enemies.append(EnemySpawn.new(DARKORB, 0.15, 1))
@@ -304,7 +304,7 @@ func phase_seventeen():
 	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
 func phase_eighteen():
-	print("PHASE 18 - ")
+	print("PHASE 18 - Orb's Leader")
 	generic_phase_setup(18)
 	enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))
@@ -315,7 +315,7 @@ func phase_eighteen():
 	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
 func phase_nineteen():
-	print("PHASE 19 - ")
+	print("PHASE 19 - ?")
 	generic_phase_setup(19)
 		#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))
@@ -326,7 +326,7 @@ func phase_nineteen():
 	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
 func phase_twenty():
-	print("PHASE 20 - ")
+	print("PHASE 20 - ??")
 	generic_phase_setup(20)
 		#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))

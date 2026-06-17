@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_v4a0o"]
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="2_j22yq"]
 [ext_resource type="Texture2D" uid="uid://0v5thn2yv84r" path="res://AllInOne/Maps/DarkForest/Enemies/Skeleton/Skeleton.png" id="2_qndeg"]
+[ext_resource type="Script" uid="uid://bh1k2ntk5ha5s" path="res://Scripts/misc/RandomizeAnimationSpeed.gd" id="3_qndeg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cokka"]
 atlas = ExtResource("2_qndeg")
@@ -122,9 +123,12 @@ turns_towards_movement = true
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1259447097]
 position = Vector2(1, 7)
 sprite_frames = SubResource("SpriteFrames_qndeg")
-animation = &"Rise"
 autoplay = "default"
+frame_progress = 0.6404244
 offset = Vector2(0, -8.385)
+script = ExtResource("3_qndeg")
+max_random = 7.0
+min_random = 4.0
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("2_j22yq")]
 

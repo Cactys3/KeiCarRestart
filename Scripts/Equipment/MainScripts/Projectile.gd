@@ -136,10 +136,11 @@ func setup_return_to_sender(player: Node2D):
 func setup_death_method(method: Callable):
 	death_method = method
 func _on_body_entered(body: Node2D) -> void: 
-	if dead:
+	if dead || !body:
 		return
 	## Use callable because parent might be freed while projectile still exists
-	if (can_attack_method && can_attack_method.call(body)) && !have_attacked(body):
+	if can_attack(body):
+	#if (can_attack_method && can_attack_method.call(body)) && !have_attacked(body):
 		if sound_on_hit:
 			AudioManager.instance.play(sound_on_hit, global_position)
 		attack_body(body)
