@@ -11,7 +11,9 @@ func _process(delta: float) -> void:
 	super(delta)
 	if has_setup:
 		if spawn_stopwatch >= spawn_cooldown && GameInstance.instance.can_spawn_more_enemies():
-			spawn()
+			## Only actually spawn if close enough to player
+			if global_position.distance_to(GameManager.instance.player.global_position) < GameInstance.instance.enemy_max_distance_to_player:
+				spawn()
 			spawn_stopwatch = 0
 		else:
 			spawn_stopwatch += delta

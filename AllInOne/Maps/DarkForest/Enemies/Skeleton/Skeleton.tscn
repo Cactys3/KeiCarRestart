@@ -110,14 +110,13 @@ radius = 3.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_aflpf"]
 radius = 7.0
 
-[node name="RigidBody2D" type="RigidBody2D" unique_id=689508552 node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+[node name="RigidBody2D" type="RigidBody2D" unique_id=689508552 groups=["enemy"]]
 collision_layer = 8
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_v4a0o")
 enemy_name = "Skeleton"
 play_animation_before_ready = "Rise"
-damage_hitbox = NodePath("Damage_Hitbox")
 turns_towards_movement = true
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1259447097]

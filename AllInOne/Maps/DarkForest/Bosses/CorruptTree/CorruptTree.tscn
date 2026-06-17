@@ -133,6 +133,8 @@ height = 72.0
 size = Vector2(76, 102)
 
 [node name="CorruptTree" type="RigidBody2D" unique_id=921949867]
+collision_layer = 8
+collision_mask = 0
 script = ExtResource("1_cahjr")
 enemy_name = "Corrupt Tree"
 play_animation_before_ready = "start"
