@@ -4,6 +4,7 @@ extends NonInteractableEvent
 const SKELETON = preload("uid://c0shj1jlhrlmv")
 const spawn_cooldown: float = 10
 var spawn_stopwatch: float = 7
+## Use the same spawn chance to spawn Grave Events to spawn skeletons from this grave (weird)
 var spawn_chance: float = 1
 
 func _ready() -> void:

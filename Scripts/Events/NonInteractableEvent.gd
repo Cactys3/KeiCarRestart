@@ -42,6 +42,13 @@ class_name NonInteractableEvent
 @export var each_frame_is_alternative_art: bool = false
 @export var randomly_roll_alternative_art: bool = false
 @export var particles: EntityParticles = null
+@export_category("Death")
+@export var can_die_from_duration: bool = false
+@export var duration: float = 10
+var curr_duration: float = 0
+@export var can_die_from_attack_count: bool = false
+@export var max_attack_count: float = 10
+var curr_attack_count: float = 0
 
 var dead: bool = false
 var curr_health: float = 1000
@@ -109,6 +116,13 @@ func _process(delta: float) -> void:
 	global_position = round(global_position)
 	if can_have_status_effect:
 		status_process(delta)
+	if can_die_from_duration:
+		curr_duration += delta
+		if curr_duration > duration:
+			die()
+	if can_die_from_attack_count:
+		if curr_attack_count > max_attack_count:
+			die()
 func setup(new_time: float, new_level: float, new_chunk: Vector2):
 	super(new_time, new_level, new_chunk)
 	if foreground:

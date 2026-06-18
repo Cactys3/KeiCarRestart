@@ -34,7 +34,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d1nmx")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
@@ -59,6 +59,8 @@ immune_to_poison = true
 immune_to_bleed = true
 immune_to_shock = true
 immune_to_wet = true
+can_die_from_duration = true
+duration = 15.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=971327143]
 sprite_frames = SubResource("SpriteFrames_vdiic")
