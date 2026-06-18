@@ -9,7 +9,7 @@ var game_man: GameManager:
 @export var pickup_range: CollisionShape2D
 @export var anim: AnimatedSprite2D
 @export var face_towards_velocity: bool = true
-@export var knockback_modifier: float = 1
+@export var knockback_modifier: float = 1.2
 @export var can_be_knockbacked: bool = true
 @export var can_be_stunned: bool = true
 ## Stats
@@ -177,7 +177,8 @@ func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
 	## Pass attack through upgrades
-	attack = GameManager.instance.handle_incoming_attack(attack, attack.attacker, self)
+	if attack.attacker is Enemy:
+		attack = GameManager.instance.handle_incoming_attack(attack, attack.attacker, self)
 	## Consider Stance
 	var net_damage = attack.get_damage() - stance
 	if GlobalStats.calculate_avoid_damage(GlobalStats.get_stat(GlobalStats.GHOSTLY)):
@@ -205,7 +206,7 @@ func damage(attack: Attack):
 		stunning = true
 	## Knockback is applied fully for 1 frame as the player's own movement code then overwrites it quickly on the following frames.
 	if can_be_knockbacked && attack.get_knockback() != 0:
-		print("knockback: ", (global_position - attack.position).normalized() * attack.get_knockback() * knockback_modifier, " vs velocity: ", velocity)
+		#print("knockback: ", (global_position - attack.position).normalized() * attack.get_knockback() * knockback_modifier, " vs velocity: ", velocity)
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.get_knockback() * knockback_modifier)
 	if game_man.curr_hp <= 0:
 		die(attack)

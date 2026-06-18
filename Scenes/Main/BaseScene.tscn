@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scripts/instance_scripts/InstanceRoot.gd" id="1_eeah7"]
-[ext_resource type="Texture2D" uid="uid://cdoowwkvlvfk0" path="res://Art/DarkForest/Setting/Backdrop.png" id="2_pbrr2"]
+[ext_resource type="Texture2D" uid="uid://cdoowwkvlvfk0" path="res://AllInOne/Maps/DarkForest/Background/Backdrop.png" id="2_pbrr2"]
 [ext_resource type="Script" uid="uid://b2wexepea57hx" path="res://Scripts/misc/MainCamera.gd" id="4_qrryo"]
 [ext_resource type="Texture2D" uid="uid://k1ndatoaiv00" path="res://Art/Lighting/FOV_Radial_Gradient_16-9.png" id="5_eeah7"]
 [ext_resource type="PackedScene" uid="uid://08e3bacvts4n" path="res://Scenes/Misc/TestingManager.tscn" id="6_eeah7"]
@@ -26,7 +26,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qrryo")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -95,7 +95,6 @@ maximize_disabled = true
 content_scale_size = Vector2i(640, 360)
 content_scale_mode = 2
 content_scale_aspect = 1
-content_scale_stretch = 1
 
 [node name="Offset" type="Node2D" parent="Window640" unique_id=1483796866]
 process_mode = 1

@@ -9,7 +9,7 @@ func setup_enemy(new_enemy: Enemy, new_target: Node2D, enemy_direction:Vector2, 
 func attack_body(body: Node2D) -> void:
 	## If enemy that shot us still exists
 	if is_instance_valid(enemy):
-		enemy.damage_player_projectile(body)
+		enemy.attack_body(body)
 	else:
 	## If enemy that shot us has been freed/killed
 		var attack: Attack = make_attack(is_clone)

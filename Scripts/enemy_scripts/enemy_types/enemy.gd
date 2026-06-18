@@ -5,13 +5,29 @@ class_name Enemy
 @export_placeholder("lil description action?") var enemy_description: String = ""
 @export var enemy_type: EnemyTypes = EnemyTypes.unset
 enum EnemyTypes {unset}
+@export_category("On Death")
+@export var spawn_on_death: PackedScene = null
 @export var sound_on_death: Sound
+@export_category("Animations")
 @export var play_animation_before_ready: String = NO_ANIMATION_NAME
+@export var play_animation_on_death: String = NO_ANIMATION_NAME
+@export var is_dead_during_animation: bool = true
 const NO_ANIMATION_NAME: String = "no animation"
 @export var animation_variations: Array[String] = []
 var my_variation: String = "default"
+@export var turns_towards_movement: bool = false
+@export var rotate_towards_movement: bool = false
+@export var rotation_offset: float = 15
+@onready var anim: AnimatedSprite2D = $EnemySprite
+@onready var particles: EntityParticles = $StatusEffects
 @export_category("Enemy Stats")
 @export var multiply_hp_by_minute: bool = true
+## -1 for infininte, any other number for die after attacking for that count
+@export var die_after_attack_count: float = -1
+var attack_count: float = 0
+## Percent damage this enemy deals to other enemies
+@export var friendly_fire_damage_reduction: float = 0.5
+@export var movespeed_delta_modifier: float = 15
 @export var melee_attacks: bool = true
 @onready var damage_hitbox: Area2D = $Damage_Hitbox
 @onready var minion_block: Area2D = $MinionBlock
@@ -31,7 +47,7 @@ var my_variation: String = "default"
 @export var movespeed_modifier: float = 0
 @export var base_health: float = 50
 @export var base_regen: float = 0
-@export var base_knockback_modifier: float = 1
+@export var base_knockback_modifier: float = 1.0
 @export var base_damage_reduction: float = 5
 @export var percent_damage_taken: float = 1
 @export var base_cooldown: float = 1
@@ -41,7 +57,7 @@ var my_variation: String = "default"
 @export var base_range: float = 100
 @export var base_speed: float = 100
 @export var base_acceleration: float = 2
-@export var base_lifetime: float = 15
+@export var base_lifetime: float = 9
 @export var base_piercing: float = 0
 @export_category("Status Effects")
 # enemy's attacking status buildups (for if we charm enemies? to apply status on each other?)
@@ -62,7 +78,7 @@ var my_variation: String = "default"
 @export var bleed_threshhold: float = 1
 @export var shock_threshhold: float = 1
 @export var wet_threshhold: float = 1
-var can_be_damaged: bool = true
+
 ## Current values of each status that have been damaged into this enemy
 var burn: float = 0
 var frost: float = 0
@@ -103,10 +119,7 @@ var frozen: bool = false
 var movespeed_frozen_time_left: float = 0
 var frost_movespeed_reduction: float = 0
 var shock_defense_reduction: float = 0
-@export_category("Misc")
-@export var turns_towards_movement: bool = false
-@onready var anim: AnimatedSprite2D = $EnemySprite
-@onready var particles: EntityParticles = $StatusEffects
+
 const XP = preload("res://Scenes/Misc/xp_blip.tscn")
 const ITEM_DROP = preload("uid://d3v2pdpqpmvpe")
 var player: Character
@@ -120,6 +133,7 @@ var curr_knockback_modifier: float
 var curr_damage_reduction: float
 var curr_cooldown_max: float
 var cooldown_stopwatch: float = 0
+var time_since_knockedback: float = 0
 ## Projectile Stats:
 var projectile_cooldown_stopwatch: float = 0
 var curr_range: float
@@ -133,9 +147,15 @@ var curr_damage: float:
 var curr_critchance: float
 var curr_critdamage: float
 ## Misc:
+var stored_linear_velocity: Vector2 
+var stored_angular_velocity: float 
 var facing_left: bool = true
 var ImReady: bool = false
 var can_drop_stuff: bool = true
+## Can values
+var hitbox_disabled: bool = false
+var can_be_damaged: bool = true
+var can_move: bool = true
 ## Can attack variables updated by other things dynamically
 var can_attack_enemies: bool = false
 var can_attack_events: bool = false
@@ -152,11 +172,18 @@ var dead: bool = false
 
 func _ready() -> void:
 	anim.visible = false
+	## Layer: Enemy
 	set_collision_layer_value(4, true)
 	set_collision_layer_value(1, false)
+	## Layer: Enemy_Weapon
 	damage_hitbox.set_collision_layer_value(5, true)
+	damage_hitbox.set_collision_layer_value(1, false)
+	## Mask: Enemy, Player, Creation, Event
 	damage_hitbox.set_collision_mask_value(2, true)
 	damage_hitbox.set_collision_mask_value(8, true)
+	damage_hitbox.set_collision_mask_value(4, true)
+	damage_hitbox.set_collision_mask_value(10, true)
+	## EnemyMinionBlock
 	minion_block.set_collision_layer_value(6, true)
 	minion_block.set_collision_mask_value(6, true)
 	gravity_scale = 0
@@ -213,13 +240,18 @@ func initialize(new_minute: float, new_level: float, new_difficulty: float):
 	difficulty = new_difficulty
 	minute = new_minute
 func _process(delta: float) -> void:
-	if !ImReady || dead:
+	if !ImReady:
+		return
+	if !can_move && abs(linear_velocity.length()) > 0:
+		linear_velocity = Vector2.ZERO
+	if dead:
 		return
 	## Too far
 	if GameInstance.instance && global_position.distance_to(player.global_position) > GameInstance.instance.enemy_max_distance_to_player:
 		GameInstance.instance.remove_enemy(self)
 		dead = true
 		return
+	time_since_knockedback += delta
 	## Stun
 	if stun_time_left > 0:
 		stun_time_left -= delta
@@ -241,7 +273,7 @@ func _process(delta: float) -> void:
 	else:
 		attack_on_cd = false
 		if melee_attacks:
-			if damage_hitbox.monitoring == false:
+			if damage_hitbox.monitoring == false && !hitbox_disabled:
 				damage_hitbox.set_deferred("monitoring", true) #handles the hitbox turning off for a CD after hitting the player
 	## Projectile Shoot
 	if shoots_projectiles:
@@ -257,14 +289,30 @@ func _process(delta: float) -> void:
 				## 1 damage at minimum
 				proj.setup_enemy(self, player, global_position - player.global_position, false, 0) #curr_piercing, curr_lifetime, max(1, curr_damage + frost_damage_reduction), curr_speed, 1, 1, scale.length(), curr_acceleration)
 func _physics_process(delta: float) -> void:
-	if !ImReady:
+	if !ImReady || dead:
 		return
 	if !stunned:
 		movement_process(delta)
 	status_process(delta)
 ## Overriden by extender for custom enemy movement
-func movement_process(_delta: float) ->void:
-	move_towards(player.global_position, max(0, curr_movespeed + frost_movespeed_reduction), _delta)
+func movement_process(_delta: float) -> void:
+	if can_move:
+		move_towards(player.global_position, max(0, curr_movespeed + frost_movespeed_reduction), _delta)
+## Stops the current velocity and stores it for later
+func stop_movement() -> void:
+	can_move = false
+	stored_linear_velocity = linear_velocity
+	stored_angular_velocity = angular_velocity
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0
+## Restarts movement based on the stored velocity, if stored
+func restart_movement() -> void:
+	can_move = true
+	linear_velocity = stored_linear_velocity
+	angular_velocity = stored_angular_velocity
+	stored_linear_velocity = Vector2.ZERO
+	stored_angular_velocity = 0
+
 var half_second_cd: float = 0
 var second_cd: float = 0
 var two_second_cd: float = 0
@@ -489,17 +537,26 @@ func make_status_attack(status_damage: float, type: StatusEffects.StatusTypes) -
 	var attack: Attack = Attack.new(Attack.AttackTypes.enemy_status, null, global_position, status_effects, null, null)
 	attack.simple_setup(status_damage, 0)
 	return attack
-## Overriden by enemies who want different projectile vs melee damage
-func damage_player_projectile(_damage_player: Node2D):
-	damage_player(_damage_player, true)
+
 func shoot_projectile():
 	pass
+var playing_die: bool = false
 func die():
-	if !dead:
+	if !playing_die:
+		playing_die = true
+		dead = true
+		stop_movement()
+		if play_animation_on_death != NO_ANIMATION_NAME:
+			dead = is_dead_during_animation
+			await play_animation(play_animation_on_death)
+			dead = true
 		if sound_on_death:
 			AudioManager.instance.play(sound_on_death, global_position)
+		if spawn_on_death:
+			var spawn = spawn_on_death.instantiate()
+			GameManager.instance.enemy_parent.add_child(spawn)
+			spawn.global_position = global_position
 		var game_man: GameManager = GameManager.instance
-		dead = true
 		death.emit(position)
 		visible = false
 		## Give money
@@ -524,6 +581,9 @@ func die():
 			if randf() < GameInstance.drop_chance_powerup:
 				drop_powerup()
 		queue_free()
+func play_animation(animation: String):
+	anim.play(animation)
+	return await anim.animation_finished
 ## Drops a forge (drops when GameInstance says so)
 func drop_forge():
 	pass#GameInstance.drop_item(GameInstance.FORGE_DROP.duplicate(), global_position)
@@ -552,33 +612,57 @@ func display_damage(damage_value: float, color: Color, crit: bool):
 	else:
 		dmg_text.setup_color(text, size, location, lifetime, random_location_range, color)
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:
+	if !ImReady || dead || hitbox_disabled:
+		return
 	if can_attack(body):
-		damage_player(body, false)
+		attack_body(body)
 		## Handles self knockback on attack player
 		if self_knockback_onhit != 0:
 			apply_knockback(body.global_position, self_knockback_onhit)
-func damage_player(_damage_player: Node2D, from_projectile: bool):
+		if die_after_attack_count != -1:
+			attack_count += 1
+			if attack_count >= die_after_attack_count:
+				die()
+func attack_body(target: Node2D):
+	var damage_percent: float = 1
+	## Deal less damage to fellow enemies
+	if target.is_in_group("Enemy"):
+		damage_percent *= friendly_fire_damage_reduction
+	var attack: Attack = make_attack(damage_percent)
+	target.damage(attack)
+	## Melee Stuff
 	cooldown_stopwatch = 0;
-	var attack: Attack
-	if from_projectile:
-		attack = Attack.new(Attack.AttackTypes.enemy_projectile, self, global_position, status, null, null)
-	else:
-		attack = Attack.new(Attack.AttackTypes.enemy_melee, self, global_position, status, null, null)
-	## Simple Setup for Attack
-	attack.simple_setup(GlobalStats.calculate_damage(curr_damage, GlobalStats.calculate_crit(curr_critchance), curr_critdamage), weapon_knockback)
-	_damage_player.damage(attack) #TODO: put into game manager?
-	if melee_attacks:
-		damage_hitbox.set_deferred("monitoring", false)
+	damage_hitbox.set_deferred("monitoring", false)
+func make_attack(damage_percent: float) -> Attack:
+	## Make Two Stats Lists
+	var base: GlobalStats.StatsList = GlobalStats.get_statslist_base()
+	var factor: GlobalStats.StatsList = GlobalStats.get_statslist_factor()
+	## Add Self's Base Stats to Base StatList
+	add_to_stats_list(base)
+	factor.add_to_stat(GlobalStats.DAMAGE, damage_percent - 1) # -1 to make it a multiplier
+	var attack: Attack = Attack.new(Attack.AttackTypes.enemy_melee, self, global_position, status, base, factor)
+	return attack
+	## Simple Setup
+	#var attack: Attack = Attack.new(Attack.AttackTypes.enemy_melee, self, global_position, status, null, null)
+	#attack.simple_setup(GlobalStats.calculate_damage(curr_damage * damage_percent, GlobalStats.calculate_crit(curr_critchance), curr_critdamage), weapon_knockback * damage_percent)
 func move_towards(new_position: Vector2, movespeed: float, _delta:float):
 	var direction: Vector2 = (new_position - global_position).normalized()
 	if can_be_frozen && frozen:
 		movespeed = 0
-	linear_velocity = linear_velocity.move_toward(Vector2(direction.x * movespeed, direction.y * movespeed), 9)
+	linear_velocity = linear_velocity.move_toward(Vector2(direction.x * movespeed, direction.y * movespeed), movespeed_delta_modifier)
 	
 	var new_facing_left: bool = linear_velocity.x < 0
-	if anim && turns_towards_movement && facing_left != new_facing_left:
-		facing_left = new_facing_left
-		anim.flip_h = !facing_left
+	## Don't change direction for 1 second after knockback
+	if anim && time_since_knockedback > 1:
+		if turns_towards_movement:
+			if facing_left != new_facing_left:
+				facing_left = new_facing_left
+				anim.flip_h = !facing_left
+		if rotate_towards_movement:
+			if facing_left:
+				global_rotation = linear_velocity.angle() + deg_to_rad(180) + deg_to_rad(rotation_offset)
+			else:
+				global_rotation = linear_velocity.angle() - deg_to_rad(rotation_offset)
 func is_player_nearby(distance: float) -> bool:
 	if global_position.distance_to(player.global_position) <= distance:
 		return true
@@ -642,10 +726,7 @@ func damage(attack: Attack):
 			stun_time_left = attack.get_stun()
 			stunned = true
 			linear_velocity = Vector2.ZERO
-	if can_be_knockbacked && attack.get_knockback() != 0:
-		if stun_time_left < 1 && can_be_stunned:
-			stun_time_left = 0.2
-			stunned = true
+	if can_move && can_be_knockbacked && attack.get_knockback() != 0:
 		apply_knockback(attack.position, attack.get_knockback())
 	if attack_damage > 0:
 		display_damage(attack_damage, attack.attack_color, attack.get_crit())
@@ -659,6 +740,7 @@ func damage(attack: Attack):
 func death_signal(attack: Attack):
 	GameManager.instance.EnemyKilled.emit(self, attack)
 func apply_knockback(attack_pos: Vector2, knockback: float):
+	time_since_knockedback = 0
 	call_deferred("set_linear_velocity", (global_position - attack_pos).normalized() * knockback * curr_knockback_modifier)
 static func calculate_enemy_hp(base_hp: float, hp_mult: float, game_difficulty: float, multiply_hp: bool) -> float:
 	var ret: float = base_hp
@@ -689,3 +771,17 @@ func can_attack(body: Node2D) -> bool:
 	if body.is_in_group("event") && !can_attack_events:
 		ret = false
 	return ret
+## Makes a StatsList based on the Enemy Stats
+func add_to_stats_list(list: GlobalStats.StatsList):
+	list.add_to_stat(GlobalStats.DAMAGE, curr_damage)
+	list.add_to_stat(GlobalStats.HP, curr_health)
+	list.add_to_stat(GlobalStats.MOVESPEED, curr_movespeed)
+	list.add_to_stat(GlobalStats.REGEN, curr_regen)
+	list.add_to_stat(GlobalStats.STANCE, curr_damage_reduction)
+	list.add_to_stat(GlobalStats.ATTACKCOOLDOWN, curr_cooldown_max)
+	list.add_to_stat(GlobalStats.RANGE, curr_range)
+	list.add_to_stat(GlobalStats.VELOCITY, curr_speed)
+	list.add_to_stat(GlobalStats.DURATION, curr_lifetime)
+	list.add_to_stat(GlobalStats.PIERCING, curr_piercing)
+	list.add_to_stat(GlobalStats.LUCK, curr_critchance)
+	list.add_to_stat(GlobalStats.CRITDAMAGE, curr_critdamage)

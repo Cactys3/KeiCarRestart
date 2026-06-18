@@ -183,7 +183,10 @@ static func calculate_damage(damage: float, crit: bool, critdamage: float):
 	else:
 		return damage
 static func calculate_knockback(damage: float, weight: float) -> float:
-	return (damage / 2) + (weight * 2) ## More to do with weight than damage
+	## Base 45
+	## Damage and Weight scale similarly
+	## Weights should be between 0-5 generally
+	return (damage * 3) + ((weight) * 20) + 45
 static func calculate_avoid_damage(ghostly: float) -> bool:
 	var ScalingConstant: float = 160 ## Half-Saturation: at Ghostly = 160, it will reach half of 160 (chance = 80)
 	if ghostly > 0.0:

@@ -79,6 +79,7 @@ func _ready() -> void:
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide
 	## Setups Phases
+	phases.append(SpawningPhase.new("test", 60, phase_test))
 	phases.append(SpawningPhase.new("1", 60, phase_one))
 	phases.append(SpawningPhase.new("2", 60, phase_two))
 	phases.append(SpawningPhase.new("3", 60, phase_three))
@@ -110,6 +111,19 @@ func generic_phase_setup(phase_num: int):
 	super(phase_num)
 	## Graves spawn with this chance unless set otherwise after generic setup
 	grave.spawn_chance = generic_graves_spawn_chance
+
+func phase_test():
+	print("PHASE TEST - TEST TEST")
+	generic_phase_setup(1)
+	grave.spawn_chance = 0
+	#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
+	#enemies.append(EnemySpawn.new(SKELETON, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CRAWLER, 0.2, 1))
+	enemies.append(EnemySpawn.new(GHOUL, 0.2, 1))
+	#enemies.append(EnemySpawn.new(GHOST, 0.2, 1)) 
+	#enemies.append(EnemySpawn.new(TREE_SPIRIT, 0.2, 1))
+	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
 func phase_one():
 	print("PHASE 1 - Skeleton Warmup")
 	generic_phase_setup(1)

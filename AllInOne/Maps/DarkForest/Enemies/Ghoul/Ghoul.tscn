@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cavkgqw85lhxw"]
 
 [ext_resource type="Texture2D" uid="uid://dixan8anp0glg" path="res://AllInOne/Maps/DarkForest/Enemies/Ghoul/Ghoul.png" id="1_77pou"]
-[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_r2nhu"]
+[ext_resource type="Script" uid="uid://bxhemb7rwvd62" path="res://AllInOne/Maps/DarkForest/Enemies/Ghoul/Ghoul.gd" id="1_fey5p"]
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="2_r2nhu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r2nhu"]
@@ -19,6 +19,26 @@ region = Rect2(192, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_26xsv"]
 atlas = ExtResource("1_77pou")
 region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ib0iw"]
+atlas = ExtResource("1_77pou")
+region = Rect2(960, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylvj2"]
+atlas = ExtResource("1_77pou")
+region = Rect2(1024, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jcnl"]
+atlas = ExtResource("1_77pou")
+region = Rect2(1088, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1idm"]
+atlas = ExtResource("1_77pou")
+region = Rect2(1152, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_biff7"]
+atlas = ExtResource("1_77pou")
+region = Rect2(1216, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fowxb"]
 atlas = ExtResource("1_77pou")
@@ -52,6 +72,10 @@ region = Rect2(448, 0, 64, 64)
 atlas = ExtResource("1_77pou")
 region = Rect2(512, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfdq6"]
+atlas = ExtResource("1_77pou")
+region = Rect2(832, 0, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_gpt43"]
 animations = [{
 "frames": [{
@@ -67,9 +91,29 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_26xsv")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Dark",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ib0iw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylvj2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jcnl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1idm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_biff7")
+}],
+"loop": 0,
+"name": &"Explosion",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -84,7 +128,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2rxjp")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Green",
 "speed": 5.0
 }, {
@@ -101,13 +145,21 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_piuy5")
 }],
-"loop": true,
+"loop": 1,
+"name": &"White",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfdq6")
+}],
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r2nhu"]
-radius = 7.0
+radius = 15.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fey5p"]
 radius = 3.0
@@ -115,16 +167,29 @@ radius = 3.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_nkg02"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_26xsv"]
+radius = 14.035668
+
 [node name="Ghoul" type="RigidBody2D" unique_id=1543210943]
+collision_layer = 8
+collision_mask = 0
 gravity_scale = 0.0
-script = ExtResource("1_r2nhu")
+script = ExtResource("1_fey5p")
 enemy_name = "Ghoul"
-animation_variations = Array[String](["Dark", "Green", "default"])
+play_animation_on_death = "Explosion"
+is_dead_during_animation = false
 turns_towards_movement = true
+rotate_towards_movement = true
+die_after_attack_count = 1.0
+self_knockback_onhit = 0.0
+base_damage = 30.0
+base_movespeed = 17.0
+base_health = 25.0
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=368192574]
 position = Vector2(1, 9)
 sprite_frames = SubResource("SpriteFrames_gpt43")
+animation = &"Explosion"
 autoplay = "default"
 offset = Vector2(0, -8.385)
 
@@ -132,7 +197,7 @@ offset = Vector2(0, -8.385)
 
 [node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1160125059]
 collision_layer = 16
-collision_mask = 130
+collision_mask = 138
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1333730517]
 shape = SubResource("CircleShape2D_r2nhu")
@@ -146,3 +211,15 @@ shape = SubResource("CircleShape2D_fey5p")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=89718615]
 shape = SubResource("CircleShape2D_nkg02")
+
+[node name="GhoulCustomCollision" type="Area2D" parent="." unique_id=107324347]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GhoulCustomCollision" unique_id=1507784166]
+shape = SubResource("CircleShape2D_26xsv")
+
+[connection signal="area_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]
+[connection signal="area_entered" from="GhoulCustomCollision" to="." method="_on_ghoul_custom_collision_body_entered"]
+[connection signal="body_entered" from="GhoulCustomCollision" to="." method="_on_ghoul_custom_collision_body_entered"]
