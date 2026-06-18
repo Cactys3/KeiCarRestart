@@ -24,7 +24,18 @@ var tree: EventSpawn
 
 var generic_graves_spawn_chance: float = 0.5
 
+signal SetGraveSpawnChance(value: float)
+func set_grave_spawn_chance(value: float):
+	SetGraveSpawnChance.emit(value)
+	grave.spawn_chance = value
+
 ## Overides
+
+func place_event(new_event: EventData, chunk: Vector2, new_position: Vector2) -> Event:
+	var event_scene: Event = super(new_event, chunk, new_position)
+	if new_event == GRAVE:
+		SetGraveSpawnChance.connect(event_scene.set_chance)
+	return event_scene
 ## Check for corrupt tree, if so, custom spawn
 func spawn_boss(scene: PackedScene, pos: Vector2):
 	if scene == CORRUPT_TREE:
@@ -79,7 +90,7 @@ func _ready() -> void:
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide
 	## Setups Phases
-	phases.append(SpawningPhase.new("test", 60, phase_test))
+	#phases.append(SpawningPhase.new("test", 60, phase_test))
 	phases.append(SpawningPhase.new("1", 60, phase_one))
 	phases.append(SpawningPhase.new("2", 60, phase_two))
 	phases.append(SpawningPhase.new("3", 60, phase_three))
@@ -104,18 +115,19 @@ func _ready() -> void:
 	grave = EventSpawn.new(GRAVE, Vector2(30, 44), generic_graves_spawn_chance, -1, 1)
 	## Try to spawn graves before trees
 	grave.priority = 1
+	grave.can_spawn_in_second_pass = true
 	tree = EventSpawn.new(EVIL_TREE, Vector2(30, 44), 0.5, -1, 15)
 	events.append(grave)
 	events.append(tree)
 func generic_phase_setup(phase_num: int):
 	super(phase_num)
 	## Graves spawn with this chance unless set otherwise after generic setup
-	grave.spawn_chance = generic_graves_spawn_chance
+	set_grave_spawn_chance(generic_graves_spawn_chance)
 
 func phase_test():
 	print("PHASE TEST - TEST TEST")
 	generic_phase_setup(1)
-	grave.spawn_chance = 0
+	set_grave_spawn_chance(0)
 	#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.1, 1))
 	#enemies.append(EnemySpawn.new(CRAWLER, 0.2, 1))
@@ -127,7 +139,7 @@ func phase_test():
 func phase_one():
 	print("PHASE 1 - Skeleton Warmup")
 	generic_phase_setup(1)
-	grave.spawn_chance = 0
+	set_grave_spawn_chance(0)
 	#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	enemies.append(EnemySpawn.new(SKELETON, 0.1, 1))
 	#enemies.append(EnemySpawn.new(CRAWLER, 0.2, 1))
@@ -139,7 +151,7 @@ func phase_one():
 func phase_two():
 	print("PHASE 2 - Crawler Comes To Town")
 	generic_phase_setup(2)
-	grave.spawn_chance = 0
+	set_grave_spawn_chance(0)
 	#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	enemies.append(EnemySpawn.new(SKELETON, 0.05, 1))
 	enemies.append(EnemySpawn.new(CRAWLER, 0.05, 1))
@@ -162,7 +174,7 @@ func phase_three():
 func phase_four():
 	print("PHASE 4 - GHOULS GHOULS GHOULS")
 	generic_phase_setup(4)
-	grave.spawn_chance = 0
+	set_grave_spawn_chance(0)
 	#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))
 	#enemies.append(EnemySpawn.new(CRAWLER, 0.2, 1))
@@ -196,7 +208,7 @@ func phase_six():
 func phase_seven():
 	print("PHASE 7 - THE TREES ARE ANGRY")
 	generic_phase_setup(7)
-	grave.spawn_chance = 0
+	set_grave_spawn_chance(0)
 		#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))
 	#enemies.append(EnemySpawn.new(CRAWLER, 0.2, 1))
@@ -252,7 +264,7 @@ func phase_eleven():
 func phase_twelve():
 	print("PHASE 12 - Tree's Leader")
 	generic_phase_setup(12)
-	grave.spawn_chance = 0
+	set_grave_spawn_chance(0)
 		#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))
 	#enemies.append(EnemySpawn.new(CRAWLER, 0.2, 1))
@@ -308,7 +320,7 @@ func phase_sixteen():
 func phase_seventeen():
 	print("PHASE 17 - Orb")
 	generic_phase_setup(17)
-	grave.spawn_chance = 0
+	set_grave_spawn_chance(0)
 	enemies.append(EnemySpawn.new(DARKORB, 0.15, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.2, 1))
 	#enemies.append(EnemySpawn.new(CRAWLER, 0.2, 1))

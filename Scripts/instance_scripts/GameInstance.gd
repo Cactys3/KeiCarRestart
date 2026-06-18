@@ -114,9 +114,11 @@ var chunk_rect: ColorRect
 var chunks: Array[Sprite2D]
 var loaded_chunk: Sprite2D
 var chunks_dic: Dictionary
+var chunk_list: Array[ChunkElement] = []
 ## Rounds
 # have different 'events' that decide what enemies to spawn
 var started: bool = false
+var completed_ready: bool = false
 # https://www.youtube.com/watch?v=0tPFpL977eY
 func _ready() -> void:
 	# Ensure only one instance exists
@@ -125,6 +127,7 @@ func _ready() -> void:
 		queue_free() 
 		return
 	instance = self  
+	completed_ready = true
 ## Sets up the GameInstance by giving parameter values (character should be resource so can change default values?)
 func setup(new_character: Character, new_weapon: String, run_modifiers) -> void:
 	character_parent.add_child(new_character)
@@ -144,6 +147,8 @@ func setup_events():
 	pass
 var timer: float = 0
 func _process(delta: float) -> void:
+	if !completed_ready:
+		return
 	if is_game_over:
 		## Lowkey still want to spawn these enemies because it's funny
 		check_max_min_enemies()
@@ -154,12 +159,17 @@ func _process(delta: float) -> void:
 		instance = self
 	var pos = character.position #game_man.player.position
 	ui_man.set_fps(Engine.get_frames_per_second())
+	## Do before spawning so we spawn the correct things
+	handle_spawn_phases()
+	## Spawn Things
 	if game_man && game_man.paused == false:
 		handle_stopwatch(delta)
 		handle_enemy_spawning(delta, pos)
+	## Chunks
+	for chunk in chunk_list:
+		if chunk.can_release(delta):
+			chunk_list.erase(chunk)
 	handle_chunks(pos)
-	## Spawn Enemies
-	handle_spawn_phases()
 	if total_stopwatch >= 1:
 		check_max_min_enemies()
 	## Creates MainMenu Scene and removes current Scene
@@ -217,43 +227,19 @@ func handle_chunks(pos: Vector2):
 	if refresh:
 		#draw_new_visual()
 		#print("refresh: " + str(chunk_grid))
-		
-		if !chunks_dic.has(chunk_grid):
-			load_chunk(chunk_grid)
-		else:
-			pass#print("already had: Main")
-		if !chunks_dic.has(chunk_grid + Vector2(0, -1)):
-			load_chunk(chunk_grid + Vector2(0, -1))
-		else:
-			pass#print("already had: N")
-		if !chunks_dic.has(chunk_grid + Vector2(0, 1)):
-			load_chunk(chunk_grid + Vector2(0, 1))
-		else:
-			pass#print("already had: S")
-		if !chunks_dic.has(chunk_grid + Vector2(1, 0)):
-			load_chunk(chunk_grid + Vector2(1, 0))
-		else:
-			pass#print("already had: E")
-		if !chunks_dic.has(chunk_grid + Vector2(-1, 0)):
-			load_chunk(chunk_grid + Vector2(-1, 0))
-		else:
-			pass#print("already had: W")
-		if !chunks_dic.has(chunk_grid + Vector2(-1, -1)):
-			load_chunk(chunk_grid + Vector2(-1, -1))
-		else:
-			pass#print("already had: NW")
-		if !chunks_dic.has(chunk_grid + Vector2(-1, 1)):
-			load_chunk(chunk_grid + Vector2(-1, 1))
-		else:
-			pass#print("already had: SW")
-		if !chunks_dic.has(chunk_grid + Vector2(1, -1)):
-			load_chunk(chunk_grid + Vector2(1, -1))
-		else:
-			pass#print("already had: NE")
-		if !chunks_dic.has(chunk_grid + Vector2(1, 1)):
-			load_chunk(chunk_grid + Vector2(1, 1))
-		else:
-			pass#print("already had: SE")
+		## Loop through chunks we are loading
+		for offset in [Vector2(0,0), Vector2(0,-1), Vector2(0,1), Vector2(1,0), Vector2(-1,0), Vector2(-1,-1), Vector2(-1,1), Vector2(1,-1), Vector2(1,1)]:
+			var chunk = chunk_grid + offset
+			if !chunks_dic.has(chunk):
+				load_chunk(chunk)
+			else:
+				## If its been x seconds since loading/second passing a chunk, second pass it
+				var still_waiting: bool = false
+				for old_chunk in chunk_list:
+					if old_chunk.chunk == chunk:
+						still_waiting = true
+				if !still_waiting:
+					second_pass_chunk(chunk)
 ## Only spawn enemies / check to spawn bosses every so often
 func handle_enemy_spawning(delta: float, pos: Vector2):
 	enemy_stopwatch += delta
@@ -262,7 +248,9 @@ func handle_enemy_spawning(delta: float, pos: Vector2):
 		spawn_enemies(pos)
 		spawn_bosses(pos)
 		spawn_enemy_events(pos)
+## Load a chunk of the map, spawn events in it, add to array
 func load_chunk(chunk_id: Vector2):
+	chunk_list.append(ChunkElement.new(chunk_id))
 	var new_chunk: Sprite2D = FlashFixSprite.new()
 	# if chunk is without of map bounds
 	if check_bounds(chunk_id):
@@ -270,11 +258,16 @@ func load_chunk(chunk_id: Vector2):
 		spawn_map_border(chunk_id)
 	else:
 		new_chunk.texture = get_tile(chunk_id)
-		spawn_events(chunk_id) 
+		spawn_events(chunk_id, false) 
 	background_parent.add_child(new_chunk)
 	new_chunk.position = ((chunk_id) * Vector2(chunk_x, chunk_y))
 	chunks.append(new_chunk)
 	chunks_dic.get_or_add(chunk_id, new_chunk)
+## Second pass over a chunk that's already loaded that we are walking towards
+func second_pass_chunk(chunk_id: Vector2):
+	chunk_list.append(ChunkElement.new(chunk_id))
+	if !check_bounds(chunk_id):
+		spawn_events(chunk_id, true)
 ## Checks if the chunk is out of bounds for this map (out of bounds = true)
 func check_bounds(chunk_id: Vector2) -> bool:
 	return abs(chunk_id.x) > abs(map_width) || abs(chunk_id.y) > abs(map_height)
@@ -312,18 +305,19 @@ func spawn_backups(pos: Vector2, num: int):
 		enemies_added = enemies_alive - initial_enemies
 		counter += 1
 ## Spawns any events that should be spawned in newly created chunk
-func spawn_events(chunk_id: Vector2):
+func spawn_events(chunk_id: Vector2, second_pass: bool):
 	## Process events in priority order
 	events.sort_custom(func(a, b): return a.priority > b.priority)
 	for event in events:
-		if event.can_spawn():
+		if event.can_spawn() && (!second_pass || event.can_spawn_in_second_pass):
 			for i in event.max_per_tile:
 				if randf() < event.spawn_chance:
 					load_event(event.event, chunk_id)
 					event.spawn_count += 1
-	for event in preset_events:
-		if is_position_in_chunk(chunk_id, event.position):
-			place_event(event.event, chunk_id, event.position)
+	if !second_pass:
+		for event in preset_events:
+			if is_position_in_chunk(chunk_id, event.position):
+				place_event(event.event, chunk_id, event.position)
 ## Goes through enemies in enemies and spawns based on data
 func spawn_enemies(pos: Vector2):
 	for enemy in enemies:
@@ -385,12 +379,13 @@ func load_event(new_event: EventData, chunk: Vector2) -> bool:
 			return true
 	print("load_event: failed to place after ", attempts, " attempts")
 	return false
-func place_event(new_event: EventData, chunk: Vector2, new_position: Vector2):
+func place_event(new_event: EventData, chunk: Vector2, new_position: Vector2) -> Event:
 	var event_scene: Event = new_event.create_event()
 	event_scene.position = new_position
 	event_background_parent.add_child(event_scene)
 	event_scene.setup(total_stopwatch, level, chunk)
 	active_events.append(event_scene)
+	return event_scene
 func draw_new_visual():
 	chunk_rect.color = Color(0, 0, 0, 0)
 	chunk_rect = ColorRect.new()
@@ -630,6 +625,7 @@ class BossSpawn:
 class EventSpawn:
 	## Higher priority means this event is attempted to be spawned first 
 	var priority: float = 0
+	var can_spawn_in_second_pass: bool = false
 	var event: EventData
 	## spawn chance from 0 to 1
 	var spawn_chance: float = 0
@@ -685,6 +681,19 @@ class PresetEvent:
 	func _init(new_event: EventData, new_position: Vector2):
 		event = new_event
 		position = new_position
+class ChunkElement:
+	## Holds one chunk ID and one countdown for second passing a chunk
+	var chunk: Vector2
+	## After like 15 seconds if we come back to the same chunk, do a second pass
+	var countdown: float = 15
+	func _init(new_chunk: Vector2):
+		chunk = new_chunk
+		## Release after x seconds after loaded/second passed
+		countdown = 15
+	## Process the countdown and return whether it's finished
+	func can_release(delta: float) -> bool:
+		countdown -= delta
+		return countdown <= 0
 ## Saves data to the file
 func save():
 	Save.save_file(TitleManager.file_slot)
