@@ -225,21 +225,8 @@ func upgrade_cooldown_finished(upgrade: Upgrade):
 	pass
 ## Calculate and return an attack with damage multiplier
 func make_attack(attack_damage_multiplier: float) -> Attack:
-	## Make Two Stats Lists
-	var base: GlobalStats.StatsList = GlobalStats.get_statslist_base()
-	var factor: GlobalStats.StatsList = GlobalStats.get_statslist_factor()
-	## Add Self's Base Stats to Base StatList
-	base = add_to_stats_list(base)
-	factor.add_to_stat(GlobalStats.DAMAGE, attack_damage_multiplier - 1) # -1 to make it a multiplier
-	## Make Attack Values
-	var attack_type: Attack.AttackTypes
-	if item_type == item_types.upgrade:
-		attack_type = Attack.AttackTypes.upgrade_melee
-	elif item_type == item_types.weapon:
-		attack_type = Attack.AttackTypes.player_weapon_melee 
-	## Make attack and Pass attack through each active upgrade
-	var attack: Attack = Attack.new(attack_type, self, player.global_position, status, base, factor)
-	game_man.handle_attack(attack)
+	## Get attack
+	var attack: Attack = super(attack_damage_multiplier)
 	## Set Color
 	attack.set_attack_color(item_color)
 	return attack

@@ -59,6 +59,12 @@ var attacking: bool = false:
 var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used?, to create attack need to use stats which defeats point of queue
 var while_attacking_locked_rotation: float
 var while_attacking_locked_orbit: float
+## Melee Attacks
+@export var can_attack_enemies: bool = true
+@export var can_attack_events: bool = true
+@export var can_attack_player: bool = false
+var attack_counter: int = 0
+var AttackedObjects: Array = []
 
 ## Override
 func activate(new_player: Character):
@@ -122,6 +128,8 @@ func process_cooldown(delta: float) -> void:
 ## await's create_projectiles() and resets attack cooldown
 func attack(): 
 	attacking = true
+	## Allow Melee to hit enemies again
+	AttackedObjects.clear()
 	## Make sure to add custom code for weapon-specific sounds
 	if sound_on_projectile_spawn:
 		AudioManager.instance.play(sound_on_projectile_spawn, global_position)
@@ -189,6 +197,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	var new_bullet: Projectile = projectile.instantiate()
 	new_bullet.visible = false
 	new_bullet.setup_projectile(self, null, new_direction)
+	new_bullet.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player)
 	if (AimType == AimTypes.Spinning): #handle aim types special cases
 		player.add_child(new_bullet)
 	else:
@@ -206,13 +215,7 @@ func get_cooldown_between_projectiles() -> float:
 func get_cooldown_between_attacks() -> float:
 	## Minimum: atttack 0.1 times per X
 	return reloadtime_stat
-## Calculate and return an attack with melee damage offset
-func make_melee_attack() -> Attack:
-	return make_attack(MeleeDamageFactor)
-## entered body/area with melee attack, Make sure to use this instead of 'body_entered'
-func _hit_enemy(enemy: Node2D) -> void:
-	if sound_on_melee_attack:
-		AudioManager.instance.play(sound_on_melee_attack, global_position)
+
 static func get_inaccurate_direction(direction: Vector2, given_inaccuracy: float) -> Vector2:
 	if given_inaccuracy == 0:
 		return direction
@@ -326,6 +329,35 @@ func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
 func GetWeaponOffsetPosition(target_angle: float) -> Vector2:
 	return weapon_position_offset * Vector2(cos(target_angle), sin(target_angle))
 
+## Melees
+
+## entered body/area with melee attack, Make sure to use this instead of 'body_entered'
+func _on_body_entered(body: Node2D) -> void:
+	## Get the Damageable Object
+	if "damageable_object" in body:
+		body = body.damageable_object
+	## Attempt to attack
+	if can_attack(body):
+		AttackedObjects.append(body)
+		body.damage(make_attack(MeleeDamageFactor))
+		if sound_on_melee_attack:
+			AudioManager.instance.play(sound_on_melee_attack, global_position)
+## Check if we can attack body using @export variables
+func can_attack(body: Node2D) -> bool: 
+	## Is it a valid node with required methods/variables
+	if !super(body):
+		return false
+	## Type checks 
+	if body.is_in_group("enemy") && !can_attack_enemies:
+		return false
+	if body.is_in_group("event") && !can_attack_events:
+		return false
+	if body.is_in_group("player") && !can_attack_player:
+		return false
+	## Have we attacked it
+	return !AttackedObjects.has(body)
+func get_attack_type() -> Attack.AttackTypes:
+	return Attack.AttackTypes.player_weapon_melee
 
 class AttackEvent:
 	var attackee: Node

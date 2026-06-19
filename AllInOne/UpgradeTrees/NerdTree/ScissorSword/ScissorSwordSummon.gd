@@ -164,12 +164,20 @@ func process_left(delta: float):
 	left_sword.rotation += left_sword_angular_velocity * delta
 
 func _on_right_sword_body_entered(body: Node2D) -> void:
+	## Get the Damageable Object
+	if "damageable_object" in body:
+		body = body.damageable_object
+	## Attempt to attack
 	if can_attack(body):
 		attack_body(body)
 		right_attacked_list.append(body)
 	if body == right_sword_target:
 		end_right_attack()
 func _on_left_sword_body_entered(body: Node2D) -> void:
+	## Get the Damageable Object
+	if "damageable_object" in body:
+		body = body.damageable_object
+	## Attempt to attack
 	if can_attack(body):
 		attack_body(body)
 		left_attacked_list.append(body)

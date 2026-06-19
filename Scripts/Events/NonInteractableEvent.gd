@@ -3,6 +3,7 @@ class_name NonInteractableEvent
 @export_category("Defense")
 @export var hurtbox: Area2D
 @export var can_be_damaged: bool = false
+var damageable_object: Node2D = self
 @export var can_be_knockbacked:bool = false
 @export var can_be_stunned:bool = false
 @export var multiply_hp_by_minute: bool = true

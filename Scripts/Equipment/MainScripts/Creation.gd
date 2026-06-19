@@ -10,6 +10,7 @@ enum MovementTypes{GivenDirection, NonMoving, NearestEnemy, RandomEnemy, RandomD
 ## 0 for no knockback
 @export var self_knockback_onhit: float = 0
 @export var can_be_damaged: bool = true
+var damageable_object: Node2D = self
 @export var can_be_stunned: bool = true
 @export var can_be_knockedback: bool = true
 ## Flat Damage Reduction

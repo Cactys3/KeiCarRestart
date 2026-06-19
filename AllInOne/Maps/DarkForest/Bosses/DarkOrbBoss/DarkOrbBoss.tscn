@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://b4xeq64lfbh5d"]
+
+[ext_resource type="Script" uid="uid://bnhsdpro70dgj" path="res://Scripts/enemy_scripts/enemy_types/boss.gd" id="1_im1co"]
+[ext_resource type="Texture2D" uid="uid://cm270ljuw106j" path="res://AllInOne/Maps/DarkForest/Bosses/DarkOrbBoss/DarkOrbBoss.png" id="2_im1co"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_w31tv"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="4_i2ntk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmanc"]
+atlas = ExtResource("2_im1co")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xd07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmanc")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jq8tk"]
+radius = 47.565742
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dwbtc"]
+radius = 47.042534
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6fhyq"]
+radius = 47.010635
+
+[node name="DarkOrbBoss" type="RigidBody2D" unique_id=2128346303]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_im1co")
+enemy_name = "Dark Orb"
+rotate_towards_movement = true
+can_be_knockbacked = false
+can_be_stunned = false
+can_be_frozen = false
+self_knockback_onhit = 10.0
+base_damage = 40.0
+base_health = 2000.0
+base_movespeed = 15.0
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=73087552]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_3xd07")
+autoplay = "default"
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_w31tv")]
+position = Vector2(0, -4)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=354264734]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1889308144]
+shape = SubResource("CircleShape2D_jq8tk")
+
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=1282373420]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("4_i2ntk")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1110247638]
+shape = SubResource("CircleShape2D_dwbtc")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1449350762]
+shape = SubResource("CircleShape2D_6fhyq")
+
+[connection signal="area_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dixan8anp0glg" path="res://AllInOne/Maps/DarkForest/Enemies/Ghoul/Ghoul.png" id="1_77pou"]
 [ext_resource type="Script" uid="uid://bxhemb7rwvd62" path="res://AllInOne/Maps/DarkForest/Enemies/Ghoul/Ghoul.gd" id="1_fey5p"]
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="2_r2nhu"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="4_fey5p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r2nhu"]
 atlas = ExtResource("1_77pou")
@@ -161,11 +162,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_r2nhu"]
 radius = 15.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fey5p"]
-radius = 3.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_nkg02"]
 radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fey5p"]
+radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_26xsv"]
 radius = 14.035668
@@ -176,15 +177,15 @@ collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_fey5p")
 enemy_name = "Ghoul"
-play_animation_on_death = "Explosion"
-is_dead_during_animation = false
 turns_towards_movement = true
 rotate_towards_movement = true
 die_after_attack_count = 1.0
 self_knockback_onhit = 0.0
 base_damage = 30.0
-base_movespeed = 17.0
 base_health = 25.0
+base_movespeed = 17.0
+play_animation_on_death = "Explosion"
+is_dead_during_animation = false
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=368192574]
 position = Vector2(1, 9)
@@ -202,15 +203,16 @@ collision_mask = 138
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1333730517]
 shape = SubResource("CircleShape2D_r2nhu")
 
-[node name="MinionBlock" type="Area2D" parent="." unique_id=270056752]
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=625399355]
 collision_layer = 32
 collision_mask = 32
+script = ExtResource("4_fey5p")
 
-[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=1674176036]
-shape = SubResource("CircleShape2D_fey5p")
-
-[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=89718615]
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=89718615]
 shape = SubResource("CircleShape2D_nkg02")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1674176036]
+shape = SubResource("CircleShape2D_fey5p")
 
 [node name="GhoulCustomCollision" type="Area2D" parent="." unique_id=107324347]
 collision_layer = 0

@@ -55,6 +55,7 @@ var game_man: GameManager:
 		return revives + GlobalStats.get_stat(GlobalStats.REVIES)
 ## Variables
 var can_be_damaged: bool = true
+var damageable_object: Node2D = self
 var default_pickup_radius: float = 30
 var regen_stopwatch: float = 0
 ## Regen every x seconds

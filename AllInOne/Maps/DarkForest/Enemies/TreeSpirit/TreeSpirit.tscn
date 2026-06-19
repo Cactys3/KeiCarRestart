@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_y8bqw"]
 [ext_resource type="Texture2D" uid="uid://cai6yf6rai1e7" path="res://AllInOne/Maps/DarkForest/Enemies/TreeSpirit/TreeSpirit.png" id="2_voauq"]
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_8a5n2"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="4_voauq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vc7dk"]
 atlas = ExtResource("2_voauq")
@@ -87,7 +88,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ww12h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 9.0
 }, {
@@ -110,7 +111,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ppuxl")
 }],
-"loop": true,
+"loop": 1,
 "name": &"new_animation",
 "speed": 9.0
 }]
@@ -118,12 +119,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qfxr0"]
 size = Vector2(13, 22)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y8bqw"]
-radius = 3.0
-height = 8.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8bqw"]
 size = Vector2(15, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y8bqw"]
+radius = 4.0
+height = 12.0
 
 [node name="TreeSpirit" type="RigidBody2D" unique_id=431899027]
 script = ExtResource("1_y8bqw")
@@ -148,14 +149,15 @@ collision_mask = 130
 position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_qfxr0")
 
-[node name="MinionBlock" type="Area2D" parent="." unique_id=232661499]
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=596800765]
 collision_layer = 32
 collision_mask = 32
+script = ExtResource("4_voauq")
 
-[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=2115557973]
-position = Vector2(0, 2)
-shape = SubResource("CapsuleShape2D_y8bqw")
-
-[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=1638840688]
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1638840688]
 position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_y8bqw")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=2115557973]
+position = Vector2(1, 2)
+shape = SubResource("CapsuleShape2D_y8bqw")

@@ -1,65 +1,53 @@
 extends RigidBody2D
 class_name Enemy
-@export_category("Enemy Information")
 @export_placeholder("Write an Enemy Name!") var enemy_name: String = ""
 @export_placeholder("lil description action?") var enemy_description: String = ""
 @export var enemy_type: EnemyTypes = EnemyTypes.unset
 enum EnemyTypes {unset}
-@export_category("On Death")
-@export var spawn_on_death: PackedScene = null
-@export var sound_on_death: Sound
-@export_category("Animations")
-@export var play_animation_before_ready: String = NO_ANIMATION_NAME
-@export var play_animation_on_death: String = NO_ANIMATION_NAME
-@export var is_dead_during_animation: bool = true
-const NO_ANIMATION_NAME: String = "no animation"
-@export var animation_variations: Array[String] = []
-var my_variation: String = "default"
+@export_group("Visuals")
 @export var turns_towards_movement: bool = false
 @export var rotate_towards_movement: bool = false
 @export var rotation_offset: float = 15
-@onready var anim: AnimatedSprite2D = $EnemySprite
-@onready var particles: EntityParticles = $StatusEffects
-@export_category("Enemy Stats")
+@export_group("Data")
 @export var multiply_hp_by_minute: bool = true
+@export var melee_attacks: bool = true
+@export var can_be_knockbacked: bool = true
+@export var can_be_stunned :bool = true
+@export var can_be_frozen: bool = true
 ## -1 for infininte, any other number for die after attacking for that count
 @export var die_after_attack_count: float = -1
 var attack_count: float = 0
 ## Percent damage this enemy deals to other enemies
 @export var friendly_fire_damage_reduction: float = 0.5
+## The delta value used in movement's MoveTo()
 @export var movespeed_delta_modifier: float = 15
-@export var melee_attacks: bool = true
-@onready var damage_hitbox: Area2D = $Damage_Hitbox
-@onready var minion_block: Area2D = $MinionBlock
-@export var can_be_knockbacked: bool = true
-@export var can_be_stunned :bool = true
-@export var can_be_frozen: bool = true
+## Should the Hitbox attack things
 @export var xp_on_death: int = 10
 @export var money_on_death: int = 3
-@export var weapon_knockback: float = 150
-@export var weapon_stun: float = 0
 @export var self_knockback_onhit: float = 100.0
-@export var base_damage: float = 10
-@export var base_critchance: float = 0
-@export var base_critdamage: float = 0
-@export var base_movespeed: float = 20
 ## Added directly to movespeed
 @export var movespeed_modifier: float = 0
+@export var percent_damage_taken: float = 1
+@export_group("Stats")
+@export var base_damage: float = 10
 @export var base_health: float = 50
+@export var base_movespeed: float = 20
 @export var base_regen: float = 0
 @export var base_knockback_modifier: float = 1.0
 @export var base_damage_reduction: float = 5
-@export var percent_damage_taken: float = 1
 @export var base_cooldown: float = 1
-@export_category("Enemy Projectile Stats")
-@export var projectile: PackedScene
+@export var base_critchance: float = 0
+@export var base_critdamage: float = 0
+@export_group("Projectile")
 @export var shoots_projectiles: bool = false
+@export var projectile: PackedScene
 @export var base_range: float = 100
 @export var base_speed: float = 100
 @export var base_acceleration: float = 2
 @export var base_lifetime: float = 9
 @export var base_piercing: float = 0
-@export_category("Status Effects")
+
+@export_group("Status Effects")
 # enemy's attacking status buildups (for if we charm enemies? to apply status on each other?)
 @export var status: StatusEffects = StatusEffects.new()
 # enemy's attacking buildup value
@@ -78,7 +66,22 @@ var attack_count: float = 0
 @export var bleed_threshhold: float = 1
 @export var shock_threshhold: float = 1
 @export var wet_threshhold: float = 1
-
+@export_group("Custom Visuals")
+## Enemy will randomly choose one of the variations (animation names) on ready
+@export var animation_variations: Array[String] = []
+var my_variation: String = "default"
+@export var play_animation_before_ready: String = NO_ANIMATION_NAME
+const NO_ANIMATION_NAME: String = "no animation"
+@export var spawn_on_death: PackedScene = null
+@export var sound_on_death: Sound
+@export var play_animation_on_death: String = NO_ANIMATION_NAME
+@export var is_dead_during_animation: bool = true
+@export_group("Export Nodes (Only If Custom Layout)")
+@export var anim: AnimatedSprite2D
+@export var particles: EntityParticles
+@export var damage_hitbox: Area2D 
+@export var health_hitbox: Area2D 
+@export var minion_block: CollisionShape2D
 ## Current values of each status that have been damaged into this enemy
 var burn: float = 0
 var frost: float = 0
@@ -171,21 +174,37 @@ var difficulty: float
 var dead: bool = false
 
 func _ready() -> void:
+	## OnReady + Export Vars
+	if !anim && $EnemySprite:
+		anim = $EnemySprite
+	if !particles && $StatusEffects:
+		particles = $StatusEffects
+	if !damage_hitbox && $Damage_Hitbox:
+		damage_hitbox = $Damage_Hitbox
+	if !minion_block && $MinionBlock:
+		minion_block = $MinionBlock
+	if !health_hitbox && $Health_Hitbox:
+		health_hitbox = $Health_Hitbox
+	## Flash Fix
 	anim.visible = false
-	## Layer: Enemy
-	set_collision_layer_value(4, true)
-	set_collision_layer_value(1, false)
-	## Layer: Enemy_Weapon
+	## Health Hitbox: Layer = Enemy
+	health_hitbox.setup(self)
+	health_hitbox.set_collision_layer_value(4, true)
+	health_hitbox.set_collision_layer_value(1, false)
+	health_hitbox.set_collision_mask_value(1, false)
+	## Damage Hitbox: Layer = Enemy_Weapon, Mask = Enemy, Player, Creation, Event
 	damage_hitbox.set_collision_layer_value(5, true)
-	damage_hitbox.set_collision_layer_value(1, false)
-	## Mask: Enemy, Player, Creation, Event
 	damage_hitbox.set_collision_mask_value(2, true)
 	damage_hitbox.set_collision_mask_value(8, true)
 	damage_hitbox.set_collision_mask_value(4, true)
 	damage_hitbox.set_collision_mask_value(10, true)
-	## EnemyMinionBlock
-	minion_block.set_collision_layer_value(6, true)
-	minion_block.set_collision_mask_value(6, true)
+	damage_hitbox.set_collision_layer_value(1, false)
+	damage_hitbox.set_collision_mask_value(1, false)
+	## Self: Both = Enemy Minion Block
+	set_collision_layer_value(6, true)
+	set_collision_mask_value(6, true)
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
 	gravity_scale = 0
 	lock_rotation = true
 	flash()
@@ -614,6 +633,10 @@ func display_damage(damage_value: float, color: Color, crit: bool):
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 	if !ImReady || dead || hitbox_disabled:
 		return
+	## Get the Damageable Object
+	if "damageable_object" in body:
+		body = body.damageable_object
+	## Attempt to attack
 	if can_attack(body):
 		attack_body(body)
 		## Handles self knockback on attack player

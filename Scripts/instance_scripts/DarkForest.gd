@@ -14,6 +14,8 @@ const TREE_SPIRIT = preload("uid://cb307rg4gvkxp")
 ## Bosses
 const CORRUPT_TREE = preload("uid://c6x5kxiq3op78")
 const TUFF_EGG = preload("uid://bj6wpb0ekg607")
+const DARKORB_BOSS = preload("uid://b4xeq64lfbh5d")
+
 ## Objects/Events
 const EVIL_TREE = preload("uid://cgctjw83xmopn")
 const GRAVE = preload("uid://cks1ybymewgsv")
@@ -128,14 +130,15 @@ func phase_test():
 	print("PHASE TEST - TEST TEST")
 	generic_phase_setup(1)
 	set_grave_spawn_chance(0)
-	#enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
+	enemies.append(EnemySpawn.new(DARKORB, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SKELETON, 0.1, 1))
 	#enemies.append(EnemySpawn.new(CRAWLER, 0.2, 1))
-	enemies.append(EnemySpawn.new(GHOUL, 0.2, 1))
+	#enemies.append(EnemySpawn.new(GHOUL, 0.2, 1))
 	#enemies.append(EnemySpawn.new(GHOST, 0.2, 1)) 
 	#enemies.append(EnemySpawn.new(TREE_SPIRIT, 0.2, 1))
 	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, DARKORB_BOSS, true, -1, -1))
 func phase_one():
 	print("PHASE 1 - Skeleton Warmup")
 	generic_phase_setup(1)

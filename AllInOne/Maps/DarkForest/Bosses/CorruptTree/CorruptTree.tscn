@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bnhsdpro70dgj" path="res://Scripts/enemy_scripts/enemy_types/boss.gd" id="1_cahjr"]
 [ext_resource type="Texture2D" uid="uid://rfmqs7n20et7" path="res://AllInOne/Maps/DarkForest/Bosses/CorruptTree/CorruptTree.png" id="2_yt0y5"]
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_woowr"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="4_yt0y5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rbbft"]
 atlas = ExtResource("2_yt0y5")
@@ -76,7 +77,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_h55f1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 7.0
 }, {
@@ -117,7 +118,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vlgf8")
 }],
-"loop": false,
+"loop": 0,
 "name": &"start",
 "speed": 7.0
 }]
@@ -125,27 +126,27 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cahjr"]
 size = Vector2(68, 95)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_woowr"]
+size = Vector2(76, 102)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yt0y5"]
 radius = 25.0
 height = 72.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_woowr"]
-size = Vector2(76, 102)
 
 [node name="CorruptTree" type="RigidBody2D" unique_id=921949867]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_cahjr")
 enemy_name = "Corrupt Tree"
-play_animation_before_ready = "start"
 can_be_knockbacked = false
 can_be_stunned = false
 can_be_frozen = false
 self_knockback_onhit = 10.0
-base_damage = 40.0
-base_movespeed = 21.0
-base_health = 2000.0
 percent_damage_taken = 0.7
+base_damage = 40.0
+base_health = 2000.0
+base_movespeed = 21.0
+play_animation_before_ready = "start"
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=376917444]
 position = Vector2(1, 9)
@@ -165,14 +166,15 @@ collision_mask = 130
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_cahjr")
 
-[node name="MinionBlock" type="Area2D" parent="." unique_id=1364044860]
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=669446843]
 collision_layer = 32
 collision_mask = 32
+script = ExtResource("4_yt0y5")
 
-[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=1471213736]
-position = Vector2(0, 2)
-shape = SubResource("CapsuleShape2D_yt0y5")
-
-[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=1737983782]
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1737983782]
 position = Vector2(-1, 2)
 shape = SubResource("RectangleShape2D_woowr")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1471213736]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_yt0y5")

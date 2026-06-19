@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="2_j22yq"]
 [ext_resource type="Texture2D" uid="uid://0v5thn2yv84r" path="res://AllInOne/Maps/DarkForest/Enemies/Skeleton/Skeleton.png" id="2_qndeg"]
 [ext_resource type="Script" uid="uid://bh1k2ntk5ha5s" path="res://Scripts/misc/RandomizeAnimationSpeed.gd" id="3_qndeg"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="5_f3f06"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cokka"]
 atlas = ExtResource("2_qndeg")
@@ -83,7 +84,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3hk64")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Rise",
 "speed": 7.0
 }, {
@@ -97,7 +98,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aflpf")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -105,11 +106,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_f3f06"]
 radius = 6.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_n6a43"]
-radius = 3.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_aflpf"]
 radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n6a43"]
+radius = 3.0
 
 [node name="RigidBody2D" type="RigidBody2D" unique_id=689508552 groups=["enemy"]]
 collision_layer = 8
@@ -117,8 +118,8 @@ collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_v4a0o")
 enemy_name = "Skeleton"
-play_animation_before_ready = "Rise"
 turns_towards_movement = true
+play_animation_before_ready = "Rise"
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1259447097]
 position = Vector2(1, 7)
@@ -139,15 +140,16 @@ collision_mask = 130
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=554163333]
 shape = SubResource("CircleShape2D_f3f06")
 
-[node name="MinionBlock" type="Area2D" parent="." unique_id=579967049]
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=1044581144]
 collision_layer = 32
 collision_mask = 32
+script = ExtResource("5_f3f06")
 
-[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=223758029]
-shape = SubResource("CircleShape2D_n6a43")
-
-[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=1626205026]
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1626205026]
 shape = SubResource("CircleShape2D_aflpf")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=223758029]
+shape = SubResource("CircleShape2D_n6a43")
 
 [connection signal="area_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]
 [connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

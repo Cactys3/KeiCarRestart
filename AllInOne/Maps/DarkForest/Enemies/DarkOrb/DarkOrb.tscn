@@ -6,16 +6,17 @@
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="4_ub13k"]
 [ext_resource type="Texture2D" uid="uid://dcqev4gxdwwa0" path="res://AllInOne/Maps/DarkForest/Enemies/DarkOrb/DarkOrb.png" id="5_f2py3"]
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="6_xoonr"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="7_irkqm"]
+
+[sub_resource type="Resource" id="Resource_yjfkj"]
+script = ExtResource("4_ub13k")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="Resource" id="Resource_18ivh"]
 script = ExtResource("3_psh1p")
 clip = ExtResource("2_irkqm")
 volume = 1.0
 metadata/_custom_type_script = "uid://cnwrxn55ulo35"
-
-[sub_resource type="Resource" id="Resource_yjfkj"]
-script = ExtResource("4_ub13k")
-metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3cmtv"]
 atlas = ExtResource("5_f2py3")
@@ -84,9 +85,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_by6du")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -116,7 +117,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wvy67")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -124,30 +125,30 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_3cmtv"]
 radius = 8.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lqxhm"]
-radius = 7.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_2u64k"]
 radius = 9.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_lqxhm"]
+radius = 4.0
+
 [node name="DarkOrb" type="RigidBody2D" unique_id=1624017261 groups=["enemy"]]
-collision_layer = 8
+collision_layer = 0
 collision_mask = 0
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_87rsd")
 enemy_name = "Dark Orb"
 enemy_description = "An Evil Orb floats towards you.... Scary stuff"
-sound_on_death = SubResource("Resource_18ivh")
+rotate_towards_movement = true
 status = SubResource("Resource_yjfkj")
-turns_towards_movement = true
+sound_on_death = SubResource("Resource_18ivh")
 metadata/_custom_type_script = "uid://cexfniayiorgs"
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1763268192]
 position = Vector2(1, 9)
 sprite_frames = SubResource("SpriteFrames_cgp4i")
 autoplay = "default"
-frame_progress = 0.58037806
+frame_progress = 0.9492527
 offset = Vector2(0, -8.385)
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("6_xoonr")]
@@ -159,14 +160,15 @@ collision_mask = 130
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=115181602]
 shape = SubResource("CircleShape2D_3cmtv")
 
-[node name="MinionBlock" type="Area2D" parent="." unique_id=614303809]
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=1831862906]
 collision_layer = 32
 collision_mask = 32
+script = ExtResource("7_irkqm")
 
-[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=1652375899]
-shape = SubResource("CircleShape2D_lqxhm")
-
-[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=36205081]
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=36205081]
 shape = SubResource("CircleShape2D_2u64k")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1652375899]
+shape = SubResource("CircleShape2D_lqxhm")
 
 [connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

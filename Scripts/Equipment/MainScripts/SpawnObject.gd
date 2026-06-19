@@ -4,8 +4,11 @@ class_name SpawnObject
 
 @export var spawn_name: String = "unset"
 @export var can_attack_enemies: bool = true
-@export var can_atack_events: bool = true
+@export var can_attack_events: bool = true
 @export var can_attack_player: bool = false
+var attack_counter: int = 0
+var AttackedObjects: Array = []
+
 ## How long until we can attack an enemy for a second time?
 @export var attack_same_enemy_cooldown: float = 2
 @export var attack_color: Color = Color.TRANSPARENT
@@ -13,8 +16,7 @@ class_name SpawnObject
 @export var can_die_from_collision: bool = true
 @export var can_die_from_duration: bool = true
 
-var attack_counter: int = 0
-var AttackedObjects: Array = []
+
 func _draw() -> void:
 	draw_arc(Vector2.ZERO, range_stat, 0, TAU, 64, Color.RED.lerp(Color.TRANSPARENT, 0.7), 1)
 func _process(delta: float) -> void:
@@ -128,6 +130,10 @@ func IsAimingAtAnyEnemy(current_rotation: float) -> bool:
 	return false
 ## Check if can attack body, then call attack_body
 func _on_body_entered(body: Node2D) -> void:
+	## Get the Damageable Object
+	if "damageable_object" in body:
+		body = body.damageable_object
+	## Attempt to attack
 	if can_attack(body):
 		attack_body(body)
 		attack_counter += 1
@@ -140,7 +146,7 @@ func can_attack(body: Node2D) -> bool:
 	## Type checks 
 	if body.is_in_group("enemy") && !can_attack_enemies:
 		return false
-	if body.is_in_group("event") && !can_atack_events:
+	if body.is_in_group("event") && !can_attack_events:
 		return false
 	if body.is_in_group("player") && !can_attack_player:
 		return false

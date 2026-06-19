@@ -1,5 +1,6 @@
 extends Enemy
 func _ready() -> void:
+	super()
 	hitbox_disabled = true
 	damage_hitbox.monitoring = false
 	can_attack_enemies = true

@@ -135,12 +135,19 @@ func setup_return_to_sender(player: Node2D):
 ## Calls the given method when this projectile is destroyed
 func setup_death_method(method: Callable):
 	death_method = method
+## 
+func setup_can_attacks(enemies: bool, events: bool, player: bool):
+	can_attack_enemies = enemies
+	can_attack_events = events
+	can_attack_player = player
 func _on_body_entered(body: Node2D) -> void: 
 	if dead || !body:
 		return
-	## Use callable because parent might be freed while projectile still exists
+	## Get the Damageable Object
+	if "damageable_object" in body:
+		body = body.damageable_object
+	## Attempt to attack
 	if can_attack(body):
-	#if (can_attack_method && can_attack_method.call(body)) && !have_attacked(body):
 		if sound_on_hit:
 			AudioManager.instance.play(sound_on_hit, global_position)
 		attack_body(body)
