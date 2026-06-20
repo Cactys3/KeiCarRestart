@@ -92,7 +92,7 @@ func _ready() -> void:
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide
 	## Setups Phases
-	#phases.append(SpawningPhase.new("test", 60, phase_test))
+	phases.append(SpawningPhase.new("test", 60, phase_test))
 	phases.append(SpawningPhase.new("1", 60, phase_one))
 	phases.append(SpawningPhase.new("2", 60, phase_two))
 	phases.append(SpawningPhase.new("3", 60, phase_three))
@@ -138,7 +138,7 @@ func phase_test():
 	#enemies.append(EnemySpawn.new(TREE_SPIRIT, 0.2, 1))
 	#bosses.append(BossSpawn.new(-1, -1, CORRUPT_TREE, true, -1, -1))
 	#bosses.append(BossSpawn.new(-1, -1, TUFF_EGG, true, -1, -1))
-	#bosses.append(BossSpawn.new(-1, -1, DARKORB_BOSS, true, -1, -1))
+	bosses.append(BossSpawn.new(-1, -1, DARKORB_BOSS, true, -1, -1))
 func phase_one():
 	print("PHASE 1 - Skeleton Warmup")
 	generic_phase_setup(1)

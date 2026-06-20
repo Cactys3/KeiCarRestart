@@ -42,16 +42,15 @@ signal died(pos: Vector2, cloned: bool)
 var prebuilt_attack: Attack = null
 var death_method: Callable
 var specific_target: bool = false
-var can_attack_method: Callable
 
 func _ready() -> void:
 	super()
 	if die_on_anim_end && anim:
 		anim.animation_finished.connect(die)
-	
 func _process(delta: float) -> void:
 	if dead:
 		return
+	super(delta)
 	if can_move:
 		## Acceleration
 		velocity += velocity * acceleration * delta
@@ -86,18 +85,14 @@ func process_movement_homing(delta: float):
 		#direction = lerp(direction, (target.global_position - global_position).normalized(), delta * angular_velocity)
 	process_movement(delta)
 ## Setup values generic for all BasicProjectile
-func setup_projectile(new_parent: StatsObject, new_target: Node2D, enemy_direction:Vector2): 
+func setup_projectile(new_parent: StatsObject, new_target: Node2D, target_direction:Vector2): 
+	setup_collisions(true, false)
 	parent = new_parent
-	can_attack_method = parent.get_can_attack_callable()
 	target = new_target
-	initial_direction = enemy_direction.normalized()
-	direction = enemy_direction.normalized()
+	initial_direction = target_direction.normalized()
+	direction = target_direction.normalized()
 	velocity += velocity_stat
 	size += size_stat
-	#piercing += piercing_stat
-	#duration += duration_stat
-	#damage += damage_stat
-	#weight += weight_stat
 	if new_parent is Weapon:
 		attack_type = Attack.AttackTypes.player_weapon_projectile
 	elif new_parent is Upgrade:
@@ -110,15 +105,21 @@ func setup_projectile(new_parent: StatsObject, new_target: Node2D, enemy_directi
 		attack_type = Attack.AttackTypes.upgrade_summon
 	else:
 		printerr("Projectile setup normally but not from weapon or upgrade")
-#func setup_add_parent_stats(stats_parent: StatsObject):
-	#if parent:
-		### Not parent.x_stat bc that would double up on global stats
-		#size += parent._size
-		#piercing += parent._piercing
-		#duration += parent._duration
-		#damage += parent._damage
-		#velocity += parent._velocity
-		#weight += parent._weight
+func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
+	print("PLayer: ", is_player_weapons)
+	var area = get_node(".") as Area2D
+	area.set_collision_layer_value(1, false)
+	area.set_collision_mask_value(1, false)
+	## From Enemy or Player
+	area.set_collision_layer_value(3, is_player_weapons)
+	area.set_collision_layer_value(5, is_player_weapons)
+	## Always Projectile
+	area.set_collision_layer_value(13, is_player_weapons)
+	## Always can check Mask against everything
+	area.set_collision_mask_value(2, true)
+	area.set_collision_mask_value(4, true)
+	area.set_collision_mask_value(8, true)
+	area.set_collision_mask_value(10, true)
 func setup_specific_target():
 	specific_target = true
 ## Gives the projectile a prebuilt attack to use instead of calling parent.make_attack()
@@ -136,10 +137,11 @@ func setup_return_to_sender(player: Node2D):
 func setup_death_method(method: Callable):
 	death_method = method
 ## 
-func setup_can_attacks(enemies: bool, events: bool, player: bool):
+func setup_can_attacks(enemies: bool, events: bool, player: bool, creations: bool):
 	can_attack_enemies = enemies
 	can_attack_events = events
 	can_attack_player = player
+	can_attack_creations = creations
 func _on_body_entered(body: Node2D) -> void: 
 	if dead || !body:
 		return
@@ -154,6 +156,8 @@ func _on_body_entered(body: Node2D) -> void:
 		collision_counter += 1
 		append_attack_element(body)
 func attack_body(body: Node2D) -> void:
+	append_attack_element(body)
+	attack_counter += 1
 	var attack: Attack = null
 	## Use prebuilt attack as 1st prio
 	if prebuilt_attack:
@@ -167,9 +171,9 @@ func attack_body(body: Node2D) -> void:
 	## Then request an attack from parent
 	elif is_instance_valid(parent):
 		if is_clone:
-			attack = parent.make_attack(clone_offset)
+			attack = make_parent_attack(clone_offset)
 		else:
-			attack = parent.make_attack(1)
+			attack = make_parent_attack(1)
 	## Lastly fallback on making own attack
 	else:
 		if is_clone:
@@ -190,6 +194,16 @@ func make_attack(attack_damage_multiplier: float) -> Attack:
 	attack.set_attack_color(attack_color)
 	attack.impact_location = global_position
 	return attack
+func make_parent_attack(attack_damage_multiplier: float) -> Attack:
+	if is_instance_valid(parent):
+		return parent.make_attack(attack_damage_multiplier)
+	return null
+func can_attack(body: Node2D) -> bool: 
+	if !super(body):
+		return false
+	if body == parent && !can_attack_creator:
+		return false
+	return true
 func die():
 	if dead:
 		return

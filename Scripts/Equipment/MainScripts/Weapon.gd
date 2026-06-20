@@ -63,6 +63,7 @@ var while_attacking_locked_orbit: float
 @export var can_attack_enemies: bool = true
 @export var can_attack_events: bool = true
 @export var can_attack_player: bool = false
+@export var can_attack_creations: bool = false
 var attack_counter: int = 0
 var AttackedObjects: Array = []
 
@@ -197,7 +198,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	var new_bullet: Projectile = projectile.instantiate()
 	new_bullet.visible = false
 	new_bullet.setup_projectile(self, null, new_direction)
-	new_bullet.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player)
+	new_bullet.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player, can_attack_creations)
 	if (AimType == AimTypes.Spinning): #handle aim types special cases
 		player.add_child(new_bullet)
 	else:

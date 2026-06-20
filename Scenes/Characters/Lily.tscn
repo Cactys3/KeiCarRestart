@@ -80,7 +80,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qime4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -109,7 +109,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ifyw4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"move",
 "speed": 5.0
 }]
@@ -128,6 +128,7 @@ script = ExtResource("1_t5ff5")
 character_name = "Lily"
 pickup_range = NodePath("pickup_range/CollisionShape2D")
 anim = NodePath("AnimatedSprite2D")
+movespeed = 200.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=564162239]
 sprite_frames = SubResource("SpriteFrames_qime4")

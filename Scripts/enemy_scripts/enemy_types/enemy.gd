@@ -7,7 +7,7 @@ enum EnemyTypes {unset}
 @export_group("Visuals")
 @export var turns_towards_movement: bool = false
 @export var rotate_towards_movement: bool = false
-@export var rotation_offset: float = 15
+@export var rotation_offset: float = 0
 @export_group("Data")
 @export var multiply_hp_by_minute: bool = true
 @export var melee_attacks: bool = true
@@ -32,6 +32,8 @@ var attack_count: float = 0
 @export var base_damage: float = 10
 @export var base_health: float = 50
 @export var base_movespeed: float = 20
+## 0:Light, 1:Medium, 2:Big, 3:Huge, 4:Boss
+@export var base_weight: float = 0
 @export var base_regen: float = 0
 @export var base_knockback_modifier: float = 1.0
 @export var base_damage_reduction: float = 5
@@ -40,12 +42,10 @@ var attack_count: float = 0
 @export var base_critdamage: float = 0
 @export_group("Projectile")
 @export var shoots_projectiles: bool = false
+@export var shoot_enemy_in_range: bool = false
 @export var projectile: PackedScene
+@export var projectile_attack_cooldown: float = 5
 @export var base_range: float = 100
-@export var base_speed: float = 100
-@export var base_acceleration: float = 2
-@export var base_lifetime: float = 9
-@export var base_piercing: float = 0
 
 @export_group("Status Effects")
 # enemy's attacking status buildups (for if we charm enemies? to apply status on each other?)
@@ -130,6 +130,12 @@ var attack_on_cd: bool = true
 var stun_time_left: float = 0
 var stunned: bool = false
 var curr_health: float
+var curr_weight: float:
+	set(value):
+		curr_weight = value
+		## Can't be negative, but mass is based on weight
+		if value + 1 >= 0:
+			mass = (value + 1) * 5
 var curr_movespeed: float
 var curr_regen: float 
 var curr_knockback_modifier: float
@@ -138,7 +144,7 @@ var curr_cooldown_max: float
 var cooldown_stopwatch: float = 0
 var time_since_knockedback: float = 0
 ## Projectile Stats:
-var projectile_cooldown_stopwatch: float = 0
+var projectile_attack_stopwatch: float = 0
 var curr_range: float
 var curr_speed: float
 var curr_acceleration: float
@@ -216,24 +222,20 @@ func flash():
 	anim.visible = true
 ## called whever stats change
 func set_stats():
+	curr_weight = base_weight
 	curr_regen = base_regen
 	curr_movespeed = base_movespeed + movespeed_modifier
 	curr_knockback_modifier = base_knockback_modifier
 	curr_damage_reduction = base_damage_reduction
 	curr_cooldown_max = base_cooldown ##TODO: setup based on stats
 	curr_range = base_range
-	curr_speed = base_speed
-	curr_acceleration = base_acceleration
-	curr_lifetime = base_lifetime
-	curr_piercing = base_piercing
 	curr_damage = calculate_enemy_damage(base_damage, level, difficulty)
 	## Recalcuate base_health given minute/difficulty/etc
 	base_health = calculate_enemy_hp(base_health, minute + 1, difficulty, multiply_hp_by_minute)
 	curr_health = base_health
 	curr_critchance = base_critchance
 	curr_critdamage = base_critdamage
-
-##
+## Check for Intro Animations and Animation Variations
 func setup():
 	if animation_variations.size() > 0:
 		my_variation = animation_variations.pick_random()
@@ -296,17 +298,16 @@ func _process(delta: float) -> void:
 				damage_hitbox.set_deferred("monitoring", true) #handles the hitbox turning off for a CD after hitting the player
 	## Projectile Shoot
 	if shoots_projectiles:
-		if projectile_cooldown_stopwatch < curr_cooldown_max:
-			projectile_cooldown_stopwatch += delta
+		if projectile_attack_stopwatch < projectile_attack_cooldown:
+			projectile_attack_stopwatch += delta
 		else:
-			if is_player_nearby(curr_range):
-				projectile_cooldown_stopwatch = 0
-				var proj: EnemyProjectile = projectile.instantiate()
-				GameManager.instance.projectile_parent.add_child(proj)
-				proj.modulate = self.modulate
-				proj.global_position = global_position
-				## 1 damage at minimum
-				proj.setup_enemy(self, player, global_position - player.global_position, false, 0) #curr_piercing, curr_lifetime, max(1, curr_damage + frost_damage_reduction), curr_speed, 1, 1, scale.length(), curr_acceleration)
+			if shoot_enemy_in_range:
+				if is_player_nearby(curr_range):
+					shoot_projectile(player)
+					projectile_attack_stopwatch = 0
+			else:
+				shoot_projectile(player)
+				projectile_attack_stopwatch = 0
 func _physics_process(delta: float) -> void:
 	if !ImReady || dead:
 		return
@@ -324,13 +325,16 @@ func stop_movement() -> void:
 	stored_angular_velocity = angular_velocity
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0
+	freeze = true
 ## Restarts movement based on the stored velocity, if stored
-func restart_movement() -> void:
+func restart_movement(retain_movement: bool) -> void:
 	can_move = true
-	linear_velocity = stored_linear_velocity
-	angular_velocity = stored_angular_velocity
+	if retain_movement:
+		linear_velocity = stored_linear_velocity
+		angular_velocity = stored_angular_velocity
 	stored_linear_velocity = Vector2.ZERO
 	stored_angular_velocity = 0
+	freeze = false
 
 var half_second_cd: float = 0
 var second_cd: float = 0
@@ -557,8 +561,15 @@ func make_status_attack(status_damage: float, type: StatusEffects.StatusTypes) -
 	attack.simple_setup(status_damage, 0)
 	return attack
 
-func shoot_projectile():
-	pass
+func shoot_projectile(target: Node2D) -> void:
+	var proj: EnemyProjectile = projectile.instantiate()
+	proj.setup_enemy(self, target, -1 * Vector2(cos(global_rotation), sin(global_rotation)), false, 0)
+	proj.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player, can_attack_creations)
+	GameManager.instance.projectile_parent.add_child(proj)
+	proj.modulate = self.modulate
+	proj.global_position = global_position
+	proj.rotation = rotation
+
 var playing_die: bool = false
 func die():
 	if !playing_die:

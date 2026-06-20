@@ -174,6 +174,8 @@ func get_can_attack_callable() -> Callable:
 	#return func(body: Node2D) -> bool:
 		#return !body.is_in_group("player") && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage")
 func attack_body(body: Node2D):
+	append_attack_element(body)
+	attack_counter += 1
 	body.damage(make_attack(damage_multiplier))
 	if self_knockback_onhit > 0 && can_be_knockedback:
 		apply_knockback(self_knockback_onhit * knockback_modifier, body.global_position)

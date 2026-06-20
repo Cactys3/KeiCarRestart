@@ -5,12 +5,14 @@ class_name SpawnObject
 @export var spawn_name: String = "unset"
 @export var can_attack_enemies: bool = true
 @export var can_attack_events: bool = true
+@export var can_attack_creations: bool = false
 @export var can_attack_player: bool = false
+@export var can_attack_creator: bool = false
 var attack_counter: int = 0
 var AttackedObjects: Array = []
 
 ## How long until we can attack an enemy for a second time?
-@export var attack_same_enemy_cooldown: float = 2
+@export var attack_same_enemy_cooldown: float = 1
 @export var attack_color: Color = Color.TRANSPARENT
 @export var show_debug_range: bool = false
 @export var can_die_from_collision: bool = true
@@ -22,7 +24,8 @@ func _draw() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 	for element: AttackedObjectsElement in AttackedObjects:
-		element._process(delta)
+		if element._process(delta):
+			AttackedObjects.erase(element)
 	if show_debug_range || DebugManager.SpawnObjectRange:
 		queue_redraw()
 ## Return enemy within range, try to use detection_range by default
@@ -136,8 +139,6 @@ func _on_body_entered(body: Node2D) -> void:
 	## Attempt to attack
 	if can_attack(body):
 		attack_body(body)
-		attack_counter += 1
-		append_attack_element(body)
 ## Check if we can attack body using @export variables
 func can_attack(body: Node2D) -> bool: 
 	## Is it a valid node with required methods/variables
@@ -154,8 +155,9 @@ func can_attack(body: Node2D) -> bool:
 	return !have_attacked(body)
 ## Override this to attack the body
 func attack_body(body: Node2D):
-	if body.has_method("damage"):
-		body.damage(make_attack(1))
+	append_attack_element(body)
+	attack_counter += 1
+	body.damage(make_attack(1))
 
 func have_attacked(node: Node) -> bool:
 	for element: AttackedObjectsElement in AttackedObjects:
@@ -163,25 +165,22 @@ func have_attacked(node: Node) -> bool:
 			return true
 	return false
 func append_attack_element(node: Node):
-	AttackedObjects.append(AttackedObjectsElement.new(node, attack_same_enemy_cooldown, AttackedObjects))
+	AttackedObjects.append(AttackedObjectsElement.new(node, attack_same_enemy_cooldown))
 
 class AttackedObjectsElement:
 	var stopwatch: float = 0
 	var duration: float = 0
 	var start: bool = false
-	var list: Array
 	var object: Node
-	func _init(underlying_object: Node, new_duration: float, new_list: Array):
+	func _init(underlying_object: Node, new_duration: float):
 		object = underlying_object
 		duration = new_duration
-		list = new_list
 		start = true
-	func _process(delta: float) -> void:
+	func _process(delta: float) -> bool:
 		stopwatch += delta
 		if stopwatch >= duration:
-			remove()
-	func remove():
-		list.erase(self)
+			return true
+		return false
 
 func _get_hp_stat():
 	return (super() + Statics.spawn_hp_buff) * Statics.spawn_hp_factor

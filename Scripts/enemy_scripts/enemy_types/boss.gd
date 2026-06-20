@@ -6,12 +6,23 @@ const PROXIMITY_LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 @export var loot_drop_id_handle: int = -1
 @export var loot_drop_id_attachment: int = -1
 @export var loot_drop_id_projectile: int = -1
+@export_category("Boss Stats")
+## Bosses are default 4 weight
+@export var boss_base_damage: float = 40
+@export var boss_base_health: float = 2000
+@export var boss_base_movespeed: float = 20
+@export var boss_base_weight: float = 4
+@export var boss_can_be_frozen: bool = false
 ## save loot chest on drop resource/scene
 ## handle dropping loot chest on death
 ## handle unlocking new weapons on death if that happens
 ## handle health bar to see if we want that just for bosses
 func _ready() -> void:
-	can_be_frozen = false
+	can_be_frozen = boss_can_be_frozen
+	base_weight = boss_base_weight
+	base_health = boss_base_health
+	base_damage = boss_base_damage
+	base_movespeed = boss_base_movespeed
 	super()
 func die():
 	drop_chest()

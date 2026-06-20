@@ -140,6 +140,7 @@ script = ExtResource("1_87rsd")
 enemy_name = "Dark Orb"
 enemy_description = "An Evil Orb floats towards you.... Scary stuff"
 rotate_towards_movement = true
+rotation_offset = 15.0
 status = SubResource("Resource_yjfkj")
 sound_on_death = SubResource("Resource_18ivh")
 metadata/_custom_type_script = "uid://cexfniayiorgs"
