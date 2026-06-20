@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://bj2y4iclkpjpa"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_x4gx6"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="2_jesyo"]
+[ext_resource type="Texture2D" uid="uid://bkd7n71n2exqd" path="res://AllInOne/Maps/FruitsAndVeggies/Enemies/Watermelon/Watermelon.png" id="2_uh88e"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="3_uh88e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unxl0"]
+atlas = ExtResource("2_uh88e")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jttkq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unxl0")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Watermelon" type="RigidBody2D" unique_id=1073144180 node_paths=PackedStringArray("damage_hitbox")]
+gravity_scale = 0.0
+script = ExtResource("1_x4gx6")
+damage_hitbox = NodePath("Damage_Hitbox")
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=93647415]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_jttkq")
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("2_jesyo")]
+position = Vector2(0, -1)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=450846999]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=803880345]
+
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=2017001137]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("3_uh88e")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=13861550]
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=629728715]
+rotation = 1.5707964

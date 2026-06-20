@@ -8,11 +8,16 @@ const TILE_4 = preload("uid://c3t4kda6cwqs8")
 const TILE_5 = preload("uid://dn7pcp5orn4l8")
 const IMAGES: Array[Texture] = [TILE_1, TILE_2, TILE_3, TILE_4, TILE_5]
 ## Enemies
-
+const CLARN = preload("uid://s5p2tm4ndgv7")
+const FLUUE = preload("uid://d2rpogiu2kwy7")
+const GUREL = preload("uid://c4x7h8vmwspbp")
+const JARRE = preload("uid://fiy2tsxdh0u0")
+const KLE = preload("uid://peuogge586n6")
+const SCLARNK = preload("uid://u1neqea283yh")
 ## Enemy Events
 
 ## Bosses
-
+const SHLARNGUH = preload("uid://dkffbs4i3vdel")
 ## Objects/Events
 
 ## Update grave values dynamically, so keep a reference

@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://c4x7h8vmwspbp"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_468ty"]
+[ext_resource type="Texture2D" uid="uid://n6qph7sxu8ad" path="res://AllInOne/Maps/Hell/Enemies/Gurel/Gurel.png" id="2_1jqyv"]
+[ext_resource type="Script" uid="uid://bh1k2ntk5ha5s" path="res://Scripts/misc/RandomizeAnimationSpeed.gd" id="3_vi1wu"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="4_xu6x0"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="5_nap3g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_468ty"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jqyv"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vi1wu"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xu6x0"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nap3g"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53xhy"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flig3"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bf4cq"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(480, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xq14t"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f17y6"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5htm"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3gus"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xym2i"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c02xw"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkvce"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gyln7"]
+atlas = ExtResource("2_1jqyv")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h4c4v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_468ty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jqyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vi1wu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xu6x0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nap3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53xhy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flig3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bf4cq")
+}],
+"loop": 1,
+"name": &"alt",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xq14t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f17y6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5htm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3gus")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xym2i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c02xw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkvce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gyln7")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="Gurel" type="RigidBody2D" unique_id=1590675222 node_paths=PackedStringArray("damage_hitbox")]
+gravity_scale = 0.0
+script = ExtResource("1_468ty")
+enemy_name = "Gurel"
+turns_towards_movement = true
+damage_hitbox = NodePath("Damage_Hitbox")
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=2137895759]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_h4c4v")
+animation = &"alt"
+autoplay = "default"
+offset = Vector2(0, -8.385)
+script = ExtResource("3_vi1wu")
+max_random = 7.0
+min_random = 5.0
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("4_xu6x0")]
+position = Vector2(0, -1)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=2129822229]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=999606944]
+
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=54541291]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("5_nap3g")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=982019568]
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1914401333]
+rotation = 1.5707964

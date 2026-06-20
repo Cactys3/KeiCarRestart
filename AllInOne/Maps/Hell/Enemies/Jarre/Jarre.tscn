@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://fiy2tsxdh0u0"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_hv3pp"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="2_35ajn"]
+[ext_resource type="Texture2D" uid="uid://5gi5phh1b18p" path="res://AllInOne/Maps/Hell/Enemies/Jarre/Jarre.png" id="2_o8yfn"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="3_o8yfn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfik0"]
+atlas = ExtResource("2_o8yfn")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35ajn"]
+atlas = ExtResource("2_o8yfn")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sfik0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfik0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35ajn")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Jarre" type="RigidBody2D" unique_id=1872423178 node_paths=PackedStringArray("damage_hitbox")]
+gravity_scale = 0.0
+script = ExtResource("1_hv3pp")
+enemy_name = "Jarre"
+turns_towards_movement = true
+damage_hitbox = NodePath("Damage_Hitbox")
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=899884686]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_sfik0")
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("2_35ajn")]
+position = Vector2(0, -1)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1952912811]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1501326835]
+
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=1247085551]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("3_o8yfn")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=970779264]
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=87420127]
+rotation = 1.5707964
