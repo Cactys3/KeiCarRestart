@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bepsen4h7afik"]
+
+[ext_resource type="Texture2D" uid="uid://c31b0ffovjscb" path="res://AllInOne/Maps/FruitsAndVeggies/Background/Tile2.png" id="1_3nkjy"]
+[ext_resource type="Script" uid="uid://bimyoqcb84ohp" path="res://Scripts/misc/FlashFix.gd" id="1_h4p2s"]
+
+[node name="TILE_2" type="Sprite2D" unique_id=475314870]
+texture = ExtResource("1_3nkjy")
+script = ExtResource("1_h4p2s")
+metadata/_custom_type_script = "uid://bimyoqcb84ohp"

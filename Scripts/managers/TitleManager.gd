@@ -20,8 +20,10 @@ class_name TitleManager
 static var file_slot: int = 0
 const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
 ## Instances
-var TEST: duple = duple.new("TEST", "res://Scenes/Main/TestInstance.tscn")
-var DARKFOREST: duple = duple.new("DARKFOREST", "res://Scenes/DarkForest/DarkForest.tscn")
+var TEST: duple = duple.new("Test Map", "res://Scenes/Main/TestInstance.tscn")
+var DARKFOREST: duple = duple.new("Dark Forest", "res://AllInOne/Maps/DarkForest/DarkForest.tscn")
+var HELL: duple = duple.new("Hell", "res://AllInOne/Maps/Hell/Hell.tscn")
+var FRUITSANDVEGGIES: duple = duple.new("Fruits and Veggies", "res://AllInOne/Maps/FruitsAndVeggies/FruitsAndVeggies.tscn")
 ## Characters [global_stats][character scene]
 var WEBFISHER: duple = duple.new("WebFisher", "res://Scenes/Characters/Character.tscn")
 var LILY: duple = duple.new("Lily", "res://Scenes/Characters/Lily.tscn")
@@ -32,7 +34,7 @@ var character: int ## Chosen character
 var map: int ## Chosen map
 var weapon: int ## Chosen weapon
 var characters: Array[duple] = [WEBFISHER, LILY]
-var maps: Array[duple] = [TEST, DARKFOREST]
+var maps: Array[duple] = [TEST, DARKFOREST, HELL, FRUITSANDVEGGIES]
 var weapons: Array[duple] = [BOXING_GLOVE]
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
 static var start_playtime: float 

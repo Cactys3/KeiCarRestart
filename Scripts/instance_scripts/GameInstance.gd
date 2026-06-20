@@ -536,7 +536,10 @@ func get_edge_tile(vector: Vector2) -> Node2D:
 	return TileBlank.instantiate()
 ## Gets random tile for map - Override
 func get_rand_tile() -> Node2D:
-	return TILES[randi_range(0, TILES.size() - 1)].instantiate()
+	var num_of_tiles: int = TILES.size()
+	if num_of_tiles <= 0:
+		return TileBlank.instantiate()
+	return TILES[randi_range(0, num_of_tiles - 1)].instantiate()
 func generic_phase_setup_dont_clear(phase_num: int):
 	spawning_phase = phase_num
 func generic_phase_setup(phase_num: int):

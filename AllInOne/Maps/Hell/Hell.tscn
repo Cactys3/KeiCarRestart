@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bqc6xaum4ppcs"]
+
+[ext_resource type="Script" uid="uid://dk6fwr7e7xum4" path="res://AllInOne/Maps/Hell/Hell.gd" id="1_aht8q"]
+
+[node name="Hell" type="Node2D" unique_id=918816315]
+script = ExtResource("1_aht8q")

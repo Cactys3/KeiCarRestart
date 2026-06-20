@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d1aircl33de7m"]
+
+[ext_resource type="Script" uid="uid://cpk2l8nwtqvtl" path="res://AllInOne/Maps/FruitsAndVeggies/FruitsAndVeggies.gd" id="1_aeryy"]
+
+[node name="FruitsAndVeggies" type="Node2D" unique_id=1397261868]
+script = ExtResource("1_aeryy")

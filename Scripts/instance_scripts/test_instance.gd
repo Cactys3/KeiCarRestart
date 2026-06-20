@@ -29,10 +29,10 @@ func phase_one():
 	#print("PHASE 1")
 	spawning_phase = 1
 	enemies.clear()
-	enemies.append(EnemySpawn.new("", null, 0.3, 3))
-	enemies.append(EnemySpawn.new("", null, 0.3, 3))
-	enemies.append(EnemySpawn.new("", null, 0.3, 3))
-	enemies.append(EnemySpawn.new("", null, 0.3, 3))
+	enemies.append(EnemySpawn.new(null, 0.3, 3))
+	enemies.append(EnemySpawn.new(null, 0.3, 3))
+	enemies.append(EnemySpawn.new(null, 0.3, 3))
+	enemies.append(EnemySpawn.new(null, 0.3, 3))
 
 func handle_enemy_spawning(delta: float, pos: Vector2):
 	super(delta, pos)

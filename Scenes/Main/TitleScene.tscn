@@ -245,14 +245,15 @@ custom_minimum_size = Vector2(400, 400)
 clip_contents = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "Hell"
+text = "Dark
+Forest"
 
 [node name="Choose_1" type="Button" parent="Map_Selection/ScrollContainer/GridContainer" unique_id=144827407]
 custom_minimum_size = Vector2(400, 400)
 clip_contents = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "Test"
+text = "Hell"
 
 [node name="Choose_2" type="Button" parent="Map_Selection/ScrollContainer/GridContainer" unique_id=1877339892]
 custom_minimum_size = Vector2(400, 400)
@@ -268,7 +269,7 @@ custom_minimum_size = Vector2(400, 400)
 clip_contents = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "N/A"
+text = "Test"
 
 [node name="Choose_4" type="Button" parent="Map_Selection/ScrollContainer/GridContainer" unique_id=709736026]
 custom_minimum_size = Vector2(400, 400)
@@ -496,10 +497,10 @@ autowrap_mode = 3
 [connection signal="button_down" from="Main/Button_Collection" to="TitleManager" method="press_collection"]
 [connection signal="button_down" from="Main/Button_Shop" to="TitleManager" method="press_shop"]
 [connection signal="button_down" from="Map_Selection/Button" to="TitleManager" method="press_start_game"]
-[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_0" to="TitleManager" method="set_map" binds= [0]]
-[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_1" to="TitleManager" method="set_map" binds= [1]]
-[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_2" to="TitleManager" method="set_map" binds= [2]]
-[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_3" to="TitleManager" method="set_map" binds= [3]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_0" to="TitleManager" method="set_map" binds= [1]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_1" to="TitleManager" method="set_map" binds= [2]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_2" to="TitleManager" method="set_map" binds= [3]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_3" to="TitleManager" method="set_map" binds= [0]]
 [connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_4" to="TitleManager" method="set_map" binds= [4]]
 [connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_5" to="TitleManager" method="set_map" binds= [5]]
 [connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_6" to="TitleManager" method="set_map" binds= [6]]
