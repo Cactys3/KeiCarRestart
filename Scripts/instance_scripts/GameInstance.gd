@@ -20,8 +20,8 @@ var weapon_parent: Node2D
 ## Misc
 const MAP_BORDER_COLLISION = preload("uid://c0fcgkctqqqug")
 ## Images
-const TileBlank = null
-var TILES: Array = []
+const TileBlank = preload("uid://2f83wrm2po8i")
+var TILES: Array[PackedScene] = []
 ## Specify [tile path, tile vector]
 var preset_tiles: Dictionary = {}
 ## Events
@@ -251,13 +251,13 @@ func handle_enemy_spawning(delta: float, pos: Vector2):
 ## Load a chunk of the map, spawn events in it, add to array
 func load_chunk(chunk_id: Vector2):
 	chunk_list.append(ChunkElement.new(chunk_id))
-	var new_chunk: Sprite2D = FlashFixSprite.new()
+	var new_chunk: Node2D
 	# if chunk is without of map bounds
 	if check_bounds(chunk_id):
-		new_chunk.texture = get_edge_tile(chunk_id)
+		new_chunk = get_edge_tile(chunk_id)
 		spawn_map_border(chunk_id)
 	else:
-		new_chunk.texture = get_tile(chunk_id)
+		new_chunk = get_tile(chunk_id)
 		spawn_events(chunk_id, false) 
 	background_parent.add_child(new_chunk)
 	new_chunk.position = ((chunk_id) * Vector2(chunk_x, chunk_y))
@@ -527,16 +527,16 @@ func handle_spawn_phases():
 			return
 	## Didn't find a phase...?
 ## Gets tile by vector, or gets random - Override
-func get_tile(vector: Vector2) -> Texture2D:
+func get_tile(vector: Vector2) -> Node2D:
 	if preset_tiles.has(vector):
 		return preset_tiles[vector]
 	return get_rand_tile()
 ## Get tiles for the map's border
-func get_edge_tile(vector: Vector2) -> Texture2D:
-	return TileBlank
+func get_edge_tile(vector: Vector2) -> Node2D:
+	return TileBlank.instantiate()
 ## Gets random tile for map - Override
-func get_rand_tile() -> Texture2D:
-	return TILES[randi_range(0, TILES.size() - 1)]
+func get_rand_tile() -> Node2D:
+	return TILES[randi_range(0, TILES.size() - 1)].instantiate()
 func generic_phase_setup_dont_clear(phase_num: int):
 	spawning_phase = phase_num
 func generic_phase_setup(phase_num: int):

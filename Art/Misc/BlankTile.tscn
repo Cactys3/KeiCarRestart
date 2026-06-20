@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://2f83wrm2po8i"]
+
+[ext_resource type="Texture2D" uid="uid://cdoowwkvlvfk0" path="res://AllInOne/Maps/DarkForest/Background/Backdrop.png" id="1_prttv"]
+[ext_resource type="Script" uid="uid://bimyoqcb84ohp" path="res://Scripts/misc/FlashFix.gd" id="2_sqff8"]
+
+[node name="FlashFixSprite" type="Sprite2D" unique_id=1579631010]
+texture = ExtResource("1_prttv")
+script = ExtResource("2_sqff8")
+metadata/_custom_type_script = "uid://bimyoqcb84ohp"

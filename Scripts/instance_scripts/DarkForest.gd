@@ -1,6 +1,7 @@
 extends GameInstance
 ## Images
-const TILE1 = preload("uid://cdoowwkvlvfk0")
+const DARK_FOREST_BACKGROUND = preload("uid://dyqkheq3h5cfx")
+const DARK_FOREST_RIVER_BACKGROUND = preload("uid://cu2ncdxra0nw5")
 
 ## Enemies
 const DARKORB = preload("uid://cqip08xv6m5no")
@@ -32,7 +33,8 @@ func set_grave_spawn_chance(value: float):
 	grave.spawn_chance = value
 
 ## Overides
-
+func get_edge_tile(vector: Vector2) -> Node2D:
+	return DARK_FOREST_RIVER_BACKGROUND.instantiate()
 func place_event(new_event: EventData, chunk: Vector2, new_position: Vector2) -> Event:
 	var event_scene: Event = super(new_event, chunk, new_position)
 	if new_event == GRAVE:
@@ -78,7 +80,7 @@ func spawn_corrupt_tree(scene: PackedScene, pos: Vector2):
 func _process(delta: float) -> void:
 	super(delta)
 func add_tiles():
-	TILES.append(TILE1) 
+	TILES.append(DARK_FOREST_BACKGROUND) 
 func _ready() -> void:
 	super()
 	## Setup Variables
