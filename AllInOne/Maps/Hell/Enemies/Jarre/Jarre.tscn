@@ -27,6 +27,16 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_468ty"]
+size = Vector2(18, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35ajn"]
+size = Vector2(20, 33)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_35ajn"]
+radius = 4.0
+height = 16.0
+
 [node name="Jarre" type="RigidBody2D" unique_id=1872423178 node_paths=PackedStringArray("damage_hitbox")]
 gravity_scale = 0.0
 script = ExtResource("1_hv3pp")
@@ -47,6 +57,8 @@ collision_layer = 16
 collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1501326835]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_468ty")
 
 [node name="Health_Hitbox" type="Area2D" parent="." unique_id=1247085551]
 collision_layer = 32
@@ -54,6 +66,8 @@ collision_mask = 32
 script = ExtResource("3_o8yfn")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=970779264]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_35ajn")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=87420127]
-rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_35ajn")

@@ -70,6 +70,18 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qvyff"]
+radius = 4.0
+height = 24.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jttkq"]
+radius = 4.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_crd20"]
+radius = 2.0
+height = 12.0
+
 [node name="Pickle" type="RigidBody2D" unique_id=1927358819 node_paths=PackedStringArray("damage_hitbox")]
 gravity_scale = 0.0
 script = ExtResource("1_dc05w")
@@ -92,6 +104,8 @@ collision_layer = 16
 collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1389189686]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_qvyff")
 
 [node name="Health_Hitbox" type="Area2D" parent="." unique_id=91596977]
 collision_layer = 32
@@ -99,6 +113,11 @@ collision_mask = 32
 script = ExtResource("3_jttkq")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=413618729]
+position = Vector2(-1, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_jttkq")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=866976199]
+position = Vector2(0, -1)
 rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_crd20")

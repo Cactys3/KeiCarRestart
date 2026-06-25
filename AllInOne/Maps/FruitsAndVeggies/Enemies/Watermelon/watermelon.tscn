@@ -20,6 +20,16 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_jpdek"]
+points = PackedVector2Array(-12, 11, 0.43017006, -17.537682, 13, 11, 5, 17, -4, 17)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_jesyo"]
+points = PackedVector2Array(-12, 11, 0.43017006, -17.537682, 13, 11, 5, 17, -4, 17)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uh88e"]
+radius = 3.0
+height = 14.0
+
 [node name="Watermelon" type="RigidBody2D" unique_id=1073144180 node_paths=PackedStringArray("damage_hitbox")]
 gravity_scale = 0.0
 script = ExtResource("1_x4gx6")
@@ -38,6 +48,7 @@ collision_layer = 16
 collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=803880345]
+shape = SubResource("ConvexPolygonShape2D_jpdek")
 
 [node name="Health_Hitbox" type="Area2D" parent="." unique_id=2017001137]
 collision_layer = 32
@@ -45,6 +56,8 @@ collision_mask = 32
 script = ExtResource("3_uh88e")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=13861550]
+shape = SubResource("ConvexPolygonShape2D_jesyo")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=629728715]
-rotation = 1.5707964
+position = Vector2(1, 2)
+shape = SubResource("CapsuleShape2D_uh88e")

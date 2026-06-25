@@ -20,6 +20,30 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hc5st"]
+radius = 7.0
+height = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xd07"]
+size = Vector2(7, 12)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3xd07"]
+radius = 5.0
+height = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jq8tk"]
+radius = 8.0
+height = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jq8tk"]
+size = Vector2(7, 11)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3xd07"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ov1mp"]
+radius = 6.0
+
 [node name="Cherries" type="RigidBody2D" unique_id=412588835 node_paths=PackedStringArray("damage_hitbox")]
 gravity_scale = 0.0
 script = ExtResource("1_xg81d")
@@ -38,6 +62,17 @@ collision_layer = 16
 collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=973742361]
+position = Vector2(-1, 11)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_hc5st")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=49549005]
+position = Vector2(-1.5, -2)
+shape = SubResource("RectangleShape2D_3xd07")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=771490598]
+position = Vector2(2, -14)
+shape = SubResource("CapsuleShape2D_3xd07")
 
 [node name="Health_Hitbox" type="Area2D" parent="." unique_id=468550475]
 collision_layer = 32
@@ -45,6 +80,19 @@ collision_mask = 32
 script = ExtResource("3_xx787")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=993982768]
+position = Vector2(-1, 11)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_jq8tk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1460462257]
+position = Vector2(-1.5, -2.5)
+shape = SubResource("RectangleShape2D_jq8tk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Health_Hitbox" unique_id=568525639]
+position = Vector2(2, -15)
+shape = SubResource("CircleShape2D_3xd07")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1439461339]
+position = Vector2(0, 11)
 rotation = 1.5707964
+shape = SubResource("CircleShape2D_ov1mp")

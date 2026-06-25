@@ -27,6 +27,22 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3xd07"]
+radius = 7.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6bqi0"]
+radius = 5.0
+height = 22.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jq8tk"]
+radius = 5.0
+height = 40.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xtthr"]
+radius = 3.0
+height = 10.0
+
 [node name="Fluue" type="RigidBody2D" unique_id=900127770 node_paths=PackedStringArray("damage_hitbox")]
 gravity_scale = 0.0
 script = ExtResource("1_h4c4v")
@@ -46,7 +62,9 @@ position = Vector2(0, -1)
 collision_layer = 16
 collision_mask = 130
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1146571423]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=197288283]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_3xd07")
 
 [node name="Health_Hitbox" type="Area2D" parent="." unique_id=1753433326]
 collision_layer = 32
@@ -54,6 +72,13 @@ collision_mask = 32
 script = ExtResource("4_kihkr")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1001647826]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_6bqi0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1900631495]
+position = Vector2(0, -4)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_jq8tk")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1365610590]
-rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_xtthr")

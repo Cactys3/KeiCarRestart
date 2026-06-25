@@ -206,6 +206,11 @@ func _ready() -> void:
 	damage_hitbox.set_collision_mask_value(10, true)
 	damage_hitbox.set_collision_layer_value(1, false)
 	damage_hitbox.set_collision_mask_value(1, false)
+	## Detect Attack Signal
+	if !damage_hitbox.body_entered.is_connected(_on_damage_hitbox_body_entered):
+		damage_hitbox.body_entered.connect(_on_damage_hitbox_body_entered)
+	if !damage_hitbox.area_entered.is_connected(_on_damage_hitbox_body_entered):
+		damage_hitbox.area_entered.connect(_on_damage_hitbox_body_entered)
 	## Self: Both = Enemy Minion Block
 	set_collision_layer_value(6, true)
 	set_collision_mask_value(6, true)

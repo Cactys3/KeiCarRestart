@@ -131,6 +131,15 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_h4c4v"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_468ty"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1jqyv"]
+radius = 3.0
+
 [node name="Gurel" type="RigidBody2D" unique_id=1590675222 node_paths=PackedStringArray("damage_hitbox")]
 gravity_scale = 0.0
 script = ExtResource("1_468ty")
@@ -156,6 +165,8 @@ collision_layer = 16
 collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=999606944]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_h4c4v")
 
 [node name="Health_Hitbox" type="Area2D" parent="." unique_id=54541291]
 collision_layer = 32
@@ -163,6 +174,10 @@ collision_mask = 32
 script = ExtResource("5_nap3g")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=982019568]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_468ty")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1914401333]
+position = Vector2(0, -2)
 rotation = 1.5707964
+shape = SubResource("CircleShape2D_1jqyv")

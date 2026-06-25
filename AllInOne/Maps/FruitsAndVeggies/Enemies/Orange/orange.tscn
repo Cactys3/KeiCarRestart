@@ -70,6 +70,14 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ov1mp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xx787"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_glnlr"]
+radius = 5.0
+
 [node name="Orange" type="RigidBody2D" unique_id=228832500 node_paths=PackedStringArray("damage_hitbox")]
 gravity_scale = 0.0
 script = ExtResource("1_hoq5k")
@@ -94,6 +102,7 @@ collision_layer = 16
 collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=741868743]
+shape = SubResource("CircleShape2D_ov1mp")
 
 [node name="Health_Hitbox" type="Area2D" parent="." unique_id=1251175132]
 collision_layer = 32
@@ -101,6 +110,8 @@ collision_mask = 32
 script = ExtResource("3_s6eiv")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=442233589]
+shape = SubResource("CircleShape2D_xx787")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1567228567]
 rotation = 1.5707964
+shape = SubResource("CircleShape2D_glnlr")

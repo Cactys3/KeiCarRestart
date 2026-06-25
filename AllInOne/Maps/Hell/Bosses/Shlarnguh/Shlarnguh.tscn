@@ -60,6 +60,25 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3xd07"]
+radius = 9.0
+height = 58.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ui8ls"]
+radius = 6.0
+height = 56.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_la43t"]
+height = 58.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ya5le"]
+radius = 7.0
+height = 58.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lu42a"]
+radius = 7.0
+height = 32.0
+
 [node name="Shlarnguh" type="RigidBody2D" unique_id=921949867]
 collision_layer = 8
 collision_mask = 0
@@ -91,7 +110,13 @@ collision_layer = 16
 collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1582389295]
-position = Vector2(0, 3.5)
+position = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_3xd07")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1953011627]
+position = Vector2(1, -14)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ui8ls")
 
 [node name="Health_Hitbox" type="Area2D" parent="." unique_id=669446843]
 collision_layer = 32
@@ -99,7 +124,14 @@ collision_mask = 32
 script = ExtResource("4_apu4a")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1737983782]
-position = Vector2(-1, 2)
+position = Vector2(1, 2)
+shape = SubResource("CapsuleShape2D_la43t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1599407862]
+position = Vector2(1, -14)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ya5le")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1471213736]
-position = Vector2(0, 2)
+position = Vector2(1, 2)
+shape = SubResource("CapsuleShape2D_lu42a")
