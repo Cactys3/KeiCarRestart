@@ -28,6 +28,8 @@ var preset_tiles: Dictionary = {}
 ## Specify [event scene, event coordinates]
 var preset_events: Array[PresetEvent]
 ## Enemies
+## Enemy Events
+const ENEMY_SHAPE_EVENT = preload("uid://brpqburwthbfs")
 ## Bosses
 ## Proximity Events
 const LOOT_CHEST = preload("uid://cll8qcsho5mrw")
@@ -152,12 +154,12 @@ func _process(delta: float) -> void:
 	if is_game_over:
 		## Lowkey still want to spawn these enemies because it's funny
 		check_max_min_enemies()
-		handle_chunks(character.position)
+		handle_chunks(character.global_position)
 		return
 	timer += delta
 	if !instance:
 		instance = self
-	var pos = character.position #game_man.player.position
+	var pos = character.global_position 
 	ui_man.set_fps(Engine.get_frames_per_second())
 	## Do before spawning so we spawn the correct things
 	handle_spawn_phases()
@@ -333,7 +335,7 @@ func spawn_enemy_events(pos: Vector2):
 	for event in enemy_events:
 		if event.can_spawn():
 			if randf() < event.spawn_chance:
-				spawn_enemy_event(event.scene, random_position(pos), event)
+				spawn_enemy_event(event.scene, event, pos)
 				event.curr_spawns += 1
 ## Goes through enemies in enemies and spawns based on data
 func spawn_bosses(pos: Vector2):
@@ -410,15 +412,12 @@ func spawn_boss(scene: PackedScene, pos: Vector2):
 	game_man.enemy_parent.add_child(boss)
 	boss.global_position = pos
 	boss.visible = true
-func spawn_enemy_event(scene: PackedScene, pos: Vector2, enemy_event_spawn: EnemyEventSpawn):
+func spawn_enemy_event(scene: PackedScene, enemy_event_spawn: EnemyEventSpawn, pos: Vector2):
 	enemy_events_alive += 1
 	enemy_events_spawned += 1
 	var event = scene.instantiate()
-	event.visible = false
-	event.global_position = pos
 	game_man.enemy_parent.add_child(event)
-	event.visible = true
-	event.initialize(total_stopwatch, level, game_man.player.global_position, enemy_event_spawn)
+	enemy_event_spawn.initialize_event(event, self, pos)
 func spawn_final_boss(scene: PackedScene, pos: Vector2):
 	bosses_alive += 1
 	bosses_spawned += 1
@@ -591,6 +590,31 @@ class EnemyEventSpawn: ## TODO: add in functionality to enemy spawn in a line ac
 		if curr_spawns > 0 && spawn_once:
 			return false
 		return curr_spawns < max_spawns
+	func initialize_event(event: Node2D, instance: GameInstance, player_position: Vector2):
+		## Position
+		if spawn_on_player:
+			event.global_position = player_position
+			print("player: ", player_position, ", real: ", instance.character.global_position, ", event: ", event.global_position)
+		else:
+			event.global_position = GameInstance.random_position(player_position)
+		## Setup
+		event.initialize(instance.total_stopwatch, instance.level, self)
+		if is_shape:
+			event.setup(enemy, num_of_enemies, shape, shape_size)
+	var is_shape: bool = false
+	var enemy: PackedScene
+	var num_of_enemies: int
+	var shape: EnemyShapeSpawn.Shapes
+	var shape_size: float
+	var spawn_on_player: bool = false
+	## Setup for EnemyShapeSpawns
+	func setup_shape(new_enemy: PackedScene, new_num_of_enemies: int, new_shape: EnemyShapeSpawn.Shapes, new_shape_size: float, new_spawn_on_player: bool):
+		is_shape = true
+		enemy = new_enemy
+		num_of_enemies = new_num_of_enemies
+		shape = new_shape
+		shape_size = new_shape_size
+		spawn_on_player = new_spawn_on_player
 ## Contains data for a boss to spawn, determines when it will spawn/what makes it spawn
 class BossSpawn:
 	var scene: PackedScene

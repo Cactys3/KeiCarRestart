@@ -177,7 +177,7 @@ func set_visible(nodes: Array[Control]):
 		node.visible = true
 func _quickstart():
 	character = 1
-	map = 1
+	map = 3
 	weapon = 0
 	press_start_game()
 ## Setup the achievements visual based on Save Data

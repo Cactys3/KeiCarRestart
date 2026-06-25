@@ -9,7 +9,13 @@ const TILE_5 = preload("uid://bxl3s0tqhk86p")
 const TILE_6 = preload("uid://ba73lakqdgl7j")
 const IMAGES: Array[Texture] = [TILE_1, TILE_2, TILE_3, TILE_4, TILE_5, TILE_6]
 ## Enemies
-
+const APPLE = preload("uid://c4cvxdvw51wwo")
+const BANANA = preload("uid://8ob3x88ieoaf")
+const CARROT = preload("uid://dge34p6um1pnd")
+const CHERRIES = preload("uid://pt7m21s0mrd5")
+const ORANGE = preload("uid://crmq3c7inbvea")
+const PICKLE = preload("uid://ceglf6qhpnv2")
+const WATERMELON = preload("uid://bj2y4iclkpjpa")
 ## Enemy Events
 
 ## Bosses
@@ -78,6 +84,9 @@ func generic_phase_setup(phase_num: int):
 func phase_test():
 	print("PHASE TEST")
 	generic_phase_setup(1)
+	var event: EnemyEventSpawn = EnemyEventSpawn.new("Shape", ENEMY_SHAPE_EVENT, 1, true, 1)
+	event.setup_shape(APPLE, 50, EnemyShapeSpawn.Shapes.star, 200, true)
+	enemy_events.append(event)
 
 func phase_one():
 	print("PHASE 1")

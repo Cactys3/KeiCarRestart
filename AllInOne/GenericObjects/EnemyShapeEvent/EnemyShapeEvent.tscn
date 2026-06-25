@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://brpqburwthbfs"]
+
+[ext_resource type="Script" uid="uid://b7vqdi6v4pt3k" path="res://AllInOne/GenericObjects/EnemyShapeEvent/EnemyShapeEvent.gd" id="1_jseml"]
+
+[node name="EnemyShapeEvent" type="Node2D" unique_id=773216237]
+script = ExtResource("1_jseml")
