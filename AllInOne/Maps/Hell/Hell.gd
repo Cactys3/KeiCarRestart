@@ -82,6 +82,17 @@ func generic_phase_setup(phase_num: int):
 func phase_test():
 	print("PHASE TEST")
 	generic_phase_setup(1)
+	## Shape Event
+	var event: EnemyEventSpawn = EnemyEventSpawn.new("Shape", ENEMY_SHAPE_EVENT, 1, true, 1)
+	event.setup_shape(CLARN, 50, EnemyShapeSpawn.Shapes.star, 200, true)
+	enemy_events.append(event)
+	## Enemies
+	enemies.append(EnemySpawn.new(CLARN, 0.2, 1))
+	enemies.append(EnemySpawn.new(FLUUE, 0.2, 1))
+	enemies.append(EnemySpawn.new(GUREL, 0.2, 1))
+	enemies.append(EnemySpawn.new(JARRE, 0.2, 1))
+	enemies.append(EnemySpawn.new(KLE, 0.2, 1))
+	enemies.append(EnemySpawn.new(SCLARNK, 0.2, 1))
 
 func phase_one():
 	print("PHASE 1")
