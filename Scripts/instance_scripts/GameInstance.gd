@@ -75,6 +75,8 @@ var spawning_phase: int = -1
 var active_events: Array[Event]
 var map_height: int = 10 ## this many chunks tall
 var map_width: int = 10 ## this many chunks wide
+var x_infinite: bool = false
+var y_infinite: bool = false
 const spawn_area_size: float = 650
 const spawn_deadzone_size: float = 425
 ## Event Tracking
@@ -272,7 +274,7 @@ func second_pass_chunk(chunk_id: Vector2):
 		spawn_events(chunk_id, true)
 ## Checks if the chunk is out of bounds for this map (out of bounds = true)
 func check_bounds(chunk_id: Vector2) -> bool:
-	return abs(chunk_id.x) > abs(map_width) || abs(chunk_id.y) > abs(map_height)
+	return (abs(chunk_id.x) > abs(map_width) || x_infinite) || (abs(chunk_id.y) > abs(map_height) || y_infinite)
 func spawn_map_border(chunk_id: Vector2):
 	var border = MAP_BORDER_COLLISION.instantiate()
 	event_foreground_parent.add_child(border)

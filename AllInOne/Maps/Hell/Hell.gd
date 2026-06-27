@@ -44,6 +44,8 @@ func _ready() -> void:
 	super()
 	
 	## Setup Variables
+	x_infinite = true
+	y_infinite = true
 	default_min_enemies = 30
 	default_max_enemies = 90
 	min_enemies = default_min_enemies
