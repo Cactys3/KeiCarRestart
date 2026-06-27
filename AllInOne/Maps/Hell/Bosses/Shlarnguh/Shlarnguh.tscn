@@ -83,16 +83,12 @@ height = 32.0
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_1qv6j")
-enemy_name = "Corrupt Tree"
+enemy_name = "Shlarnguh"
 can_be_knockbacked = false
 can_be_stunned = false
 can_be_frozen = false
 self_knockback_onhit = 10.0
 percent_damage_taken = 0.7
-base_damage = 40.0
-base_health = 2000.0
-base_movespeed = 21.0
-play_animation_before_ready = "start"
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=376917444]
 position = Vector2(1, 9)

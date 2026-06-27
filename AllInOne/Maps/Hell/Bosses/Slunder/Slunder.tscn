@@ -1,0 +1,169 @@
+[gd_scene format=3 uid="uid://djv0ofl5q82y7"]
+
+[ext_resource type="Script" uid="uid://bnhsdpro70dgj" path="res://Scripts/enemy_scripts/enemy_types/boss.gd" id="1_trqxd"]
+[ext_resource type="Texture2D" uid="uid://bk46b1bwdujye" path="res://AllInOne/Maps/Hell/Bosses/Slunder/Slunder.png" id="2_ubtxo"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_xbi3i"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="4_a7kkp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ih7t"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwv3j"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ut8b"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1jtf"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51wvb"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77i5q"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chxin"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwbb0"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rypw"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xmm8"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyynp"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v30dn"]
+atlas = ExtResource("2_ubtxo")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lb2ve"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ih7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwv3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ut8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1jtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_51wvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77i5q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_chxin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwbb0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rypw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xmm8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyynp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v30dn")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trqxd"]
+size = Vector2(36, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jq8tk"]
+size = Vector2(10, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ehkxq"]
+size = Vector2(38, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xd07"]
+size = Vector2(12, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ex56"]
+radius = 2.0
+height = 20.0
+
+[node name="Slunder" type="RigidBody2D" unique_id=921949867]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_trqxd")
+boss_base_health = 1500.0
+boss_base_movespeed = 22.0
+enemy_name = "Slunder"
+can_be_knockbacked = false
+can_be_stunned = false
+can_be_frozen = false
+self_knockback_onhit = 10.0
+percent_damage_taken = 0.7
+base_damage = 40.0
+base_health = 2000.0
+base_movespeed = 21.0
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=376917444]
+position = Vector2(1, 9)
+sprite_frames = SubResource("SpriteFrames_lb2ve")
+autoplay = "default"
+frame_progress = 0.7270634
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_xbi3i")]
+position = Vector2(0, -4)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1114960930]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1582389295]
+position = Vector2(1, 11)
+shape = SubResource("RectangleShape2D_trqxd")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1831722213]
+position = Vector2(1, -4.5)
+shape = SubResource("RectangleShape2D_jq8tk")
+
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=669446843]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("4_a7kkp")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1737983782]
+position = Vector2(1, 11.5)
+shape = SubResource("RectangleShape2D_ehkxq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1355947182]
+position = Vector2(1, -5)
+shape = SubResource("RectangleShape2D_3xd07")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1471213736]
+position = Vector2(1, 2)
+shape = SubResource("CapsuleShape2D_0ex56")

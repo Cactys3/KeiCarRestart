@@ -8,6 +8,8 @@ enum EnemyTypes {unset}
 @export var turns_towards_player: bool = false
 @export var turns_towards_movement: bool = false
 @export var rotate_towards_movement: bool = false
+## -1 Means instant, else lerp
+@export var rotation_speed: float = -1
 @export var rotation_offset: float = 0
 @export_group("Data")
 @export var multiply_hp_by_minute: bool = true
@@ -701,7 +703,7 @@ func move_towards(new_position: Vector2, movespeed: float, _delta:float):
 		## Either towards player
 		if turns_towards_player:
 			anim.flip_h = player.global_position.x > global_position.x
-		## Or towards movement
+		## Or towards movement (or neither)
 		else:
 			var new_facing_left: bool = linear_velocity.x < 0
 			if turns_towards_movement:
@@ -709,10 +711,18 @@ func move_towards(new_position: Vector2, movespeed: float, _delta:float):
 					facing_left = new_facing_left
 					anim.flip_h = !facing_left
 			if rotate_towards_movement:
+				var target: float 
 				if facing_left:
-					global_rotation = linear_velocity.angle() + deg_to_rad(180) + deg_to_rad(rotation_offset)
+					target = linear_velocity.angle() + deg_to_rad(180) + deg_to_rad(rotation_offset)
 				else:
-					global_rotation = linear_velocity.angle() - deg_to_rad(rotation_offset)
+					target = linear_velocity.angle() - deg_to_rad(rotation_offset)
+				## Do we rotate at a speed or instant
+				if rotation_speed < 0:
+					global_rotation = target
+				else:
+					var angle_diff = angle_difference(global_rotation, target)
+					global_rotation += clampf(angle_diff, -_delta * rotation_speed, _delta * rotation_speed)
+
 func is_player_nearby(distance: float) -> bool:
 	if global_position.distance_to(player.global_position) <= distance:
 		return true

@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://c2kat4idn07l8"]
+
+[ext_resource type="Script" uid="uid://bnhsdpro70dgj" path="res://Scripts/enemy_scripts/enemy_types/boss.gd" id="1_x7wek"]
+[ext_resource type="Texture2D" uid="uid://b0oul5sgrrr8n" path="res://AllInOne/Maps/Hell/Bosses/Gloader/Gloader.png" id="2_d8os7"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_rp3l7"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="4_1kd8e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8aoh"]
+atlas = ExtResource("2_d8os7")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_trqxd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8aoh")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xk0wa"]
+size = Vector2(97, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vuqn2"]
+size = Vector2(100, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x7wek"]
+radius = 4.0
+height = 82.0
+
+[node name="Slunder" type="RigidBody2D" unique_id=921949867]
+position = Vector2(-50, 0)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_x7wek")
+boss_base_health = 1500.0
+boss_base_movespeed = 22.0
+enemy_name = "Slunder"
+rotate_towards_movement = true
+rotation_speed = 0.5
+can_be_knockbacked = false
+can_be_stunned = false
+can_be_frozen = false
+self_knockback_onhit = 10.0
+percent_damage_taken = 0.7
+base_damage = 40.0
+base_health = 2000.0
+base_movespeed = 21.0
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=376917444]
+position = Vector2(1, 9)
+sprite_frames = SubResource("SpriteFrames_trqxd")
+autoplay = "default"
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_rp3l7")]
+position = Vector2(0, -4)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1114960930]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1582389295]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_xk0wa")
+
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=669446843]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("4_1kd8e")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1737983782]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_vuqn2")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1471213736]
+position = Vector2(1, 2)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_x7wek")

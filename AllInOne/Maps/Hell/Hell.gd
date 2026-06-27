@@ -19,6 +19,9 @@ const SLORM = preload("uid://d0swlsjx7bmgi")
 
 ## Bosses
 const SHLARNGUH = preload("uid://dkffbs4i3vdel")
+const SLUNDER = preload("uid://djv0ofl5q82y7")
+const GLOADER = preload("uid://c2kat4idn07l8")
+
 ## Objects/Events
 
 ## Update grave values dynamically, so keep a reference
@@ -94,7 +97,10 @@ func phase_test():
 	#enemies.append(EnemySpawn.new(JARRE, 0.2, 1))
 	#enemies.append(EnemySpawn.new(KLE, 0.2, 1))
 	#enemies.append(EnemySpawn.new(SCLARNK, 0.2, 1))
-	enemies.append(EnemySpawn.new(SLORM, 0.2, 1))
+	#enemies.append(EnemySpawn.new(SLORM, 0.2, 1))
+	#bosses.append(BossSpawn.new(-1, -1, SHLARNGUH, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, SLUNDER, true, -1, -1))
+	bosses.append(BossSpawn.new(-1, -1, GLOADER, true, -1, -1))
 
 func phase_one():
 	print("PHASE 1")
