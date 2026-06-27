@@ -91,74 +91,294 @@ func phase_test():
 	#event.setup_shape(APPLE, 50, EnemyShapeSpawn.Shapes.star, 200, true)
 	#enemy_events.append(event)
 	## Enemies
-	#enemies.append(EnemySpawn.new(APPLE, 0.2, 1))
-	#enemies.append(EnemySpawn.new(BANANA, 0.2, 1))
-	#enemies.append(EnemySpawn.new(CARROT, 0.2, 1))
-	#enemies.append(EnemySpawn.new(CHERRIES, 0.2, 1))
-	#enemies.append(EnemySpawn.new(ORANGE, 0.2, 1))
-	#enemies.append(EnemySpawn.new(PICKLE, 0.2, 1))
-	#enemies.append(EnemySpawn.new(WATERMELON, 0.2, 1))
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
 	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
-	bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
-	
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 
 func phase_one():
 	print("PHASE 1")
 	generic_phase_setup(1)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_two():
 	print("PHASE 2")
 	generic_phase_setup(2)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_three():
 	print("PHASE 3")
 	generic_phase_setup(3)
+	## Enemies
+	enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_four():
 	print("PHASE 4")
 	generic_phase_setup(4)
+	## Enemies
+	enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_five():
 	print("PHASE 5")
 	generic_phase_setup(5)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_six():
 	print("PHASE 6")
 	generic_phase_setup(6)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_seven():
 	print("PHASE 7")
 	generic_phase_setup(7)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_eight():
 	print("PHASE 8")
 	generic_phase_setup(8)
+	## Enemies
+	enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_nine():
 	print("PHASE 9")
 	generic_phase_setup(9)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	enemies.append(EnemySpawn.new(BANANA, 0.25, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_ten():
 	print("PHASE 10")
 	generic_phase_setup(10)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	enemies.append(EnemySpawn.new(CARROT, 0.3, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_eleven():
 	print("PHASE 11")
 	generic_phase_setup(11)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_twelve():
 	print("PHASE 12")
 	generic_phase_setup(12)
+	## Enemies
+	enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_thirteen():
 	print("PHASE 13")
 	generic_phase_setup(13)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_fourteen():
 	print("PHASE 14")
 	generic_phase_setup(14)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_fifteen():
 	print("PHASE 15")
 	generic_phase_setup(15)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_sixteen():
 	print("PHASE 16")
 	generic_phase_setup(16)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_seventeen():
 	print("PHASE 17")
 	generic_phase_setup(17)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_eighteen():
 	print("PHASE 18")
 	generic_phase_setup(18)
+	## Enemies
+	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_nineteen():
 	print("PHASE 19")
 	generic_phase_setup(19)
+	## Enemies
+	enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 func phase_twenty():
 	print("PHASE 20")
 	generic_phase_setup(20)
+	## Enemies
+	enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	## Bosses
+	bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))

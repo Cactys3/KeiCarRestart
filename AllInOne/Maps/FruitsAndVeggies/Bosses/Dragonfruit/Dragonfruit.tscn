@@ -75,7 +75,7 @@ percent_damage_taken = 0.7
 position = Vector2(1, -5)
 sprite_frames = SubResource("SpriteFrames_x7wek")
 autoplay = "default"
-frame_progress = 0.1475056
+frame_progress = 0.46444532
 offset = Vector2(0, -8.385)
 
 [node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_w7fnr")]
