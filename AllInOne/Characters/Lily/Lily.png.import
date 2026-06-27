@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ciau1gjxo8ntg"
-path="res://.godot/imported/Lily_White.png-4acf1c534f518981894c8461ba32769b.ctex"
+uid="uid://b2d11j5psl1cd"
+path="res://.godot/imported/Lily.png-277decbf7583c061034d344322d764f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Characters/Lily/Lily_White.png"
-dest_files=["res://.godot/imported/Lily_White.png-4acf1c534f518981894c8461ba32769b.ctex"]
+source_file="res://AllInOne/Characters/Lily/Lily.png"
+dest_files=["res://.godot/imported/Lily.png-277decbf7583c061034d344322d764f8.ctex"]
 
 [params]
 

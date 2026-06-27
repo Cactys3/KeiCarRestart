@@ -106,7 +106,6 @@ func setup_projectile(new_parent: StatsObject, new_target: Node2D, target_direct
 	else:
 		printerr("Projectile setup normally but not from weapon or upgrade")
 func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
-	print("PLayer: ", is_player_weapons)
 	var area = get_node(".") as Area2D
 	area.set_collision_layer_value(1, false)
 	area.set_collision_mask_value(1, false)

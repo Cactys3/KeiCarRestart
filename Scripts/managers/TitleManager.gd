@@ -25,15 +25,16 @@ var DARKFOREST: duple = duple.new("Dark Forest", "res://AllInOne/Maps/DarkForest
 var HELL: duple = duple.new("Hell", "res://AllInOne/Maps/Hell/Hell.tscn")
 var FRUITSANDVEGGIES: duple = duple.new("Fruits and Veggies", "res://AllInOne/Maps/FruitsAndVeggies/FruitsAndVeggies.tscn")
 ## Characters [global_stats][character scene]
-var WEBFISHER: duple = duple.new("WebFisher", "res://Scenes/Characters/Character.tscn")
-var LILY: duple = duple.new("Lily", "res://Scenes/Characters/Lily.tscn")
+var WEBFISHER: duple = duple.new("WebFisher", "res://AllInOne/Characters/Webfisher/Webfisher.tscn")
+var LILY: duple = duple.new("Lily", "res://AllInOne/Characters/Lily/Lily.tscn")
+var OMI: duple = duple.new("Omi", "res://AllInOne/Characters/Omi/Omi.tscn")
 ## Weapons
 var BOXING_GLOVE: duple = duple.new("Boxing Glove", ShopManager.BOXING_GLOVES)
 ## Choice Variables
-var character: int ## Chosen character
-var map: int ## Chosen map
-var weapon: int ## Chosen weapon
-var characters: Array[duple] = [WEBFISHER, LILY]
+var character: int = 0 ## Chosen character
+var map: int = 2 ## Chosen map
+var weapon: int = 0 ## Chosen weapon
+var characters: Array[duple] = [LILY, OMI, WEBFISHER]
 var maps: Array[duple] = [TEST, DARKFOREST, HELL, FRUITSANDVEGGIES]
 var weapons: Array[duple] = [BOXING_GLOVE]
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
@@ -176,9 +177,6 @@ func set_visible(nodes: Array[Control]):
 	for node in nodes:
 		node.visible = true
 func _quickstart():
-	character = 1
-	map = 3
-	weapon = 0
 	press_start_game()
 ## Setup the achievements visual based on Save Data
 func setup_achievements():

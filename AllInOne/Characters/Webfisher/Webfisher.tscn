@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dbfx0pgjmmdgy"]
 
-[ext_resource type="Script" uid="uid://d2q8eeh4e5ai8" path="res://Scripts/character_scripts/webfisher.gd" id="1_ieu52"]
+[ext_resource type="Script" uid="uid://d2q8eeh4e5ai8" path="res://Scripts/character_scripts/Webfisher.gd" id="1_ieu52"]
 [ext_resource type="Texture2D" uid="uid://cci4rkm141kqh" path="res://Art/Characters/Webfisher/Webfisher.png" id="2_lmtek"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_owm7s"]
+[ext_resource type="Shape2D" uid="uid://oflj7l4b866g" path="res://AllInOne/GenericObjects/CharacterPickupRangeShape.tres" id="4_7qr7h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7qr7h"]
 atlas = ExtResource("2_lmtek")
@@ -59,7 +60,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c36b5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Default",
 "speed": 10.0
 }, {
@@ -76,7 +77,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_unlva")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Neutral_Rod",
 "speed": 10.0
 }, {
@@ -93,16 +94,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vevi1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Neutral_Rodless",
 "speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qr7h"]
 size = Vector2(9, 26)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_mknkr"]
-radius = 30.0
 
 [node name="Character" type="CharacterBody2D" unique_id=1197695872 node_paths=PackedStringArray("pickup_range", "anim") groups=["player"]]
 collision_layer = 2
@@ -130,4 +128,4 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pickup_range" unique_id=559864833 groups=["xp_range"]]
 position = Vector2(0, -1)
-shape = SubResource("CircleShape2D_mknkr")
+shape = ExtResource("4_7qr7h")

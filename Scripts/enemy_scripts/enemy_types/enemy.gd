@@ -5,12 +5,14 @@ class_name Enemy
 @export var enemy_type: EnemyTypes = EnemyTypes.unset
 enum EnemyTypes {unset}
 @export_group("Visuals")
+@export var turns_towards_player: bool = false
 @export var turns_towards_movement: bool = false
 @export var rotate_towards_movement: bool = false
 @export var rotation_offset: float = 0
 @export_group("Data")
 @export var multiply_hp_by_minute: bool = true
 @export var melee_attacks: bool = true
+@export var stop_distance_from_player: float = -1
 @export var can_be_knockbacked: bool = true
 @export var can_be_stunned :bool = true
 @export var can_be_frozen: bool = true
@@ -322,7 +324,10 @@ func _physics_process(delta: float) -> void:
 ## Overriden by extender for custom enemy movement
 func movement_process(_delta: float) -> void:
 	if can_move:
-		move_towards(player.global_position, max(0, curr_movespeed + frost_movespeed_reduction), _delta)
+		var target_position: Vector2 = player.global_position
+		if stop_distance_from_player > 0:
+			target_position += (global_position - target_position).normalized() * stop_distance_from_player
+		move_towards(target_position, max(0, curr_movespeed + frost_movespeed_reduction), _delta)
 ## Stops the current velocity and stores it for later
 func stop_movement() -> void:
 	can_move = false
@@ -568,12 +573,13 @@ func make_status_attack(status_damage: float, type: StatusEffects.StatusTypes) -
 
 func shoot_projectile(target: Node2D) -> void:
 	var proj: EnemyProjectile = projectile.instantiate()
-	proj.setup_enemy(self, target, -1 * Vector2(cos(global_rotation), sin(global_rotation)), false, 0)
+	proj.setup_enemy(self, target, (target.global_position - global_position).normalized(), false, 0)
 	proj.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player, can_attack_creations)
 	GameManager.instance.projectile_parent.add_child(proj)
-	proj.modulate = self.modulate
+	#proj.modulate = self.modulate
 	proj.global_position = global_position
 	proj.rotation = rotation
+	print(proj.global_position)
 
 var playing_die: bool = false
 func die():
@@ -690,18 +696,23 @@ func move_towards(new_position: Vector2, movespeed: float, _delta:float):
 		movespeed = 0
 	linear_velocity = linear_velocity.move_toward(Vector2(direction.x * movespeed, direction.y * movespeed), movespeed_delta_modifier)
 	
-	var new_facing_left: bool = linear_velocity.x < 0
 	## Don't change direction for 1 second after knockback
 	if anim && time_since_knockedback > 1:
-		if turns_towards_movement:
-			if facing_left != new_facing_left:
-				facing_left = new_facing_left
-				anim.flip_h = !facing_left
-		if rotate_towards_movement:
-			if facing_left:
-				global_rotation = linear_velocity.angle() + deg_to_rad(180) + deg_to_rad(rotation_offset)
-			else:
-				global_rotation = linear_velocity.angle() - deg_to_rad(rotation_offset)
+		## Either towards player
+		if turns_towards_player:
+			anim.flip_h = player.global_position.x > global_position.x
+		## Or towards movement
+		else:
+			var new_facing_left: bool = linear_velocity.x < 0
+			if turns_towards_movement:
+				if facing_left != new_facing_left:
+					facing_left = new_facing_left
+					anim.flip_h = !facing_left
+			if rotate_towards_movement:
+				if facing_left:
+					global_rotation = linear_velocity.angle() + deg_to_rad(180) + deg_to_rad(rotation_offset)
+				else:
+					global_rotation = linear_velocity.angle() - deg_to_rad(rotation_offset)
 func is_player_nearby(distance: float) -> bool:
 	if global_position.distance_to(player.global_position) <= distance:
 		return true

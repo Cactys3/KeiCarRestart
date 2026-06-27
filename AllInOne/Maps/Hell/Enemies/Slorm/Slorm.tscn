@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://d0swlsjx7bmgi"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_6k1uc"]
+[ext_resource type="PackedScene" uid="uid://dl0t7m7c0l5dj" path="res://AllInOne/Maps/Hell/Enemies/Slorm/SlormProjectile.tscn" id="2_0ex56"]
+[ext_resource type="Texture2D" uid="uid://cmrsrvuw1uyul" path="res://AllInOne/Maps/Hell/Enemies/Slorm/Slorm.png" id="2_lb2ve"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_0ex56"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="4_84err"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fc5nj"]
+atlas = ExtResource("2_lb2ve")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iaj0j"]
+atlas = ExtResource("2_lb2ve")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spkdk"]
+atlas = ExtResource("2_lb2ve")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrmcn"]
+atlas = ExtResource("2_lb2ve")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onlbr"]
+atlas = ExtResource("2_lb2ve")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8wqh"]
+atlas = ExtResource("2_lb2ve")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_upqpd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fc5nj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iaj0j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spkdk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrmcn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onlbr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8wqh")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpf0o"]
+size = Vector2(11, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bb7wj"]
+size = Vector2(11, 7)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6k1uc"]
+radius = 2.0
+
+[node name="Slorm" type="RigidBody2D" unique_id=619478233 node_paths=PackedStringArray("damage_hitbox")]
+gravity_scale = 0.0
+script = ExtResource("1_6k1uc")
+enemy_name = "Slorm"
+turns_towards_player = true
+melee_attacks = false
+stop_distance_from_player = 100.0
+base_damage = 0.0
+base_health = 35.0
+shoots_projectiles = true
+shoot_enemy_in_range = true
+projectile = ExtResource("2_0ex56")
+projectile_attack_cooldown = 8.0
+base_range = 110.0
+damage_hitbox = NodePath("Damage_Hitbox")
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1275123189]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_upqpd")
+autoplay = "default"
+frame_progress = 0.8901874
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_0ex56")]
+position = Vector2(0, -1)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1149238995]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=444958468]
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_cpf0o")
+
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=1401298285]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("4_84err")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=861871763]
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_bb7wj")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=38130045]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_6k1uc")

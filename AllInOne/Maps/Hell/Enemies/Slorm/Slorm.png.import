@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2eh3ym3n40mg"
-path="res://.godot/imported/9mm.png-629b8ae9191552c97d0999cb0da09ff2.ctex"
+uid="uid://cmrsrvuw1uyul"
+path="res://.godot/imported/Slorm.png-75e6a7c2eaed90ea3b938e9897ae8ec2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Weapons/Pistol/9mm.png"
-dest_files=["res://.godot/imported/9mm.png-629b8ae9191552c97d0999cb0da09ff2.ctex"]
+source_file="res://AllInOne/Maps/Hell/Enemies/Slorm/Slorm.png"
+dest_files=["res://.godot/imported/Slorm.png-75e6a7c2eaed90ea3b938e9897ae8ec2.ctex"]
 
 [params]
 

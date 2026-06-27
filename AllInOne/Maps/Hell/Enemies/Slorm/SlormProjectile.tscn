@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dl0t7m7c0l5dj"]
+
+[ext_resource type="Script" uid="uid://bhyuqdca562sq" path="res://Scripts/enemy_scripts/enemy_types/enemy_projectile.gd" id="1_um4gq"]
+[ext_resource type="Texture2D" uid="uid://cmrsrvuw1uyul" path="res://AllInOne/Maps/Hell/Enemies/Slorm/Slorm.png" id="3_bn6f7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_um4gq"]
+radius = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynu3t"]
+atlas = ExtResource("3_bn6f7")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xd07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynu3t")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SlormProjectile" type="Area2D" unique_id=421469085 node_paths=PackedStringArray("anim")]
+collision_layer = 4112
+collision_mask = 650
+script = ExtResource("1_um4gq")
+homing = false
+face_rotation = false
+anim = NodePath("AnimatedSprite2D")
+make_own_attack = true
+show_debug_range = true
+_damage = 10.0
+_velocity = 25.0
+_duration = 10.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1095618129]
+shape = SubResource("CircleShape2D_um4gq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1309548274]
+sprite_frames = SubResource("SpriteFrames_3xd07")
+autoplay = "default"
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

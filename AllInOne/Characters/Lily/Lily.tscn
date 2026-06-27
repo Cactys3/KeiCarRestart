@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://s8i7j7l3n6qx"]
 
 [ext_resource type="Script" uid="uid://cu3rjd0ggqilu" path="res://Scripts/character_scripts/Lily.gd" id="1_t5ff5"]
-[ext_resource type="Texture2D" uid="uid://b2d11j5psl1cd" path="res://Art/Characters/Lily/Lily.png" id="2_t5ff5"]
+[ext_resource type="Texture2D" uid="uid://b2d11j5psl1cd" path="res://AllInOne/Characters/Lily/Lily.png" id="2_t5ff5"]
+[ext_resource type="Shape2D" uid="uid://oflj7l4b866g" path="res://AllInOne/GenericObjects/CharacterPickupRangeShape.tres" id="3_t5ff5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5ff5"]
 atlas = ExtResource("2_t5ff5")
@@ -115,10 +116,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qr7h"]
-size = Vector2(9, 26)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_mknkr"]
-radius = 30.0
+size = Vector2(10, 26)
 
 [node name="Character" type="CharacterBody2D" unique_id=1197695872 node_paths=PackedStringArray("pickup_range", "anim") groups=["player"]]
 collision_layer = 2
@@ -138,7 +136,6 @@ frame_progress = 0.6700732
 speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2066742228]
-position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_7qr7h")
 
 [node name="pickup_range" type="Area2D" parent="." unique_id=672138494 groups=["xp_range"]]
@@ -147,4 +144,4 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pickup_range" unique_id=559864833 groups=["xp_range"]]
 position = Vector2(0, -1)
-shape = SubResource("CircleShape2D_mknkr")
+shape = ExtResource("3_t5ff5")

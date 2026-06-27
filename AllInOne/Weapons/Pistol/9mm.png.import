@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyinr3i8jtc2p"
-path="res://.godot/imported/BoxingGloves.png-809d707918d24b889c3a0a9653d387bf.ctex"
+uid="uid://2eh3ym3n40mg"
+path="res://.godot/imported/9mm.png-13222b322916112af855181cf79e70f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Weapons/BoxingGloves/BoxingGloves.png"
-dest_files=["res://.godot/imported/BoxingGloves.png-809d707918d24b889c3a0a9653d387bf.ctex"]
+source_file="res://AllInOne/Weapons/Pistol/9mm.png"
+dest_files=["res://.godot/imported/9mm.png-13222b322916112af855181cf79e70f4.ctex"]
 
 [params]
 

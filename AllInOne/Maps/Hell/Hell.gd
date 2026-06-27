@@ -14,6 +14,7 @@ const GUREL = preload("uid://c4x7h8vmwspbp")
 const JARRE = preload("uid://fiy2tsxdh0u0")
 const KLE = preload("uid://peuogge586n6")
 const SCLARNK = preload("uid://u1neqea283yh")
+const SLORM = preload("uid://d0swlsjx7bmgi")
 ## Enemy Events
 
 ## Bosses
@@ -83,16 +84,17 @@ func phase_test():
 	print("PHASE TEST")
 	generic_phase_setup(1)
 	## Shape Event
-	var event: EnemyEventSpawn = EnemyEventSpawn.new("Shape", ENEMY_SHAPE_EVENT, 1, true, 1)
-	event.setup_shape(CLARN, 50, EnemyShapeSpawn.Shapes.star, 200, true)
-	enemy_events.append(event)
+	#var event: EnemyEventSpawn = EnemyEventSpawn.new("Shape", ENEMY_SHAPE_EVENT, 1, true, 1)
+	#event.setup_shape(CLARN, 50, EnemyShapeSpawn.Shapes.star, 200, true)
+	#enemy_events.append(event)
 	## Enemies
-	enemies.append(EnemySpawn.new(CLARN, 0.2, 1))
-	enemies.append(EnemySpawn.new(FLUUE, 0.2, 1))
-	enemies.append(EnemySpawn.new(GUREL, 0.2, 1))
-	enemies.append(EnemySpawn.new(JARRE, 0.2, 1))
-	enemies.append(EnemySpawn.new(KLE, 0.2, 1))
-	enemies.append(EnemySpawn.new(SCLARNK, 0.2, 1))
+	#enemies.append(EnemySpawn.new(CLARN, 0.2, 1))
+	#enemies.append(EnemySpawn.new(FLUUE, 0.2, 1))
+	#enemies.append(EnemySpawn.new(GUREL, 0.2, 1))
+	#enemies.append(EnemySpawn.new(JARRE, 0.2, 1))
+	#enemies.append(EnemySpawn.new(KLE, 0.2, 1))
+	#enemies.append(EnemySpawn.new(SCLARNK, 0.2, 1))
+	enemies.append(EnemySpawn.new(SLORM, 0.2, 1))
 
 func phase_one():
 	print("PHASE 1")

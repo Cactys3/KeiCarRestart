@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmca5sekljecn"
-path="res://.godot/imported/ShopKeeperHell.png-1d31504efa171cd64b245e4dfabdd8eb.ctex"
+uid="uid://dyinr3i8jtc2p"
+path="res://.godot/imported/BoxingGloves.png-453d298599f7d82c95b6b903cf566d29.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://AllInOne/Maps/Hell/Characters/ShopKeeperHell.png"
-dest_files=["res://.godot/imported/ShopKeeperHell.png-1d31504efa171cd64b245e4dfabdd8eb.ctex"]
+source_file="res://AllInOne/Weapons/BoxingGloves/BoxingGloves.png"
+dest_files=["res://.godot/imported/BoxingGloves.png-453d298599f7d82c95b6b903cf566d29.ctex"]
 
 [params]
 

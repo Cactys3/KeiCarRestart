@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2d11j5psl1cd"
-path="res://.godot/imported/Lily.png-96c2b5fccf76f46f08eedc76219b18a0.ctex"
+uid="uid://bmca5sekljecn"
+path="res://.godot/imported/ShopKeeperHell.png-de8892c8ee25615bfb25b63bbc95a03f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Characters/Lily/Lily.png"
-dest_files=["res://.godot/imported/Lily.png-96c2b5fccf76f46f08eedc76219b18a0.ctex"]
+source_file="res://AllInOne/Maps/Hell/Events/ShopKeeperHell.png"
+dest_files=["res://.godot/imported/ShopKeeperHell.png-de8892c8ee25615bfb25b63bbc95a03f.ctex"]
 
 [params]
 

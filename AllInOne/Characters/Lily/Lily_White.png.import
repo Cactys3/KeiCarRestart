@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7rkd3qt5kp8n"
-path="res://.godot/imported/Pistol.png-ffd85028121d28bd23112a4cc26394a5.ctex"
+uid="uid://ciau1gjxo8ntg"
+path="res://.godot/imported/Lily_White.png-ffb6a6b53395e3365aba0fae28ff0668.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Weapons/Pistol/Pistol.png"
-dest_files=["res://.godot/imported/Pistol.png-ffd85028121d28bd23112a4cc26394a5.ctex"]
+source_file="res://AllInOne/Characters/Lily/Lily_White.png"
+dest_files=["res://.godot/imported/Lily_White.png-ffb6a6b53395e3365aba0fae28ff0668.ctex"]
 
 [params]
 

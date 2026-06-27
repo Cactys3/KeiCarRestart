@@ -206,6 +206,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Map_Selection" type="Control" parent="." unique_id=878092781]
+visible = false
 custom_minimum_size = Vector2(1600, 1600)
 layout_mode = 3
 anchors_preset = 0
@@ -300,7 +301,6 @@ theme_override_font_sizes/font_size = 128
 text = "N/A"
 
 [node name="Character_Selection" type="Control" parent="." unique_id=196353680]
-visible = false
 custom_minimum_size = Vector2(1600, 1600)
 layout_mode = 3
 anchors_preset = 0
@@ -339,7 +339,7 @@ custom_minimum_size = Vector2(400, 400)
 clip_contents = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "WebFisher
+text = "Lily
 "
 
 [node name="Choose_1" type="Button" parent="Character_Selection/ScrollContainer/GridContainer" unique_id=1822861758]
@@ -347,14 +347,14 @@ custom_minimum_size = Vector2(400, 400)
 clip_contents = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "N/A"
+text = "Omi"
 
 [node name="Choose_2" type="Button" parent="Character_Selection/ScrollContainer/GridContainer" unique_id=138934868]
 custom_minimum_size = Vector2(400, 400)
 clip_contents = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "N/A"
+text = "WebFisher"
 
 [node name="Choose_3" type="Button" parent="Character_Selection/ScrollContainer/GridContainer" unique_id=459465869]
 custom_minimum_size = Vector2(400, 400)
