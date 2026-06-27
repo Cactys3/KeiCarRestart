@@ -19,6 +19,8 @@ const WATERMELON = preload("uid://bj2y4iclkpjpa")
 ## Enemy Events
 
 ## Bosses
+const DRAGONFRUIT = preload("uid://jc3v83ylxpj1")
+const TOMATOE = preload("uid://dgbxpechfj287")
 
 ## Objects/Events
 
@@ -85,17 +87,20 @@ func phase_test():
 	print("PHASE TEST")
 	generic_phase_setup(1)
 	## Shape Event
-	var event: EnemyEventSpawn = EnemyEventSpawn.new("Shape", ENEMY_SHAPE_EVENT, 1, true, 1)
-	event.setup_shape(APPLE, 50, EnemyShapeSpawn.Shapes.star, 200, true)
-	enemy_events.append(event)
+	#var event: EnemyEventSpawn = EnemyEventSpawn.new("Shape", ENEMY_SHAPE_EVENT, 1, true, 1)
+	#event.setup_shape(APPLE, 50, EnemyShapeSpawn.Shapes.star, 200, true)
+	#enemy_events.append(event)
 	## Enemies
-	enemies.append(EnemySpawn.new(APPLE, 0.2, 1))
-	enemies.append(EnemySpawn.new(BANANA, 0.2, 1))
-	enemies.append(EnemySpawn.new(CARROT, 0.2, 1))
-	enemies.append(EnemySpawn.new(CHERRIES, 0.2, 1))
-	enemies.append(EnemySpawn.new(ORANGE, 0.2, 1))
-	enemies.append(EnemySpawn.new(PICKLE, 0.2, 1))
-	enemies.append(EnemySpawn.new(WATERMELON, 0.2, 1))
+	#enemies.append(EnemySpawn.new(APPLE, 0.2, 1))
+	#enemies.append(EnemySpawn.new(BANANA, 0.2, 1))
+	#enemies.append(EnemySpawn.new(CARROT, 0.2, 1))
+	#enemies.append(EnemySpawn.new(CHERRIES, 0.2, 1))
+	#enemies.append(EnemySpawn.new(ORANGE, 0.2, 1))
+	#enemies.append(EnemySpawn.new(PICKLE, 0.2, 1))
+	#enemies.append(EnemySpawn.new(WATERMELON, 0.2, 1))
+	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
+	
 
 func phase_one():
 	print("PHASE 1")

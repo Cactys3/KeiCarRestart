@@ -31,8 +31,8 @@ var OMI: duple = duple.new("Omi", "res://AllInOne/Characters/Omi/Omi.tscn")
 ## Weapons
 var BOXING_GLOVE: duple = duple.new("Boxing Glove", ShopManager.BOXING_GLOVES)
 ## Choice Variables
-var character: int = 0 ## Chosen character
-var map: int = 2 ## Chosen map
+var character: int = 1 ## Chosen character
+var map: int = 3 ## Chosen map
 var weapon: int = 0 ## Chosen weapon
 var characters: Array[duple] = [LILY, OMI, WEBFISHER]
 var maps: Array[duple] = [TEST, DARKFOREST, HELL, FRUITSANDVEGGIES]

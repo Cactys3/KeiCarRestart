@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://dgbxpechfj287"]
+
+[ext_resource type="Script" uid="uid://bnhsdpro70dgj" path="res://Scripts/enemy_scripts/enemy_types/boss.gd" id="1_gjf6g"]
+[ext_resource type="Texture2D" uid="uid://kqps48dhnhiw" path="res://AllInOne/Maps/FruitsAndVeggies/Bosses/Tomatoe/Tomatoe.png" id="2_bt7oh"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_x654j"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="4_oosui"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpuah"]
+atlas = ExtResource("2_bt7oh")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lotji"]
+atlas = ExtResource("2_bt7oh")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3683"]
+atlas = ExtResource("2_bt7oh")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1n0sv"]
+atlas = ExtResource("2_bt7oh")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nf2ls"]
+atlas = ExtResource("2_bt7oh")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d3tn"]
+atlas = ExtResource("2_bt7oh")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s45qs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpuah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lotji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3683")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1n0sv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nf2ls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d3tn")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ft0la"]
+radius = 27.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gjf6g"]
+radius = 29.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bt7oh"]
+radius = 21.0
+
+[node name="Tomatoe" type="RigidBody2D" unique_id=921949867]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_gjf6g")
+rotate_towards_movement = true
+can_be_knockbacked = false
+can_be_stunned = false
+can_be_frozen = false
+self_knockback_onhit = 10.0
+percent_damage_taken = 0.7
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=376917444]
+position = Vector2(-1, 6)
+sprite_frames = SubResource("SpriteFrames_s45qs")
+autoplay = "default"
+frame_progress = 0.90941465
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_x654j")]
+position = Vector2(0, -4)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1114960930]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1582389295]
+shape = SubResource("CircleShape2D_ft0la")
+
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=669446843]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("4_oosui")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1737983782]
+shape = SubResource("CircleShape2D_gjf6g")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1471213736]
+shape = SubResource("CircleShape2D_bt7oh")

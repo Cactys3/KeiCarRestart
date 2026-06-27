@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://jc3v83ylxpj1"]
+
+[ext_resource type="Script" uid="uid://bnhsdpro70dgj" path="res://Scripts/enemy_scripts/enemy_types/boss.gd" id="1_s45qs"]
+[ext_resource type="Texture2D" uid="uid://d62msufge5up" path="res://AllInOne/Maps/FruitsAndVeggies/Bosses/Dragonfruit/Dragonfruit.png" id="2_q01pw"]
+[ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_w7fnr"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="4_52ldu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s45qs"]
+atlas = ExtResource("2_q01pw")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q01pw"]
+atlas = ExtResource("2_q01pw")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7fnr"]
+atlas = ExtResource("2_q01pw")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52ldu"]
+atlas = ExtResource("2_q01pw")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5h8w4"]
+atlas = ExtResource("2_q01pw")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x7wek"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s45qs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q01pw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7fnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52ldu")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5h8w4")
+}],
+"loop": 1,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gjf6g"]
+radius = 16.0
+height = 44.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s45qs"]
+radius = 18.0
+height = 54.0
+
+[node name="Dragonfruit" type="RigidBody2D" unique_id=921949867]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_s45qs")
+can_be_knockbacked = false
+can_be_stunned = false
+can_be_frozen = false
+self_knockback_onhit = 10.0
+percent_damage_taken = 0.7
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=376917444]
+position = Vector2(1, -5)
+sprite_frames = SubResource("SpriteFrames_x7wek")
+autoplay = "default"
+frame_progress = 0.1475056
+offset = Vector2(0, -8.385)
+
+[node name="StatusEffects" parent="." unique_id=1404569718 instance=ExtResource("3_w7fnr")]
+position = Vector2(0, -4)
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1114960930]
+collision_layer = 16
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1582389295]
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_gjf6g")
+
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=669446843]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("4_52ldu")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1737983782]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_s45qs")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1471213736]
+position = Vector2(1, 2)
