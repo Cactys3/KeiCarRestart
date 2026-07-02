@@ -274,7 +274,7 @@ func second_pass_chunk(chunk_id: Vector2):
 		spawn_events(chunk_id, true)
 ## Checks if the chunk is out of bounds for this map (out of bounds = true)
 func check_bounds(chunk_id: Vector2) -> bool:
-	return (abs(chunk_id.x) > abs(map_width) || x_infinite) || (abs(chunk_id.y) > abs(map_height) || y_infinite)
+	return (abs(chunk_id.x) > abs(map_width) && !x_infinite) || (abs(chunk_id.y) > abs(map_height) && !y_infinite)
 func spawn_map_border(chunk_id: Vector2):
 	var border = MAP_BORDER_COLLISION.instantiate()
 	event_foreground_parent.add_child(border)
@@ -363,8 +363,8 @@ func load_event(new_event: EventData, chunk: Vector2) -> bool:
 		#print("load_event: event too large for chunk, placing at center")
 		place_event(new_event, chunk, center - new_event.event_center_offset)
 		return true
-	## Idk how intensive 10 attempts is
-	var attempts: int = 10
+	## Idk how intensive x attempts is
+	var attempts: int = 20
 	for i in attempts:
 		var candidate := Vector2(randf_range(place_min.x, place_max.x), randf_range(place_min.y, place_max.y))
 		var candidate_rect := Rect2(candidate + new_event.event_center_offset - half_size, new_event.event_size)

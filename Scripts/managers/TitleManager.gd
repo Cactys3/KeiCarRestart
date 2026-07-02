@@ -17,6 +17,11 @@ class_name TitleManager
 @export var achievement_parent: Control
 @export var weapon_parent: Control
 @export var item_parent: Control
+## Selections
+@export var weapon_select_parent: GridContainer
+@export var map_select_parent: GridContainer
+@export var character_select_parent: GridContainer
+
 static var file_slot: int = 0
 const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
 ## Instances
@@ -30,13 +35,14 @@ var LILY: duple = duple.new("Lily", "res://AllInOne/Characters/Lily/Lily.tscn")
 var OMI: duple = duple.new("Omi", "res://AllInOne/Characters/Omi/Omi.tscn")
 ## Weapons
 var BOXING_GLOVE: duple = duple.new("Boxing Glove", ShopManager.BOXING_GLOVES)
+var PISTOL: duple = duple.new("Pistol", ShopManager.PISTOL)
 ## Choice Variables
-var character: int = 1 ## Chosen character
-var map: int = 3 ## Chosen map
+var character: int = 0 ## Chosen character
+var map: int = 1 ## Chosen map
 var weapon: int = 0 ## Chosen weapon
 var characters: Array[duple] = [LILY, OMI, WEBFISHER]
 var maps: Array[duple] = [TEST, DARKFOREST, HELL, FRUITSANDVEGGIES]
-var weapons: Array[duple] = [BOXING_GLOVE]
+var weapons: Array[duple] = [BOXING_GLOVE, PISTOL]
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
 static var start_playtime: float 
 static var start_gametime: float 
@@ -64,7 +70,25 @@ func _ready() -> void:
 	#print("connect signals")
 	button_back.button_down.connect(set_main)
 	#print("Tree paused: ", get_tree().paused)
-
+	## Setup Selection Screens
+	for c in characters:
+		var button: Button = Button.new()
+		button.text = c.key
+		button.pressed.connect(set_character.bind(characters.find(c)))
+		button.add_theme_font_size_override("font_size", 128)
+		character_select_parent.add_child(button)
+	for m in maps:
+		var button: Button = Button.new()
+		button.text = m.key
+		button.pressed.connect(set_map.bind(maps.find(m)))
+		button.add_theme_font_size_override("font_size", 128)
+		map_select_parent.add_child(button)
+	for w in weapons:
+		var button: Button = Button.new()
+		button.text = w.key
+		button.pressed.connect(set_weapon.bind(weapons.find(w)))
+		button.add_theme_font_size_override("font_size", 128)
+		weapon_select_parent.add_child(button)
 	## Make sure file is created
 	call_deferred("save")
 func save():

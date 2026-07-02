@@ -2,8 +2,10 @@ extends Node
 class_name ShopManager
 ## Weapon Scenes
 const BOXING_GLOVES = "Boxing Gloves"
+const PISTOL = "Pistol"
 ## Projectile Names
 const BOXING_BLAST = "Boxing Blast"
+const NINE_MM = "9mm"
 ## Blood Tree
 const BLOOD_BORN = "Blood Born"
 const BLOOD_MECHANIC = "Blood Mechanic"
@@ -102,8 +104,10 @@ const TRAPPED_AND_MARKED = "Trapped And Marked"
 
 ## Weapon Scenes
 const BOXING_GLOVES_SCENE = preload("uid://bbw0s4nlfy63s")
+const PISTOL_SCENE = preload("uid://cjkad8i0d5u2g")
 ## Projectile Scenes 
 const BOXING_BLAST_SCENE = preload("uid://d1gb0dt4hcvtx")
+const NINE_MM_SCENE = preload("uid://c5n35stv668tp")
 ## Blood Tree
 const BLOOD_BORN_SCENE = preload("uid://c6tfvrx3jikpg")
 const BLOOD_MECHANIC_SCENE = preload("uid://bcfc0hdhceqpc")
@@ -321,9 +325,11 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	#TRAPPED_AND_MARKED: TRAPPED_AND_MARKED_SCENE
 	}
 const weapon_list: Dictionary [String, PackedScene] = {
-	BOXING_GLOVES: BOXING_GLOVES_SCENE}
+	BOXING_GLOVES: BOXING_GLOVES_SCENE,
+	PISTOL: PISTOL_SCENE}
 const projectile_list: Dictionary [String, PackedScene] = {
-	BOXING_BLAST: BOXING_BLAST_SCENE}
+	BOXING_BLAST: BOXING_BLAST_SCENE,
+	NINE_MM: NINE_MM_SCENE}
 
 ## Upgrade Indexes
 

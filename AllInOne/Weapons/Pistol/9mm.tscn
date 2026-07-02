@@ -1,19 +1,34 @@
 [gd_scene format=3 uid="uid://c5n35stv668tp"]
 
 [ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_3se2g"]
-[ext_resource type="Texture2D" uid="uid://2eh3ym3n40mg" path="res://Art/Weapons/Pistol/9mm.png" id="2_3se2g"]
+[ext_resource type="Texture2D" uid="uid://2eh3ym3n40mg" path="res://AllInOne/Weapons/Pistol/9mm.png" id="2_3se2g"]
+[ext_resource type="Script" uid="uid://mip5cpjwu85k" path="res://Scripts/misc/RandomizeSpriteFrame.gd" id="3_7uyry"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aje8d"]
 atlas = ExtResource("2_3se2g")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6332s"]
+atlas = ExtResource("2_3se2g")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2cu2"]
+atlas = ExtResource("2_3se2g")
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_aje8d"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aje8d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6332s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2cu2")
 }],
-"loop": true,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
@@ -25,10 +40,16 @@ size = Vector2(4, 3)
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_3se2g")
+_damage = 35.0
+_velocity = 50.0
+_piercing = 1.0
+_duration = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
 sprite_frames = SubResource("SpriteFrames_aje8d")
-autoplay = "default"
+frame = 2
+frame_progress = 1.0
+script = ExtResource("3_7uyry")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1754514067]
 position = Vector2(-1, -0.5)
