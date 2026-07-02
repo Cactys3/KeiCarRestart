@@ -31,8 +31,9 @@ signal died(pos: Vector2, cloned: bool)
 @export var anim: AnimatedSprite2D
 @export var face_rotation: bool = true
 @export var homing: bool = false
+@export var keep_starting_direction_for_seconds: float = 0.5
 @export var acceleration: float = 0
-@export var angular_velocity: float = 0.5
+@export var angular_velocity: float = 0.2
 @export var find_own_target: bool = false
 @export var make_own_attack: bool = true
 @export var sound_on_hit: Sound = null
@@ -48,6 +49,8 @@ signal died(pos: Vector2, cloned: bool)
 var prebuilt_attack: Attack = null
 var death_method: Callable
 var specific_target: bool = false
+var keep_starting_direction_stopwatch: float = 0
+
 
 func _ready() -> void:
 	super()
@@ -75,6 +78,8 @@ func _process(delta: float) -> void:
 		if rotate_anim_based_on_speed:
 			rotation_buff = (abs(rotation_buff) + abs(velocity)) * sign(rotation_buff)
 		anim.rotate((rotate_anim_velocity + rotation_buff) * delta * TAU / 50)
+	## Other stopwatch for homing thing
+	keep_starting_direction_stopwatch += delta
 	## Death By Old Age
 	stopwatch += delta
 	if ((stopwatch > duration_stat) && can_die_from_duration) || ((collision_counter > piercing_stat) && can_die_from_collision):
@@ -82,7 +87,11 @@ func _process(delta: float) -> void:
 	if die_on_anim_end && anim && !anim.animation_finished.is_connected(die):
 		anim.animation_finished.connect(die)
 func process_movement(delta: float) -> void:
-	global_position += (direction).normalized() * velocity * delta
+	## Only change direction if we've moved for the given seconds
+	if keep_starting_direction_stopwatch < keep_starting_direction_for_seconds:
+		global_position += (initial_direction).normalized() * velocity * delta
+	else:
+		global_position += (direction).normalized() * velocity * delta
 var check_target_stopwatch: float = 0
 var check_target_cd: float = 2
 func process_movement_homing(delta: float):
@@ -98,14 +107,14 @@ func process_movement_homing(delta: float):
 		#direction = lerp(direction, (target.global_position - global_position).normalized(), delta * angular_velocity)
 	process_movement(delta)
 ## Setup values generic for all BasicProjectile
-func setup_projectile(new_parent: StatsObject, new_target: Node2D, target_direction:Vector2): 
+func setup_projectile(new_parent: StatsObject, new_target: Node2D, starting_direction:Vector2): 
 	setup_collisions(true, false)
 	parent = new_parent
 	target = new_target
 	if find_own_target:
 		target = get_nearest_enemy()
-	initial_direction = target_direction.normalized()
-	direction = target_direction.normalized()
+	initial_direction = starting_direction.normalized()
+	direction = starting_direction.normalized()
 	velocity += velocity_stat
 	size += size_stat
 	if new_parent is Weapon:

@@ -118,37 +118,6 @@ func create_last_projectile():
 func _time_one_projectile_takes_to_create() -> float:
 	#("Frames: ", float(anim.sprite_frames.get_frame_count(AttackLeft)), " at fps: ",  float(get_punch_speed()), " is: ", float(anim.sprite_frames.get_frame_count(AttackLeft)) / float(get_punch_speed()))
 	return float(anim.sprite_frames.get_frame_count(AttackLeft)) / float(get_punch_speed())
-## Previous implementation of Attack(), punches all punches alternating between L and R before doing a both punch
-func create_all_projectiles(): 
-	var which: bool = true
-	var num_of_punches = count_stat
-	var time_per_punch = mult_proj_delay_total_time / (num_of_punches + 1) # +1 for the final punch
-	time_per_punch = clamp(time_per_punch, MinPunchTime, MaxPunchTime)
-	var num_of_frames = anim.sprite_frames.get_frame_count(AttackLeft)
-	var fps = anim.sprite_frames.get_animation_speed(AttackLeft)
-	## Make attack take the same total  time no matter how many punches
-	set_anim_speed((num_of_frames / fps) / time_per_punch)
-	var i = 0
-	#print("num punches: ", num_of_punches, " num frames: ", num_of_frames, " fps: ", fps, " time_per_punch: ", time_per_punch)
-	while i < num_of_punches:
-		#print("Punches Left: ", i)
-		i += 1
-		which = !which
-		if which:
-			play_anim(AttackLeft)
-			left_collision.disabled = false
-			await anim.animation_finished
-		else:
-			play_anim(AttackRight)
-			right_collision.disabled = false
-			await anim.animation_finished
-		right_collision.disabled = true
-		left_collision.disabled = true
-	play_anim(AttackBoth)
-	await anim.animation_finished
-	play_anim(Idle)
-	set_anim_speed(IdleFrameRate)
-	#await create_projectiles()
 func play_anim(animation: String) -> void:
 	right_sprite.play(animation)
 	left_sprite.play(animation)

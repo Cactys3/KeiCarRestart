@@ -7,7 +7,8 @@ class_name Turret
 ## Only shoot when aiming towards an enemy within degree
 
 ## Does it fire multiple projectiles one after another with a delay or at the same time with an angle/position spread
-@export var multiple_projectiles_aim_type: Weapon.multiple_projectiles_aim_types = Weapon.multiple_projectiles_aim_types.delay
+@export var multiple_projectiles_aim_type: multiple_projectiles_aim_types = multiple_projectiles_aim_types.delay
+enum multiple_projectiles_aim_types {delay, spread}
 @export var AimType: AimTypes = AimTypes.NearestEnemy
 @export var has_attacking_animation: bool = false
 @export var lock_transform_while_attacking: bool = true
@@ -64,7 +65,7 @@ func process_cooldown(delta: float) -> void:
 		## Are we ready to fire and off attack cooldown
 		if (between_attacks_cooldown_stopwatch >= reloadtime_stat) && ready_to_fire:
 			## Should we do delay based projectile attacks or all at once
-			if multiple_projectiles_aim_type == Weapon.multiple_projectiles_aim_types.delay:
+			if multiple_projectiles_aim_type == multiple_projectiles_aim_types.delay:
 				if (between_projectiles_cooldown_stopwatch >= attackcooldown_stat):
 					pass ## we can fire, leave ready_to_fire = true
 				else:
@@ -167,9 +168,9 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 
 func attack():
 	match multiple_projectiles_aim_type:
-		Weapon.multiple_projectiles_aim_types.delay:
+		multiple_projectiles_aim_types.delay:
 			attack_delay()
-		Weapon.multiple_projectiles_aim_types.spread:
+		multiple_projectiles_aim_types.spread:
 			attack_spread()
 func attack_spread():
 	## Play the sound multiple times for spread attack? maybe louder? diff pitch based on num of projects? 

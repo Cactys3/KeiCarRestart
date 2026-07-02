@@ -467,7 +467,6 @@ func display_damage(damage_value: float, color: Color, crit: bool, attack_positi
 	if attack_position != Vector2(0, 0):
 		var old = location
 		location = WindowManager.instance.convert_small_position(attack_position)
-		print("Location: ", location, " vs old: ", old)
 	## Offset
 	location = location + Vector2(randf_range(-5, 5), randf_range(-5, 5))
 	var lifetime: float = 1.5

@@ -19,10 +19,6 @@ class_name Weapon
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
 @export var projectile_acceleration: float = 0
-@export var mult_proj_delay_total_time: float = 2
-enum multiple_projectiles_aim_types {delay, spread}
-## Does it fire multiple projectiles one after another with a delay or at the same time with an angle/position spread
-@export var multiple_projectiles_aim_type: multiple_projectiles_aim_types = multiple_projectiles_aim_types.spread
 @export_group("Orbit Settings")
 @export var orbit_distance: float = 20
 ## Used by weapons to offset weapon orbit forward (for use in attacks, etc)
@@ -157,61 +153,46 @@ func attack():
 func create_projectile():
 	## Take 1 ammo each time you create projectiles
 	projectiles_left_in_ammo -= 1
-	## Create projectiles based on count + 1 base
-	var projectiles_to_spawn: int = floor(count_stat) + 1
-	for i in projectiles_to_spawn:
-		var proj: Projectile = init_projectile(global_position, get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat))
-		game_man.ProjectileShot.emit(self, proj)
+	## Create 1 projectile always
+	var proj: Projectile = init_projectile(global_position, get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat))
+	## Create projectiles based on count
+	var count = floor(count_stat)
+	if proj.can_spawn_multiple && count > 0:
+		create_num_projectiles(count)
 ## Create any projectiles but also do any melee attacks, also do last ammo attacks/reloading stuff
 func create_last_projectile():
 	create_projectile()
 	## Remember to add this line to any override functions 
 	game_man.WeaponReloaded.emit(self) 
 ## Previous implementation of Attack(), Create and setup all the projectiles for an attack from this Weapon
-func create_all_projectiles():
-	## Create the first bullet by default
-	## Randomize Direction Based on inaccuracy
-	var direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
-	var proj: Projectile = init_projectile(global_position, direction)
-	## Create any extra bullets using @export values to offset them by angle and position
+func create_num_projectiles(count: int):
 	var proj_offset: int = 0
-	## Delay Stuff
-	var time_inbetween_projectiles: float = mult_proj_delay_total_time / count_stat
-	if !proj.can_spawn_multiple:
-		## Add 0.5 seconds between shots if projectile normally can't shoot multiple TODO: should probably just not allow making multiple but this might be funny?
-		time_inbetween_projectiles += 0.5
-	stopwatch.wait_time = time_inbetween_projectiles
-	proj_offset = 0
-	if proj.can_spawn_multiple && count_stat > 1:
-		for i:int in count_stat - 1:
-			## Get Attachment Position (default projectile position)
-			var projectile_position: Vector2 = global_position
-			var projectile_direction: Vector2 = (Vector2(cos(rotation), sin(rotation)))
-			if i % 2 == 0:
-				proj_offset += 1
-			MultipleProjectileOffset *= -1
-			MultipleProjectileAngleOffset *= -1
-			## Spread Type
-			if (multiple_projectiles_aim_type == multiple_projectiles_aim_types.spread):
-				## Offset it by position + [1 unit to the Left of default position] * [Positive offset to keep it left, negative to make it right] * [magnitude offset]
-				projectile_position += (Vector2(-sin(rotation), cos(rotation)) * MultipleProjectileOffset * proj_offset)
-				## Get Direction offset by inaccuracy
-				projectile_direction = get_inaccurate_direction(Vector2(cos(rotation + deg_to_rad(proj_offset * MultipleProjectileAngleOffset)), sin(rotation + deg_to_rad(proj_offset * MultipleProjectileAngleOffset))), inaccuracy_stat)
-			## Delay Type
-			else:
-				stopwatch.start()
-				await stopwatch.timeout
-				projectile_position += (Vector2(-sin(rotation), cos(rotation)))
-				projectile_direction = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
-			init_projectile(projectile_position, projectile_direction)
+	## Create projectiles based on count with offset angles and position
+	for i in count:
+		var projectile_position: Vector2 = global_position
+		var projectile_direction: Vector2 = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
+		## Make two projectiles with each offset value at -1 and +1 signs, then increase offset
+		if i % 2 == 0:
+			proj_offset += 1
+		MultipleProjectileOffset *= -1
+		MultipleProjectileAngleOffset *= -1
+		## Offset projectile by position + [1 unit to the Left of default position] * [Positive offset to keep it left, negative to make it right] * [magnitude offset]
+		projectile_position += (Vector2(-sin(rotation), cos(rotation)) * MultipleProjectileOffset * proj_offset)
+		## Get Direction offset by inaccuracy
+		var x = cos(projectile_direction.angle() + deg_to_rad(proj_offset * MultipleProjectileAngleOffset))
+		var y = sin(projectile_direction.angle() + deg_to_rad(proj_offset * MultipleProjectileAngleOffset))
+		#print("(" , snapped(x, 0.01), ", ", snapped(y, 0.01), "), Rot: ", snapped(rotation, 0.01))
+		projectile_direction = Vector2(x, y)
+		## Signal + init projectile
+		init_projectile(projectile_position, projectile_direction)
 ## Initializes and returns one projectile in the style of this attachment
 func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
-	print("1: ", new_position, ", Player: ", player.global_position, ", me: ", position)
 	if projectile == null || !is_instance_valid(projectile):
 		push_error("projectile null in attachment script")
 		return null
 	var new_bullet: Projectile = projectile.instantiate()
 	new_bullet.visible = false
+	## TODO: should we send enemy to projectile?
 	new_bullet.setup_projectile(self, null, new_direction)
 	new_bullet.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player, can_attack_creations)
 	if (AimType == AimTypes.Spinning): #handle aim types special cases
@@ -221,6 +202,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	new_bullet.global_position = new_position
 	new_bullet.rotation = new_direction.normalized().angle()
 	new_bullet.died.connect(projectile_died)
+	game_man.ProjectileShot.emit(self, new_bullet)
 	return new_bullet
 ## Called when projectile originating from this attachment dies
 func projectile_died(pos: Vector2, is_clone: bool):
@@ -262,10 +244,12 @@ func ProcessDynamicAtMouse(delta: float) -> void:
 	#Rotate Towards Object
 	var nearest_enemy: Node2D = get_enemy_nearby(range_stat)
 	if nearest_enemy != null:
+		print("NEAESRT!")
 		RotateTowardsPosition(nearest_enemy.global_position, delta)
 		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
 			ready_to_fire = true
 	else:
+		print("non")
 		RotateTowardsPosition(get_global_mouse_position(), delta)
 		ready_to_fire = false
 ## Aim always at mouse, rotating around player towards mouse
@@ -284,8 +268,6 @@ func ProcessAlwaysAtMouse(delta: float) -> void:
 				temp_slot_variable = (weapon_slot + 2) / 2
 		slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
 	global_position = GetOrbitPositionAtMouse((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
-	#Rotate Towards Object
-	var nearest_enemy: Node2D = get_enemy_nearby(range_stat)
 	ready_to_fire = Input.is_action_pressed(InputManager.PRIMARY)
 	RotateTowardsPosition(get_global_mouse_position(), delta)
 ## Aim at nearest enemy from static slot
