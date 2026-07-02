@@ -5,17 +5,16 @@ class_name Weapon
 @export var sound_on_melee_attack: Sound = null
 @export var sound_on_projectile_spawn: Sound = null
 @export var anim: AnimatedSprite2D
+@export var default_animation: String = "default"
 ## Does this animation flip when facing left vs non-flipped when facing right
 @export var projectile: PackedScene
-@export var time_one_projectile_takes_to_create: float = 0:
-	get():
-		return _time_one_projectile_takes_to_create()
-@export var AimType: AimTypes = AimTypes.default
+@export var AimType: AimTypes = AimTypes.AlwaysAtMouse
 @export var flip_left_right: bool = false
 @export var lock_transform_while_attacking: bool = false
 @export var always_ready_to_fire: bool = false
 @export var MeleeDamageFactor: float = 1
 @export_group("Projectile Settings")
+@export var shoot_animation: String = "NoAnimation"
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
 @export var projectile_acceleration: float = 0
@@ -89,10 +88,11 @@ func _ready() -> void:
 	projectiles_left_in_ammo = ammo_stat
 	stopwatch = Timer.new()
 	add_child(stopwatch)
+	if !anim:
+		anim = $AnimatedSprite2D
 ## Calls Process_Cooldown
 func _process(delta: float) -> void:
 	super(delta)
-	global_position = player.global_position
 	if !QueuedAttacks.is_empty():
 		for event in QueuedAttacks:
 			QueuedAttacks.erase(event)
@@ -134,6 +134,11 @@ func attack():
 	## Make sure to add custom code for weapon-specific sounds
 	if sound_on_projectile_spawn:
 		AudioManager.instance.play(sound_on_projectile_spawn, global_position)
+	## Play an animation on shoot if valid
+	if shoot_animation != "NoAnimation":
+		anim.play(shoot_animation)
+		reset_animation_when_finished()
+	## Make the projectiles
 	if projectiles_left_in_ammo > 1:
 		await create_projectile()
 		between_projectiles_cooldown_stopwatch = 0
@@ -192,6 +197,7 @@ func create_all_projectiles():
 			init_projectile(projectile_position, projectile_direction)
 ## Initializes and returns one projectile in the style of this attachment
 func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
+	print("1: ", new_position, ", Player: ", player.global_position, ", me: ", position)
 	if projectile == null || !is_instance_valid(projectile):
 		push_error("projectile null in attachment script")
 		return null
@@ -216,7 +222,6 @@ func get_cooldown_between_projectiles() -> float:
 func get_cooldown_between_attacks() -> float:
 	## Minimum: atttack 0.1 times per X
 	return reloadtime_stat
-
 static func get_inaccurate_direction(direction: Vector2, given_inaccuracy: float) -> Vector2:
 	if given_inaccuracy == 0:
 		return direction
@@ -329,6 +334,9 @@ func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
 	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance + GetWeaponOffsetPosition(target_angle)
 func GetWeaponOffsetPosition(target_angle: float) -> Vector2:
 	return weapon_position_offset * Vector2(cos(target_angle), sin(target_angle))
+func reset_animation_when_finished():
+	await anim.animation_finished
+	anim.play(default_animation)
 
 ## Melees
 
@@ -370,4 +378,4 @@ class AttackEvent:
 		attacker = new_attacker
 ## Override to calculate time_one_projectile_takes_to_create
 func _time_one_projectile_takes_to_create() -> float:
-	return time_one_projectile_takes_to_create
+	return 0

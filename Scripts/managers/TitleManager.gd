@@ -39,7 +39,7 @@ var PISTOL: duple = duple.new("Pistol", ShopManager.PISTOL)
 ## Choice Variables
 var character: int = 0 ## Chosen character
 var map: int = 1 ## Chosen map
-var weapon: int = 0 ## Chosen weapon
+var weapon: int = 1 ## Chosen weapon
 var characters: Array[duple] = [LILY, OMI, WEBFISHER]
 var maps: Array[duple] = [TEST, DARKFOREST, HELL, FRUITSANDVEGGIES]
 var weapons: Array[duple] = [BOXING_GLOVE, PISTOL]

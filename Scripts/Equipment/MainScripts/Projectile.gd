@@ -29,7 +29,7 @@ var collision_counter: float = 0
 var dead: bool = false
 signal died(pos: Vector2, cloned: bool)
 @export var acceleration: float = 0
-@export var homing: bool = true
+@export var homing: bool = false
 @export var angular_velocity: float = 0.5
 @export var can_spawn_multiple: bool = true
 @export var face_rotation: bool = true
@@ -119,6 +119,8 @@ func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
 	area.set_collision_mask_value(4, true)
 	area.set_collision_mask_value(8, true)
 	area.set_collision_mask_value(10, true)
+	area.body_entered.connect(_on_body_entered)
+	area.area_entered.connect(_on_body_entered)
 func setup_specific_target():
 	specific_target = true
 ## Gives the projectile a prebuilt attack to use instead of calling parent.make_attack()

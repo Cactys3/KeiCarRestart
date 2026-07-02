@@ -48,8 +48,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_ks301")
 }],
 "loop": 0,
-"name": &"fire",
-"speed": 15.0
+"name": &"shoot",
+"speed": 16.0
 }]
 
 [node name="Pistol" type="Area2D" unique_id=1978279923 node_paths=PackedStringArray("anim")]
@@ -57,12 +57,14 @@ script = ExtResource("1_un5uw")
 anim = NodePath("AnimatedSprite2D")
 projectile = ExtResource("2_iu145")
 flip_left_right = true
+shoot_animation = "shoot"
 item_name = "Pistol"
-_attackcooldown = 0.5
+_attackcooldown = 0.3
 _reloadtime = 1.5
 _ammo = 6.0
-_inaccuracy = 20.0
+_inaccuracy = 15.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=615556084]
 sprite_frames = SubResource("SpriteFrames_3xd07")
+animation = &"shoot"
 autoplay = "default"
