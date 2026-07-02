@@ -36,13 +36,14 @@ var OMI: duple = duple.new("Omi", "res://AllInOne/Characters/Omi/Omi.tscn")
 ## Weapons
 var BOXING_GLOVE: duple = duple.new("Boxing Glove", ShopManager.BOXING_GLOVES)
 var PISTOL: duple = duple.new("Pistol", ShopManager.PISTOL)
+var SHOTGUN: duple = duple.new("Shotgun", ShopManager.SHOTGUN)
 ## Choice Variables
 var character: int = 0 ## Chosen character
 var map: int = 1 ## Chosen map
-var weapon: int = 1 ## Chosen weapon
+var weapon: int = 2 ## Chosen weapon
 var characters: Array[duple] = [LILY, OMI, WEBFISHER]
 var maps: Array[duple] = [TEST, DARKFOREST, HELL, FRUITSANDVEGGIES]
-var weapons: Array[duple] = [BOXING_GLOVE, PISTOL]
+var weapons: Array[duple] = [BOXING_GLOVE, PISTOL, SHOTGUN]
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
 static var start_playtime: float 
 static var start_gametime: float 

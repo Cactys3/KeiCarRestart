@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cqt1xh2djid2k"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_ooi6n"]
+[ext_resource type="Texture2D" uid="uid://chf4rw4g45yq4" path="res://AllInOne/Weapons/Shotgun/Shotgun.png" id="2_0ddql"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qspp7"]
+atlas = ExtResource("2_0ddql")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xd07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qspp7")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jq8tk"]
+size = Vector2(3, 1)
+
+[node name="ShotgunProjectile" type="Area2D" unique_id=1025550825]
+script = ExtResource("1_ooi6n")
+make_own_attack = true
+_damage = 30.0
+_velocity = 90.0
+_piercing = 1.0
+_duration = 10.0
+_weight = 2.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=424223584]
+sprite_frames = SubResource("SpriteFrames_3xd07")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=995254844]
+position = Vector2(9.5, -1.5)
+shape = SubResource("RectangleShape2D_jq8tk")

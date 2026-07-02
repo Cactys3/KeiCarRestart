@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://cjdtr6rhq2yso"]
+
+[ext_resource type="Script" uid="uid://bmgo7hj8e8i3" path="res://Scripts/Equipment/MainScripts/Weapon.gd" id="1_km4y7"]
+[ext_resource type="PackedScene" uid="uid://cqt1xh2djid2k" path="res://AllInOne/Weapons/Shotgun/ShotgunProjectile.tscn" id="2_7pl56"]
+[ext_resource type="Texture2D" uid="uid://chf4rw4g45yq4" path="res://AllInOne/Weapons/Shotgun/Shotgun.png" id="2_fqoal"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pl56"]
+atlas = ExtResource("2_fqoal")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wstrk"]
+atlas = ExtResource("2_fqoal")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4045"]
+atlas = ExtResource("2_fqoal")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqonr"]
+atlas = ExtResource("2_fqoal")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xd07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pl56")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wstrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4045")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sqonr")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 15.0
+}]
+
+[node name="Shotgun" type="Area2D" unique_id=1019974697]
+script = ExtResource("1_km4y7")
+projectile = ExtResource("2_7pl56")
+flip_left_right = true
+shoot_animation = "shoot"
+_range = 40.0
+_attackcooldown = 0.3
+_reloadtime = 2.0
+_ammo = 2.0
+_count = 6.0
+_inaccuracy = 40.0
+_weight = 2.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=67602362]
+sprite_frames = SubResource("SpriteFrames_3xd07")
+autoplay = "default"

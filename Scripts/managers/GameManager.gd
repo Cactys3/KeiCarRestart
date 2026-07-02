@@ -144,7 +144,7 @@ signal CreationDodged(creation: Creation, attack: Attack)
 signal UpgradeCooldownFinished(upgrade: Upgrade)
 ## Main Weapon:
 signal WeaponReloaded(weapon: Weapon)
-signal WeaponFired(weapon: Weapon, projectile: Projectile)
+signal ProjectileShot(weapon: Weapon, projectile: Projectile)
 ## Status on Enemies
 signal BurnDamage(damage: float, enemy: Enemy)
 signal FrostDamage(damage: float, enemy: Enemy)

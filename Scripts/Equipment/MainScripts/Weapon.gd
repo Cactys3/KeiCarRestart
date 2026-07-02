@@ -150,9 +150,13 @@ func attack():
 		attacking = false
 ## Create any projectiles but also do any melee attacks
 func create_projectile():
+	## Take 1 ammo each time you create projectiles
 	projectiles_left_in_ammo -= 1
-	var proj: Projectile = init_projectile(global_position, get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat))
-	game_man.WeaponFired.emit(self, proj)
+	## Create projectiles based on count + 1 base
+	var projectiles_to_spawn: int = floor(count_stat) + 1
+	for i in projectiles_to_spawn:
+		var proj: Projectile = init_projectile(global_position, get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat))
+		game_man.ProjectileShot.emit(self, proj)
 ## Create any projectiles but also do any melee attacks, also do last ammo attacks/reloading stuff
 func create_last_projectile():
 	create_projectile()

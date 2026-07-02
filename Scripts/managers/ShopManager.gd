@@ -3,6 +3,7 @@ class_name ShopManager
 ## Weapon Scenes
 const BOXING_GLOVES = "Boxing Gloves"
 const PISTOL = "Pistol"
+const SHOTGUN = "Shotgun"
 ## Projectile Names
 const BOXING_BLAST = "Boxing Blast"
 const NINE_MM = "9mm"
@@ -105,6 +106,7 @@ const TRAPPED_AND_MARKED = "Trapped And Marked"
 ## Weapon Scenes
 const BOXING_GLOVES_SCENE = preload("uid://bbw0s4nlfy63s")
 const PISTOL_SCENE = preload("uid://cjkad8i0d5u2g")
+const SHOTGUN_SCENE = preload("uid://cjdtr6rhq2yso")
 ## Projectile Scenes 
 const BOXING_BLAST_SCENE = preload("uid://d1gb0dt4hcvtx")
 const NINE_MM_SCENE = preload("uid://c5n35stv668tp")
@@ -326,7 +328,8 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	}
 const weapon_list: Dictionary [String, PackedScene] = {
 	BOXING_GLOVES: BOXING_GLOVES_SCENE,
-	PISTOL: PISTOL_SCENE}
+	PISTOL: PISTOL_SCENE,
+	SHOTGUN: SHOTGUN_SCENE}
 const projectile_list: Dictionary [String, PackedScene] = {
 	BOXING_BLAST: BOXING_BLAST_SCENE,
 	NINE_MM: NINE_MM_SCENE}
