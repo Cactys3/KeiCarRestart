@@ -28,17 +28,23 @@ var initial_direction: Vector2
 var collision_counter: float = 0
 var dead: bool = false
 signal died(pos: Vector2, cloned: bool)
-@export var acceleration: float = 0
-@export var homing: bool = false
-@export var angular_velocity: float = 0.5
-@export var can_spawn_multiple: bool = true
+@export var anim: AnimatedSprite2D
 @export var face_rotation: bool = true
+@export var homing: bool = false
+@export var acceleration: float = 0
+@export var angular_velocity: float = 0.5
+@export var find_own_target: bool = false
+@export var make_own_attack: bool = true
+@export var sound_on_hit: Sound = null
 @export var can_knockback: bool = true
 @export var can_move: bool = true
+@export var can_spawn_multiple: bool = true
 @export var die_on_anim_end: bool = false
-@export var anim: AnimatedSprite2D
-@export var sound_on_hit: Sound = null
-@export var make_own_attack: bool = false
+@export var rotate_anim_seperately: bool = false
+@export_subgroup("Rotate Sprite Seperately")
+@export var rotate_anim_velocity: float = 30
+@export var rotate_anim_randomize_sign: bool = true
+@export var rotate_anim_based_on_speed: bool = true
 var prebuilt_attack: Attack = null
 var death_method: Callable
 var specific_target: bool = false
@@ -47,6 +53,8 @@ func _ready() -> void:
 	super()
 	if die_on_anim_end && anim:
 		anim.animation_finished.connect(die)
+	if rotate_anim_seperately && rotate_anim_randomize_sign && randi_range(0, 1) == 1:
+		rotate_anim_velocity *= -1
 func _process(delta: float) -> void:
 	if dead:
 		return
@@ -62,6 +70,11 @@ func _process(delta: float) -> void:
 	## Face Rotation
 	if face_rotation:
 		rotation = direction.angle()
+	elif rotate_anim_seperately:
+		var rotation_buff: float = 0
+		if rotate_anim_based_on_speed:
+			rotation_buff = (abs(rotation_buff) + abs(velocity)) * sign(rotation_buff)
+		anim.rotate((rotate_anim_velocity + rotation_buff) * delta * TAU / 50)
 	## Death By Old Age
 	stopwatch += delta
 	if ((stopwatch > duration_stat) && can_die_from_duration) || ((collision_counter > piercing_stat) && can_die_from_collision):
@@ -89,6 +102,8 @@ func setup_projectile(new_parent: StatsObject, new_target: Node2D, target_direct
 	setup_collisions(true, false)
 	parent = new_parent
 	target = new_target
+	if find_own_target:
+		target = get_nearest_enemy()
 	initial_direction = target_direction.normalized()
 	direction = target_direction.normalized()
 	velocity += velocity_stat

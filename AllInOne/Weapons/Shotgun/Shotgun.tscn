@@ -50,6 +50,7 @@ script = ExtResource("1_km4y7")
 projectile = ExtResource("2_7pl56")
 flip_left_right = true
 shoot_animation = "shoot"
+orbit_distance = 26.0
 _range = 40.0
 _attackcooldown = 0.3
 _reloadtime = 2.0

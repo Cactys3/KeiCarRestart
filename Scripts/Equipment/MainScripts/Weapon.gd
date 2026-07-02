@@ -15,6 +15,7 @@ class_name Weapon
 @export var MeleeDamageFactor: float = 1
 @export_group("Projectile Settings")
 @export var shoot_animation: String = "NoAnimation"
+@export var reload_animation: String = "NoAnimation"
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
 @export var projectile_acceleration: float = 0
@@ -148,6 +149,10 @@ func attack():
 		between_attacks_cooldown_stopwatch = 0
 		projectiles_left_in_ammo = ammo_stat
 		attacking = false
+		## Play reload animation, may end shoot animation short
+		if reload_animation != "NoAnimation":
+			anim.play(reload_animation)
+			reset_animation_when_finished()
 ## Create any projectiles but also do any melee attacks
 func create_projectile():
 	## Take 1 ammo each time you create projectiles

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://47u3dxb10h3n"]
+
+[ext_resource type="Script" uid="uid://bmgo7hj8e8i3" path="res://Scripts/Equipment/MainScripts/Weapon.gd" id="1_d1b0d"]
+[ext_resource type="PackedScene" uid="uid://bnfpv8q6n4vjt" path="res://AllInOne/Weapons/Shuriken/ShurikenProjectile.tscn" id="2_87c2s"]
+[ext_resource type="Texture2D" uid="uid://d4bra8uu3o0n8" path="res://AllInOne/Weapons/Shuriken/Shuriken.png" id="2_pghfr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87c2s"]
+atlas = ExtResource("2_pghfr")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xd07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87c2s")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": 0,
+"name": &"invisible",
+"speed": 0.8
+}]
+
+[node name="Shuriken" type="Area2D" unique_id=1096133324]
+script = ExtResource("1_d1b0d")
+projectile = ExtResource("2_87c2s")
+reload_animation = "invisible"
+_range = 40.0
+_attackcooldown = 0.25
+_reloadtime = 1.2
+_ammo = 6.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1750273808]
+sprite_frames = SubResource("SpriteFrames_3xd07")
+animation = &"invisible"
+autoplay = "default"

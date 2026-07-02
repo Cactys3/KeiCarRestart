@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bnfpv8q6n4vjt"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_am5xg"]
+[ext_resource type="Texture2D" uid="uid://d4bra8uu3o0n8" path="res://AllInOne/Weapons/Shuriken/Shuriken.png" id="1_o7vaq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v03aq"]
+atlas = ExtResource("1_o7vaq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih3cx"]
+atlas = ExtResource("1_o7vaq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w33jj"]
+atlas = ExtResource("1_o7vaq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bcic"]
+atlas = ExtResource("1_o7vaq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hg5tw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v03aq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ih3cx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w33jj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bcic")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cnxj2"]
+radius = 9.0
+
+[node name="ShurikenProjectile" type="Area2D" unique_id=1296507776 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_am5xg")
+anim = NodePath("AnimatedSprite2D")
+face_rotation = false
+homing = true
+find_own_target = true
+rotate_anim_seperately = true
+_damage = 20.0
+_velocity = 70.0
+_piercing = 5.0
+_duration = 20.0
+_weight = 1.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=197504391]
+sprite_frames = SubResource("SpriteFrames_hg5tw")
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1846836889]
+shape = SubResource("CircleShape2D_cnxj2")
