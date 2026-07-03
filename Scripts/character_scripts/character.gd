@@ -74,6 +74,12 @@ var last_known_velocity: Vector2 = Vector2(0, 0)
 var has_ability1: bool = false
 var has_ability2: bool = false
 var has_ability3: bool = false
+var ability_buff_1_stopwatch: float = 0
+var ability_buff_1_duration: float = 0
+var ability_buff_1_applied: bool = false
+var ability_buff_2_stopwatch: float = 0
+var ability_buff_2_duration: float = 0
+var ability_buff_2_applied: bool = false
 
 func _draw() -> void:
 	if DebugManager.PlayerDistanceRadius:
@@ -110,6 +116,7 @@ func setup(ability1: bool, ability2: bool, ability3: bool):
 		has_ability2 = true
 	if ability3:
 		has_ability3 = true
+	setup_ability_variables()
 func initialize_stats() -> void:
 	curr_speed = movespeed
 func _process(_delta: float) -> void:
@@ -185,9 +192,17 @@ func handle_moving(delta) -> void:
 			anim.flip_h = true
 		if (sign(velocity.x) < 0):
 			anim.flip_h = false
-## Override to give abilities access to process method
 func handle_abilities(delta: float) -> void:
-	pass
+	## Buff 1
+	if ability_buff_1_stopwatch > 0:
+		ability_buff_1_stopwatch -= delta
+	elif ability_buff_1_applied:
+		remove_ability_buff_1()
+	## Buff 2
+	if ability_buff_2_stopwatch > 0:
+		ability_buff_2_stopwatch -= delta
+	elif ability_buff_2_applied:
+		remove_ability_buff_2()
 func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
@@ -257,10 +272,27 @@ func moving(is_moving: bool):
 		anim.play("move")
 	elif anim.sprite_frames.has_animation("idle"):
 		anim.play("idle")
-
+func setup_ability_variables():
+	pass
+func remove_ability_buff_1():
+	ability_buff_1_applied = false
+func remove_ability_buff_2():
+	ability_buff_2_applied = false
+func apply_ability_buff_1():
+	ability_buff_1_stopwatch = ability_buff_1_duration
+	ability_buff_1_applied = true
+func apply_ability_buff_2():
+	ability_buff_2_stopwatch = ability_buff_2_duration
+	ability_buff_2_applied = true
 func trigger_ability1():
 	pass
 func trigger_ability2():
 	pass
 func trigger_ability3():
 	pass
+func get_ability1_cooldown() -> float:
+	return 5
+func get_ability2_cooldown() -> float:
+	return 5
+func get_ability3_cooldown() -> float:
+	return 5
