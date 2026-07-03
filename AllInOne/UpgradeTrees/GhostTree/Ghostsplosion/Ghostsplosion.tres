@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://6ltv35g54reg"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_18nx8"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_18nx8"]
 [ext_resource type="Resource" uid="uid://cn4ef4p7088y1" path="res://AllInOne/UpgradeTrees/GhostTree/Spectre/Spectre.tres" id="2_dqifm"]
 [ext_resource type="PackedScene" uid="uid://w2iehlm2nfv" path="res://AllInOne/UpgradeTrees/GhostTree/Ghostsplosion/Ghostsplosion.tscn" id="2_kbtlj"]
 

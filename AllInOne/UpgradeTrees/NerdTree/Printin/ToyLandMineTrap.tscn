@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bpc0ljx1yiqod"]
 
-[ext_resource type="Script" uid="uid://n1ju48vj1iw7" path="res://Scripts/Equipment/MainScripts/Trap.gd" id="1_fspsm"]
+[ext_resource type="Script" uid="uid://n1ju48vj1iw7" path="res://Scripts/MainScripts/Trap.gd" id="1_fspsm"]
 [ext_resource type="Texture2D" uid="uid://mhwq7hs5aphp" path="res://AllInOne/UpgradeTrees/NerdTree/Printin/ToyLandMineTrap.png" id="2_tpsv4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_urrsw"]

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bcfc0hdhceqpc"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_541k6"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_541k6"]
 [ext_resource type="Resource" uid="uid://c5wosxw2gtbd5" path="res://AllInOne/UpgradeTrees/BloodTree/BloodTurrets/BloodTurrets.tres" id="2_nlmq3"]
 [ext_resource type="PackedScene" uid="uid://2kmgh5r2qssr" path="res://AllInOne/UpgradeTrees/BloodTree/BloodMechanic/BloodMechanic.tscn" id="2_r6uq6"]
 

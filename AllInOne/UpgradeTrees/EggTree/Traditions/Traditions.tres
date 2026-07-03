@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bbhxth6v3cwgh"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_2d0vg"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_2d0vg"]
 [ext_resource type="Resource" uid="uid://chvdaqkh4o2de" path="res://AllInOne/UpgradeTrees/EggTree/Egg/Egg.tres" id="2_u3fia"]
 [ext_resource type="PackedScene" uid="uid://bvt0rs2o66jt4" path="res://AllInOne/UpgradeTrees/EggTree/Traditions/Traditions.tscn" id="2_wvkbw"]
 

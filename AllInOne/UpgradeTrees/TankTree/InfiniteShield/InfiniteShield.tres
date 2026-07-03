@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://c67rj1yuvuubb"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_plxga"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_plxga"]
 [ext_resource type="PackedScene" uid="uid://c1u8f30prionq" path="res://AllInOne/UpgradeTrees/TankTree/InfiniteShield/InfiniteShield.tscn" id="2_eoo2d"]
 [ext_resource type="Resource" uid="uid://bx8r05v10jdha" path="res://AllInOne/UpgradeTrees/TankTree/StatikkStrike/StatikkStrike.tres" id="2_gsaye"]
 

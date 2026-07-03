@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://cfvrc8mx1505s"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_ldpwb"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_ldpwb"]
 [ext_resource type="PackedScene" uid="uid://cvwdet8lpjyow" path="res://AllInOne/UpgradeTrees/MageTree/StoneGnomes/StoneGnomes.tscn" id="2_l86ra"]
 
 

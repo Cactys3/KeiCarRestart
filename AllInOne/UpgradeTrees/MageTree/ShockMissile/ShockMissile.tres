@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://esppeaiu7rm1"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_uy8q4"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_uy8q4"]
 [ext_resource type="Resource" uid="uid://crukgotdrboni" path="res://AllInOne/UpgradeTrees/MageTree/MagicMissile/MagicMissile.tres" id="2_cg24v"]
 [ext_resource type="PackedScene" uid="uid://vxta27nmeumq" path="res://AllInOne/UpgradeTrees/MageTree/ShockMissile/ShockMissile.tscn" id="3_ni2m1"]
 

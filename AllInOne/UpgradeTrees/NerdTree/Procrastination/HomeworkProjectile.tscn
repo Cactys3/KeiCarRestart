@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bm11ampgmgdkt"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_0k5yq"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_0k5yq"]
 [ext_resource type="Texture2D" uid="uid://bj5ptsv6qlwe" path="res://AllInOne/UpgradeTrees/NerdTree/Procrastination/HomeworkProjectile.png" id="2_b6mur"]
 [ext_resource type="Script" uid="uid://mip5cpjwu85k" path="res://Scripts/misc/RandomizeSpriteFrame.gd" id="3_jvm07"]
 

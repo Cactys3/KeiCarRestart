@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3x3afw5oh1ux"]
 
 [ext_resource type="Texture2D" uid="uid://cbe713m2tsdix" path="res://AllInOne/UpgradeTrees/BloodTree/GelidHeolfor/IceBloodSwirlProjectile.png" id="1_3g366"]
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_jxhw6"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_jxhw6"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_hx1xd"]
 
 [sub_resource type="Resource" id="Resource_doutl"]

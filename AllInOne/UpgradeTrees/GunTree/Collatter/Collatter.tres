@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bbfk1pjw6njcq"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_rd3k8"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_rd3k8"]
 [ext_resource type="PackedScene" uid="uid://copcme2s5lnit" path="res://AllInOne/UpgradeTrees/GunTree/Collatter/Collatter.tscn" id="2_c47om"]
 
 [resource]

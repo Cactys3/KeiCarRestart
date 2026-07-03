@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cjdtr6rhq2yso"]
 
-[ext_resource type="Script" uid="uid://bmgo7hj8e8i3" path="res://Scripts/Equipment/MainScripts/Weapon.gd" id="1_km4y7"]
+[ext_resource type="Script" uid="uid://bmgo7hj8e8i3" path="res://Scripts/MainScripts/Weapon.gd" id="1_km4y7"]
 [ext_resource type="PackedScene" uid="uid://cqt1xh2djid2k" path="res://AllInOne/Weapons/Shotgun/ShotgunProjectile.tscn" id="2_7pl56"]
 [ext_resource type="Texture2D" uid="uid://chf4rw4g45yq4" path="res://AllInOne/Weapons/Shotgun/Shotgun.png" id="2_fqoal"]
 

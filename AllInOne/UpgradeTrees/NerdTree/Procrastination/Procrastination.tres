@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://dx6wgy5svc6kc"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_1a6k4"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_1a6k4"]
 [ext_resource type="PackedScene" uid="uid://dcfg07cj1bs1d" path="res://AllInOne/UpgradeTrees/NerdTree/Procrastination/Procrastination.tscn" id="2_at6lc"]
 
 [resource]

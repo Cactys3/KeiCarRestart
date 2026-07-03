@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bfvp4mwqdgaqa"]
 
-[ext_resource type="Script" uid="uid://r3qfuabi8yoc" path="res://Scripts/Equipment/MainScripts/Creation.gd" id="1_kicxt"]
+[ext_resource type="Script" uid="uid://r3qfuabi8yoc" path="res://Scripts/MainScripts/Creation.gd" id="1_kicxt"]
 [ext_resource type="Texture2D" uid="uid://cnkpxdr6ffurh" path="res://AllInOne/UpgradeTrees/NerdTree/Anime/CatGirlCreation.png" id="2_v8or4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m0o87"]

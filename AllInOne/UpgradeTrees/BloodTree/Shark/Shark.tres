@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://swik15ufuq4a"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_yxqs2"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_yxqs2"]
 [ext_resource type="Resource" uid="uid://e4ho6vfqngai" path="res://AllInOne/UpgradeTrees/BloodTree/CuttingStrikes/CuttingStrikes.tres" id="2_6scr7"]
 [ext_resource type="PackedScene" uid="uid://bmeq3115vg5fh" path="res://AllInOne/UpgradeTrees/BloodTree/Shark/Shark.tscn" id="3_o64ee"]
 

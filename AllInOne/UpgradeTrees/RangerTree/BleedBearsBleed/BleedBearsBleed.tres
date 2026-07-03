@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://co83ia2bt1jc0"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_6eei0"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_6eei0"]
 [ext_resource type="Resource" uid="uid://g0v6sseax4ep" path="res://AllInOne/UpgradeTrees/RangerTree/BearTrap/BearTrap.tres" id="2_yya52"]
 [ext_resource type="PackedScene" uid="uid://dug1hiu476rf6" path="res://AllInOne/UpgradeTrees/RangerTree/BleedBearsBleed/BleedBearsBleed.tscn" id="3_bagi5"]
 

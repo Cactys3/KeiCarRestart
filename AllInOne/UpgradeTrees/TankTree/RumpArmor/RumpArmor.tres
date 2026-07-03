@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://clg8kfxhaqe5j"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_6iytc"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_6iytc"]
 [ext_resource type="PackedScene" uid="uid://b1dbrtg1cmaqq" path="res://AllInOne/UpgradeTrees/TankTree/RumpArmor/RumpArmor.tscn" id="2_nybf2"]
 [ext_resource type="Resource" uid="uid://cukbmdv7efshq" path="res://AllInOne/UpgradeTrees/TankTree/LanceProtector/LanceProtector.tres" id="2_uiewi"]
 

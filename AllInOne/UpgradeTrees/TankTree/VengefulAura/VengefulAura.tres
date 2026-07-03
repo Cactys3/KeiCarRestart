@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bou8sdook2uh5"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_5qk7f"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_5qk7f"]
 [ext_resource type="PackedScene" uid="uid://b2jtrcri00jvh" path="res://AllInOne/UpgradeTrees/TankTree/VengefulAura/VengefulAura.tscn" id="2_i1fnf"]
 [ext_resource type="Resource" uid="uid://bu1lj2fh0t080" path="res://AllInOne/UpgradeTrees/TankTree/HealingAura/HealingAura.tres" id="2_jfysn"]
 [ext_resource type="Resource" uid="uid://hmkcfxvy6pxv" path="res://AllInOne/UpgradeTrees/TankTree/QuickGetaway/QuickGetaway.tres" id="3_v3ane"]

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://b3gs60rx8eg8u"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_d1og7"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_d1og7"]
 [ext_resource type="PackedScene" uid="uid://cpddv1omtu17r" path="res://AllInOne/UpgradeTrees/BloodTree/GelidHeolfor/GelidHeolfor.tscn" id="2_3kjxs"]
 
 [resource]

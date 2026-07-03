@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://wvs12scscdl3"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_jivb6"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_jivb6"]
 [ext_resource type="Texture2D" uid="uid://c6fh44ujexayp" path="res://AllInOne/UpgradeTrees/BloodTree/BloodyMagazine/BloodyMagazineProjectile.png" id="2_24ses"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h7jyq"]

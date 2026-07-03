@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://duls1ek1grb3j"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_5mqoh"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_5mqoh"]
 [ext_resource type="Texture2D" uid="uid://v365du2dorw5" path="res://AllInOne/UpgradeTrees/GhostTree/Ghostsplosion/GhostsplosionExplosion.png" id="2_5mqoh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_go26q"]

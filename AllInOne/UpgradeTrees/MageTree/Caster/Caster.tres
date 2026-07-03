@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://gh67t70mkjkb"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_2qsns"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_2qsns"]
 [ext_resource type="PackedScene" uid="uid://5v8vgtwbuq4j" path="res://AllInOne/UpgradeTrees/MageTree/Caster/Caster.tscn" id="2_iel37"]
 
 

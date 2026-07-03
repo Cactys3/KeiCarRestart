@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://cceu21txmlm84"]
+
+[ext_resource type="Script" uid="uid://65cjo6i823vw" path="res://Scripts/MainScripts/Ability.gd" id="1_ir4i0"]
+[ext_resource type="Script" uid="uid://benf0nvrsvam7" path="res://Scripts/MainScripts/CharacterData.gd" id="2_ir4i0"]
+[ext_resource type="PackedScene" uid="uid://s8i7j7l3n6qx" path="res://AllInOne/Characters/Lily/Lily.tscn" id="2_t8g8i"]
+
+[sub_resource type="Resource" id="Resource_ap1f6"]
+script = ExtResource("1_ir4i0")
+ability_name = "Boxing Stance"
+ability_number = 1
+metadata/_custom_type_script = "uid://65cjo6i823vw"
+
+[sub_resource type="Resource" id="Resource_tt8yj"]
+script = ExtResource("1_ir4i0")
+ability_name = "Combust"
+ability_number = 2
+metadata/_custom_type_script = "uid://65cjo6i823vw"
+
+[resource]
+script = ExtResource("2_ir4i0")
+character_name = "Lily"
+character_scene = ExtResource("2_t8g8i")
+abilities = Array[ExtResource("1_ir4i0")]([SubResource("Resource_ap1f6"), SubResource("Resource_tt8yj")])
+metadata/_custom_type_script = "uid://benf0nvrsvam7"

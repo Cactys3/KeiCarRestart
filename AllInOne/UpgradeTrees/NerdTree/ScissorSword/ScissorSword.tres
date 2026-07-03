@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://buhep55sdrfhg"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_p0df8"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_p0df8"]
 [ext_resource type="Resource" uid="uid://ddcrdjhonahcv" path="res://AllInOne/UpgradeTrees/NerdTree/Season2/Season2.tres" id="2_10rmx"]
 [ext_resource type="PackedScene" uid="uid://bv0ae34ijrt50" path="res://AllInOne/UpgradeTrees/NerdTree/ScissorSword/ScissorSword.tscn" id="2_tnidk"]
 

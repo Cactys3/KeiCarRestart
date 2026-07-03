@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://b24stvdr7j46r"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_1sjj7"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_1sjj7"]
 [ext_resource type="Resource" uid="uid://bisroohu6t0lb" path="res://AllInOne/UpgradeTrees/TankTree/Shield/Shield.tres" id="2_38jyw"]
 [ext_resource type="PackedScene" uid="uid://dskg8vyr1q56r" path="res://AllInOne/UpgradeTrees/TankTree/Shield+/Shield+.tscn" id="3_3mbol"]
 

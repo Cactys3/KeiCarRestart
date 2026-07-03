@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b7ygw342b2kb3"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_vnul4"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_vnul4"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_5ktlv"]
 [ext_resource type="Texture2D" uid="uid://bt1efdd5bag26" path="res://AllInOne/UpgradeTrees/NerdTree/A+/PencilProjectile.png" id="2_ojoin"]
 

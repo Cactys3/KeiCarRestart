@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bkjf4k5k627b0"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_dtx78"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_dtx78"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_bu6i4"]
 [ext_resource type="Texture2D" uid="uid://d1ogf1hs50g0a" path="res://AllInOne/UpgradeTrees/BloodTree/Hemoplosion/HemoplosionProjectile.png" id="3_2ag7h"]
 

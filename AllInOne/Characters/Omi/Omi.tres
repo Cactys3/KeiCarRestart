@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://bkf2gykr0mhbs"]
+
+[ext_resource type="Script" uid="uid://benf0nvrsvam7" path="res://Scripts/MainScripts/CharacterData.gd" id="2_7700a"]
+[ext_resource type="PackedScene" uid="uid://cbse1faflc48x" path="res://AllInOne/Characters/Omi/Omi.tscn" id="2_g8jpu"]
+
+[resource]
+script = ExtResource("2_7700a")
+save_key = null
+character_name = "Omi"
+character_description = null
+character_scene = ExtResource("2_g8jpu")
+ability2_save_key = null
+ability2_name = null
+ability2_description = null
+ability3_save_key = null
+ability3_name = null
+ability3_description = null
+metadata/_custom_type_script = "uid://benf0nvrsvam7"

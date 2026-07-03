@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://dtelybtqloo15"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_igluc"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_igluc"]
 [ext_resource type="PackedScene" uid="uid://d3ixk8sd6cuj8" path="res://AllInOne/UpgradeTrees/GunTree/Trick Shotter/Trick Shotter.tscn" id="2_2fcl6"]
 
 [resource]

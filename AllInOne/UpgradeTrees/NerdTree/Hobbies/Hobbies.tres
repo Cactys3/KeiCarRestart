@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://i67yvxkh1d8o"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_8m6q1"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_8m6q1"]
 [ext_resource type="Resource" uid="uid://bgyvl04jup1je" path="res://AllInOne/UpgradeTrees/NerdTree/Anime/Anime.tres" id="2_byqlh"]
 [ext_resource type="PackedScene" uid="uid://bxtf3q3ll02gf" path="res://AllInOne/UpgradeTrees/NerdTree/Hobbies/Hobbies.tscn" id="2_chocs"]
 [ext_resource type="Resource" uid="uid://bq7siy68bu76r" path="res://AllInOne/UpgradeTrees/NerdTree/Printin/Printin.tres" id="3_tupc7"]

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://dcf3w46hf8b5"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_tmoih"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_tmoih"]
 [ext_resource type="PackedScene" uid="uid://cblknk4qtp6wq" path="res://AllInOne/UpgradeTrees/GhostTree/DodgeMeter/DodgeMeter.tscn" id="2_a8xbl"]
 [ext_resource type="Resource" uid="uid://6ltv35g54reg" path="res://AllInOne/UpgradeTrees/GhostTree/Ghostsplosion/Ghostsplosion.tres" id="2_y80u7"]
 

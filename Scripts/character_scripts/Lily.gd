@@ -4,19 +4,28 @@ func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
 	super(delta)
-func character_ability(number: int) -> void:
-	match(number):
-		1:
-			pass#TODO: ability1
-		2:
-			pass#TODO: ability2
-		3:
-			pass#TODO: ability3
-func on_level_up(new_level: float, old_level: float) -> void:
-	pass
-func on_gain_xp(new_xp: float, old_xp: float) -> void:
-	pass
-func on_gain_money(new_money: float, old_money: float) -> void:
-	pass
-func set_moving_animation(boolean: bool):
-	pass
+func _physics_process(delta: float) -> void:
+	super(delta)
+## Abilities
+var boxing_stance_buff_duration: float = 10
+var boxing_stance_buff_stopwatch: float = 0
+var boxing_stance_buff_applied: bool = false
+func trigger_ability1():
+	super()
+	## Boxing Stance: Gain the buff
+	boxing_stance_buff_stopwatch = boxing_stance_buff_duration
+	## TODO: apply buff
+	boxing_stance_buff_applied = true
+func trigger_ability2():
+	super()
+	## Combust: Spawn a blow up projectile/trap
+func trigger_ability3():
+	super()
+	## ??
+## Override to give abilities access to process method
+func handle_abilities(delta: float) -> void:
+	if boxing_stance_buff_stopwatch > 0:
+		boxing_stance_buff_stopwatch -= delta
+	elif boxing_stance_buff_applied:
+		## TODO: remove buff
+		boxing_stance_buff_applied = false

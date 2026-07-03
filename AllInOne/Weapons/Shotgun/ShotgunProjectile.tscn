@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cqt1xh2djid2k"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_ooi6n"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_ooi6n"]
 [ext_resource type="Texture2D" uid="uid://chf4rw4g45yq4" path="res://AllInOne/Weapons/Shotgun/Shotgun.png" id="2_0ddql"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qspp7"]
@@ -23,7 +23,6 @@ size = Vector2(3, 1)
 
 [node name="ShotgunProjectile" type="Area2D" unique_id=1025550825]
 script = ExtResource("1_ooi6n")
-make_own_attack = true
 _damage = 30.0
 _velocity = 90.0
 _piercing = 1.0

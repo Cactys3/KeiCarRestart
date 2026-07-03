@@ -9,7 +9,7 @@ font_size = 128
 [node name="TitleScene" type="Node2D" unique_id=1080031361]
 position = Vector2(1897, 640)
 
-[node name="TitleManager" type="Node" parent="." unique_id=1619080067 node_paths=PackedStringArray("main", "settings", "collection", "shop", "page_title", "button_back", "character_selection", "map_selection", "weapon_selection", "text_character", "text_map", "text_weapon", "achievement_parent", "weapon_parent", "item_parent", "weapon_select_parent", "map_select_parent", "character_select_parent")]
+[node name="TitleManager" type="Node" parent="." unique_id=1619080067 node_paths=PackedStringArray("main", "settings", "collection", "shop", "page_title", "button_back", "character_selection", "abilities_selection", "map_selection", "weapon_selection", "text_character", "text_ability1", "text_ability2", "text_ability3", "text_map", "text_weapon", "achievement_parent", "weapon_parent", "item_parent", "weapon_select_parent", "map_select_parent", "character_select_parent", "abilities_select_parent")]
 process_mode = 3
 script = ExtResource("1_bgkhj")
 main = NodePath("../Main")
@@ -19,9 +19,13 @@ shop = NodePath("../Shop")
 page_title = NodePath("../Always_Active/Page_Title")
 button_back = NodePath("../Always_Active/Button_Back")
 character_selection = NodePath("../Character_Selection")
+abilities_selection = NodePath("../Ability_Selection")
 map_selection = NodePath("../Map_Selection")
 weapon_selection = NodePath("../Weapon_Selection")
 text_character = NodePath("../Always_Active/Text_Character")
+text_ability1 = NodePath("../Always_Active/Text_Ability1")
+text_ability2 = NodePath("../Always_Active/Text_Ability2")
+text_ability3 = NodePath("../Always_Active/Text_Ability3")
 text_map = NodePath("../Always_Active/Text_Map")
 text_weapon = NodePath("../Always_Active/Text_Weapon")
 achievement_parent = NodePath("../Collection/Achievements")
@@ -30,6 +34,7 @@ item_parent = NodePath("../Collection/Items")
 weapon_select_parent = NodePath("../Weapon_Selection/ScrollContainer/GridContainer")
 map_select_parent = NodePath("../Map_Selection/ScrollContainer/GridContainer")
 character_select_parent = NodePath("../Character_Selection/ScrollContainer/GridContainer")
+abilities_select_parent = NodePath("../Ability_Selection/ScrollContainer/GridContainer")
 
 [node name="AudioManager" parent="." unique_id=845473939 instance=ExtResource("2_cieon")]
 
@@ -52,10 +57,10 @@ horizontal_alignment = 1
 
 [node name="Quickstart" type="Button" parent="Always_Active" unique_id=3074576]
 custom_minimum_size = Vector2(400, 150)
-offset_left = 1221.0
-offset_top = 132.0
-offset_right = 1877.0
-offset_bottom = 315.0
+offset_left = 1241.0
+offset_top = 423.0
+offset_right = 1897.0
+offset_bottom = 606.0
 theme_override_font_sizes/font_size = 128
 text = "Quickstart"
 
@@ -71,9 +76,9 @@ text = "Back"
 [node name="Text_Map" type="RichTextLabel" parent="Always_Active" unique_id=512016056]
 custom_minimum_size = Vector2(1600, 150)
 offset_left = 300.0
-offset_top = -36.0
+offset_top = 272.0
 offset_right = 1900.0
-offset_bottom = 114.0
+offset_bottom = 422.0
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 128
 text = "map"
@@ -84,8 +89,9 @@ horizontal_alignment = 2
 [node name="Text_Weapon" type="RichTextLabel" parent="Always_Active" unique_id=845689758]
 custom_minimum_size = Vector2(1600, 150)
 offset_left = 300.0
-offset_top = -150.0
+offset_top = 167.0
 offset_right = 1900.0
+offset_bottom = 317.0
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 128
 text = "weapon"
@@ -102,6 +108,48 @@ offset_bottom = -100.0
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 128
 text = "character"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+
+[node name="Text_Ability1" type="RichTextLabel" parent="Always_Active" unique_id=1491777678]
+custom_minimum_size = Vector2(1600, 150)
+offset_left = 295.0
+offset_top = -149.0
+offset_right = 1895.0
+offset_bottom = 1.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 128
+text = "ability 1
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+
+[node name="Text_Ability2" type="RichTextLabel" parent="Always_Active" unique_id=389023619]
+custom_minimum_size = Vector2(1600, 150)
+offset_left = 295.0
+offset_top = -37.0
+offset_right = 1895.0
+offset_bottom = 113.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 128
+text = "ability 2
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+
+[node name="Text_Ability3" type="RichTextLabel" parent="Always_Active" unique_id=1105773059]
+custom_minimum_size = Vector2(1600, 150)
+offset_left = 295.0
+offset_top = 66.0
+offset_right = 1895.0
+offset_bottom = 216.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 128
+text = "ability 3
+"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 2
@@ -221,47 +269,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 1
 
-[node name="Map_Selection" type="Control" parent="." unique_id=878092781]
-custom_minimum_size = Vector2(1600, 1600)
-layout_mode = 3
-anchors_preset = 0
-offset_left = -1624.0
-offset_top = -241.0
-offset_right = -24.0
-offset_bottom = 1359.0
-mouse_filter = 1
-
-[node name="Button" type="Button" parent="Map_Selection" unique_id=1695673434]
-custom_minimum_size = Vector2(600, 200)
-layout_mode = 0
-offset_left = 1075.0
-offset_top = 1437.0
-offset_right = 1675.0
-offset_bottom = 1637.0
-mouse_filter = 1
-theme_override_font_sizes/font_size = 128
-text = "Start Game"
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Map_Selection" unique_id=1681069625]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 120.0
-offset_bottom = -191.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_scroll_mode = 0
-
-[node name="GridContainer" type="GridContainer" parent="Map_Selection/ScrollContainer" unique_id=1972184836]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 20
-theme_override_constants/v_separation = 20
-columns = 4
-
 [node name="Character_Selection" type="Control" parent="." unique_id=196353680]
+visible = false
 custom_minimum_size = Vector2(1600, 1600)
 layout_mode = 3
 anchors_preset = 0
@@ -280,7 +289,7 @@ offset_right = 1775.0
 offset_bottom = 1637.0
 mouse_filter = 1
 theme_override_font_sizes/font_size = 128
-text = "Choose Weapon"
+text = "Choose Abilities"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Character_Selection" unique_id=288832247]
 layout_mode = 1
@@ -301,7 +310,49 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 4
 
+[node name="Ability_Selection" type="Control" parent="." unique_id=896607530]
+visible = false
+custom_minimum_size = Vector2(1600, 1600)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1620.0
+offset_top = -245.0
+offset_right = -20.0
+offset_bottom = 1355.0
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="Ability_Selection" unique_id=750100144]
+custom_minimum_size = Vector2(800, 200)
+layout_mode = 0
+offset_left = 1075.0
+offset_top = 1433.0
+offset_right = 1875.0
+offset_bottom = 1633.0
+mouse_filter = 1
+theme_override_font_sizes/font_size = 128
+text = "Choose Weapon"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Ability_Selection" unique_id=1885491119]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.079
+anchor_bottom = 0.873
+offset_right = -0.4000244
+offset_bottom = 0.19995117
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Ability_Selection/ScrollContainer" unique_id=732955989]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 4
+
 [node name="Weapon_Selection" type="Control" parent="." unique_id=451293108]
+visible = false
 custom_minimum_size = Vector2(1600, 1600)
 layout_mode = 3
 anchors_preset = 0
@@ -341,12 +392,54 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 4
 
+[node name="Map_Selection" type="Control" parent="." unique_id=878092781]
+visible = false
+custom_minimum_size = Vector2(1600, 1600)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1624.0
+offset_top = -241.0
+offset_right = -24.0
+offset_bottom = 1359.0
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="Map_Selection" unique_id=1695673434]
+custom_minimum_size = Vector2(600, 200)
+layout_mode = 0
+offset_left = 1075.0
+offset_top = 1437.0
+offset_right = 1675.0
+offset_bottom = 1637.0
+mouse_filter = 1
+theme_override_font_sizes/font_size = 128
+text = "Start Game"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Map_Selection" unique_id=1681069625]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 120.0
+offset_bottom = -191.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Map_Selection/ScrollContainer" unique_id=1972184836]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 4
+
 [connection signal="pressed" from="Always_Active/Quickstart" to="TitleManager" method="_quickstart"]
 [connection signal="button_down" from="Always_Active/Button_Back" to="TitleManager" method="press_back"]
 [connection signal="button_down" from="Main/Button_Play" to="TitleManager" method="press_play"]
 [connection signal="button_down" from="Main/Button_Settings" to="TitleManager" method="press_settings"]
 [connection signal="button_down" from="Main/Button_Collection" to="TitleManager" method="press_collection"]
 [connection signal="button_down" from="Main/Button_Shop" to="TitleManager" method="press_shop"]
-[connection signal="button_down" from="Map_Selection/Button" to="TitleManager" method="press_start_game"]
-[connection signal="pressed" from="Character_Selection/Button" to="TitleManager" method="press_weapon_select"]
+[connection signal="pressed" from="Character_Selection/Button" to="TitleManager" method="press_abilities_select"]
+[connection signal="pressed" from="Ability_Selection/Button" to="TitleManager" method="press_weapon_select"]
 [connection signal="pressed" from="Weapon_Selection/Button" to="TitleManager" method="press_map_select"]
+[connection signal="button_down" from="Map_Selection/Button" to="TitleManager" method="press_start_game"]

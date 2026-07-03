@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cijfrfgk8ij03"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_8vv1x"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_8vv1x"]
 
 [node name="ProjectileTemplate" type="Area2D" unique_id=1993283444 node_paths=PackedStringArray("anim")]
 collision_layer = 4

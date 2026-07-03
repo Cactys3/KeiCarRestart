@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cjkad8i0d5u2g"]
 
 [ext_resource type="Texture2D" uid="uid://7rkd3qt5kp8n" path="res://AllInOne/Weapons/Pistol/Pistol.png" id="1_sk53q"]
-[ext_resource type="Script" uid="uid://bmgo7hj8e8i3" path="res://Scripts/Equipment/MainScripts/Weapon.gd" id="1_un5uw"]
+[ext_resource type="Script" uid="uid://bmgo7hj8e8i3" path="res://Scripts/MainScripts/Weapon.gd" id="1_un5uw"]
 [ext_resource type="PackedScene" uid="uid://c5n35stv668tp" path="res://AllInOne/Weapons/Pistol/9mm.tscn" id="2_iu145"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k48bo"]

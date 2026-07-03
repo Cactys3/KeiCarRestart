@@ -71,6 +71,9 @@ var stun_time_left: float = 0
 var curr_speed: float
 ## Last Known velocity (used to check where player is facing when at rest)
 var last_known_velocity: Vector2 = Vector2(0, 0)
+var has_ability1: bool = false
+var has_ability2: bool = false
+var has_ability3: bool = false
 
 func _draw() -> void:
 	if DebugManager.PlayerDistanceRadius:
@@ -99,6 +102,14 @@ func _ready() -> void:
 func flash():
 	await get_tree().create_timer(0.1).timeout
 	visible = true
+## Set Character's Abilities
+func setup(ability1: bool, ability2: bool, ability3: bool):
+	if ability1:
+		has_ability1 = true
+	if ability2:
+		has_ability2 = true
+	if ability3:
+		has_ability3 = true
 func initialize_stats() -> void:
 	curr_speed = movespeed
 func _process(_delta: float) -> void:
@@ -106,13 +117,13 @@ func _process(_delta: float) -> void:
 		return
 	if DebugManager.PlayerDistanceRadius:
 		queue_redraw()
-	if Input.is_action_just_pressed(InputManager.ABILITY_1):
-		character_ability(1)
-	if Input.is_action_just_pressed(InputManager.ABILITY_2):
-		character_ability(2)
-	if Input.is_action_just_pressed(InputManager.ABILITY_3):
-		character_ability(3)
-func _physics_process(delta : float) -> void:
+	if has_ability1 && Input.is_action_just_pressed(InputManager.ABILITY_1):
+		trigger_ability1()
+	if has_ability2 && Input.is_action_just_pressed(InputManager.ABILITY_2):
+		trigger_ability2()
+	if has_ability3 && Input.is_action_just_pressed(InputManager.ABILITY_3):
+		trigger_ability3()
+func _physics_process(delta: float) -> void:
 	if GameInstance.is_game_over:
 		print("game over")
 		move_and_slide()
@@ -140,7 +151,7 @@ func _physics_process(delta : float) -> void:
 	## Don't update last_known_velocity if player isn't moving anymore
 	if velocity.length_squared() > 0.0:
 		last_known_velocity = velocity
-func handle_regens(delta) -> void:
+func handle_regens(delta: float) -> void:
 	## Regen shield if hasn't taken damage in awhile
 	if time_since_taken_damage >= shield_cooldown && game_man.shield < shield:
 		game_man.shield += 5 * delta
@@ -174,6 +185,9 @@ func handle_moving(delta) -> void:
 			anim.flip_h = true
 		if (sign(velocity.x) < 0):
 			anim.flip_h = false
+## Override to give abilities access to process method
+func handle_abilities(delta: float) -> void:
+	pass
 func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
@@ -231,8 +245,6 @@ func stat_changed_method():
 	transform.scaled(Vector2(size, size))
 	game_man.curr_hp = game_man.curr_hp ## checks maxhp to setup UI properly
 	game_man.shield = game_man.shield ## checks maxshield to setup UI properly
-func character_ability(number: int) -> void:
-	pass#print("ability " + str(number))
 func on_level_up(new_level: float, old_level: float) -> void:
 	pass
 func on_gain_xp(new_xp: float, old_xp: float) -> void:
@@ -245,3 +257,10 @@ func moving(is_moving: bool):
 		anim.play("move")
 	elif anim.sprite_frames.has_animation("idle"):
 		anim.play("idle")
+
+func trigger_ability1():
+	pass
+func trigger_ability2():
+	pass
+func trigger_ability3():
+	pass

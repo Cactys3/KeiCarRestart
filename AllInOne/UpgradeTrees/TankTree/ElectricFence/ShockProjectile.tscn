@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b3ilfxcfq7n0r"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_mis86"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_mis86"]
 
 [node name="ShockProjectile" type="Area2D" unique_id=2082232616 node_paths=PackedStringArray("anim")]
 collision_layer = 4100

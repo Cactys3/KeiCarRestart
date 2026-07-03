@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://d1f0stejlye0n"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_l8lb2"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_l8lb2"]
 [ext_resource type="PackedScene" uid="uid://b6hvkhhfvr3jo" path="res://AllInOne/UpgradeTrees/BloodTree/BloodyMagazine/BloodyMagazine.tscn" id="2_tqtpv"]
 [ext_resource type="Resource" uid="uid://jxh1upa5f50q" path="res://AllInOne/UpgradeTrees/BloodTree/BloodyNeedles/BloodyNeedles.tres" id="3_2u0hm"]
 

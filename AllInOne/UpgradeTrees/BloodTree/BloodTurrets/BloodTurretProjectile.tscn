@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cmox0efehx05e"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_gnqbd"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_gnqbd"]
 [ext_resource type="Texture2D" uid="uid://dto4stu5uw37q" path="res://AllInOne/UpgradeTrees/BloodTree/BloodTurrets/BloodTurretProjectile.png" id="2_0p8hf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mv880"]

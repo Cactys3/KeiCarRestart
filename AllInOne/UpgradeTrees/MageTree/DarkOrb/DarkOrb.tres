@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://lx2ndf10nlo3"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_5c5n5"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_5c5n5"]
 [ext_resource type="PackedScene" uid="uid://dwfmbpqles0au" path="res://AllInOne/UpgradeTrees/MageTree/DarkOrb/DarkOrb.tscn" id="2_1e16m"]
 
 

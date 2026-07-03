@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://b3yf4m2mleant"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_vsr4e"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_vsr4e"]
 [ext_resource type="PackedScene" uid="uid://bjs26uidq33rv" path="res://AllInOne/UpgradeTrees/GhostTree/Feary/Feary.tscn" id="2_mj52r"]
 [ext_resource type="Resource" uid="uid://cwxpg0qrpjk8k" path="res://AllInOne/UpgradeTrees/GhostTree/Fear/Fear.tres" id="2_y2ddv"]
 

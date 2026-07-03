@@ -9,9 +9,13 @@ class_name TitleManager
 @export var page_title: RichTextLabel 
 @export var button_back: Button
 @export var character_selection: Control 
+@export var abilities_selection: Control
 @export var map_selection: Control 
 @export var weapon_selection: Control
 @export var text_character: RichTextLabel
+@export var text_ability1: RichTextLabel
+@export var text_ability2: RichTextLabel
+@export var text_ability3: RichTextLabel
 @export var text_map: RichTextLabel
 @export var text_weapon: RichTextLabel
 @export var achievement_parent: Control
@@ -21,6 +25,7 @@ class_name TitleManager
 @export var weapon_select_parent: GridContainer
 @export var map_select_parent: GridContainer
 @export var character_select_parent: GridContainer
+@export var abilities_select_parent: GridContainer
 
 static var file_slot: int = 0
 const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
@@ -30,9 +35,9 @@ var DARKFOREST: duple = duple.new("Dark Forest", "res://AllInOne/Maps/DarkForest
 var HELL: duple = duple.new("Hell", "res://AllInOne/Maps/Hell/Hell.tscn")
 var FRUITSANDVEGGIES: duple = duple.new("Fruits and Veggies", "res://AllInOne/Maps/FruitsAndVeggies/FruitsAndVeggies.tscn")
 ## Characters [global_stats][character scene]
-var WEBFISHER: duple = duple.new("WebFisher", "res://AllInOne/Characters/Webfisher/Webfisher.tscn")
-var LILY: duple = duple.new("Lily", "res://AllInOne/Characters/Lily/Lily.tscn")
-var OMI: duple = duple.new("Omi", "res://AllInOne/Characters/Omi/Omi.tscn")
+var WEBFISHER: duple = duple.new("WebFisher", "res://AllInOne/Characters/Webfisher/Webfisher.tres")
+var LILY: duple = duple.new("Lily", "res://AllInOne/Characters/Lily/Lily.tres")
+var OMI: duple = duple.new("Omi", "res://AllInOne/Characters/Lily/Lily.tres")
 ## Weapons
 var BOXING_GLOVE: duple = duple.new("Boxing Glove", ShopManager.BOXING_GLOVES)
 var PISTOL: duple = duple.new("Pistol", ShopManager.PISTOL)
@@ -42,6 +47,9 @@ var SHURIKEN: duple = duple.new("Shuriken", ShopManager.SHURIKEN)
 var character: int = 0 ## Chosen character
 var map: int = 1 ## Chosen map
 var weapon: int = 3 ## Chosen weapon
+var ability1: bool = false
+var ability2: bool = false
+var ability3: bool = false
 var characters: Array[duple] = [LILY, OMI, WEBFISHER]
 var maps: Array[duple] = [TEST, DARKFOREST, HELL, FRUITSANDVEGGIES]
 var weapons: Array[duple] = [BOXING_GLOVE, PISTOL, SHOTGUN, SHURIKEN]
@@ -72,7 +80,7 @@ func _ready() -> void:
 	#print("connect signals")
 	button_back.button_down.connect(set_main)
 	#print("Tree paused: ", get_tree().paused)
-	## Setup Selection Screens
+	## Setup Selection Screens (except abilities)
 	for c in characters:
 		var button: Button = Button.new()
 		button.text = c.key
@@ -134,6 +142,21 @@ func press_character_select():
 	play_button_sound()#print("character_select")
 	set_visible([character_selection])
 	page_title.text = "Character Selection"
+func press_abilities_select():
+	play_button_sound()
+	set_visible([abilities_selection])
+	page_title.text = "Abilities Selection"
+	var index: int = 1
+	var chara = load(characters[character].value)
+	for a in load(characters[character].value).abilities:
+		var button: Button = Button.new()
+		button.text = a.ability_name
+		button.pressed.connect(set_ability.bind(a.ability_number, a.ability_name))
+		button.add_theme_font_size_override("font_size", 128)
+		abilities_select_parent.add_child(button)
+		index += 1
+	if index == 1:
+		page_title.text = "Abilities Selection (none are unlocked)"
 func press_weapon_select():
 	play_button_sound()#print("weapon_selection")
 	set_visible([weapon_selection])
@@ -166,6 +189,7 @@ func setup_instance(base_scene) -> GameInstance:
 	#print("Creating instance with Map: " + maps[map].key + ", Char: " + characters[character].key)
 	var game_instance: GameInstance = get_instance()
 	var chosen_character: Character = get_character()
+	chosen_character.setup(ability1, ability2, ability3)
 	var chosen_weapon: String = get_weapon()
 	base_scene.add_child(game_instance)
 	base_scene.setup_instance(game_instance)
@@ -176,7 +200,7 @@ func setup_instance(base_scene) -> GameInstance:
 func get_instance() -> GameInstance:
 	return load(maps[map].value).instantiate()
 func get_character() -> Character:
-	return load(characters[character].value).instantiate()
+	return load(characters[character].value).character_scene.instantiate()
 func get_weapon() -> String:
 	return weapons[weapon].value
 func set_map(index: int):
@@ -187,6 +211,17 @@ func set_character(index: int):
 	if characters.size() > index:
 		character = index
 		text_character.text = "Character: " + characters[character].key
+func set_ability(ability_number: int, ability_name: String):
+	match ability_number:
+		1:
+			ability1 = true
+			text_ability1.text = ability_name
+		2:
+			ability2 = true
+			text_ability2.text = ability_name
+		3:
+			ability3 = true
+			text_ability3.text = ability_name
 func set_weapon(index: int):
 	if weapons.size() > index:
 		weapon = index
@@ -200,6 +235,7 @@ func set_visible(nodes: Array[Control]):
 	character_selection.visible = false
 	map_selection.visible = false
 	weapon_selection.visible = false
+	abilities_selection.visible = false
 	for node in nodes:
 		node.visible = true
 func _quickstart():

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bnfpv8q6n4vjt"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_am5xg"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_am5xg"]
 [ext_resource type="Texture2D" uid="uid://d4bra8uu3o0n8" path="res://AllInOne/Weapons/Shuriken/Shuriken.png" id="1_o7vaq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v03aq"]

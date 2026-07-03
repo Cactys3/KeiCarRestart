@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://gtvp5nbu6s2p"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_mu3hx"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_mu3hx"]
 [ext_resource type="Resource" uid="uid://qa53sekpaxeg" path="res://AllInOne/UpgradeTrees/GunTree/Gunner/Gunner.tres" id="2_40icy"]
 [ext_resource type="PackedScene" uid="uid://cl7gcvidhhffk" path="res://AllInOne/UpgradeTrees/GunTree/Shotgunner/Shotgunner.tscn" id="2_hap2d"]
 

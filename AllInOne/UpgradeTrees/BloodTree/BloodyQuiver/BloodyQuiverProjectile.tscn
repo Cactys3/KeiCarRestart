@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://jsps8aqsiw12"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_o7poi"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_o7poi"]
 [ext_resource type="Texture2D" uid="uid://dd6cu3epbk71g" path="res://AllInOne/UpgradeTrees/BloodTree/BloodyQuiver/BloodQuiverProjectile.png" id="2_a1k3g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jsba0"]

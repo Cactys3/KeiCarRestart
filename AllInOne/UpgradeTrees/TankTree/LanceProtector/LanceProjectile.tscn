@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d2ibdb5y8e6w6"]
 
-[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/Equipment/MainScripts/Projectile.gd" id="1_rk8wj"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_rk8wj"]
 [ext_resource type="Texture2D" uid="uid://dnxosp62f661s" path="res://AllInOne/UpgradeTrees/TankTree/LanceProtector/LanceProtectorSummon.png" id="2_feuny"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_feuny"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cbse1faflc48x"]
 
-[ext_resource type="Script" uid="uid://d2q8eeh4e5ai8" path="res://Scripts/character_scripts/Webfisher.gd" id="1_hvmwy"]
+[ext_resource type="Script" uid="uid://dwcpl5iaqxdq1" path="res://AllInOne/Characters/Omi/Omi.gd" id="1_hvmwy"]
 [ext_resource type="Texture2D" uid="uid://dqhxk5yx6vofc" path="res://AllInOne/Characters/Omi/Omi.png" id="2_hvmwy"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_f5chu"]
 [ext_resource type="Shape2D" uid="uid://oflj7l4b866g" path="res://AllInOne/GenericObjects/CharacterPickupRangeShape.tres" id="4_6evda"]
@@ -23,14 +23,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7xadt"]
 size = Vector2(10, 23)
 
-[node name="Character" type="CharacterBody2D" unique_id=1197695872 node_paths=PackedStringArray("pickup_range", "anim") groups=["player"]]
+[node name="Character" type="CharacterBody2D" unique_id=1197695872 groups=["player"]]
 collision_layer = 2
 collision_mask = 64
 platform_on_leave = 2
 script = ExtResource("1_hvmwy")
-character_name = "Omi"
-pickup_range = NodePath("pickup_range/CollisionShape2D")
-anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=564162239 node_paths=PackedStringArray("Target")]
 sprite_frames = SubResource("SpriteFrames_hvmwy")

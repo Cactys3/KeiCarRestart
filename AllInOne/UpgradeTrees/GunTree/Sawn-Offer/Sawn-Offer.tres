@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://b65xtxgjg303p"]
 
-[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/Equipment/MainScripts/UpgradeData.gd" id="1_bnu50"]
+[ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_bnu50"]
 [ext_resource type="Resource" uid="uid://0pufg6st1oqc" path="res://AllInOne/UpgradeTrees/GunTree/Triple Tapper/TripleTapper.tres" id="2_a5uhd"]
 [ext_resource type="PackedScene" uid="uid://4l8a6m6w3c0v" path="res://AllInOne/UpgradeTrees/GunTree/Sawn-Offer/Sawn-Offer.tscn" id="2_tusog"]
 
