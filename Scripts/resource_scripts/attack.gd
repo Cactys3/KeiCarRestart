@@ -1,24 +1,49 @@
 extends Resource
 class_name Attack
 ## General Data
+#var attack_type: AttackTypes = AttackTypes.unset
+#enum AttackTypes{
+	#unset, 
+	#player_weapon_projectile, 
+	#player_weapon_melee,
+	#player_status,
+	### Thorns, etc
+	#player_misc,
+	#upgrade_projectile,
+	#upgrade_creation,
+	#upgrade_trap,
+	#upgrade_summon,
+	#upgrade_melee,
+	#upgrade_status,
+	#enemy_projectile,
+	#enemy_melee,
+	#enemy_status,
+	#map_hazard,
+	#player_ability}
 var attack_type: AttackTypes = AttackTypes.unset
 enum AttackTypes{
 	unset, 
-	player_weapon_projectile, 
-	player_weapon_melee,
-	player_status,
-	## Thorns, etc
-	player_misc,
-	upgrade_projectile,
-	upgrade_creation,
-	upgrade_trap,
-	upgrade_summon,
-	upgrade_melee,
-	upgrade_status,
-	enemy_projectile,
-	enemy_melee,
-	enemy_status,
-	map_hazard}
+	projectile,
+	melee,
+	trap,
+	creation,
+	summon,
+	status,
+	hazard,
+	thorns,
+	misc}
+## TODO: have attack_source that tells all about 'who' is doing the damaging, and then 'attack_type' that tells what type (projectile, creation, melee, etc)
+var attack_source: AttackSources = AttackSources.unset
+enum AttackSources{
+	unset,
+	player,
+	weapon,
+	ability,
+	enemy,
+	upgrade,
+	status,
+	hazard}
+## Is this attack from something friendly to the player
 var position: Vector2 # Position of Attack
 var impact_location: Vector2
 ## Attacker Given Data
@@ -39,10 +64,11 @@ var simple: bool = false
 var simple_damage: float
 var simple_knockback: float
 
-func _init(type: AttackTypes, attackerNode: Node2D, pos: Vector2, attacker_status: StatusEffects, basestats: GlobalStats.StatsList, factorstats: GlobalStats.StatsList):
-	attack_type = type
-	attacker = attackerNode
-	position = pos
+func _init(source_of_attack: AttackSources, type_of_attack: AttackTypes, attacker_node: Node2D, attack_position: Vector2, attacker_status: StatusEffects, basestats: GlobalStats.StatsList, factorstats: GlobalStats.StatsList):
+	attack_source = source_of_attack
+	attack_type = type_of_attack
+	attacker = attacker_node
+	position = attack_position
 	status = attacker_status
 	temporary_base_stats = basestats
 	temporary_factor_stats = factorstats
@@ -50,6 +76,8 @@ func set_attack_color(color: Color):
 	attack_color = color
 ## Sets this Attack up as simple
 func simple_setup(damage: float, knockback: float):
+	## TODO: replace simple setup with just giving the key stats and then creating two stat lists for them and working normally from there
+	
 	## TODO: Remove simple setup and just allow variables to be null/check for nulls (everything will setup a base/factor stats when attacking)
 	simple = true
 	simple_damage = damage
@@ -116,36 +144,31 @@ func get_stat(key: String) -> float:
 	else:
 		printerr("Trying to get stat that doesn't exist in StatsList: ", key)
 		return 0
-## Returns if this attack is from the player's weapon
 func is_from_weapon() -> bool:
-	return (attack_type == AttackTypes.player_weapon_projectile 
-		|| attack_type == AttackTypes.player_weapon_melee)
-## Returns if this attack is from anything from player
+	return attack_source == AttackSources.weapon
 func is_from_player() -> bool:
-	return (attack_type == AttackTypes.player_weapon_projectile 
-		|| attack_type == AttackTypes.player_weapon_melee
-		|| attack_type == AttackTypes.player_status
-		|| attack_type == AttackTypes.player_misc
-		|| attack_type == AttackTypes.upgrade_projectile
-		|| attack_type == AttackTypes.upgrade_creation
-		|| attack_type == AttackTypes.upgrade_trap
-		|| attack_type == AttackTypes.upgrade_summon
-		|| attack_type == AttackTypes.upgrade_melee
-		|| attack_type == AttackTypes.upgrade_status
-		)
+	return attack_source == AttackSources.player
 func is_from_enemy() -> bool:
-	return (attack_type == AttackTypes.enemy_projectile 
-		|| attack_type == AttackTypes.enemy_melee
-		|| attack_type == AttackTypes.enemy_status)
-## Returns if this attack is from anything from an Upgrade
+	return attack_source == AttackSources.enemy
 func is_from_upgrade() -> bool:
-	return (attack_type == AttackTypes.upgrade_projectile
-		|| attack_type == AttackTypes.upgrade_creation
-		|| attack_type == AttackTypes.upgrade_trap
-		|| attack_type == AttackTypes.upgrade_summon
-		|| attack_type == AttackTypes.upgrade_melee
-		|| attack_type == AttackTypes.upgrade_status
-		)
+	return attack_source == AttackSources.upgrade
 ## Returns if this attack is from a player projectile (does not care about enemy projectiles)
-func is_from_projectile() -> bool:
-	return attack_type == AttackTypes.player_weapon_projectile || attack_type == AttackTypes.upgrade_projectile
+func is_projectile() -> bool:
+	return attack_type == AttackTypes.projectile && is_friendly_to_player()
+func is_melee() -> bool:
+	return attack_type == AttackTypes.melee
+func is_trap() -> bool:
+	return attack_type == AttackTypes.trap
+func is_summon() -> bool:
+	return attack_type == AttackTypes.summon
+func is_creation() -> bool:
+	return attack_type == AttackTypes.creation
+func is_status() -> bool:
+	return attack_type == AttackTypes.status || attack_source == AttackSources.status
+
+func is_friendly_to_player() -> bool:
+	return (attack_source == AttackSources.player
+		|| attack_source == AttackSources.weapon
+		|| attack_source == AttackSources.ability
+		|| attack_source == AttackSources.upgrade
+		|| attack_source == AttackSources.status)

@@ -569,7 +569,7 @@ func make_status_attack(status_damage: float, type: StatusEffects.StatusTypes) -
 		status_effects = StatusEffects.new()
 		status_effects.applies_wet = true
 	## Make attack
-	var attack: Attack = Attack.new(Attack.AttackTypes.enemy_status, null, global_position, status_effects, null, null)
+	var attack: Attack = Attack.new(Attack.AttackSources.status, Attack.AttackTypes.status, null, global_position, status_effects, null, null)
 	attack.simple_setup(status_damage, 0)
 	return attack
 
@@ -687,11 +687,8 @@ func make_attack(damage_percent: float) -> Attack:
 	## Add Self's Base Stats to Base StatList
 	add_to_stats_list(base)
 	factor.add_to_stat(GlobalStats.DAMAGE, damage_percent - 1) # -1 to make it a multiplier
-	var attack: Attack = Attack.new(Attack.AttackTypes.enemy_melee, self, global_position, status, base, factor)
+	var attack: Attack = Attack.new(Attack.AttackSources.enemy, Attack.AttackTypes.melee, self, global_position, status, base, factor)
 	return attack
-	## Simple Setup
-	#var attack: Attack = Attack.new(Attack.AttackTypes.enemy_melee, self, global_position, status, null, null)
-	#attack.simple_setup(GlobalStats.calculate_damage(curr_damage * damage_percent, GlobalStats.calculate_crit(curr_critchance), curr_critdamage), weapon_knockback * damage_percent)
 func move_towards(new_position: Vector2, movespeed: float, _delta:float):
 	var direction: Vector2 = (new_position - global_position).normalized()
 	if can_be_frozen && frozen:

@@ -14,7 +14,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tw00o")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
@@ -29,7 +29,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nsfsi")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
@@ -40,14 +40,13 @@ detection_range = 150.0
 PROJECTILE = ExtResource("2_utgkx")
 base_anim = NodePath("BaseAnim")
 top_anim = NodePath("TopAnim")
-_damage = 20.0
 _range = 60.0
 _attackcooldown = 0.4
 _reloadtime = 2.0
 _ammo = 4.0
 _count = 1.0
 _inaccuracy = 10.0
-_velocity = 70.0
+_duration = 10.0
 
 [node name="BaseAnim" type="AnimatedSprite2D" parent="." unique_id=342397088]
 sprite_frames = SubResource("SpriteFrames_utgkx")

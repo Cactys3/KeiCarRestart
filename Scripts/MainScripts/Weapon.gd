@@ -16,6 +16,7 @@ class_name Weapon
 @export_group("Projectile Settings")
 @export var shoot_animation: String = "NoAnimation"
 @export var reload_animation: String = "NoAnimation"
+@export var pre_reload_animation_wait_time: float = 0.1
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
 @export var projectile_acceleration: float = 0
@@ -147,6 +148,7 @@ func attack():
 		attacking = false
 		## Play reload animation, may end shoot animation short
 		if reload_animation != "NoAnimation":
+			await get_tree().create_timer(pre_reload_animation_wait_time).timeout
 			anim.play(reload_animation)
 			reset_animation_when_finished()
 ## Create any projectiles but also do any melee attacks
@@ -193,7 +195,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	var new_bullet: Projectile = projectile.instantiate()
 	new_bullet.visible = false
 	## TODO: should we send enemy to projectile?
-	new_bullet.setup_projectile(self, null, new_direction)
+	new_bullet.setup_projectile(self, get_attack_source(), null, new_direction)
 	new_bullet.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player, can_attack_creations)
 	if (AimType == AimTypes.Spinning): #handle aim types special cases
 		player.add_child(new_bullet)
@@ -357,7 +359,9 @@ func can_attack(body: Node2D) -> bool:
 	## Have we attacked it
 	return !AttackedObjects.has(body)
 func get_attack_type() -> Attack.AttackTypes:
-	return Attack.AttackTypes.player_weapon_melee
+	return Attack.AttackTypes.melee
+func get_attack_source() -> Attack.AttackSources:
+	return Attack.AttackSources.weapon
 
 class AttackEvent:
 	var attackee: Node

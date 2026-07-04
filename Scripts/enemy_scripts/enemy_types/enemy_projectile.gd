@@ -3,7 +3,7 @@ class_name EnemyProjectile
 var enemy: Enemy
 ## Sets up projectile for enemies
 func setup_enemy(new_enemy: Enemy, new_target: Node2D, enemy_direction:Vector2, new_is_clone: bool, new_acceleration: float):
-	setup_projectile(null, new_target, enemy_direction)
+	setup_projectile(null, get_attack_source(), new_target, enemy_direction)
 	setup_collisions(false, true)
 	enemy = new_enemy
 ## Swap parent to enemy and fallback to make own attack

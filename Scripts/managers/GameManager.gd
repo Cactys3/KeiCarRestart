@@ -346,10 +346,10 @@ func player_damaged(playah: Character, attack: Attack):
 		## Apply Thorns Damage to Attacker
 		var new_status: StatusEffects = StatusEffects.new()
 		new_status.applies_bleed = true
-		var new_attack = Attack.new(Attack.AttackTypes.player_misc, player, player.position, null, null, null)
+		#var new_attack = Attack.new(Attack.AttackTypes.player_misc, player, player.position, null, null, null)
+		var new_attack: Attack = Attack.new(Attack.AttackSources.player, Attack.AttackTypes.thorns, player, player.global_position, new_status, null, null)
 		new_attack.simple_setup(player.thorns, 0)
 		attack.attacker.damage(new_attack)
-
 ## Shop
 func has_upgrade_room():
 	return upgrade_count <= upgrade_limit

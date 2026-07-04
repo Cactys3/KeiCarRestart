@@ -98,3 +98,7 @@ func emit_cooldown_finished():
 	cooldown_finished.emit()
 func custom_input_just_pressed():
 	pass
+func get_attack_type() -> Attack.AttackTypes:
+	return Attack.AttackTypes.unset
+func get_attack_source() -> Attack.AttackSources:
+	return Attack.AttackSources.upgrade

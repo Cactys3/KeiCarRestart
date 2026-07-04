@@ -13,7 +13,7 @@ func deactivate():
 	super()
 ## Upgrade Projectiles apply bleed
 func edit_attack(attack: Attack) -> Attack:
-	if attack.attack_type == Attack.AttackTypes.upgrade_projectile:
+	if attack.is_projectile() && attack.is_from_upgrade():
 		attack.status.applies_bleed = true
 	return attack
 ## Spawn Additional Based on Bleed Procs

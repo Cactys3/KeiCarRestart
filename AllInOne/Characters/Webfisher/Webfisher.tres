@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://c8bqja567m367"]
 
-[ext_resource type="Script" uid="uid://65cjo6i823vw" path="res://Scripts/MainScripts/Ability.gd" id="1_7xjxv"]
+[ext_resource type="Script" uid="uid://65cjo6i823vw" path="res://Scripts/MainScripts/AbilityData.gd" id="1_7xjxv"]
 [ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://AllInOne/Characters/Webfisher/Webfisher.tscn" id="2_hh0xy"]
 [ext_resource type="Script" uid="uid://benf0nvrsvam7" path="res://Scripts/MainScripts/CharacterData.gd" id="2_wswkh"]
 

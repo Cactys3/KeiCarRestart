@@ -29,7 +29,7 @@ func despawn():
 ## Override to setup spawn
 func initialize_object(object: Node2D) -> bool:
 	if object is Trap:
-		object.setup(self)
+		object.setup(self, get_attack_source())
 		return super(object)
 	return false
 ## Overrides
@@ -40,3 +40,5 @@ func get_spawning_duration() -> float:
 	return super() + Statics.trap_duration_buff
 func get_spawn_parent() -> Node2D:
 	return GameManager.instance.projectile_parent
+func get_attack_type() -> Attack.AttackTypes:
+	return Attack.AttackTypes.trap

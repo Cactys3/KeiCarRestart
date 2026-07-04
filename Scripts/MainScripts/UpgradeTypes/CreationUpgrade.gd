@@ -43,3 +43,5 @@ func get_spawning_duration() -> float:
 	return super() + Statics.creation_duration_buff
 func get_spawn_parent() -> Node2D:
 	return GameManager.instance.projectile_parent
+func get_attack_type() -> Attack.AttackTypes:
+	return Attack.AttackTypes.creation

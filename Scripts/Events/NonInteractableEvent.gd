@@ -142,9 +142,16 @@ func _hitbox_entered(body: Node2D) -> void:
 	if can_damage && stopwatch >= cooldown:
 		if (!only_damage_player || body.is_in_group("player")) && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage"):
 			stopwatch = 0
-			var attack: Attack = Attack.new(Attack.AttackTypes.map_hazard, self, global_position, status, null, null)
+			#var attack: Attack = Attack.new(Attack.AttackTypes.map_hazard, self, global_position, status, null, null)
+			var attack: Attack = Attack.new(get_attack_source(), get_attack_type(), self, global_position, status, null, null)
 			attack.simple_setup(event_attack_damage, knockback)
 			GameManager.instance.player.damage(attack)
+func get_attack_type() -> Attack.AttackTypes:
+	return Attack.AttackTypes.hazard
+func get_attack_source() -> Attack.AttackSources:
+	return Attack.AttackSources.hazard
+
+
 func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
@@ -451,7 +458,7 @@ func make_status_attack(status_damage: float, type: StatusEffects.StatusTypes) -
 		status_effects = StatusEffects.new()
 		status_effects.applies_wet = true
 	## Make attack
-	var attack: Attack = Attack.new(Attack.AttackTypes.enemy_status, null, global_position, status_effects, null, null)
+	var attack: Attack = Attack.new(Attack.AttackSources.status, Attack.AttackTypes.status, null, global_position, status_effects, null, null)
 	attack.simple_setup(status_damage, 0)
 	return attack
 ## Makes a PopupText for the given damage and color, Color.TRANSPARENT for random color

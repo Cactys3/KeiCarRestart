@@ -46,22 +46,22 @@ func upgrade_cooldown_finished(upgrade: Upgrade):
 ## Add to stats on enemy killed
 func enemy_killed(enemy: Enemy, attack: Attack) -> void:
 	super(enemy, attack)
-	if attack.attack_type == Attack.AttackTypes.player_weapon_melee:
+	if attack.is_melee():
 		## At 100 it is 10 more attackspeed
 		additional_attackspeed += 0.1
-	elif attack.is_from_projectile():
+	elif attack.is_projectile():
 		## At 100 it is 10 more damage
 		additional_damage += 0.1
-	elif attack.attack_type == Attack.AttackTypes.upgrade_creation:
+	elif attack.is_creation():
 		## At 100 it is 50% bigger
 		additional_size += 0.005
-	elif attack.attack_type == Attack.AttackTypes.upgrade_summon:
+	elif attack.is_summon():
 		## At 100 it is 20 more velocity
 		additional_velocity += 0.2
-	elif attack.attack_type == Attack.AttackTypes.upgrade_trap:
+	elif attack.is_trap():
 		## at 100 it is 1 more count
 		additional_count += 0.01
-	elif attack.attack_type == Attack.AttackTypes.upgrade_status:
+	elif attack.is_status():
 		## at 100, it is 0.5 more apply for status
 		additional_status += 0.005
 	else:

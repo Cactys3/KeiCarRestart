@@ -18,7 +18,6 @@ var AttackedObjects: Array = []
 @export var can_die_from_collision: bool = true
 @export var can_die_from_duration: bool = true
 
-
 func _draw() -> void:
 	draw_arc(Vector2.ZERO, range_stat, 0, TAU, 64, Color.RED.lerp(Color.TRANSPARENT, 0.7), 1)
 func _process(delta: float) -> void:
@@ -181,58 +180,3 @@ class AttackedObjectsElement:
 		if stopwatch >= duration:
 			return true
 		return false
-
-func _get_hp_stat():
-	return (super() + Statics.spawn_hp_buff) * Statics.spawn_hp_factor
-func _get_stance_stat():
-	return (super() + Statics.spawn_stance_buff) * Statics.spawn_stance_factor
-func _get_movespeed_stat():
-	return (super() + Statics.spawn_movespeed_buff) * Statics.spawn_movespeed_factor
-func _get_xp_stat():
-	return (super() + Statics.spawn_xp_buff) * Statics.spawn_xp_factor
-func _get_mogul_stat():
-	return (super() + Statics.spawn_mogul_buff) * Statics.spawn_mogul_factor
-func _get_luck_stat():
-	return (super() + Statics.spawn_luck_buff) * Statics.spawn_luck_factor
-func _get_damage_stat():
-	return (super() + Statics.spawn_damage_buff) * Statics.spawn_damage_factor
-func _get_range_stat():
-	return (super() + Statics.spawn_range_buff) * Statics.spawn_range_factor
-func _get_weight_stat():
-	return (super() + Statics.spawn_weight_buff) * Statics.spawn_weight_factor
-func _get_attackcooldown_stat():
-	return (super() + Statics.spawn_attackcooldown_buff) * Statics.spawn_attackcooldown_factor
-func _get_reloadtime_stat():
-	return (super() + Statics.spawn_reloadtime_buff) * Statics.spawn_reloadtime_factor
-func _get_velocity_stat():
-	return (super() + Statics.spawn_velocity_buff) * Statics.spawn_velocity_factor
-func _get_ammo_stat():
-	return (super() + Statics.spawn_ammo_buff) * Statics.spawn_ammo_factor
-func _get_count_stat():
-	return (super() + Statics.spawn_count_buff) * Statics.spawn_count_factor
-func _get_piercing_stat():
-	return (super() + Statics.spawn_piercing_buff) * Statics.spawn_piercing_factor
-func _get_duration_stat():
-	return (super() + Statics.spawn_duration_buff) * Statics.spawn_duration_factor
-func _get_size_stat():
-	return (super() + Statics.spawn_size_buff) * Statics.spawn_size_factor
-func _get_critdamage_stat():
-	return (super() + Statics.spawn_critdamage_buff) * Statics.spawn_critdamage_factor
-func _get_ghostly_stat():
-	return (super() + Statics.spawn_ghostly_buff) * Statics.spawn_ghostly_factor
-func _get_regen_stat():
-	return (super() + Statics.spawn_regen_buff) * Statics.spawn_regen_factor
-func _get_magnetize_stat():
-	return (super() + Statics.spawn_magnetize_buff) * Statics.spawn_magnetize_factor
-func _get_lifesteal_stat():
-	return (super() + Statics.spawn_lifesteal_buff) * Statics.spawn_lifesteal_factor
-func _get_shield_stat():
-	return (super() + Statics.spawn_shield_buff) * Statics.spawn_shield_factor
-func _get_difficulty_stat():
-	return (super() + Statics.spawn_difficulty_buff) * Statics.spawn_difficulty_factor
-func _get_revies_stat():
-	return (super() + Statics.spawn_revies_buff) * Statics.spawn_revies_factor
-func _get_thorns_stat():
-	return (super() + Statics.spawn_thorns_buff) * Statics.spawn_thorns_factor
-func _get_inaccuracy_stat():
-	return (super() + Statics.spawn_inaccuracy_buff) * Statics.spawn_inaccuracy_factor

@@ -31,15 +31,21 @@ var attacking: bool = false
 ## Used by weapons to offset weapon orbit forward (for use in attacks, etc)
 var summon_position_offset: float = 0
 var player: Character
+var source: Attack.AttackSources = Attack.AttackSources.unset
 var ready_to_fire: bool = false
 var target: Node2D
 var update_target_stopwatch: float = 0
 ## Update once a second
 var update_target_cooldown: float = 1
+func get_attack_type() -> Attack.AttackTypes:
+	return Attack.AttackTypes.summon
+func get_attack_source() -> Attack.AttackSources:
+	return source
 func _ready() -> void:
 	super()
-func setup(new_player: Character):
+func setup(new_player: Character, attack_source: Attack.AttackSources):
 	player = new_player
+	source = attack_source
 func _process(delta: float) -> void:
 	super(delta)
 	if update_target:
@@ -172,9 +178,9 @@ func shoot_projectile() -> Projectile:
 		GameManager.instance.projectile_parent.add_child(projectile)
 		projectile.global_position = global_position
 		if target:
-			projectile.setup_projectile(self, target, target.global_position - global_position)
+			projectile.setup_projectile(self, get_attack_source(), target, target.global_position - global_position)
 		else:
-			projectile.setup_projectile(self, null, Vector2(cos(rotation), sin(rotation)))
+			projectile.setup_projectile(self, get_attack_source(), null, Vector2(cos(rotation), sin(rotation)))
 		return projectile
 	else:
 		print("no")
@@ -187,58 +193,3 @@ func get_spawn_object_range():
 
 func _on_body_entered(body: Node2D) -> void:
 	super(body)
-
-func _get_hp_stat():
-	return (super() + Statics.summon_hp_buff) * Statics.summon_hp_factor
-func _get_stance_stat():
-	return (super() + Statics.summon_stance_buff) * Statics.summon_stance_factor
-func _get_movespeed_stat():
-	return (super() + Statics.summon_movespeed_buff) * Statics.summon_movespeed_factor
-func _get_xp_stat():
-	return (super() + Statics.summon_xp_buff) * Statics.summon_xp_factor
-func _get_mogul_stat():
-	return (super() + Statics.summon_mogul_buff) * Statics.summon_mogul_factor
-func _get_luck_stat():
-	return (super() + Statics.summon_luck_buff) * Statics.summon_luck_factor
-func _get_damage_stat():
-	return (super() + Statics.summon_damage_buff) * Statics.summon_damage_factor
-func _get_range_stat():
-	return (super() + Statics.summon_range_buff) * Statics.summon_range_factor
-func _get_weight_stat():
-	return (super() + Statics.summon_weight_buff) * Statics.summon_weight_factor
-func _get_attackcooldown_stat():
-	return (super() + Statics.summon_attackcooldown_buff) * Statics.summon_attackcooldown_factor
-func _get_reloadtime_stat():
-	return (super() + Statics.summon_reloadtime_buff) * Statics.summon_reloadtime_factor
-func _get_velocity_stat():
-	return (super() + Statics.summon_velocity_buff) * Statics.summon_velocity_factor
-func _get_ammo_stat():
-	return (super() + Statics.summon_ammo_buff) * Statics.summon_ammo_factor
-func _get_count_stat():
-	return (super() + Statics.summon_count_buff) * Statics.summon_count_factor
-func _get_piercing_stat():
-	return (super() + Statics.summon_piercing_buff) * Statics.summon_piercing_factor
-func _get_duration_stat():
-	return (super() + Statics.summon_duration_buff) * Statics.summon_duration_factor
-func _get_size_stat():
-	return (super() + Statics.summon_size_buff) * Statics.summon_size_factor
-func _get_critdamage_stat():
-	return (super() + Statics.summon_critdamage_buff) * Statics.summon_critdamage_factor
-func _get_ghostly_stat():
-	return (super() + Statics.summon_ghostly_buff) * Statics.summon_ghostly_factor
-func _get_regen_stat():
-	return (super() + Statics.summon_regen_buff) * Statics.summon_regen_factor
-func _get_magnetize_stat():
-	return (super() + Statics.summon_magnetize_buff) * Statics.summon_magnetize_factor
-func _get_lifesteal_stat():
-	return (super() + Statics.summon_lifesteal_buff) * Statics.summon_lifesteal_factor
-func _get_shield_stat():
-	return (super() + Statics.summon_shield_buff) * Statics.summon_shield_factor
-func _get_difficulty_stat():
-	return (super() + Statics.summon_difficulty_buff) * Statics.summon_difficulty_factor
-func _get_revies_stat():
-	return (super() + Statics.summon_revies_buff) * Statics.summon_revies_factor
-func _get_thorns_stat():
-	return (super() + Statics.summon_thorns_buff) * Statics.summon_thorns_factor
-func _get_inaccuracy_stat():
-	return (super() + Statics.summon_inaccuracy_buff) * Statics.summon_inaccuracy_factor

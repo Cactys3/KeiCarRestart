@@ -13,7 +13,7 @@ func activate(body: Node2D):
 	## Try damage method, then try bleed var
 	if body.has_method("damage"):
 		status.applies_bleed = true
-		var attack: Attack = Attack.new(Attack.AttackTypes.upgrade_trap, self, global_position, status, GlobalStats.StatsList.new(0), GlobalStats.StatsList.new(0))
+		var attack: Attack = make_attack(1)
 		attack.slow = 15 # 15% ms slow
 		attack.temporary_base_stats.set_stat(GlobalStats.BLEED_APPLY, bleed)
 		attack.temporary_base_stats.set_stat(GlobalStats.DAMAGE, 12)

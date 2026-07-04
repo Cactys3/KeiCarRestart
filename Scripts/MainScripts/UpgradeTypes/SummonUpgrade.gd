@@ -67,7 +67,7 @@ func initialize_object(object: Node2D) -> bool:
 		object = object as Summon
 		summons.append(object)
 		print("player:", player.name)
-		object.setup(player)
+		object.setup(player, get_attack_source())
 		return super(object)
 	return false
 ## Overrides
@@ -77,3 +77,5 @@ func get_spawning_duration() -> float:
 	return super() + Statics.summon_duration_buff
 func get_spawn_parent() -> Node2D:
 	return GameManager.instance.projectile_parent
+func get_attack_type() -> Attack.AttackTypes:
+	return Attack.AttackTypes.summon

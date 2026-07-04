@@ -15,7 +15,7 @@ func deactivate():
 	super()
 ## Upgrade Projectiles apply bleed
 func edit_attack(attack: Attack) -> Attack:
-	if attack.attack_type == Attack.AttackTypes.upgrade_projectile:
+	if attack.attack_type == Attack.AttackTypes.projectile && attack.attack_source == Attack.AttackSources.upgrade:
 		attack.status.applies_bleed = true
 	return attack
 ## Override to setup the spawned object
@@ -24,9 +24,9 @@ func initialize_object(object: Node2D) -> bool:
 		object = object as Projectile
 		var enemy: Node2D = get_nearest_enemy()
 		if enemy:
-			object.setup_projectile(self, enemy, (enemy.global_position - player.global_position).normalized())
+			object.setup_projectile(self, get_attack_source(), enemy, (enemy.global_position - player.global_position).normalized())
 		else:
-			object.setup_projectile(self, null, player.transform.x)
+			object.setup_projectile(self, get_attack_source(), null, player.transform.x)
 		## Make an attack and pass it to the projectile prebuilt
 		var curr_damage_buff = bleed_procs * 2.0 ## TODO: balancing these number
 		var curr_size_buff = bleed_procs / 10.0

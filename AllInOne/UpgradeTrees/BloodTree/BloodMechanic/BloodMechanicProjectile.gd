@@ -13,7 +13,7 @@ func die():
 		## Must do this because the turret/etc (var parent) that fired this projectile may have already died before this code activates
 		## TODO: Fix things that fire projectiles queue_freeing before all of their projectiles are dead. Make them wait.
 		if parent:
-			pud.setup(parent)
+			pud.setup(parent, get_attack_source())
 		else:
 			pud.setup(null)
 	super()

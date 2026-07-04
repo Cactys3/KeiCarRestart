@@ -11,11 +11,16 @@ enum ActivationTypes{entered, timer, activation}
 @export var damage_enemy_on_entered_activation: bool = false
 @export var die_on_activation: bool = false
 var parent: StatsObject
+var source: Attack.AttackSources = Attack.AttackSources.unset
 var lifetime: float = 10
 var piercing: float = 0
 var dead: bool = false
 var stopwatch: float = 0
 signal activation_signal
+func get_attack_type() -> Attack.AttackTypes:
+	return Attack.AttackTypes.trap
+func get_attack_source() -> Attack.AttackSources:
+	return source
 func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
@@ -25,8 +30,9 @@ func _process(delta: float) -> void:
 	else:
 		stopwatch += delta
 ## Setup trap to start
-func setup(new_parent: StatsObject):
+func setup(new_parent: StatsObject, attack_source: Attack.AttackSources):
 	parent = new_parent
+	source = attack_source
 	lifetime = duration_stat + 1 ## +1 for making sure it appears for testing 
 	match activation_type:
 		ActivationTypes.entered:
@@ -67,60 +73,3 @@ func hit_enemy(enemy: Node2D):
 	piercing += 1
 	if can_die_from_collision && piercing > piercing_stat:
 		die()
-
-
-
-func _get_hp_stat():
-	return (super() + Statics.trap_hp_buff) * Statics.trap_hp_factor
-func _get_stance_stat():
-	return (super() + Statics.trap_stance_buff) * Statics.trap_stance_factor
-func _get_movespeed_stat():
-	return (super() + Statics.trap_movespeed_buff) * Statics.trap_movespeed_factor
-func _get_xp_stat():
-	return (super() + Statics.trap_xp_buff) * Statics.trap_xp_factor
-func _get_mogul_stat():
-	return (super() + Statics.trap_mogul_buff) * Statics.trap_mogul_factor
-func _get_luck_stat():
-	return (super() + Statics.trap_luck_buff) * Statics.trap_luck_factor
-func _get_damage_stat():
-	return (super() + Statics.trap_damage_buff) * Statics.trap_damage_factor
-func _get_range_stat():
-	return (super() + Statics.trap_range_buff) * Statics.trap_range_factor
-func _get_weight_stat():
-	return (super() + Statics.trap_weight_buff) * Statics.trap_weight_factor
-func _get_attackcooldown_stat():
-	return (super() + Statics.trap_attackcooldown_buff) * Statics.trap_attackcooldown_factor
-func _get_reloadtime_stat():
-	return (super() + Statics.trap_reloadtime_buff) * Statics.trap_reloadtime_factor
-func _get_velocity_stat():
-	return (super() + Statics.trap_velocity_buff) * Statics.trap_velocity_factor
-func _get_ammo_stat():
-	return (super() + Statics.trap_ammo_buff) * Statics.trap_ammo_factor
-func _get_count_stat():
-	return (super() + Statics.trap_count_buff) * Statics.trap_count_factor
-func _get_piercing_stat():
-	return (super() + Statics.trap_piercing_buff) * Statics.trap_piercing_factor
-func _get_duration_stat():
-	return (super() + Statics.trap_duration_buff) * Statics.trap_duration_factor
-func _get_size_stat():
-	return (super() + Statics.trap_size_buff) * Statics.trap_size_factor
-func _get_critdamage_stat():
-	return (super() + Statics.trap_critdamage_buff) * Statics.trap_critdamage_factor
-func _get_ghostly_stat():
-	return (super() + Statics.trap_ghostly_buff) * Statics.trap_ghostly_factor
-func _get_regen_stat():
-	return (super() + Statics.trap_regen_buff) * Statics.trap_regen_factor
-func _get_magnetize_stat():
-	return (super() + Statics.trap_magnetize_buff) * Statics.trap_magnetize_factor
-func _get_lifesteal_stat():
-	return (super() + Statics.trap_lifesteal_buff) * Statics.trap_lifesteal_factor
-func _get_shield_stat():
-	return (super() + Statics.trap_shield_buff) * Statics.trap_shield_factor
-func _get_difficulty_stat():
-	return (super() + Statics.trap_difficulty_buff) * Statics.trap_difficulty_factor
-func _get_revies_stat():
-	return (super() + Statics.trap_revies_buff) * Statics.trap_revies_factor
-func _get_thorns_stat():
-	return (super() + Statics.trap_thorns_buff) * Statics.trap_thorns_factor
-func _get_inaccuracy_stat():
-	return (super() + Statics.trap_inaccuracy_buff) * Statics.trap_inaccuracy_factor

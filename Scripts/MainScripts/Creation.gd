@@ -35,6 +35,7 @@ var knockback_strength := 0.0
 var creation_duration: float = 0
 var duration_stopwatch: float = 0
 var parent: CreationUpgrade
+var source: Attack.AttackSources = Attack.AttackSources.unset
 var is_ready: bool = false
 var switch_targets_stopwatch: float = 3
 ## Can swap targets MAX once every 2 seconds (unless target dies)
@@ -50,12 +51,15 @@ func _ready() -> void:
 	super()
 	if randf() > 0.5:
 		clockwise = 1
-func setup(new_parent: Equipment, new_duration: float):
+func setup(new_parent: Equipment, attack_source: Attack.AttackSources):
+	## Setup main variables
+	parent = new_parent
+	source = attack_source
+	## Handle stats after setup
 	velocity = velocity_stat * creation_velocity_modifier
 	temporary_velocity = velocity
 	hp = hp_stat
-	parent = new_parent
-	creation_duration = new_duration + duration_stat
+	creation_duration = 2 + duration_stat
 	is_ready = true
 func set_direction(new_direction: Vector2):
 	direction = new_direction
@@ -195,79 +199,13 @@ func apply_knockback(knockback: float, location: Vector2):
 	## decreased ms until it builds back up
 	temporary_velocity = temporary_velocity * 0.2
 	direction = knockback_direction
-## Calculate and return an attack with damage multiplier
-func make_attack(attack_damage_multiplier: float) -> Attack:
-	## Make Two Stats Lists
-	var base: GlobalStats.StatsList = GlobalStats.get_statslist_base()
-	var factor: GlobalStats.StatsList = GlobalStats.get_statslist_factor()
-	## Add Self's Base Stats to Base StatList
-	base = add_to_stats_list(base)
-	factor.add_to_stat(GlobalStats.DAMAGE, attack_damage_multiplier - 1) # -1 to make it a multiplier
-	## Make Attack Values
-	var attack_type: Attack.AttackTypes = get_attack_type()
-	## Make attack and Pass attack through each active upgrade
-	var attack: Attack = Attack.new(attack_type, self, global_position, status, base, factor)
+## Edit attack after making
+func handle_attack(attack: Attack):
 	## Set Color
 	attack.set_attack_color(attack_color)
-	game_man.handle_attack(attack)
 	## TODO: i want to set impact location if it's a melee attack
 	attack.impact_location = global_position
-	return attack
 func get_attack_type() -> Attack.AttackTypes:
-	return Attack.AttackTypes.upgrade_creation
-func get_attack_position() -> Vector2:
-	return global_position
-func _get_hp_stat():
-	return (super() + Statics.creation_hp_buff) * Statics.creation_hp_factor
-func _get_stance_stat():
-	return (super() + Statics.creation_stance_buff) * Statics.creation_stance_factor
-func _get_movespeed_stat():
-	return (super() + Statics.creation_movespeed_buff) * Statics.creation_movespeed_factor
-func _get_xp_stat():
-	return (super() + Statics.creation_xp_buff) * Statics.creation_xp_factor
-func _get_mogul_stat():
-	return (super() + Statics.creation_mogul_buff) * Statics.creation_mogul_factor
-func _get_luck_stat():
-	return (super() + Statics.creation_luck_buff) * Statics.creation_luck_factor
-func _get_damage_stat():
-	return (super() + Statics.creation_damage_buff) * Statics.creation_damage_factor
-func _get_range_stat():
-	return (super() + Statics.creation_range_buff) * Statics.creation_range_factor
-func _get_weight_stat():
-	return (super() + Statics.creation_weight_buff) * Statics.creation_weight_factor
-func _get_attackcooldown_stat():
-	return (super() + Statics.creation_attackcooldown_buff) * Statics.creation_attackcooldown_factor
-func _get_reloadtime_stat():
-	return (super() + Statics.creation_reloadtime_buff) * Statics.creation_reloadtime_factor
-func _get_velocity_stat():
-	return (super() + Statics.creation_velocity_buff) * Statics.creation_velocity_factor
-func _get_ammo_stat():
-	return (super() + Statics.creation_ammo_buff) * Statics.creation_ammo_factor
-func _get_count_stat():
-	return (super() + Statics.creation_count_buff) * Statics.creation_count_factor
-func _get_piercing_stat():
-	return (super() + Statics.creation_piercing_buff) * Statics.creation_piercing_factor
-func _get_duration_stat():
-	return (super() + Statics.creation_duration_buff) * Statics.creation_duration_factor
-func _get_size_stat():
-	return (super() + Statics.creation_size_buff) * Statics.creation_size_factor
-func _get_critdamage_stat():
-	return (super() + Statics.creation_critdamage_buff) * Statics.creation_critdamage_factor
-func _get_ghostly_stat():
-	return (super() + Statics.creation_ghostly_buff) * Statics.creation_ghostly_factor
-func _get_regen_stat():
-	return (super() + Statics.creation_regen_buff) * Statics.creation_regen_factor
-func _get_magnetize_stat():
-	return (super() + Statics.creation_magnetize_buff) * Statics.creation_magnetize_factor
-func _get_lifesteal_stat():
-	return (super() + Statics.creation_lifesteal_buff) * Statics.creation_lifesteal_factor
-func _get_shield_stat():
-	return (super() + Statics.creation_shield_buff) * Statics.creation_shield_factor
-func _get_difficulty_stat():
-	return (super() + Statics.creation_difficulty_buff) * Statics.creation_difficulty_factor
-func _get_revies_stat():
-	return (super() + Statics.creation_revies_buff) * Statics.creation_revies_factor
-func _get_thorns_stat():
-	return (super() + Statics.creation_thorns_buff) * Statics.creation_thorns_factor
-func _get_inaccuracy_stat():
-	return (super() + Statics.creation_inaccuracy_buff) * Statics.creation_inaccuracy_factor
+	return Attack.AttackTypes.creation
+func get_attack_source() -> Attack.AttackSources:
+	return source

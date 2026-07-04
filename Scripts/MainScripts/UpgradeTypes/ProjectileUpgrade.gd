@@ -66,9 +66,9 @@ func initialize_object(object: Node2D) -> bool:
 func initialize_projectile(projectile: Projectile) -> Projectile:
 	var target: Node2D = get_spawn_target()
 	if target:
-		projectile.setup_projectile(self, target, (target.global_position - player.global_position).normalized())
+		projectile.setup_projectile(self, get_attack_source(), target, (target.global_position - player.global_position).normalized())
 	else: ## Random Direction, no homing
-		projectile.setup_projectile(self, null, get_global_mouse_position() - player.global_position)
+		projectile.setup_projectile(self, get_attack_source(), null, get_global_mouse_position() - player.global_position)
 	projectile.setup_death_method(despawn)
 	return projectile
 ## Overrides
@@ -95,3 +95,5 @@ func get_spawn_target() -> Node2D:
 		_:
 			target = get_nearest_enemy()
 	return target
+func get_attack_type() -> Attack.AttackTypes:
+	return Attack.AttackTypes.projectile

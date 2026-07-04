@@ -14,7 +14,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_w4eow")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
@@ -29,7 +29,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ytfee")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
@@ -43,12 +43,11 @@ top_anim = NodePath("TopAnim")
 damage_on_collision = false
 can_be_damaged = false
 can_be_stunned = false
-can_be_knockbacked = false
-_damage = 45.0
 _range = 60.0
 _attackcooldown = 1.0
 _reloadtime = 1.0
 _ammo = 1.0
+_duration = 10.0
 
 [node name="BaseAnim" type="AnimatedSprite2D" parent="." unique_id=342397088]
 sprite_frames = SubResource("SpriteFrames_t85qi")

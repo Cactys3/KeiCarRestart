@@ -2,20 +2,13 @@ extends SpawnObject
 class_name Projectile
 ## Given Variables
 var parent: StatsObject
+var attack_source: Attack.AttackSources = Attack.AttackSources.unset
+var attack_type: Attack.AttackTypes = Attack.AttackTypes.projectile
 var target: Node2D
-var attack_type: Attack.AttackTypes = Attack.AttackTypes.unset
 var is_clone: bool 
 var clone_offset: float = 0.5
 var return_to_sender: bool = false
 var sender: Node2D
-
-
-#var damage: float = 10
-#var count: float = 1
-#var piercing: float = 0
-#var weight: float = 5
-#var duration = 10
-
 var size: float = 0:
 	set(value):
 		scale = Vector2(value + 1, value + 1)
@@ -107,28 +100,17 @@ func process_movement_homing(delta: float):
 		#direction = lerp(direction, (target.global_position - global_position).normalized(), delta * angular_velocity)
 	process_movement(delta)
 ## Setup values generic for all BasicProjectile
-func setup_projectile(new_parent: StatsObject, new_target: Node2D, starting_direction:Vector2): 
+func setup_projectile(projectile_parent: StatsObject, projectile_attack_source: Attack.AttackSources, projectile_target: Node2D, starting_direction:Vector2): 
 	setup_collisions(true, false)
-	parent = new_parent
-	target = new_target
+	parent = projectile_parent
+	target = projectile_target
+	attack_source = projectile_attack_source
 	if find_own_target:
 		target = get_nearest_enemy()
 	initial_direction = starting_direction.normalized()
 	direction = starting_direction.normalized()
 	velocity += velocity_stat
 	size += size_stat
-	if new_parent is Weapon:
-		attack_type = Attack.AttackTypes.player_weapon_projectile
-	elif new_parent is Upgrade:
-		attack_type = Attack.AttackTypes.upgrade_projectile
-	elif new_parent is Turret:
-		attack_type = Attack.AttackTypes.upgrade_creation
-	elif new_parent is Projectile:
-		attack_type = Attack.AttackTypes.upgrade_projectile
-	elif new_parent is Summon:
-		attack_type = Attack.AttackTypes.upgrade_summon
-	else:
-		printerr("Projectile setup normally but not from weapon or upgrade")
 func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
 	var area = get_node(".") as Area2D
 	area.set_collision_layer_value(1, false)
@@ -211,14 +193,17 @@ func attack_body(body: Node2D) -> void:
 ## In-case overrides want to edit the attack
 func edit_attack_before_sending(attack: Attack):
 	pass
-func make_attack(attack_damage_multiplier: float) -> Attack:
-	var attack: Attack = super(attack_damage_multiplier)
-	attack.attack_type = attack_type
+## Edit attack after making
+func handle_attack(attack: Attack):
 	attack.can_knockback = can_knockback
 	## Set Color
 	attack.set_attack_color(attack_color)
+	## TODO: calculate the collision point between the projectile and object? so it's not in the center of projectile but at edge
 	attack.impact_location = global_position
-	return attack
+func get_attack_type() -> Attack.AttackTypes:
+	return attack_type
+func get_attack_source() -> Attack.AttackSources:
+	return attack_source
 func make_parent_attack(attack_damage_multiplier: float) -> Attack:
 	if is_instance_valid(parent):
 		return parent.make_attack(attack_damage_multiplier)
@@ -238,59 +223,3 @@ func die():
 	dead = true
 	died.emit(global_position, is_clone)
 	queue_free()
-
-
-func _get_hp_stat():
-	return (super() + Statics.projectile_hp_buff) * Statics.projectile_hp_factor
-func _get_stance_stat():
-	return (super() + Statics.projectile_stance_buff) * Statics.projectile_stance_factor
-func _get_movespeed_stat():
-	return (super() + Statics.projectile_movespeed_buff) * Statics.projectile_movespeed_factor
-func _get_xp_stat():
-	return (super() + Statics.projectile_xp_buff) * Statics.projectile_xp_factor
-func _get_mogul_stat():
-	return (super() + Statics.projectile_mogul_buff) * Statics.projectile_mogul_factor
-func _get_luck_stat():
-	return (super() + Statics.projectile_luck_buff) * Statics.projectile_luck_factor
-func _get_damage_stat():
-	return (super() + Statics.projectile_damage_buff) * Statics.projectile_damage_factor
-func _get_range_stat():
-	return (super() + Statics.projectile_range_buff) * Statics.projectile_range_factor
-func _get_weight_stat():
-	return (super() + Statics.projectile_weight_buff) * Statics.projectile_weight_factor
-func _get_attackcooldown_stat():
-	return (super() + Statics.projectile_attackcooldown_buff) * Statics.projectile_attackcooldown_factor
-func _get_reloadtime_stat():
-	return (super() + Statics.projectile_reloadtime_buff) * Statics.projectile_reloadtime_factor
-func _get_velocity_stat():
-	return (super() + Statics.projectile_velocity_buff) * Statics.projectile_velocity_factor
-func _get_ammo_stat():
-	return (super() + Statics.projectile_ammo_buff) * Statics.projectile_ammo_factor
-func _get_count_stat():
-	return (super() + Statics.projectile_count_buff) * Statics.projectile_count_factor
-func _get_piercing_stat():
-	return (super() + Statics.projectile_piercing_buff) * Statics.projectile_piercing_factor
-func _get_duration_stat():
-	return (super() + Statics.projectile_duration_buff) * Statics.projectile_duration_factor
-func _get_size_stat():
-	return (super() + Statics.projectile_size_buff) * Statics.projectile_size_factor
-func _get_critdamage_stat():
-	return (super() + Statics.projectile_critdamage_buff) * Statics.projectile_critdamage_factor
-func _get_ghostly_stat():
-	return (super() + Statics.projectile_ghostly_buff) * Statics.projectile_ghostly_factor
-func _get_regen_stat():
-	return (super() + Statics.projectile_regen_buff) * Statics.projectile_regen_factor
-func _get_magnetize_stat():
-	return (super() + Statics.projectile_magnetize_buff) * Statics.projectile_magnetize_factor
-func _get_lifesteal_stat():
-	return (super() + Statics.projectile_lifesteal_buff) * Statics.projectile_lifesteal_factor
-func _get_shield_stat():
-	return (super() + Statics.projectile_shield_buff) * Statics.projectile_shield_factor
-func _get_difficulty_stat():
-	return (super() + Statics.projectile_difficulty_buff) * Statics.projectile_difficulty_factor
-func _get_revies_stat():
-	return (super() + Statics.projectile_revies_buff) * Statics.projectile_revies_factor
-func _get_thorns_stat():
-	return (super() + Statics.projectile_thorns_buff) * Statics.projectile_thorns_factor
-func _get_inaccuracy_stat():
-	return (super() + Statics.projectile_inaccuracy_buff) * Statics.projectile_inaccuracy_factor

@@ -109,7 +109,7 @@ func make_hatchling(spawn_position: Vector2) -> Summon:
 	summons.append(summon)
 	get_spawn_parent().add_child(summon)
 	summon.global_position = spawn_position
-	summon.setup(player)
+	summon.setup(player, get_attack_source())
 	## Add additional stats
 	summon._size += additional_size
 	summon._damage += additional_damage

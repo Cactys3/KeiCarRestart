@@ -230,10 +230,5 @@ func make_attack(attack_damage_multiplier: float) -> Attack:
 	## Set Color
 	attack.set_attack_color(item_color)
 	return attack
-func get_attack_type() -> Attack.AttackTypes:
-	if item_type == item_types.upgrade:
-		return Attack.AttackTypes.upgrade_melee
-	else:# item_type == item_types.weapon:
-		return Attack.AttackTypes.player_weapon_melee 
 func get_attack_position() -> Vector2:
 	return global_position

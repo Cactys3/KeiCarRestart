@@ -17,4 +17,4 @@ func activate(body: Node2D):
 		var shard: Projectile = ice_shard.instantiate()
 		GameManager.instance.projectile_parent.add_child(shard)
 		shard.global_position = global_position
-		shard.setup_projectile(parent, null, direction)
+		shard.setup_projectile(parent, get_attack_source(), null, direction)

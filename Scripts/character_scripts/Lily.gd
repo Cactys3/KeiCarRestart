@@ -23,10 +23,12 @@ func handle_abilities(delta: float) -> void:
 	super(delta)
 func apply_ability_buff_1():
 	super()
+	
 func apply_ability_buff_2():
 	super()
 func remove_ability_buff_1():
 	super()
+	
 func remove_ability_buff_2():
 	super()
 func setup_ability_variables():

@@ -159,7 +159,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 			target = get_nearest_enemy()
 		elif AimType == AimTypes.RandomEnemy:
 			target = get_random_enemy()
-	proj.setup_projectile(self, target, new_direction)
+	proj.setup_projectile(self, get_attack_source(), target, new_direction)
 	GameManager.instance.projectile_parent.add_child(proj)
 	proj.global_position = new_position
 	proj.rotation = new_direction.normalized().angle()
