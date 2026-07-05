@@ -239,6 +239,13 @@ func set_visible(nodes: Array[Control]):
 	for node in nodes:
 		node.visible = true
 func _quickstart():
+	for a in load(characters[character].value).abilities:
+		if a.ability_number == 1:
+			ability1 = a
+		elif a.ability_number == 2:
+			ability2 = a
+		elif a.ability_number == 3:
+			ability3 = a
 	press_start_game()
 ## Setup the achievements visual based on Save Data
 func setup_achievements():

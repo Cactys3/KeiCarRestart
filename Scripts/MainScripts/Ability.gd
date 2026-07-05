@@ -31,6 +31,8 @@ func get_attack_source() -> Attack.AttackSources:
 func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
+	if child_to_player:
+		global_position = player.global_position
 	super(delta)
 	if is_setup:
 		## Turn towards mouse
@@ -55,7 +57,7 @@ func setup(new_player: Character):
 	is_setup = true
 	player = new_player
 	if child_to_player:
-		new_player.add_child(self)
+		GameInstance.instance.ability_parent.add_child(self)#new_player.add_child(self)
 	else:
 		GameInstance.instance.ability_parent.add_child(self)
 	setup_collisions(true, false)
