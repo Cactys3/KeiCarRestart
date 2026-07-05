@@ -46,6 +46,7 @@ func _ready() -> void:
 func setup(new_player: Character, attack_source: Attack.AttackSources):
 	player = new_player
 	source = attack_source
+	setup_collisions(true, false)
 func _process(delta: float) -> void:
 	super(delta)
 	if update_target:
@@ -193,3 +194,9 @@ func get_spawn_object_range():
 
 func _on_body_entered(body: Node2D) -> void:
 	super(body)
+
+## Set Summons layer true
+func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
+	var area = get_node(".") as Area2D
+	area.set_collision_layer_value(12, true)
+	super(is_player_weapons, is_enemy_weapons)

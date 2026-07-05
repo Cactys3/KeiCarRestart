@@ -41,6 +41,7 @@ func setup(new_parent: StatsObject, attack_source: Attack.AttackSources):
 			activation_signal.connect(activate)
 		ActivationTypes.activation:
 			pass
+	setup_collisions(true, false)
 ## Carryout the functionality of the trap on activation
 func activate(body: Node2D):
 	print("activate")
@@ -73,3 +74,8 @@ func hit_enemy(enemy: Node2D):
 	piercing += 1
 	if can_die_from_collision && piercing > piercing_stat:
 		die()
+## Set Traps layer true
+func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
+	var area = get_node(".") as Area2D
+	area.set_collision_layer_value(11, true)
+	super(is_player_weapons, is_enemy_weapons)

@@ -11,6 +11,7 @@ var instance: GameInstance
 @export var enemy_parent: Node2D
 @export var xp_parent: Node2D
 @export var character_parent: Node2D
+@export var ability_parent: Node2D
 @export var weapon_parent: Node2D
 @export var spawn_area: CollisionShape2D
 @export var spawn_deadzone: CollisionShape2D
@@ -24,6 +25,7 @@ func setup_instance(new_instance: GameInstance):
 	instance.event_foreground_parent = event_foreground_parent	
 	instance.xp_parent = xp_parent
 	instance.character_parent = character_parent
+	instance.ability_parent = ability_parent
 	instance.weapon_parent = weapon_parent
 	instance.camera = camera
 

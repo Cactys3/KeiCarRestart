@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://h8srhavy2ick"
-path="res://.godot/imported/LilyKickAbility.png-626ea225b074ba7270f8edf482950e3a.ctex"
+path="res://.godot/imported/LilyFlurryAbility.png-4141e7eb221a25ade0acf6ab294029d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://AllInOne/Characters/Lily/LilyKickAbility/LilyKickAbility.png"
-dest_files=["res://.godot/imported/LilyKickAbility.png-626ea225b074ba7270f8edf482950e3a.ctex"]
+source_file="res://AllInOne/Characters/Lily/LilyFlurryAbility/LilyFlurryAbility.png"
+dest_files=["res://.godot/imported/LilyFlurryAbility.png-4141e7eb221a25ade0acf6ab294029d2.ctex"]
 
 [params]
 

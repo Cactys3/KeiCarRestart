@@ -47,9 +47,9 @@ var SHURIKEN: duple = duple.new("Shuriken", ShopManager.SHURIKEN)
 var character: int = 0 ## Chosen character
 var map: int = 1 ## Chosen map
 var weapon: int = 3 ## Chosen weapon
-var ability1: bool = false
-var ability2: bool = false
-var ability3: bool = false
+var ability1: AbilityData = null
+var ability2: AbilityData = null
+var ability3: AbilityData = null
 var characters: Array[duple] = [LILY, OMI, WEBFISHER]
 var maps: Array[duple] = [TEST, DARKFOREST, HELL, FRUITSANDVEGGIES]
 var weapons: Array[duple] = [BOXING_GLOVE, PISTOL, SHOTGUN, SHURIKEN]
@@ -151,7 +151,7 @@ func press_abilities_select():
 	for a in load(characters[character].value).abilities:
 		var button: Button = Button.new()
 		button.text = a.ability_name
-		button.pressed.connect(set_ability.bind(a.ability_number, a.ability_name))
+		button.pressed.connect(set_ability.bind(a))
 		button.add_theme_font_size_override("font_size", 128)
 		abilities_select_parent.add_child(button)
 		index += 1
@@ -189,7 +189,7 @@ func setup_instance(base_scene) -> GameInstance:
 	#print("Creating instance with Map: " + maps[map].key + ", Char: " + characters[character].key)
 	var game_instance: GameInstance = get_instance()
 	var chosen_character: Character = get_character()
-	chosen_character.setup(ability1, ability2, ability3)
+	chosen_character.set_abilities(ability1, ability2, ability3)
 	var chosen_weapon: String = get_weapon()
 	base_scene.add_child(game_instance)
 	base_scene.setup_instance(game_instance)
@@ -211,17 +211,17 @@ func set_character(index: int):
 	if characters.size() > index:
 		character = index
 		text_character.text = "Character: " + characters[character].key
-func set_ability(ability_number: int, ability_name: String):
-	match ability_number:
+func set_ability(ability: AbilityData):
+	match ability.ability_number:
 		1:
-			ability1 = true
-			text_ability1.text = ability_name
+			ability1 = ability
+			text_ability1.text = ability.ability_name
 		2:
-			ability2 = true
-			text_ability2.text = ability_name
+			ability2 = ability
+			text_ability2.text = ability.ability_name
 		3:
-			ability3 = true
-			text_ability3.text = ability_name
+			ability3 = ability
+			text_ability3.text = ability.ability_name
 func set_weapon(index: int):
 	if weapons.size() > index:
 		weapon = index

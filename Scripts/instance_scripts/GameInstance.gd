@@ -16,6 +16,7 @@ var event_background_parent: Node2D
 var enemy_parent: Node2D
 var xp_parent: Node2D
 var character_parent: Node2D
+var ability_parent: Node2D
 var weapon_parent: Node2D
 ## Misc
 const MAP_BORDER_COLLISION = preload("uid://c0fcgkctqqqug")

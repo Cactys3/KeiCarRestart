@@ -48,7 +48,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mtx6y")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 7.0
 }]
@@ -61,10 +61,8 @@ collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_etgow")
 movement_type = 2
-velocity = 0.2
 can_be_damaged = false
 can_be_stunned = false
-can_be_knockbacked = false
 _damage = 20.0
 metadata/_custom_type_script = "uid://r3qfuabi8yoc"
 

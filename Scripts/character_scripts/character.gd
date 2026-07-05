@@ -74,12 +74,9 @@ var last_known_velocity: Vector2 = Vector2(0, 0)
 var has_ability1: bool = false
 var has_ability2: bool = false
 var has_ability3: bool = false
-var ability_buff_1_stopwatch: float = 0
-var ability_buff_1_duration: float = 0
-var ability_buff_1_applied: bool = false
-var ability_buff_2_stopwatch: float = 0
-var ability_buff_2_duration: float = 0
-var ability_buff_2_applied: bool = false
+var Ability1: Ability = null
+var Ability2: Ability = null
+var Ability3: Ability = null
 
 func _draw() -> void:
 	if DebugManager.PlayerDistanceRadius:
@@ -109,27 +106,41 @@ func flash():
 	await get_tree().create_timer(0.1).timeout
 	visible = true
 ## Set Character's Abilities
-func setup(ability1: bool, ability2: bool, ability3: bool):
-	if ability1:
+func set_abilities(ability1_data: AbilityData, ability2_data: AbilityData, ability3_data: AbilityData):
+	if ability1_data:
 		has_ability1 = true
-	if ability2:
+		Ability1 = ability1_data.ability_scene.instantiate()
+		## Give data manually so we can call setup later when the scene is created
+		Ability1.data = ability1_data
+	if ability2_data:
 		has_ability2 = true
-	if ability3:
+		Ability2 = ability2_data.ability_scene.instantiate()
+		Ability2.data = ability2_data
+	if ability3_data:
 		has_ability3 = true
-	setup_ability_variables()
-func initialize_stats() -> void:
+		Ability3 = ability3_data.ability_scene.instantiate()
+		Ability3.data = ability3_data
+func setup():
+	## Initialize Stats
 	curr_speed = movespeed
+	## Setup Abilities
+	if has_ability1:
+		Ability1.setup(self)
+	if has_ability2:
+		Ability2.setup(self)
+	if has_ability3:
+		Ability3.setup(self)
 func _process(_delta: float) -> void:
 	if GameInstance.is_game_over:
 		return
 	if DebugManager.PlayerDistanceRadius:
 		queue_redraw()
 	if has_ability1 && Input.is_action_just_pressed(InputManager.ABILITY_1):
-		trigger_ability1()
+		Ability1.InputPressed()
 	if has_ability2 && Input.is_action_just_pressed(InputManager.ABILITY_2):
-		trigger_ability2()
+		Ability2.InputPressed()
 	if has_ability3 && Input.is_action_just_pressed(InputManager.ABILITY_3):
-		trigger_ability3()
+		Ability3.InputPressed()
 func _physics_process(delta: float) -> void:
 	if GameInstance.is_game_over:
 		print("game over")
@@ -192,17 +203,6 @@ func handle_moving(delta) -> void:
 			anim.flip_h = true
 		if (sign(velocity.x) < 0):
 			anim.flip_h = false
-func handle_abilities(delta: float) -> void:
-	## Buff 1
-	if ability_buff_1_stopwatch > 0:
-		ability_buff_1_stopwatch -= delta
-	elif ability_buff_1_applied:
-		remove_ability_buff_1()
-	## Buff 2
-	if ability_buff_2_stopwatch > 0:
-		ability_buff_2_stopwatch -= delta
-	elif ability_buff_2_applied:
-		remove_ability_buff_2()
 func damage(attack: Attack):
 	if GameInstance.is_game_over:
 		return
@@ -272,27 +272,3 @@ func moving(is_moving: bool):
 		anim.play("move")
 	elif anim.sprite_frames.has_animation("idle"):
 		anim.play("idle")
-func setup_ability_variables():
-	pass
-func remove_ability_buff_1():
-	ability_buff_1_applied = false
-func remove_ability_buff_2():
-	ability_buff_2_applied = false
-func apply_ability_buff_1():
-	ability_buff_1_stopwatch = ability_buff_1_duration
-	ability_buff_1_applied = true
-func apply_ability_buff_2():
-	ability_buff_2_stopwatch = ability_buff_2_duration
-	ability_buff_2_applied = true
-func trigger_ability1():
-	pass
-func trigger_ability2():
-	pass
-func trigger_ability3():
-	pass
-func get_ability1_cooldown() -> float:
-	return 5
-func get_ability2_cooldown() -> float:
-	return 5
-func get_ability3_cooldown() -> float:
-	return 5

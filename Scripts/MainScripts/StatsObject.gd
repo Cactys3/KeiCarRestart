@@ -9,13 +9,6 @@ class_name StatsObject
 @export var bleed_apply: float = 0.35
 @export var shock_apply: float = 0.35
 @export var wet_apply: float = 0.35
-# not used, status damages are only GlobalStats
-#@export var burn_damage: float = 5.0
-#@export var frost_damage: float = 20.0
-#@export var poison_damage: float = 3.0
-#@export var bleed_damage: float = 35.0
-#@export var shock_damage: float = 5.0
-#@export var wet_damage: float = 1.0
 @export_subgroup("Weapon Stats")
 ## Weapon Stats
 @export var _damage: float = 0.0
@@ -93,6 +86,9 @@ func add_to_stats_list(list: GlobalStats.StatsList) -> GlobalStats.StatsList:
 var game_man: 
 	get():
 		return GameManager.instance
+
+## Attacks
+
 ## Base check for the body having the methods required to be attacked
 func can_attack(body: Node2D) -> bool:
 	return body.has_method("damage") && "can_be_damaged" in body && body.get("can_be_damaged")
@@ -117,7 +113,6 @@ func get_attack_type() -> Attack.AttackTypes:
 	return Attack.AttackTypes.unset
 func get_attack_source() -> Attack.AttackSources:
 	return Attack.AttackSources.unset
-
 func get_attacker_node() -> Node:
 	return self
 func get_attack_position() -> Vector2:

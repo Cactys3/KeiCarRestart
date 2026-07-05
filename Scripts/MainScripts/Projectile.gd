@@ -111,22 +111,11 @@ func setup_projectile(projectile_parent: StatsObject, projectile_attack_source: 
 	direction = starting_direction.normalized()
 	velocity += velocity_stat
 	size += size_stat
+## Set Projectile layer true
 func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
 	var area = get_node(".") as Area2D
-	area.set_collision_layer_value(1, false)
-	area.set_collision_mask_value(1, false)
-	## From Enemy or Player
-	area.set_collision_layer_value(3, is_player_weapons)
-	area.set_collision_layer_value(5, is_player_weapons)
-	## Always Projectile
-	area.set_collision_layer_value(13, is_player_weapons)
-	## Always can check Mask against everything
-	area.set_collision_mask_value(2, true)
-	area.set_collision_mask_value(4, true)
-	area.set_collision_mask_value(8, true)
-	area.set_collision_mask_value(10, true)
-	area.body_entered.connect(_on_body_entered)
-	area.area_entered.connect(_on_body_entered)
+	area.set_collision_layer_value(13, true)
+	super(is_player_weapons, is_enemy_weapons)
 func setup_specific_target():
 	specific_target = true
 ## Gives the projectile a prebuilt attack to use instead of calling parent.make_attack()

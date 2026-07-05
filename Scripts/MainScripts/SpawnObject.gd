@@ -9,8 +9,6 @@ class_name SpawnObject
 @export var can_attack_player: bool = false
 @export var can_attack_creator: bool = false
 var attack_counter: int = 0
-var AttackedObjects: Array = []
-
 ## How long until we can attack an enemy for a second time?
 @export var attack_same_enemy_cooldown: float = 1
 @export var attack_color: Color = Color.TRANSPARENT
@@ -158,6 +156,7 @@ func attack_body(body: Node2D):
 	attack_counter += 1
 	body.damage(make_attack(1))
 
+var AttackedObjects: Array = []
 func have_attacked(node: Node) -> bool:
 	for element: AttackedObjectsElement in AttackedObjects:
 		if element.object == node:
@@ -165,6 +164,21 @@ func have_attacked(node: Node) -> bool:
 	return false
 func append_attack_element(node: Node):
 	AttackedObjects.append(AttackedObjectsElement.new(node, attack_same_enemy_cooldown))
+## If self is an Area2D, setup collision mask/layer
+func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
+	var area = get_node(".") as Area2D
+	area.set_collision_layer_value(1, false)
+	area.set_collision_mask_value(1, false)
+	## From Enemy or Player
+	area.set_collision_layer_value(3, is_player_weapons)
+	area.set_collision_layer_value(5, is_enemy_weapons)
+	## Always can check Mask against everything (that can be damaged)
+	area.set_collision_mask_value(2, true)
+	area.set_collision_mask_value(4, true)
+	area.set_collision_mask_value(8, true)
+	area.set_collision_mask_value(10, true)
+	area.body_entered.connect(_on_body_entered)
+	area.area_entered.connect(_on_body_entered)
 
 class AttackedObjectsElement:
 	var stopwatch: float = 0

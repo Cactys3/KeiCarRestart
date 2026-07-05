@@ -173,7 +173,7 @@ func defer_once(starting_weapon: String):
 	call_deferred("defer_twice", starting_weapon)
 ## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
 func defer_twice(starting_weapon: String):
-	player.initialize_stats()
+	player.setup()
 	revives_used = 0
 	curr_hp = player.health
 	shield = player.shield

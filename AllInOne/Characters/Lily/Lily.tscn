@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://s8i7j7l3n6qx"]
 
-[ext_resource type="Script" uid="uid://cu3rjd0ggqilu" path="res://Scripts/character_scripts/Lily.gd" id="1_t5ff5"]
+[ext_resource type="Script" uid="uid://cu3rjd0ggqilu" path="res://AllInOne/Characters/Lily/Lily.gd" id="1_t5ff5"]
 [ext_resource type="Texture2D" uid="uid://b2d11j5psl1cd" path="res://AllInOne/Characters/Lily/Lily.png" id="2_t5ff5"]
 [ext_resource type="Shape2D" uid="uid://oflj7l4b866g" path="res://AllInOne/GenericObjects/CharacterPickupRangeShape.tres" id="3_t5ff5"]
 

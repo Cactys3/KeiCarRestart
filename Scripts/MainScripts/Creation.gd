@@ -61,6 +61,7 @@ func setup(new_parent: Equipment, attack_source: Attack.AttackSources):
 	hp = hp_stat
 	creation_duration = 2 + duration_stat
 	is_ready = true
+	setup_collisions(true, false)
 func set_direction(new_direction: Vector2):
 	direction = new_direction
 func _process(delta: float) -> void:
@@ -209,3 +210,8 @@ func get_attack_type() -> Attack.AttackTypes:
 	return Attack.AttackTypes.creation
 func get_attack_source() -> Attack.AttackSources:
 	return source
+## Set Creation layer true
+func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
+	var area = get_node(".") as Area2D
+	area.set_collision_layer_value(10, true)
+	super(is_player_weapons, is_enemy_weapons)
