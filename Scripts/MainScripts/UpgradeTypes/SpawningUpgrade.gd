@@ -95,9 +95,8 @@ func get_spawn_parent() -> Node2D:
 func setup_cooldown_ui():
 	if cooldownUI != null:
 		kill_cooldown_ui()
-	cooldownUI = preload("uid://brjmxsn8spmpe").instantiate()
-	GameManager.instance.ui_man.hud.add_upgrade_cooldown_ui(cooldownUI)
-	cooldownUI.setup(item_name + " cd", Color.BLACK, item_image)
+	cooldownUI = GameManager.instance.ui_man.setup_cooldown_ui(true, false, item_name + " cd", Color.BLACK, item_image)
+	cooldownUI.set_progress(0)
 func kill_cooldown_ui():
 	if cooldownUI != null:
 		cooldownUI.kill()

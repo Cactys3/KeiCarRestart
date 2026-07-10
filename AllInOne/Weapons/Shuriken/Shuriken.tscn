@@ -35,7 +35,7 @@ _range = 40.0
 _attackcooldown = 0.25
 _reloadtime = 1.2
 _ammo = 6.0
-_count = 6.0
+_count = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1750273808]
 sprite_frames = SubResource("SpriteFrames_3xd07")

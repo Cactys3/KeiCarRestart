@@ -3,12 +3,17 @@
 [ext_resource type="Script" uid="uid://nrbsy38oexe5" path="res://AllInOne/UI/CooldownUI/CooldownUI.gd" id="1_abs48"]
 
 [node name="CooldownUI" type="Control" unique_id=2147078562]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -3400.0
+offset_bottom = -2080.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_abs48")
 

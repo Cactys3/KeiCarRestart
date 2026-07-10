@@ -59,7 +59,7 @@ func activate(new_player: Character):
 var update_stopwatch: float = 0
 func _process(delta: float) -> void:
 	super(delta)
-	## Every x sec, update cd UI
+	## Every x sec, update cd UI TODO: egg also breaks if cooldownUI braeks, unlink them
 	if active && !hatched && cooldownUI != null:
 		time_until_hatch -= delta
 		if update_stopwatch > 0.1:

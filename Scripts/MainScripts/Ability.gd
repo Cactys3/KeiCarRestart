@@ -2,6 +2,8 @@ extends SpawnObject
 class_name Ability
 
 @export var ability_cooldown: float = 10
+@export var show_ability_cooldown_ui: bool = true
+@export var show_ability_input_ui: bool = true
 @export var cooldown_starts_on_ability_finish: bool = false
 @export var has_buff: bool = false
 @export var buff_duration: float = 5
@@ -19,6 +21,9 @@ var buff_stopwatch: float = 0
 var on_cooldown: bool = false
 var paused_until_ability_finish: bool = false
 var cooldown_stopwatch: float = 0
+var cooldown_ui: CooldownUI
+var update_cooldown_ui_stopwatch: float = 0
+var ability_number: int
 ## Given manually by character
 var data: AbilityData
 var player: Character
@@ -43,17 +48,24 @@ func _process(delta: float) -> void:
 				look_at(get_global_mouse_position())
 		## Ability Cooldown
 		if on_cooldown:
+			## Ability UI
+			if show_ability_cooldown_ui && cooldown_ui:
+				update_cooldown_ui_stopwatch += delta
+				if update_cooldown_ui_stopwatch > 0.1:
+					update_cooldown_ui_stopwatch = 0
+					cooldown_ui.set_progress(cooldown_stopwatch / ability_cooldown)
 			if cooldown_stopwatch > 0:
 				cooldown_stopwatch -= delta
 			else:
 				on_cooldown = false
+				cooldown_ui.set_progress(0)
 		## Buff Duration
 		if has_buff && buff_applied:
 			if buff_stopwatch > 0:
 				buff_stopwatch -= delta
 			else:
 				remove_buff()
-func setup(new_player: Character):
+func setup(new_player: Character, new_ability_number: int):
 	is_setup = true
 	player = new_player
 	if child_to_player:
@@ -61,6 +73,23 @@ func setup(new_player: Character):
 	else:
 		GameInstance.instance.ability_parent.add_child(self)
 	setup_collisions(true, false)
+	if show_ability_cooldown_ui:
+		if cooldown_ui:
+			cooldown_ui.kill()
+		cooldown_ui = GameManager.instance.ui_man.setup_cooldown_ui(false, true, data.ability_name + " cd", data.ability_color, data.ability_image)
+		cooldown_ui.set_progress(0)
+	ability_number = new_ability_number
+	if show_ability_input_ui:
+		var assigned_input: String 
+		match ability_number:
+			1:
+				assigned_input = InputManager.ability_1_prompt
+			2:
+				assigned_input = InputManager.ability_2_prompt
+			3:
+				assigned_input = InputManager.ability_3_prompt
+		GameManager.instance.ui_man.hud.add_ability_input_ui(data.ability_image, data.ability_name, assigned_input)
+
 func remove_buff():
 	buff_applied = false
 func apply_buff():
@@ -68,8 +97,10 @@ func apply_buff():
 ## Input corresponding to this ability was pressed, check if can activate
 func InputPressed() -> bool:
 	if is_setup:
-		if !on_cooldown && !paused_until_ability_finish:
+		if can_trigger():
 			trigger()
+			if show_ability_cooldown_ui:
+				cooldown_ui.set_progress(1)
 			if cooldown_starts_on_ability_finish:
 				paused_until_ability_finish = true
 			else:
@@ -79,6 +110,8 @@ func InputPressed() -> bool:
 	else:
 		printerr("InputPressed for ability but not setup")
 	return false
+func can_trigger() -> bool:
+	return !on_cooldown && !paused_until_ability_finish
 ## Succesfully trigger ability
 func trigger():
 	ability_finished()

@@ -125,11 +125,11 @@ func setup():
 	curr_speed = movespeed
 	## Setup Abilities
 	if has_ability1:
-		Ability1.setup(self)
+		Ability1.setup(self, 1)
 	if has_ability2:
-		Ability2.setup(self)
+		Ability2.setup(self, 2)
 	if has_ability3:
-		Ability3.setup(self)
+		Ability3.setup(self, 3)
 func _process(_delta: float) -> void:
 	if GameInstance.is_game_over:
 		return

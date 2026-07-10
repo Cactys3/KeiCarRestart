@@ -4,9 +4,11 @@ const GROW_BAR = preload("uid://b18b5v5lx44ak")
 const ASSIGNED_INPUT_UI = preload("uid://jpvvjna8n8bx")
 ## Upgrade UI
 @export var upgrade_cooldowns: GridContainer
+@export var ability_cooldowns: GridContainer
 @export var upgrade_bars: VBoxContainer 
 var upgrade_bars_list: Array[GrowBar]
 @export var assigned_inputs: HBoxContainer
+@export var ability_inputs: HBoxContainer
 var assigned_inputs_list: Array[AssignedInputUI]
 ## Labels
 @export var silver: Label
@@ -43,8 +45,11 @@ func set_xp_visible(value: bool) -> void:
 func add_upgrade_cooldown_ui(ui: CooldownUI):
 	if ui:
 		upgrade_cooldowns.add_child(ui)
-## Add new Input UI
-func add_assigned_input_ui(texture: Texture2D, input_name: String, slot: int):
+func add_ability_cooldown_ui(ui: CooldownUI):
+	if ui:
+		ability_cooldowns.add_child(ui)
+## Add new Input UI (upgrades)
+func add_upgrade_input_ui(texture: Texture2D, input_name: String, slot: int):
 	var ui: AssignedInputUI = ASSIGNED_INPUT_UI.instantiate()
 	assigned_inputs_list.append(ui)
 	assigned_inputs.add_child(ui)
@@ -54,6 +59,10 @@ func add_assigned_input_ui(texture: Texture2D, input_name: String, slot: int):
 			place = input_ui.get_index()
 	assigned_inputs.move_child(ui, place)
 	ui.setup(texture, input_name, slot)
+func add_ability_input_ui(texture: Texture2D, ability_name: String, input_name: String):
+	var ui: AssignedInputUI = ASSIGNED_INPUT_UI.instantiate()
+	ability_inputs.add_child(ui)
+	ui.setup(texture, ability_name + " - " + input_name, 0)
 ## Sets up and returns a GrowBar for upgrades
 func add_upgrade_bar_ui(foreground_color: Color) -> GrowBar:
 	var bar: GrowBar = GROW_BAR.instantiate()

@@ -3,18 +3,12 @@
 [ext_resource type="Script" uid="uid://65cjo6i823vw" path="res://Scripts/MainScripts/AbilityData.gd" id="1_ir4i0"]
 [ext_resource type="Script" uid="uid://benf0nvrsvam7" path="res://Scripts/MainScripts/CharacterData.gd" id="2_ir4i0"]
 [ext_resource type="PackedScene" uid="uid://s8i7j7l3n6qx" path="res://AllInOne/Characters/Lily/Lily.tscn" id="2_t8g8i"]
-[ext_resource type="PackedScene" uid="uid://218aepqv3i6b" path="res://AllInOne/Characters/Lily/LilyFlurryAbility/FlurryPunches.tscn" id="2_ux74o"]
-
-[sub_resource type="Resource" id="Resource_ap1f6"]
-script = ExtResource("1_ir4i0")
-ability_name = "Flurry Punches"
-ability_number = 1
-ability_scene = ExtResource("2_ux74o")
-metadata/_custom_type_script = "uid://65cjo6i823vw"
+[ext_resource type="Resource" uid="uid://cnckhxhliuqrx" path="res://AllInOne/Characters/Lily/LilyFlurryAbility/FurryPunches.tres" id="2_ux74o"]
+[ext_resource type="Resource" uid="uid://cgvnmsyqjuh43" path="res://AllInOne/Characters/Lily/LilyDashAbility/LilyDash.tres" id="3_waph1"]
 
 [resource]
 script = ExtResource("2_ir4i0")
 character_name = "Lily"
 character_scene = ExtResource("2_t8g8i")
-abilities = Array[ExtResource("1_ir4i0")]([SubResource("Resource_ap1f6")])
+abilities = Array[ExtResource("1_ir4i0")]([ExtResource("2_ux74o"), ExtResource("3_waph1")])
 metadata/_custom_type_script = "uid://benf0nvrsvam7"

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bstxe1hpgrudv"]
+
+[ext_resource type="Script" uid="uid://cdsvv023vy2bu" path="res://AllInOne/Characters/Lily/LilyDashAbility/LilyDash.gd" id="1_3fw37"]
+
+[node name="LilyDash" type="Area2D" unique_id=1570204522]
+script = ExtResource("1_3fw37")
+ability_cooldown = 2.0

@@ -240,3 +240,11 @@ func _on_tutorial_or_stats_pressed() -> void:
 		TutorialOrStatsButton.text = "Show Tutorial"
 		tutorial.visible = false
 		stats.visible = true
+func setup_cooldown_ui(is_upgrade: bool, is_ability: bool, text_on_hover: String, color: Color, thumbnail: Texture2D) -> CooldownUI:
+	var cooldownUI: CooldownUI = preload("uid://brjmxsn8spmpe").instantiate()
+	if is_upgrade:
+		hud.add_upgrade_cooldown_ui(cooldownUI)
+	if is_ability:
+		hud.add_ability_cooldown_ui(cooldownUI)
+	cooldownUI.setup(text_on_hover, color, thumbnail)
+	return cooldownUI

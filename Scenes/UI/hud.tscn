@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cb83sv1b16det" path="res://Scripts/UI/hud.gd" id="1_fdl0h"]
 [ext_resource type="PackedScene" uid="uid://b18b5v5lx44ak" path="res://AllInOne/UI/GrowBar/GrowBar.tscn" id="4_8glcj"]
 
-[node name="hud" type="Control" unique_id=1869617289 node_paths=PackedStringArray("upgrade_cooldowns", "upgrade_bars", "assigned_inputs", "silver", "money", "kills", "time", "hp", "shield", "xp")]
+[node name="hud" type="Control" unique_id=1869617289 node_paths=PackedStringArray("upgrade_cooldowns", "ability_cooldowns", "upgrade_bars", "assigned_inputs", "ability_inputs", "silver", "money", "kills", "time", "hp", "shield", "xp")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 3
 anchors_preset = 15
@@ -16,8 +16,10 @@ size_flags_vertical = 0
 mouse_filter = 2
 script = ExtResource("1_fdl0h")
 upgrade_cooldowns = NodePath("UpgradeCooldowns")
+ability_cooldowns = NodePath("AbilityCooldowns")
 upgrade_bars = NodePath("UpgradeBars")
 assigned_inputs = NodePath("UpgradeInputs")
+ability_inputs = NodePath("AbilityInputs")
 silver = NodePath("Labels/Silver")
 money = NodePath("Labels/Money")
 kills = NodePath("Labels/Kills")
@@ -131,21 +133,47 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -20.0
-offset_top = -203.0
+offset_top = -57.0
 offset_right = 20.0
-offset_bottom = -203.0
+offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="AbilityInputs" type="HBoxContainer" parent="." unique_id=1280913262]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -160.0
+offset_right = 20.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
 
 [node name="UpgradeCooldowns" type="GridContainer" parent="." unique_id=1922107071]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -1020.0
-offset_top = 222.0
-offset_right = -802.0
-offset_bottom = 331.0
+offset_left = -218.0
+offset_top = 312.0
+offset_bottom = 421.0
+grow_horizontal = 0
+columns = 4
+
+[node name="AbilityCooldowns" type="GridContainer" parent="." unique_id=940578185]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -218.0
+offset_top = 548.0
+offset_bottom = 657.0
 grow_horizontal = 0
 columns = 4
 
@@ -155,7 +183,7 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -819.0
-offset_top = 196.0
+offset_top = 92.0
 offset_right = -68.0
-offset_bottom = 312.0
+offset_bottom = 208.0
 grow_horizontal = 0

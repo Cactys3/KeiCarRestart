@@ -23,7 +23,8 @@ func setup(new_text_on_hover, new_color: Color, new_thumbnail: Texture2D) -> voi
 	radial_progress_ui.self_modulate = color
 ## Percent from 0  to 1
 func set_progress(percent: float):
-	var frame_index: int = ceil(percent * RADIAL_UI_SPRITEFRAMES.get_frame_count(ANIMATION_NAME))
+	var frame_index: int = ceil(percent * (RADIAL_UI_SPRITEFRAMES.get_frame_count(ANIMATION_NAME) - 1))
+	print(frame_index)
 	radial_progress_ui.texture = RADIAL_UI_SPRITEFRAMES.get_frame_texture(ANIMATION_NAME, frame_index)
 func kill():
 	queue_free()

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cnckhxhliuqrx"]
+
+[ext_resource type="Script" uid="uid://65cjo6i823vw" path="res://Scripts/MainScripts/AbilityData.gd" id="1_3kae6"]
+[ext_resource type="PackedScene" uid="uid://218aepqv3i6b" path="res://AllInOne/Characters/Lily/LilyFlurryAbility/FlurryPunches.tscn" id="1_4m2fd"]
+
+[resource]
+script = ExtResource("1_3kae6")
+ability_name = "Furry Punches"
+ability_number = 1
+ability_scene = ExtResource("1_4m2fd")
+metadata/_custom_type_script = "uid://65cjo6i823vw"
