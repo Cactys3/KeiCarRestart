@@ -45,6 +45,7 @@ class_name StatsObject
 
 func _ready() -> void:
 	super()
+	GameManager.instance.StatsChanged.connect(stats_changed)
 func _process(delta: float) -> void:
 	pass
 ## Adds Base Stats to given StatsList (Base Stat, not Base Stat + Global Stat)
@@ -83,6 +84,9 @@ func add_to_stats_list(list: GlobalStats.StatsList) -> GlobalStats.StatsList:
 	list.add_to_stat(GlobalStats.SHOCK_APPLY, shock_apply)
 	list.add_to_stat(GlobalStats.WET_APPLY, wet_apply)
 	return list
+## Called when stats change to recalculate things
+func stats_changed():
+	pass
 var game_man: 
 	get():
 		return GameManager.instance
@@ -635,7 +639,7 @@ func _get_duration_stat():
 			push_error("Unset Attack type When Accessing Stats")
 	return ret
 func _get_size_stat():
-	var ret = (GlobalStats.get_base_stat(GlobalStats.SIZE) + _size) * GlobalStats.get_factor_stat(GlobalStats.SIZE)
+	var ret = (GlobalStats.get_base_stat(GlobalStats.SIZE) + _size + 1) * GlobalStats.get_factor_stat(GlobalStats.SIZE)
 	## Source
 	match get_attack_source():
 		Attack.AttackSources.weapon:

@@ -17,7 +17,6 @@ var is_setup: bool = false
 var dead: bool = false
 var buff_applied: bool = false
 var buff_time_left: float = 0
-var buff_stopwatch: float = 0
 var on_cooldown: bool = false
 var paused_until_ability_finish: bool = false
 var cooldown_stopwatch: float = 0
@@ -61,8 +60,8 @@ func _process(delta: float) -> void:
 				cooldown_ui.set_progress(0)
 		## Buff Duration
 		if has_buff && buff_applied:
-			if buff_stopwatch > 0:
-				buff_stopwatch -= delta
+			if buff_time_left > 0:
+				buff_time_left -= delta
 			else:
 				remove_buff()
 func setup(new_player: Character, new_ability_number: int):
@@ -93,6 +92,7 @@ func setup(new_player: Character, new_ability_number: int):
 func remove_buff():
 	buff_applied = false
 func apply_buff():
+	buff_time_left = buff_duration
 	buff_applied = true
 ## Input corresponding to this ability was pressed, check if can activate
 func InputPressed() -> bool:

@@ -132,6 +132,8 @@ signal PlayerKilled(player: Character, attack: Attack)
 signal PlayerHeal(hp_change: float, is_regen: bool)
 signal PlayerMaxHealthChange(new_maxhp: float, old_maxhp: float)
 signal EventKilled(event: Event, attack: Attack)
+## Stats
+signal StatsChanged
 ## Spawns:
 signal ProjectileSpawned(projectile: Projectile)
 signal CreationSpawned(creation: Creation)

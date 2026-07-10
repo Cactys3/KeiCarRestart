@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://ccdsfh81no8co"]
+
+[ext_resource type="PackedScene" uid="uid://bmpne74ybklf3" path="res://AllInOne/Characters/Lily/LilyStanceAbility/BoxingStance.tscn" id="1_bhuye"]
+[ext_resource type="Script" uid="uid://65cjo6i823vw" path="res://Scripts/MainScripts/AbilityData.gd" id="1_ttovs"]
+
+[resource]
+script = ExtResource("1_ttovs")
+ability_name = "Boxing Stance"
+ability_number = 2
+ability_scene = ExtResource("1_bhuye")
+metadata/_custom_type_script = "uid://65cjo6i823vw"

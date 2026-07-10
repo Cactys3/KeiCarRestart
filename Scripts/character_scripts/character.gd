@@ -15,7 +15,7 @@ var game_man: GameManager:
 ## Stats
 @export var movespeed: float = 30:
 	get():
-		return movespeed + GlobalStats.get_stat(GlobalStats.MOVESPEED)
+		return (movespeed + Statics.player_movespeed_buff) * Statics.player_movespeed_factor
 ## Max Health for the player
 @export var health: float = 100:
 	get():
@@ -34,7 +34,7 @@ var game_man: GameManager:
 		return stance + GlobalStats.get_stat(GlobalStats.STANCE)
 @export var size: float = 1:
 	get():
-		return size + GlobalStats.get_stat(GlobalStats.SIZE)
+		return (size + Statics.player_size_buff) * Statics.player_size_factor
 @export var xp_gain: float = 1:
 	get():
 		return xp_gain + GlobalStats.get_stat(GlobalStats.XP)
@@ -67,8 +67,6 @@ const movespeed_delta_modifier: float = 700 # 700 feels like a good place (affec
 ## States
 var stunning:bool = false
 var stun_time_left: float = 0
-## Current Stats
-var curr_speed: float
 ## Last Known velocity (used to check where player is facing when at rest)
 var last_known_velocity: Vector2 = Vector2(0, 0)
 var has_ability1: bool = false
@@ -122,7 +120,8 @@ func set_abilities(ability1_data: AbilityData, ability2_data: AbilityData, abili
 		Ability3.data = ability3_data
 func setup():
 	## Initialize Stats
-	curr_speed = movespeed
+	stats_changed()
+	GameManager.instance.StatsChanged.connect(stats_changed)
 	## Setup Abilities
 	if has_ability1:
 		Ability1.setup(self, 1)
@@ -130,6 +129,12 @@ func setup():
 		Ability2.setup(self, 2)
 	if has_ability3:
 		Ability3.setup(self, 3)
+func stats_changed():
+	# hp, size, xp gain, money gain, magentize etc
+	pickup_range.shape.radius = (default_pickup_radius + Statics.player_magnetize_buff) * Statics.player_magnetize_factor
+	global_scale = Vector2(size, size)
+	game_man.curr_hp = game_man.curr_hp ## checks maxhp to setup UI properly
+	game_man.shield = game_man.shield ## checks maxshield to setup UI properly
 func _process(_delta: float) -> void:
 	if GameInstance.is_game_over:
 		return
@@ -143,7 +148,6 @@ func _process(_delta: float) -> void:
 		Ability3.InputPressed()
 func _physics_process(delta: float) -> void:
 	if GameInstance.is_game_over:
-		print("game over")
 		move_and_slide()
 		return
 	if stun_time_left > 0:
@@ -185,17 +189,17 @@ func handle_moving(delta) -> void:
 	if !stunning: ## Stun Time prevents the player from inputting movement commands, but doesn't change their current velocity
 		var new_velocity: Vector2
 		if directionX:
-			new_velocity.x = round(directionX) * curr_speed
+			new_velocity.x = round(directionX) * movespeed
 			is_moving = true
 		else:
 			new_velocity.x = 0
 		var directionY := Input.get_axis(InputManager.UP, InputManager.DOWN)
 		if directionY:
-			new_velocity.y = round(directionY) * curr_speed
+			new_velocity.y = round(directionY) * movespeed
 			is_moving = true
 		else:
 			new_velocity.y = 0
-		velocity = velocity.move_toward(new_velocity.normalized() * curr_speed, delta * movespeed_delta_modifier)
+		velocity = velocity.move_toward(new_velocity.normalized() * movespeed, delta * movespeed_delta_modifier)
 	moving(is_moving)
 	if is_moving && face_towards_velocity:
 		## if velocity.x = 0, don't change
@@ -213,7 +217,6 @@ func damage(attack: Attack):
 	var net_damage = attack.get_damage() - stance
 	if GlobalStats.calculate_avoid_damage(GlobalStats.get_stat(GlobalStats.GHOSTLY)):
 		net_damage = 0
-		print("PLAYER AVOIDED DAMAGE")
 	if net_damage > 0:
 		game_man.PlayerDamaged.emit(self, attack)
 		time_since_taken_damage = 0
@@ -253,13 +256,6 @@ func die(attack: Attack):
 		else:
 			game_man.PlayerKilled.emit(self, attack)
 			GameInstance.instance.lose()
-## func reapplies all affects that stats have based on newly checked values
-func stat_changed_method():
-	# hp, size, xp gain, money gain, magentize etc
-	pickup_range.shape.radius = default_pickup_radius + GlobalStats.get_stat(GlobalStats.MAGNETIZE)
-	transform.scaled(Vector2(size, size))
-	game_man.curr_hp = game_man.curr_hp ## checks maxhp to setup UI properly
-	game_man.shield = game_man.shield ## checks maxshield to setup UI properly
 func on_level_up(new_level: float, old_level: float) -> void:
 	pass
 func on_gain_xp(new_xp: float, old_xp: float) -> void:

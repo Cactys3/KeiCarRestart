@@ -78,8 +78,12 @@ static func get_stat(stat: String) -> float:
 ## add stats
 static func add_to_stats_base(stat: String, value: float):
 	statsbase.add_to_stat(stat, value)
+	if value != 0:
+		GameManager.instance.StatsChanged.emit()
 static func add_to_stats_factor(stat: String, value: float):
 	statsfactor.add_to_stat(stat, value)
+	if value != 0:
+		GameManager.instance.StatsChanged.emit()
 ## Returns a copy of the Factor StatsList
 static func get_statslist_factor() -> StatsList:
 	return statsfactor.get_copy()

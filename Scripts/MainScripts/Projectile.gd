@@ -9,10 +9,7 @@ var is_clone: bool
 var clone_offset: float = 0.5
 var return_to_sender: bool = false
 var sender: Node2D
-var size: float = 0:
-	set(value):
-		scale = Vector2(value + 1, value + 1)
-		size = value
+var size: float = 1
 var velocity: float = 0
 var direction: Vector2 = Vector2(0, 0)
 var stopwatch: float = 0.0
@@ -44,13 +41,61 @@ var death_method: Callable
 var specific_target: bool = false
 var keep_starting_direction_stopwatch: float = 0
 
-
+## Setup
 func _ready() -> void:
 	super()
 	if die_on_anim_end && anim:
 		anim.animation_finished.connect(die)
 	if rotate_anim_seperately && rotate_anim_randomize_sign && randi_range(0, 1) == 1:
 		rotate_anim_velocity *= -1
+## Apply stats after change or on start
+func apply_stats():
+	## Don't do anything, projectiles are setup on creation and not updated (maybe?)
+	size = size_stat
+	scale = Vector2(size, size)
+## Setup values generic for all BasicProjectile
+func setup_projectile(projectile_parent: StatsObject, projectile_attack_source: Attack.AttackSources, projectile_target: Node2D, starting_direction:Vector2): 
+	setup_collisions(true, false)
+	parent = projectile_parent
+	target = projectile_target
+	attack_source = projectile_attack_source
+	if find_own_target:
+		target = get_nearest_enemy()
+	initial_direction = starting_direction.normalized()
+	direction = starting_direction.normalized()
+	velocity += velocity_stat
+	size = size_stat
+	scale = Vector2(size, size)
+## Set Projectile layer true
+func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
+	var area = get_node(".") as Area2D
+	area.set_collision_layer_value(13, true)
+	super(is_player_weapons, is_enemy_weapons)
+func setup_specific_target():
+	specific_target = true
+## Gives the projectile a prebuilt attack to use instead of calling parent.make_attack()
+func setup_projectile_prebuilt_attack(attack: Attack):
+	prebuilt_attack = attack
+## Setup values specific for clones
+func setup_clone(value: bool, damage_offset: float):
+	is_clone = value
+	clone_offset = damage_offset
+## Called if this projectile should return_to_sender
+func setup_return_to_sender(player: Node2D):
+	return_to_sender = true
+	sender = player
+## Calls the given method when this projectile is destroyed
+func setup_death_method(method: Callable):
+	death_method = method
+## 
+func setup_can_attacks(enemies: bool, events: bool, player: bool, creations: bool):
+	can_attack_enemies = enemies
+	can_attack_events = events
+	can_attack_player = player
+	can_attack_creations = creations
+
+
+## Process
 func _process(delta: float) -> void:
 	if dead:
 		return
@@ -99,45 +144,6 @@ func process_movement_homing(delta: float):
 		#direction = direction.move_toward((target.global_position - global_position).normalized(), delta * angular_velocity)
 		#direction = lerp(direction, (target.global_position - global_position).normalized(), delta * angular_velocity)
 	process_movement(delta)
-## Setup values generic for all BasicProjectile
-func setup_projectile(projectile_parent: StatsObject, projectile_attack_source: Attack.AttackSources, projectile_target: Node2D, starting_direction:Vector2): 
-	setup_collisions(true, false)
-	parent = projectile_parent
-	target = projectile_target
-	attack_source = projectile_attack_source
-	if find_own_target:
-		target = get_nearest_enemy()
-	initial_direction = starting_direction.normalized()
-	direction = starting_direction.normalized()
-	velocity += velocity_stat
-	size += size_stat
-## Set Projectile layer true
-func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
-	var area = get_node(".") as Area2D
-	area.set_collision_layer_value(13, true)
-	super(is_player_weapons, is_enemy_weapons)
-func setup_specific_target():
-	specific_target = true
-## Gives the projectile a prebuilt attack to use instead of calling parent.make_attack()
-func setup_projectile_prebuilt_attack(attack: Attack):
-	prebuilt_attack = attack
-## Setup values specific for clones
-func setup_clone(value: bool, damage_offset: float):
-	is_clone = value
-	clone_offset = damage_offset
-## Called if this projectile should return_to_sender
-func setup_return_to_sender(player: Node2D):
-	return_to_sender = true
-	sender = player
-## Calls the given method when this projectile is destroyed
-func setup_death_method(method: Callable):
-	death_method = method
-## 
-func setup_can_attacks(enemies: bool, events: bool, player: bool, creations: bool):
-	can_attack_enemies = enemies
-	can_attack_events = events
-	can_attack_player = player
-	can_attack_creations = creations
 func _on_body_entered(body: Node2D) -> void: 
 	if dead || !body:
 		return

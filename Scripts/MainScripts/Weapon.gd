@@ -68,10 +68,10 @@ var AttackedObjects: Array = []
 func activate(new_player: Character):
 	super(new_player)
 	if get_parent():
-		reparent(new_player)
-		## This code doesn't work (make sprite very glitchy) for some chud reason so I can't have the weapon on a different parent reparent(GameManager.instance.weapon_parent)
+		GameManager.instance.weapon_parent.add_child(self) 
 	else:
-		new_player.add_child(self)#GameManager.instance.weapon_parent.add_child(self) 
+		GameManager.instance.weapon_parent.add_child(self) 
+	apply_stats()
 ## Override
 func deactivate():
 	super()
@@ -88,6 +88,9 @@ func _ready() -> void:
 	add_child(stopwatch)
 	if !anim:
 		anim = $AnimatedSprite2D
+func stats_changed():
+	apply_stats()
+	super()
 ## Calls Process_Cooldown
 func _process(delta: float) -> void:
 	super(delta)
@@ -225,6 +228,7 @@ func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #T
 	weapon_count = _max #TODO: Only Static Slot (cardinal direction) weapons should add to this thing
 ## Do anything that needs to be done to utilize a stat change
 func apply_stats() -> void: 
+	#print("Scale: ", scale, " New: ", Vector2(size_stat, size_stat))
 	scale = Vector2(size_stat, size_stat)
 ## Process Aiming Methods
 ## Aim at any enemy in range, else aim at mouse, rotating around player towards mouse
@@ -246,12 +250,10 @@ func ProcessDynamicAtMouse(delta: float) -> void:
 	#Rotate Towards Object
 	var nearest_enemy: Node2D = get_enemy_nearby(range_stat)
 	if nearest_enemy != null:
-		print("NEAESRT!")
 		RotateTowardsPosition(nearest_enemy.global_position, delta)
 		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
 			ready_to_fire = true
 	else:
-		print("non")
 		RotateTowardsPosition(get_global_mouse_position(), delta)
 		ready_to_fire = false
 ## Aim always at mouse, rotating around player towards mouse

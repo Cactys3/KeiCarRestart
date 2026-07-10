@@ -39,14 +39,9 @@ var active: bool = false
 ## unset, upgrade, projectile, weapon
 enum item_types{unset, upgrade, projectile, weapon}
 func _ready() -> void:
-	flash()
+	super()
 func _process(delta: float) -> void:
 	super(delta)
-## Flashing stuff
-func flash():
-	visible = false
-	await get_tree().create_timer(0.1).timeout
-	visible = true
 ## Returns type for the given item_types index
 static func get_type(i: int) -> String:
 	match(i):

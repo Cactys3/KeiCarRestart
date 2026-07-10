@@ -18,6 +18,14 @@ var attack_counter: int = 0
 
 func _draw() -> void:
 	draw_arc(Vector2.ZERO, range_stat, 0, TAU, 64, Color.RED.lerp(Color.TRANSPARENT, 0.7), 1)
+func stats_changed():
+	apply_stats()
+	super()
+func apply_stats():
+	scale = Vector2(size_stat, size_stat)
+func _ready() -> void:
+	super()
+	apply_stats()
 func _process(delta: float) -> void:
 	super(delta)
 	for element: AttackedObjectsElement in AttackedObjects:

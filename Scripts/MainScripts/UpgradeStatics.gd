@@ -1,6 +1,9 @@
 extends Resource
 class_name Statics
 
+static func changed_stats():
+	GameManager.instance.StatsChanged.emit()
+
 ## Tracking Variables:
 
 ## Number of currently active spawns
@@ -34,7 +37,11 @@ static var burn_buff_factor: float = 1
 static var reload_spawns_count_buff: int = 0
 ## Player Buffs
 static var player_movespeed_buff: float = 0
-static var player_movespeed_factor: float = 0
+static var player_movespeed_factor: float = 1
+static var player_size_buff: float = 0
+static var player_size_factor: float = 1
+static var player_magnetize_buff: float = 1
+static var player_magnetize_factor: float = 1
 static var player_ghostly_buff: float = 0
 static var player_hp_buff: float = 0
 static var player_regen_buff: float = 0

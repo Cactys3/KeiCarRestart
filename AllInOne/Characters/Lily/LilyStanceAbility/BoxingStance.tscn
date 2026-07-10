@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bmpne74ybklf3"]
+
+[ext_resource type="Script" uid="uid://cmvjxjms284hr" path="res://AllInOne/Characters/Lily/LilyStanceAbility/BoxingStance.gd" id="1_17w14"]
+
+[node name="BoxingStance" type="Area2D" unique_id=376674869]
+script = ExtResource("1_17w14")
+cooldown_starts_on_ability_finish = true
+has_buff = true
