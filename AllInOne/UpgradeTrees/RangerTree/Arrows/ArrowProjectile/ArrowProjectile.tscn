@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://duxpjoo0f1j4m"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_w5ipv"]
+[ext_resource type="Texture2D" uid="uid://boupe78spcy41" path="res://AllInOne/UpgradeTrees/RangerTree/Arrows/ArrowProjectile/ArrowProjectile.png" id="2_ed27r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vhqgm"]
+atlas = ExtResource("2_ed27r")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xidga"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vhqgm")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j6ofx"]
+size = Vector2(9, 3)
+
+[node name="Arrow" type="Area2D" unique_id=1954089271 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_w5ipv")
+anim = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=997079813]
+sprite_frames = SubResource("SpriteFrames_xidga")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=922372848]
+position = Vector2(1.5, -0.5)
+shape = SubResource("RectangleShape2D_j6ofx")

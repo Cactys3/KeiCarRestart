@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://byo1fn6rx3jwc"]
+
+[ext_resource type="Script" uid="uid://b52bcyae86cot" path="res://AllInOne/UpgradeTrees/RangerTree/EmpoweringReload/EmpoweringReload.gd" id="1_anrqr"]
+
+[node name="EmpoweringReload" type="Node2D" unique_id=136864294]
+script = ExtResource("1_anrqr")

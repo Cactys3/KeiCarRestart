@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cumua4gt7xvwh"]
+
+[ext_resource type="Script" uid="uid://c4q6juu0lj7fp" path="res://AllInOne/UpgradeTrees/RangerTree/Quicksand/Quicksand.gd" id="1_2jtu3"]
+[ext_resource type="PackedScene" uid="uid://gm8tt3hqdv2j" path="res://AllInOne/UpgradeTrees/RangerTree/Quicksand/QuicksandTrap/QuicksandTrap.tscn" id="2_mlxks"]
+
+[node name="Quicksand" type="Node2D" unique_id=1142367795]
+script = ExtResource("1_2jtu3")
+scene_to_spawn = ExtResource("2_mlxks")

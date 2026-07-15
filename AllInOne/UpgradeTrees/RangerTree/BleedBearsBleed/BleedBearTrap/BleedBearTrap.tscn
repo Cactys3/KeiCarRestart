@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bgkt7xxb7h3dd"]
+
+[ext_resource type="Script" uid="uid://n1ju48vj1iw7" path="res://Scripts/MainScripts/Trap.gd" id="1_hkupo"]
+[ext_resource type="Texture2D" uid="uid://cc3mvs2ektomk" path="res://AllInOne/UpgradeTrees/RangerTree/BearTrap/BearTrapTrap/BearTrapTrap.png" id="2_hp4fu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jq8tk"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lewg0"]
+atlas = ExtResource("2_hp4fu")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xd07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lewg0")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BleedBearTrap" type="Area2D" unique_id=1901956691]
+script = ExtResource("1_hkupo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1706573838]
+shape = SubResource("CircleShape2D_jq8tk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1969957148]
+sprite_frames = SubResource("SpriteFrames_3xd07")

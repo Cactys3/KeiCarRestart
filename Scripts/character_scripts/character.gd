@@ -182,7 +182,7 @@ func handle_regens(delta: float) -> void:
 	if regen_stopwatch >= regen_cooldown:
 		regen_stopwatch = 0
 		if regen > 0 && game_man.curr_hp < health:
-			game_man.curr_hp += GlobalStats.calculate_regen(regen)
+			game_man.heal_player(GlobalStats.calculate_regen(regen))
 func handle_moving(delta) -> void:
 	var is_moving = false
 	var directionX := Input.get_axis(InputManager.LEFT, InputManager.RIGHT)
@@ -232,7 +232,7 @@ func damage(attack: Attack):
 			game_man.shield = 0
 	## Consider HP
 	if net_damage > 0:
-		game_man.curr_hp -= net_damage
+		game_man.damage_player(net_damage)
 	## Stun currently prevents the player from inputting movements, this means that the currently velocity (including knockback) will apply fully for the duration of the stun
 	if can_be_stunned && attack.stun != 0:
 		stun_time_left += attack.get_stun()

@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cso6jg1v14ikg"]
+
+[ext_resource type="Script" uid="uid://ipshp7lqkhjx" path="res://Scripts/MainScripts/Summon.gd" id="1_ikqmy"]
+[ext_resource type="Texture2D" uid="uid://bxxhdf2cseasp" path="res://AllInOne/UpgradeTrees/RangerTree/RangersCrow/CrowSummon/CrowSummon.png" id="2_bupc6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dls6g"]
+atlas = ExtResource("2_bupc6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cqtr"]
+atlas = ExtResource("2_bupc6")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ixvd"]
+atlas = ExtResource("2_bupc6")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjgwj"]
+atlas = ExtResource("2_bupc6")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y50is"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dls6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cqtr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ixvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjgwj")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ikqmy"]
+
+[node name="RangersCrowSummon" type="Area2D" unique_id=741656926]
+script = ExtResource("1_ikqmy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=646866390]
+sprite_frames = SubResource("SpriteFrames_y50is")
+autoplay = "default"
+frame_progress = 0.40277675
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=666770667]
+shape = SubResource("CircleShape2D_ikqmy")

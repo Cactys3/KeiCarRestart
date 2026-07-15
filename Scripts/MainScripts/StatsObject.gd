@@ -87,7 +87,7 @@ func add_to_stats_list(list: GlobalStats.StatsList) -> GlobalStats.StatsList:
 ## Called when stats change to recalculate things
 func stats_changed():
 	pass
-var game_man: 
+var game_man: GameManager:
 	get():
 		return GameManager.instance
 

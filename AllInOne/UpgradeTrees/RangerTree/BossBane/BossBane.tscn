@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://cn1uhfen0fnat"]
 
 [ext_resource type="Script" uid="uid://drf5a1pl8py47" path="res://AllInOne/UpgradeTrees/RangerTree/BossBane/BossBane.gd" id="1_tqqet"]
+[ext_resource type="PackedScene" uid="uid://b40s5xunx1ftw" path="res://AllInOne/UpgradeTrees/RangerTree/BossBane/BlackArrowProjectile/BlackArrowProjectile.tscn" id="2_jv186"]
 
 [node name="BossBane" type="Node2D" unique_id=321928495]
 script = ExtResource("1_tqqet")
+scene_to_spawn = ExtResource("2_jv186")
 metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

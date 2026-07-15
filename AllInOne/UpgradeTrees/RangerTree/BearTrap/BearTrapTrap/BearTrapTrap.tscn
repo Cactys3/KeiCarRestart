@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bmn4atq630l3n"]
+
+[ext_resource type="Script" uid="uid://n1ju48vj1iw7" path="res://Scripts/MainScripts/Trap.gd" id="1_qrt42"]
+[ext_resource type="Texture2D" uid="uid://cc3mvs2ektomk" path="res://AllInOne/UpgradeTrees/RangerTree/BearTrap/BearTrapTrap/BearTrapTrap.png" id="2_pf3ob"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fajsq"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibcop"]
+atlas = ExtResource("2_pf3ob")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fgjt"]
+atlas = ExtResource("2_pf3ob")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ed27r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibcop")
+}],
+"loop": 0,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fgjt")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BearTrapTrap" type="Area2D" unique_id=1051786863]
+script = ExtResource("1_qrt42")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1369030571]
+shape = SubResource("CircleShape2D_fajsq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1628381637]
+sprite_frames = SubResource("SpriteFrames_ed27r")
+autoplay = "default"

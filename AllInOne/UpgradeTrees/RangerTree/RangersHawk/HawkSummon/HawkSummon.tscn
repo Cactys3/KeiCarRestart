@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bn1seqtwukfsb"]
+
+[ext_resource type="Script" uid="uid://ipshp7lqkhjx" path="res://Scripts/MainScripts/Summon.gd" id="1_yex6b"]
+[ext_resource type="Texture2D" uid="uid://cot7wjatm3i6" path="res://AllInOne/UpgradeTrees/RangerTree/RangersHawk/HawkSummon/HawkSummon.png" id="2_hlj44"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7suc"]
+atlas = ExtResource("2_hlj44")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjf0r"]
+atlas = ExtResource("2_hlj44")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvky8"]
+atlas = ExtResource("2_hlj44")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6l15n"]
+atlas = ExtResource("2_hlj44")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n3hlr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7suc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjf0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvky8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6l15n")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ikqmy"]
+
+[node name="HawkSummon" type="Area2D" unique_id=2048233838]
+script = ExtResource("1_yex6b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1436591913]
+sprite_frames = SubResource("SpriteFrames_n3hlr")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2127568587]
+shape = SubResource("CircleShape2D_ikqmy")

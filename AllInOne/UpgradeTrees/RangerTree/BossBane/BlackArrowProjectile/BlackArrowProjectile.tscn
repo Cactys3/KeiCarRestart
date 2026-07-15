@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://b40s5xunx1ftw"]
+
+[ext_resource type="Texture2D" uid="uid://cec2r85ibwu3m" path="res://AllInOne/UpgradeTrees/RangerTree/BossBane/BlackArrowProjectile/BlackArrowProjectile.png" id="1_c05sr"]
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_sfn1v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfn1v"]
+atlas = ExtResource("1_c05sr")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xd07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfn1v")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jq8tk"]
+size = Vector2(18, 5)
+
+[node name="BlackArrowProjectile" type="Area2D" unique_id=749631306 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_sfn1v")
+anim = NodePath("AnimatedSprite2D")
+homing = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=863123306]
+sprite_frames = SubResource("SpriteFrames_3xd07")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1824223831]
+position = Vector2(-2, 0.5)
+shape = SubResource("RectangleShape2D_jq8tk")

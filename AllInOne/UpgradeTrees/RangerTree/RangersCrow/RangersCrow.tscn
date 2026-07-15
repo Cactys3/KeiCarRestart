@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c63s0pv8qp7d"]
+
+[ext_resource type="Script" uid="uid://ypwior8rnvyi" path="res://AllInOne/UpgradeTrees/RangerTree/RangersCrow/RangersCrow.gd" id="1_50p28"]
+[ext_resource type="PackedScene" uid="uid://cso6jg1v14ikg" path="res://AllInOne/UpgradeTrees/RangerTree/RangersCrow/CrowSummon/CrowSummon.tscn" id="2_77i6v"]
+
+[node name="RangersCrow" type="Node2D" unique_id=436453188]
+script = ExtResource("1_50p28")
+scene_to_spawn = ExtResource("2_77i6v")

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b04j1bbwwwe6k"]
+
+[ext_resource type="Script" uid="uid://67j565rl5wq" path="res://AllInOne/UpgradeTrees/RangerTree/ShroomTrap/ShroomTrap.gd" id="1_gfbmy"]
+[ext_resource type="PackedScene" uid="uid://c0x4rkikgxhvb" path="res://AllInOne/UpgradeTrees/RangerTree/ShroomTrap/ShroomTrapTrap/ShroomTrapTrap.tscn" id="2_mquj5"]
+
+[node name="ShroomTrap" type="Node2D" unique_id=1632515858]
+script = ExtResource("1_gfbmy")
+scene_to_spawn = ExtResource("2_mquj5")

@@ -138,7 +138,7 @@ func damage(attack: Attack):
 			game_man.shield = 0
 	## Consider HP
 	if net_damage > 0:
-		game_man.curr_hp -= net_damage
+		game_man.damage_player(net_damage)
 	## Stun currently prevents the player from inputting movements, this means that the currently velocity (including knockback) will apply fully for the duration of the stun
 	if can_be_stunned && attack.stun != 0:
 		stun_time_left += attack.get_stun()

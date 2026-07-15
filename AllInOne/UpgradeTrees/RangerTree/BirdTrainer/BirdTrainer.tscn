@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dv4056mrmyo4r"]
+
+[ext_resource type="Script" uid="uid://bl023cw4glyli" path="res://AllInOne/UpgradeTrees/RangerTree/BirdTrainer/BirdTrainer.gd" id="1_x4fqw"]
+
+[node name="BirdTrainer" type="Node2D" unique_id=1400283176]
+script = ExtResource("1_x4fqw")

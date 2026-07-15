@@ -301,7 +301,7 @@ func handle_incoming_attack(attack: Attack, enemy: Enemy, character: Character) 
 			attack = upgrade.edit_incoming_attack(attack, enemy, character)
 	return attack
 
-
+ 
 func create_level_up_instance():
 	if leveling_up:
 		level_up_queue += 1
@@ -325,6 +325,11 @@ func create_level_up_instance():
 	leveling_up = false
 func add_xp(added_xp: float):
 	xp += added_xp
+func heal_player(heal: float): 
+	## Between 0 and missing health
+	curr_hp += clamp(heal, 0, max_hp - curr_hp)
+func damage_player(damage: float):
+	curr_hp -= damage
 func can_revive() -> int:
 	return (player.revives - revives_used) > 1
 func use_revive():
@@ -342,7 +347,7 @@ func pause(value: bool):
 ## Signal Connections
 func enemy_killed(enemy: Enemy, attack: Attack):
 	if player.lifesteal > 0 && curr_hp < player.health:
-		curr_hp += player.lifesteal
+		heal_player(player.lifesteal)
 func player_damaged(playah: Character, attack: Attack):
 	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage") && "can_be_damaged" in attack.attacker && attack.attacker.get("can_be_damaged"):
 		## Apply Thorns Damage to Attacker
