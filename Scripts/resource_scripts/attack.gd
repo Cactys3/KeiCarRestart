@@ -55,9 +55,10 @@ var attack_color: Color = Color.TRANSPARENT
 ## Values
 var calculated_crit: bool = false
 var is_crit: bool = false
-var stun: float = 0
-## TODO: implement slow (in percent movement speed slow)
-var slow: float = 0
+var stun_duration: float = 0
+var slow_duration: float = 0
+## Enemy Default Movespeed = 20
+var slow_strength: float = 0
 var can_knockback: bool = true
 ## Simple Values
 var simple: bool = false
@@ -96,8 +97,12 @@ func get_knockback() -> float:
 		return GlobalStats.calculate_knockback(get_stat(GlobalStats.DAMAGE), get_stat(GlobalStats.WEIGHT))
 	else:
 		return 0
-func get_stun() -> float:
-	return stun
+func get_stun_duration() -> float:
+	return stun_duration
+func get_slow_duration() -> float:
+	return slow_duration
+func get_slow_strength() -> float:
+	return slow_strength
 func get_burn() -> float:
 	if status.applies_burn:
 		return get_stat(GlobalStats.BURN_APPLY)

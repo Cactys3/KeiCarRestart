@@ -16,7 +16,8 @@ enum EnemyTypes {unset}
 @export var melee_attacks: bool = true
 @export var stop_distance_from_player: float = -1
 @export var can_be_knockbacked: bool = true
-@export var can_be_stunned :bool = true
+@export var can_be_stunned: bool = true
+@export var can_be_slowed: bool = true
 @export var can_be_frozen: bool = true
 ## -1 for infininte, any other number for die after attacking for that count
 @export var die_after_attack_count: float = -1
@@ -131,6 +132,9 @@ const XP = preload("res://Scenes/Misc/xp_blip.tscn")
 const ITEM_DROP = preload("uid://d3v2pdpqpmvpe")
 var player: Character
 var attack_on_cd: bool = true
+var slow_time_left: float = 0
+var slow_strength: float = 0
+var slowed: bool = false
 var stun_time_left: float = 0
 var stunned: bool = false
 var curr_health: float
@@ -282,6 +286,11 @@ func _process(delta: float) -> void:
 		dead = true
 		return
 	time_since_knockedback += delta
+	## Slow
+	if slow_time_left > 0:
+		slow_time_left -= delta
+	elif slowed:
+		slowed = false
 	## Stun
 	if stun_time_left > 0:
 		stun_time_left -= delta
@@ -329,7 +338,7 @@ func movement_process(_delta: float) -> void:
 		var target_position: Vector2 = player.global_position
 		if stop_distance_from_player > 0:
 			target_position += (global_position - target_position).normalized() * stop_distance_from_player
-		move_towards(target_position, max(0, curr_movespeed + frost_movespeed_reduction), _delta)
+		move_towards(target_position, max(0, get_movespeed()), _delta)
 ## Stops the current velocity and stores it for later
 func stop_movement() -> void:
 	can_move = false
@@ -519,6 +528,13 @@ func proc_wet():
 	if DebugManager.StatusProc:
 		print("Wet Proc, Applied Wet: ", applied_wet, ", Enemy: ", enemy_name)
 
+func get_movespeed() -> float:
+	## Include Frost
+	var movespeed = curr_movespeed + frost_movespeed_reduction
+	if slowed:
+		## Include Slow (can't be lower than 0)
+		return max(0, movespeed - slow_strength)
+	return movespeed
 func get_burn_damage() -> float:
 	return get_damage_reduced_value((GlobalStats.get_stat(GlobalStats.BURN_DAMAGE) + Statics.burn_buff_base) * Statics.burn_buff_factor)
 func get_frost_movespeed_reduction() -> float:
@@ -736,6 +752,7 @@ func damage(attack: Attack):
 	bleed += attack.get_bleed()
 	shock += attack.get_shock()
 	wet += attack.get_wet()
+	
 	## Flat Damage Reduction, can be negative (take bonus damage)
 	## Calculate Damag
 	var attack_true_damage: float = attack.get_damage()
@@ -778,9 +795,13 @@ func damage(attack: Attack):
 			print("Add Shock: ", attack.get_shock(), " Applied: ", attack.status.applies_shock)
 		if attack.status.applies_wet && attack.get_wet() > 0:
 			print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
-	## Apply Stun and Knockback
-	if attack.get_stun() > 0 && can_be_stunned:
-			stun_time_left = attack.get_stun()
+	## Apply Stun and Knockback and Slow
+	if attack.get_slow_duration() > 0 && can_be_slowed:
+		slow_time_left = attack.get_slow_duration()
+		slow_strength = attack.get_slow_strength()
+		slowed = true
+	if attack.get_stun_duration() > 0 && can_be_stunned:
+			stun_time_left = attack.get_stun_duration()
 			stunned = true
 			linear_velocity = Vector2.ZERO
 	if can_move && can_be_knockbacked && attack.get_knockback() != 0:

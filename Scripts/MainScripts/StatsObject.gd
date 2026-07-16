@@ -9,6 +9,10 @@ class_name StatsObject
 @export var bleed_apply: float = 0.35
 @export var shock_apply: float = 0.35
 @export var wet_apply: float = 0.35
+@export_subgroup("Addition Effects")
+@export var stun_duration: float = 0.0
+@export var slow_strength: float = 0.0
+@export var slow_duration: float = 0.0
 @export_subgroup("Weapon Stats")
 ## Weapon Stats
 @export var _damage: float = 0.0
@@ -109,8 +113,12 @@ func make_attack(attack_damage_multiplier: float) -> Attack:
 	base = add_to_stats_list(base)
 	factor.add_to_stat(GlobalStats.DAMAGE, attack_damage_multiplier - 1) # -1 to make it a multiplier
 	## Make attack and Pass attack through each active upgrade
-	#var attack: Attack = Attack.new(get_attack_type(), self, get_attack_position(), status, base, factor)
 	var attack: Attack = Attack.new(get_attack_source(), get_attack_type(), get_attacker_node(), get_attack_position(), status, base, factor)
+	## Add Slow
+	attack.slow_strength = slow_strength
+	attack.slow_duration = slow_duration
+	## Add Stun
+	attack.stun_duration = stun_duration
 	handle_attack(attack)
 	return attack
 func get_attack_type() -> Attack.AttackTypes:

@@ -5,5 +5,6 @@
 
 [node name="BearTrap" type="Node2D" unique_id=1425052330]
 script = ExtResource("1_b2kt2")
+spawn_on_reload = true
 scene_to_spawn = ExtResource("2_ik17w")
 metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

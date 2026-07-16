@@ -208,7 +208,7 @@ func damage(attack: Attack):
 		if attack.status.applies_wet && attack.get_wet() > 0:
 			print("Add Wet: ", attack.get_wet(), " Applied: ", attack.status.applies_wet)
 	## Apply Stun and Knockback
-	if attack.get_stun() > 0 && can_be_stunned:
+	if attack.get_stun_duration() > 0 && can_be_stunned:
 		pass#stun_time_left = attack.get_stun()
 		#stunned = true
 		#linear_velocity = Vector2.ZERO

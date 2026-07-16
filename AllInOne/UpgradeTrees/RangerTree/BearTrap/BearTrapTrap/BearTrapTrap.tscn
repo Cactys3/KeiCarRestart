@@ -35,6 +35,12 @@ animations = [{
 
 [node name="BearTrapTrap" type="Area2D" unique_id=1051786863]
 script = ExtResource("1_qrt42")
+damage_enemy_on_entered_activation = true
+stun_duration = 3.0
+slow_strength = 15.0
+_damage = 15.0
+_piercing = 5.0
+_duration = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1369030571]
 shape = SubResource("CircleShape2D_fajsq")
