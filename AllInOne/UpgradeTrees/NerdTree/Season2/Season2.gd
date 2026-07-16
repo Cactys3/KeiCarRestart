@@ -43,5 +43,3 @@ func _process(delta: float) -> void:
 				failed_to_find = true
 		else:
 			find_upgrade_stopwatch += delta
-func spawn() -> bool:
-	return super()

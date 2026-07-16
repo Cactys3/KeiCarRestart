@@ -43,3 +43,4 @@ func handle_attack(attack: Attack):
 	if heavy_punch:
 		attack.temporary_base_stats.add_to_stat(GlobalStats.DAMAGE, 15)
 		attack.temporary_base_stats.add_to_stat(GlobalStats.WEIGHT, 10)
+	super(attack)

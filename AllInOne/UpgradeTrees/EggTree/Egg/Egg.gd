@@ -73,13 +73,10 @@ func _process(delta: float) -> void:
 		else:
 			update_stopwatch += delta
 
-func initialize_object(object: Node2D) -> bool:
-	var ret: bool = super(object)
-	if ret:
-		if object.spawn_name == "Egg":
-			egg = object
-			egg.egg_upgrade = self
-	return ret
+func edit_spawn_object(object: SpawnObject):
+	if object.spawn_name == "Egg":
+		egg = object
+		egg.egg_upgrade = self
 
 func delay_hatching(time: float):
 	cooldownUI_stopwatch += time

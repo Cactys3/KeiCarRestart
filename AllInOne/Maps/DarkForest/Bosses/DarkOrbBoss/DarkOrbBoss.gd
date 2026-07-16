@@ -18,13 +18,13 @@ func shoot_projectile(target: Node2D) -> void:
 	var third_wait: float = total_time - (first_wait + second_wait)
 	## Play Startup Of Attack
 	anim.play(attack_animation_name)
-	await get_tree().create_timer(first_wait).timeout
+	await get_tree().create_timer(first_wait, false).timeout
 	## Freeze Before Shooting out Projectile
 	stop_movement()
-	await get_tree().create_timer(second_wait).timeout
+	await get_tree().create_timer(second_wait, false).timeout
 	## Spawn Beam After Giving Player Short Time To Dodge
 	super(target)
-	await get_tree().create_timer(third_wait).timeout
+	await get_tree().create_timer(third_wait, false).timeout
 	## Reset Stuff (Movement, Projectile Timer, Animation)
 	anim.play(idle_animation_name)
 	shoots_projectiles = true

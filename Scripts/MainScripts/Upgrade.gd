@@ -34,12 +34,13 @@ func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
 	super(delta)
-	if has_custom_input && assigned_input != "" && Input.is_action_just_pressed(assigned_input):
-		custom_input_just_pressed()
-	if buff_applied && buff_time_left > 0:
-		buff_time_left -= delta
-	else:
-		check_remove()
+	if !disabled_by_inherited_upgrade && active:
+		if has_custom_input && assigned_input != "" && Input.is_action_just_pressed(assigned_input):
+			custom_input_just_pressed()
+		if buff_applied && buff_time_left > 0:
+			buff_time_left -= delta
+		else:
+			check_remove()
 ## Override below
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):

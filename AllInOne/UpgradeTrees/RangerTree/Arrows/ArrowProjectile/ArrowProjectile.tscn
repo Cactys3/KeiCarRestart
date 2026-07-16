@@ -24,6 +24,10 @@ size = Vector2(9, 3)
 [node name="Arrow" type="Area2D" unique_id=1954089271 node_paths=PackedStringArray("anim")]
 script = ExtResource("1_w5ipv")
 anim = NodePath("AnimatedSprite2D")
+_damage = 20.0
+_velocity = 60.0
+_duration = 10.0
+_luck = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=997079813]
 sprite_frames = SubResource("SpriteFrames_xidga")

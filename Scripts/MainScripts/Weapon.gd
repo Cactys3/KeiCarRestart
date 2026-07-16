@@ -151,7 +151,7 @@ func attack():
 		attacking = false
 		## Play reload animation, may end shoot animation short
 		if reload_animation != "NoAnimation":
-			await get_tree().create_timer(pre_reload_animation_wait_time).timeout
+			await get_tree().create_timer(pre_reload_animation_wait_time, false).timeout
 			anim.play(reload_animation)
 			reset_animation_when_finished()
 ## Create any projectiles but also do any melee attacks
@@ -169,7 +169,7 @@ func create_last_projectile():
 	create_projectile()
 	## Remember to add this line to any override functions 
 	game_man.WeaponReloaded.emit(self) 
-## Previous implementation of Attack(), Create and setup all the projectiles for an attack from this Weapon
+## Create and setup all the projectiles for an attack from this Weapon
 func create_num_projectiles(count: int):
 	var proj_offset: int = 0
 	## Create projectiles based on count with offset angles and position
@@ -177,7 +177,7 @@ func create_num_projectiles(count: int):
 		var projectile_position: Vector2 = global_position
 		var projectile_direction: Vector2 = get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
 		## Make two projectiles with each offset value at -1 and +1 signs, then increase offset
-		if i % 2 == 0:
+		if i % 2  == 0:
 			proj_offset += 1
 		MultipleProjectileOffset *= -1
 		MultipleProjectileAngleOffset *= -1
@@ -221,7 +221,7 @@ func get_cooldown_between_attacks() -> float:
 static func get_inaccurate_direction(direction: Vector2, given_inaccuracy: float) -> Vector2:
 	if given_inaccuracy == 0:
 		return direction
-	return direction.rotated(deg_to_rad(randf_range(-given_inaccuracy / 3, given_inaccuracy / 3)))
+	return GlobalStats.calculate_inaccurate_direction(direction, given_inaccuracy)
 ## Sets the weapon's slot in reference to all weapons charcater has, used for calculating position
 func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	weapon_slot = slot

@@ -7,7 +7,7 @@ func _ready() -> void:
 	visible = false
 	flash()
 func flash():
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.1, false).timeout
 	visible = true
 
 func _process(delta: float) -> void:

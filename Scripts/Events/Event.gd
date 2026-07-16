@@ -31,7 +31,7 @@ func _ready() -> void:
 	add_to_group("event")
 	flash()
 func flash():
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.1, false).timeout
 	visible = true
 func die():
 	queue_free()

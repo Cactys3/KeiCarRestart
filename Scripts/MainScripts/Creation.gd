@@ -206,6 +206,7 @@ func handle_attack(attack: Attack):
 	attack.set_attack_color(attack_color)
 	## TODO: i want to set impact location if it's a melee attack
 	attack.impact_location = global_position
+	super(attack)
 func get_attack_type() -> Attack.AttackTypes:
 	return Attack.AttackTypes.creation
 func get_attack_source() -> Attack.AttackSources:

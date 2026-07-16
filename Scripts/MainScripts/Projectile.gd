@@ -27,7 +27,6 @@ signal died(pos: Vector2, cloned: bool)
 @export var find_own_target: bool = false
 @export var make_own_attack: bool = true
 @export var sound_on_hit: Sound = null
-@export var can_knockback: bool = true
 @export var can_move: bool = true
 @export var can_spawn_multiple: bool = true
 @export var die_on_anim_end: bool = false
@@ -190,11 +189,11 @@ func edit_attack_before_sending(attack: Attack):
 	pass
 ## Edit attack after making
 func handle_attack(attack: Attack):
-	attack.can_knockback = can_knockback
 	## Set Color
 	attack.set_attack_color(attack_color)
 	## TODO: calculate the collision point between the projectile and object? so it's not in the center of projectile but at edge
 	attack.impact_location = global_position
+	super(attack)
 func get_attack_type() -> Attack.AttackTypes:
 	return attack_type
 func get_attack_source() -> Attack.AttackSources:

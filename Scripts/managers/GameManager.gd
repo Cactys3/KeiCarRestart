@@ -211,10 +211,10 @@ func add_upgrade(data: UpgradeData) -> void:
 		if active_upgrade.data == data:
 			printerr("Trying to add upgrade that already exists in active upgrades: ", upgrade.item_name)
 			return
-	upgrade.activate(player)
+	player.add_child(upgrade)
 	active_upgrades.append(upgrade)
 	ui_man.add_upgrade(upgrade)
-	player.add_child(upgrade)
+	upgrade.activate(player)
 func add_weapon(weapon: Weapon) -> void:
 	weapon_list.append(weapon)
 	var temp_count: int = weapon_count

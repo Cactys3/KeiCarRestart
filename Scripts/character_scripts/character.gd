@@ -101,7 +101,7 @@ func _init() -> void:
 func _ready() -> void:
 	flash()
 func flash():
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.1, false).timeout
 	visible = true
 ## Set Character's Abilities
 func set_abilities(ability1_data: AbilityData, ability2_data: AbilityData, ability3_data: AbilityData):
@@ -234,8 +234,8 @@ func damage(attack: Attack):
 	if net_damage > 0:
 		game_man.damage_player(net_damage)
 	## Stun currently prevents the player from inputting movements, this means that the currently velocity (including knockback) will apply fully for the duration of the stun
-	if can_be_stunned && attack.stun != 0:
-		stun_time_left += attack.get_stun()
+	if can_be_stunned && attack.get_stun_duration() != 0:
+		stun_time_left += attack.get_stun_duration()
 		stunning = true
 	## Knockback is applied fully for 1 frame as the player's own movement code then overwrites it quickly on the following frames.
 	if can_be_knockbacked && attack.get_knockback() != 0:

@@ -13,7 +13,7 @@ func _init() -> void:
 func _ready() -> void:
 	flash()
 func flash():
-	await get_tree().create_timer(0.05).timeout
+	await get_tree().create_timer(0.05, false).timeout
 	visible = true
 func setup(new_equipment: Equipment):
 	equipment = new_equipment

@@ -231,7 +231,7 @@ func _ready() -> void:
 	call_deferred("setup")
 	add_to_group("enemy")
 func flash():
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.1, false).timeout
 	anim.visible = true
 ## called whever stats change
 func set_stats():

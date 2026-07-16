@@ -13,7 +13,7 @@ var dead: bool = false
 func _init() -> void:
 	visible = false
 func _ready() -> void:
-	await get_tree().create_timer(0.05).timeout
+	await get_tree().create_timer(0.05, false).timeout
 	visible = true
 ## Setup this item_drop as giving an item to player
 func setup_equipment(new_item: Equipment):
@@ -26,7 +26,7 @@ func setup_equipment(new_item: Equipment):
 	is_item = true
 ## Setup this item_drop to autocollect instead of waiting for player to be in range
 func setup_autocollect(delay: float):
-	await get_tree().create_timer(delay).timeout
+	await get_tree().create_timer(delay, false).timeout
 	is_collected = true
 func _process(delta: float) -> void:
 	if auto_collect:

@@ -30,7 +30,7 @@ func _init() -> void:
 func _ready() -> void:
 	flash()
 func flash():
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.1, false).timeout
 	visible = true
 func setup(new_time: int, new_level: int):
 	item = ShopManager.get_rand_component()

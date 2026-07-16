@@ -17,13 +17,12 @@ func edit_attack(attack: Attack) -> Attack:
 		attack.status.applies_bleed = true
 	return attack
 ## Spawn Additional Based on Bleed Procs
-func spawn() -> bool:
+func spawn() -> void:
 	var procs = bleed_procs 
 	bleed_procs = 0
 	additional_spawns += procs
-	var spawned: bool = super()
+	super()
 	additional_spawns -= procs
-	return spawned
 ## On (enemy) Bleed Proc Signal 
 func bleed_proc(bleed_damage: float, enemy: Enemy):
 	bleed_procs += 1

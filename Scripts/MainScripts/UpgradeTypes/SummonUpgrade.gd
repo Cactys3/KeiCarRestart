@@ -9,12 +9,13 @@ var summons: Array[Summon]
 var check_spawn_cd: float = 0
 func _process(delta: float) -> void:
 	super(delta)
-	## Check if we should summon more summons (copies)
-	if spawned && active:
-		check_spawn_cd += delta
-		if check_spawn_cd > 5:
-			check_spawn_cd = 0
-			spawn()
+	if !disabled_by_inherited_upgrade && active:
+		## Check if we should summon more summons (copies)
+		if spawned:
+			check_spawn_cd += delta
+			if check_spawn_cd > 5:
+				check_spawn_cd = 0
+				spawn()
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
 	player = new_player
@@ -25,10 +26,12 @@ func activate(new_player: Character):
 func deactivate():
 	despawn()
 	super()
-func spawn() -> bool:
+func spawn() -> void:
 	## Calculate total number we should spawn (do nothing if we have already spawned)
-	var summons_to_spawn: int = int(1 + (Statics.summon_count_buff + additional_spawns) - summons.size())
-	print("Spawning: ", summons_to_spawn)
+	for summon in summons:
+		if !is_instance_valid(summon):
+			summons.erase(summon)
+	var summons_to_spawn: int = int(max(1, 1 + count_stat + additional_spawns) - summons.size())
 	if max_spawns > -1:
 		if summons.size() >= max_spawns:
 			## Don't spawn more than allowed
@@ -43,18 +46,9 @@ func spawn() -> bool:
 		else:
 			summons_to_spawn = 1
 	if summons_to_spawn > 0:
-		## If we spawn, increase active spawn counter
-		if super():
-			summons_to_spawn -= 1
-			Statics.active_summons += 1
-			spawned = true
-	if summons_to_spawn > 0:
 		## Spawn for count left to spawn
 		for i in summons_to_spawn:
-			if super():
-				Statics.active_summons += 1
-				spawned = true
-	return spawned
+			super()
 func despawn():
 	Statics.active_summons -= 1
 	spawned = false
@@ -62,14 +56,15 @@ func despawn():
 		summon.queue_free()
 	summons.clear()
 ## Override to setup spawn
-func initialize_object(object: Node2D) -> bool:
+func initialize_object(object: Node2D, parent: Node2D, spawn_position: Vector2) -> void:
 	if object is Summon:
 		object = object as Summon
 		summons.append(object)
-		print("player:", player.name)
 		object.setup(player, get_attack_source())
-		return super(object)
-	return false
+		super(object, parent, spawn_position)
+func on_spawn():
+	super()
+	Statics.active_summons += 1
 ## Overrides
 func get_spawning_position() -> Vector2:
 	return game_man.player.global_position

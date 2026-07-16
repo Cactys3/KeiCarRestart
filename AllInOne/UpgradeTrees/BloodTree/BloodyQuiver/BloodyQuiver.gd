@@ -18,30 +18,19 @@ func edit_attack(attack: Attack) -> Attack:
 	if attack.attack_type == Attack.AttackTypes.projectile && attack.attack_source == Attack.AttackSources.upgrade:
 		attack.status.applies_bleed = true
 	return attack
-## Override to setup the spawned object
-func initialize_object(object: Node2D) -> bool:
-	if object is Projectile:
-		object = object as Projectile
-		var enemy: Node2D = get_nearest_enemy()
-		if enemy:
-			object.setup_projectile(self, get_attack_source(), enemy, (enemy.global_position - player.global_position).normalized())
-		else:
-			object.setup_projectile(self, get_attack_source(), null, player.transform.x)
-		## Make an attack and pass it to the projectile prebuilt
-		var curr_damage_buff = bleed_procs * 2.0 ## TODO: balancing these number
+
+func edit_spawn_object(object: SpawnObject):
+	## Edit spawn objects based on bleeds
+	if bleed_procs > 0:
+		## TODO: balancing these numbers
+		var curr_damage_buff = bleed_procs * 2.0
 		var curr_size_buff = bleed_procs / 10.0
 		var curr_bleed_buff = bleed_procs / 5.0
-		print("With: ", bleed_procs, " procs, dmg: ", curr_damage_buff, ", size: ", curr_size_buff, ", bleed: ", curr_bleed_buff)
+		object._size += curr_size_buff
+		object._damage += curr_damage_buff
+		object.status.applies_bleed = true
+		object.bleed_apply += curr_bleed_buff
 		bleed_procs = 0
-		var attack: Attack = make_attack(1)
-		attack.temporary_base_stats.add_to_stat(GlobalStats.DAMAGE, curr_damage_buff)
-		attack.temporary_base_stats.add_to_stat(GlobalStats.BLEED_APPLY, curr_bleed_buff)
-		object.setup_projectile_prebuilt_attack(attack)
-		object.scale += Vector2(curr_size_buff, curr_size_buff)
-		get_spawn_parent().add_child(object)
-		object.global_position = get_spawning_position()
-		return true
-	return false
 
 ## On (enemy) Bleed Proc Signal 
 func bleed_proc(bleed_damage: float, enemy: Enemy):

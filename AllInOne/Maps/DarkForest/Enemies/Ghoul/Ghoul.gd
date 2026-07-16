@@ -24,7 +24,7 @@ func play_animation(animation: String):
 		return await super(animation)
 ## Enable the explosion hitbox after the wait time
 func enable_hitbox(time: float):
-	await get_tree().create_timer(time).timeout
+	await get_tree().create_timer(time, false).timeout
 	damage_hitbox.monitoring = true
 	hitbox_disabled = false
 ## Return seconds that animation takes to play

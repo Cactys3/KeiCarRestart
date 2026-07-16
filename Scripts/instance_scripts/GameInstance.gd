@@ -458,7 +458,7 @@ func win():
 	game_man.ui_man.pause(UIManager.PauseItem.new(Callable(), UIManager.PauseItem.PauseTypes.system, false, false, game_man.ui_man.top_level_labels_parent))
 	is_game_over = true
 	ui_man.toggle_you_win(true)
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(5, false).timeout
 	Save.unlock_achievement(Save.win) ## TODO: ACHIEVEMENT - WIN
 	return_to_main_menu()
 func lose():
@@ -471,9 +471,9 @@ func lose():
 		## just disable (keep in inventory so we can do end of game stats summary or smth for equipped items)
 		game_man.remove_weapon(weapon)
 	ui_man.toggle_you_lose(true)
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(2, false).timeout
 	ui_man.you_lose.text += ", buddy"
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(3, false).timeout
 	Save.unlock_achievement(Save.lose) ## TODO: ACHIEVEMENT - LOSE
 	return_to_main_menu()
 static func random_position(player_pos: Vector2) -> Vector2:

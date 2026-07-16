@@ -5,5 +5,13 @@
 
 [node name="Arrows" type="Node2D" unique_id=155862344]
 script = ExtResource("1_fhsf0")
+MultipleProjectileAngleOffset = 1.0
+spawn_with_cd = true
+spawn_every_seconds = 3.0
 scene_to_spawn = ExtResource("2_0ii76")
+show_debug_range = true
+_range = 200.0
+_attackcooldown = 0.3
+_ammo = 2.0
+_inaccuracy = 2.0
 metadata/_custom_type_script = "uid://cuq1kxp08eb3f"

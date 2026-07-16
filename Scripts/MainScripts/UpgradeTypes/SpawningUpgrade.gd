@@ -4,6 +4,7 @@ class_name SpawningUpgrade
 @export var spawn_on_enemy_kills: bool = false
 @export var enemy_kills_to_spawn: int = 0
 @export var spawn_on_reload: bool = false
+@export var spawn_every_x_reloads: int = 1
 @export var spawn_with_cd: bool = false
 @export var create_radial_ui_for_cd: bool = true
 @export var spawn_every_seconds: float = 0
@@ -11,6 +12,7 @@ class_name SpawningUpgrade
 @export var spawn_radius: float = 40
 @export var spawn_duration: float = 10
 @export var sound_on_spawn: Sound = null
+## Do we Consider 'Count' Stat? (spawn multiple spawns per spawn)
 @export var can_spawn_multiple: bool = true
 static var spawn_every_seconds_cd_reduction_factor: float = 1
 static var spawn_on_enemy_kills_reduction_factor: float = 1
@@ -26,17 +28,20 @@ func _ready() -> void:
 ## Spawn the object from 'scene_to_spawn' every spawn_every_seconds seconds
 func _process(delta: float) -> void:
 	super(delta)
-	if !disabled_by_inherited_upgrade:
+	if !disabled_by_inherited_upgrade && active:
 		if spawn_on_enemy_kills:
-			if enemies_killed_since_spawn >= (enemy_kills_to_spawn * spawn_on_enemy_kills_reduction_factor) && spawn():
+			if enemies_killed_since_spawn >= (enemy_kills_to_spawn * spawn_on_enemy_kills_reduction_factor):
+				spawn()
 				enemies_killed_since_spawn -= int(enemy_kills_to_spawn * spawn_on_enemy_kills_reduction_factor)
-		elif spawn_on_reload:
-			if reloads_since_last_spawn > 0 && spawn():
-				reloads_since_last_spawn -= 1
-		elif spawn_with_cd:
+		if spawn_on_reload:
+			if reloads_since_last_spawn >= spawn_every_x_reloads:
+				reloads_since_last_spawn -= spawn_every_x_reloads
+				spawn()
+		if spawn_with_cd:
 			stopwatch += delta
 			var spawned: bool = false
-			if stopwatch >= (spawn_every_seconds * spawn_every_seconds_cd_reduction_factor) && spawn():
+			if stopwatch >= (spawn_every_seconds * spawn_every_seconds_cd_reduction_factor):
+				spawn()
 				stopwatch = 0
 				emit_cooldown_finished()
 				spawned = true
@@ -64,20 +69,25 @@ func deactivate():
 	kill_cooldown_ui()
 	super()
 ## Creates the object, initializes it, returns success
-func spawn() -> bool:
+func spawn() -> void:
 	if scene_to_spawn:
 		var object = scene_to_spawn.instantiate()
-		if initialize_object(object):
-			if sound_on_spawn:
-				AudioManager.instance.play(sound_on_spawn, global_position)
-			reloads_since_last_spawn = 0
-			return true
-	return false
-## Override to setup the spawned object
-func initialize_object(object: Node2D) -> bool:
-	get_spawn_parent().add_child(object)
-	object.global_position = get_spawning_position()
-	return true
+		initialize_object(object, get_spawn_parent(), get_spawning_position())
+	else:
+		printerr("No Scene To Spawn On Upgrade: ", data.upgrade_name)
+## Setup the object to spawn in the game (carryout spawning)
+func initialize_object(object: Node2D, parent: Node2D, spawn_position: Vector2) -> void:
+	parent.add_child(object)
+	object.global_position = spawn_position
+	edit_spawn_object(object)
+	on_spawn()
+## Preform actions that happen on spawn genericly
+func on_spawn():
+	if sound_on_spawn:
+		AudioManager.instance.play(sound_on_spawn, global_position)
+## Preform actions that happen to spawn objects when they are spawned (custom overrides)
+func edit_spawn_object(object: SpawnObject):
+	pass
 func reload(weapon: Weapon) -> void:
 	super(weapon)
 	reloads_since_last_spawn += 1

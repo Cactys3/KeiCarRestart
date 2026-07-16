@@ -1,9 +1,11 @@
-extends ProjectileUpgrade
+extends SummonUpgrade
 ## This upgrade:
-# Shoot arrows at nearby enemies every 3 seconds.
+# 
 func _ready() -> void:
 	super()
 func activate(new_player: Character):
 	super(new_player)
 func deactivate():
 	super()
+func edit_attack(attack: Attack) -> Attack:
+	return attack

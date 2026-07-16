@@ -11,27 +11,25 @@ func activate(new_player: Character):
 func deactivate():
 	despawn()
 	super()
-func spawn() -> bool:
-	var ret: bool = false
-	## If we spawn, increase active spawn counter
-	if super():
-		Statics.active_traps += 1
-		ret = true
-	if can_spawn_multiple:
-		## Spawn for count
-		for i in Statics.trap_count_buff + additional_spawns:
-			if super():
-				Statics.active_traps += 1
-				ret = true
-	return ret
+func spawn() -> void:
+	## Spawn One
+	if !can_spawn_multiple:
+		super()
+	## Spawn Multiple
+	else:
+		var spawn_count: float = max(1, 1 + count_stat + additional_spawns)
+		for i in spawn_count:
+			super()
 func despawn():
 	Statics.active_traps -= 1
 ## Override to setup spawn
-func initialize_object(object: Node2D) -> bool:
+func initialize_object(object: Node2D, parent: Node2D, spawn_position: Vector2) -> void:
 	if object is Trap:
 		object.setup(self, get_attack_source())
-		return super(object)
-	return false
+		super(object, parent, spawn_position)
+func on_spawn():
+	Statics.active_traps += 1
+	super()
 ## Overrides
 func get_spawning_position() -> Vector2:
 	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))

@@ -1,5 +1,6 @@
 extends FlashFixNode
 class_name StatsObject
+@export var show_debug_range: bool = false
 @export_group("Stats Equipment")
 @export_subgroup("Status")
 @export var status: StatusEffects = StatusEffects.new()
@@ -13,6 +14,7 @@ class_name StatsObject
 @export var stun_duration: float = 0.0
 @export var slow_strength: float = 0.0
 @export var slow_duration: float = 0.0
+@export var can_knockback: bool = true
 @export_subgroup("Weapon Stats")
 ## Weapon Stats
 @export var _damage: float = 0.0
@@ -47,11 +49,15 @@ class_name StatsObject
 @export var _regen: float = 0.0
 @export var _magnetize: float = 0.0
 
+func _draw() -> void:
+	draw_arc(Vector2.ZERO, range_stat, 0, TAU, 64, Color.RED.lerp(Color.TRANSPARENT, 0.7), 1)
+
 func _ready() -> void:
 	super()
 	GameManager.instance.StatsChanged.connect(stats_changed)
 func _process(delta: float) -> void:
-	pass
+	if show_debug_range || DebugManager.SpawnObjectRange:
+		queue_redraw()
 ## Adds Base Stats to given StatsList (Base Stat, not Base Stat + Global Stat)
 func add_to_stats_list(list: GlobalStats.StatsList) -> GlobalStats.StatsList: 
 	list.add_to_stat(GlobalStats.HP, _hp)
@@ -114,11 +120,6 @@ func make_attack(attack_damage_multiplier: float) -> Attack:
 	factor.add_to_stat(GlobalStats.DAMAGE, attack_damage_multiplier - 1) # -1 to make it a multiplier
 	## Make attack and Pass attack through each active upgrade
 	var attack: Attack = Attack.new(get_attack_source(), get_attack_type(), get_attacker_node(), get_attack_position(), status, base, factor)
-	## Add Slow
-	attack.slow_strength = slow_strength
-	attack.slow_duration = slow_duration
-	## Add Stun
-	attack.stun_duration = stun_duration
 	handle_attack(attack)
 	return attack
 func get_attack_type() -> Attack.AttackTypes:
@@ -131,6 +132,12 @@ func get_attack_position() -> Vector2:
 	return global_position
 ## Pass attack through game manager as well as custom handles for this node
 func handle_attack(attack: Attack):
+	## Add Slow
+	attack.slow_strength = slow_strength
+	attack.slow_duration = slow_duration
+	## Add Stun
+	attack.stun_duration = stun_duration
+	attack.can_knockback = can_knockback
 	game_man.handle_attack(attack)
 ## Getters
 var hp_stat:

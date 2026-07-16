@@ -216,3 +216,5 @@ static func calculate_uprade_rarity_count(luck: float) -> int:
 	return ret
 static func calculate_stat_upgrade_level_multiplier(level: float) -> float:
 	return (level / 100) + 1
+static func calculate_inaccurate_direction(direction: Vector2, inaccuracy: float):
+	return direction.rotated(deg_to_rad(randf_range(-inaccuracy / 3, inaccuracy / 3)))

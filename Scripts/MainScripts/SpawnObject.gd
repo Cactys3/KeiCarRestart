@@ -12,12 +12,10 @@ var attack_counter: int = 0
 ## How long until we can attack an enemy for a second time?
 @export var attack_same_enemy_cooldown: float = 1
 @export var attack_color: Color = Color.TRANSPARENT
-@export var show_debug_range: bool = false
 @export var can_die_from_collision: bool = true
 @export var can_die_from_duration: bool = true
 
-func _draw() -> void:
-	draw_arc(Vector2.ZERO, range_stat, 0, TAU, 64, Color.RED.lerp(Color.TRANSPARENT, 0.7), 1)
+
 func stats_changed():
 	apply_stats()
 	super()
@@ -31,8 +29,7 @@ func _process(delta: float) -> void:
 	for element: AttackedObjectsElement in AttackedObjects:
 		if element._process(delta):
 			AttackedObjects.erase(element)
-	if show_debug_range || DebugManager.SpawnObjectRange:
-		queue_redraw()
+
 ## Return enemy within range, try to use detection_range by default
 func get_enemy_nearby(distance: float) -> Variant:
 	var nearest_enemy = null

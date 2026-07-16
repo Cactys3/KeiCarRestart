@@ -35,13 +35,11 @@ func spawn_knockback_thing(enemy: Enemy, knockback: float):
 	last_attacker = enemy
 	last_knockback = knockback
 	spawn()
-## Inform the trap if it is AOE or not
-func initialize_object(object: Node2D) -> bool:
-	var ret = super(object)
-	## Set vars
-	ret.is_aoe = steel_skin_is_aoe
-	ret.steel_skin_target = last_attacker
-	ret.steel_skin_knockback = last_knockback
+
+func edit_spawn_object(object: SpawnObject):
+	## Inform the trap if it is AOE or not
+	object.is_aoe = steel_skin_is_aoe
+	object.steel_skin_target = last_attacker
+	object.steel_skin_knockback = last_knockback
 	## Activate the damage
-	ret.activate()
-	return ret
+	object.activate()

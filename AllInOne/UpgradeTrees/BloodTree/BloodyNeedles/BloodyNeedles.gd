@@ -10,8 +10,6 @@ func activate(new_player: Character):
 ## Disables the functionality of this upgrade
 func deactivate():
 	super()
-func spawn() -> bool:
-	return super()
 func initialize_projectile(projectile: Projectile) -> Projectile:
 	var ret = super(projectile)
 	return ret

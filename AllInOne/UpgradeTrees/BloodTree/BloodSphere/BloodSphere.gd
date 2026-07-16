@@ -14,10 +14,6 @@ func deactivate():
 	super()
 const bleed_factor_buff: float = 0.15
 
-func spawn() -> bool:
-	var ret = super()
-	return ret
-
 func initialize_projectile(projectile: Projectile) -> Projectile:
 	var ret = super(projectile)
 	return ret
