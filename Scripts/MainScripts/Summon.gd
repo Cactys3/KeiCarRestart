@@ -13,11 +13,11 @@ enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Rand
 @export var orbit_distance: float = 25
 @export var max_orbit_distance: float = 50
 @export var min_orbit_distance: float = 5
-@export var rotate_with_orbit: bool = true
+@export var rotate_towwards_velocity: bool = true
 @export var attacks_on_cd: bool = false
 @export var shoots_projectile: bool = false
 @export var projectile_scene: PackedScene
-@export var melee_attacks: bool = false
+@export var custom_melee_attacks: bool = false
 @export var must_aim_at_enemy_to_fire: bool = true
 @export var aiming_degree_leniency: float = 25
 @export var lock_transform_while_attacking: bool = false
@@ -25,7 +25,8 @@ enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Rand
 @export var flip_left_right: bool = false
 ## Should the 'target' variable be updated every few seconds
 @export var update_target: bool = true
-
+var orbit_rotation: float = 0
+var current_rotation: float = 0
 var weapon_slot: float = 0
 var attacking: bool = false
 ## Used by weapons to offset weapon orbit forward (for use in attacks, etc)
@@ -35,6 +36,7 @@ var source: Attack.AttackSources = Attack.AttackSources.unset
 var ready_to_fire: bool = false
 var target: Node2D
 var update_target_stopwatch: float = 0
+var falling_back_to_spinning: bool = false
 ## Update once a second
 var update_target_cooldown: float = 1
 func get_attack_type() -> Attack.AttackTypes:
@@ -55,6 +57,8 @@ func _process(delta: float) -> void:
 			update_target_stopwatch = 0
 			target = get_enemy_nearby(get_spawn_object_range())
 	match AimType:
+		AimTypes.default:
+			ProcessClosestEnemy(delta)
 		AimTypes.DynamicAtMouse:
 			ProcessDynamicAtMouse(delta)
 		AimTypes.AlwaysAtMouse:
@@ -71,15 +75,8 @@ func _process(delta: float) -> void:
 			ProcessOnPlayer(delta)
 		_:
 			ProcessUnique(delta)
-	if ready_to_fire:
-		if must_aim_at_enemy_to_fire:
-			pass
+	if ready_to_fire && (shoots_projectile || custom_melee_attacks):
 		attack()
-	if !rotate_with_orbit: 
-		if anim:
-			anim.global_rotation = 0.0
-		else:
-			printerr("Want to use anim on summon, but anim is not set")
 ## Aim at any enemy in range, else aim at mouse, rotating around player towards mouse
 func ProcessDynamicAtMouse(delta: float) -> void:
 	update_target = true
@@ -114,10 +111,11 @@ func ProcessStaticSlot(delta: float) -> void:
 		ready_to_fire = false
 ## Spin around player, aiming directly outward from center
 func ProcessSpinning(delta: float) -> void:
-	var new_angle = rotation + (spin_speed * delta)
-	global_position = lerp(global_position, GetOrbitPosition(new_angle), lerp_speed * delta)
-	rotation = new_angle
+	orbit_rotation = orbit_rotation + (spin_speed * delta)
+	global_position = global_position.move_toward(GetOrbitPosition(orbit_rotation), max(1, velocity_stat) * delta)
 	ready_to_fire = true
+	if rotate_towwards_velocity:
+		rotation = orbit_rotation + deg_to_rad(90)
 func ProcessOnPlayer(delta: float) -> void:
 	global_position = player.global_position
 	ready_to_fire = true
@@ -125,9 +123,41 @@ func ProcessOnPlayer(delta: float) -> void:
 func ProcessUnique(_delta: float) -> void:
 	pass
 func ProcessRandomEnemy(delta: float) -> void:
-	pass
+	if !target || have_attacked(target):
+		target = null
+	## Try to find target
+	if !target:
+		target = get_random_enemy_in_range_except_attacked(range_stat)
+	## Backup is Spinning
+	if !target:
+		if !falling_back_to_spinning:
+			RecalculateOrbitPosition()
+			falling_back_to_spinning = true
+		ProcessSpinning(delta)
+	else:
+		MoveTowardsTarget(delta, target)
+		falling_back_to_spinning = false
 func ProcessClosestEnemy(delta: float) -> void:
-	pass
+	if !target || have_attacked(target):
+		target = null
+	## Try to find target
+	if !target:
+		target = get_enemy_nearby_except_attacked(range_stat)
+	## Backup is Spinning
+	if !target:
+		if !falling_back_to_spinning:
+			RecalculateOrbitPosition()
+			falling_back_to_spinning = true
+		ProcessSpinning(delta)
+	else:
+		MoveTowardsTarget(delta, target)
+		falling_back_to_spinning = false
+func MoveTowardsTarget(delta: float, target: Node2D) -> void:
+	global_position = global_position.move_toward(target.global_position, max(1, velocity_stat) * delta)
+	## Track rotation in case of not using real rotation (for aiming detection)
+	current_rotation = position.angle_to_point(target.position)
+	if rotate_towwards_velocity:
+		rotation = current_rotation
 ## rotates this weapon towards the new position, TODO: lerp calculated with weight
 func RotateTowardsPosition(new_position: Vector2, delta: float) -> void:
 	## don't rotate if shouldn't
@@ -139,6 +169,10 @@ func RotateTowardsPosition(new_position: Vector2, delta: float) -> void:
 		## Looks better with angle (desired angle) instead of rotation (current angle)
 		anim.flip_v = cos(angle) < 0
  #TODO: try global_position instead of player.global_position for how weapon aiming looks
+## Reset orbit_rotation to be the closest orbit to where we are 
+func RecalculateOrbitPosition():
+	var center: Vector2 = global_position  # or your stored orbit origin, if different
+	orbit_rotation = center.angle_to_point(player.global_position)
 ## Calculates the orbit position for a weapon at given target_angle
 func GetOrbitPosition(target_angle: float) -> Vector2:
 	var ret: Vector2 
@@ -164,12 +198,14 @@ func GetSummonOffsetPosition(target_angle: float) -> Vector2:
 	return summon_position_offset * Vector2(cos(target_angle), sin(target_angle))
 
 func attack():
-	print("attacking")
+	if must_aim_at_enemy_to_fire:
+		pass
+	
 	while_attacking_locked_rotation = rotation
 	attacking = true
 	if shoots_projectile:
 		shoot_projectile()
-	if melee_attacks:
+	if custom_melee_attacks:
 		await melee_attack()
 	attacking = false
 func shoot_projectile() -> Projectile:

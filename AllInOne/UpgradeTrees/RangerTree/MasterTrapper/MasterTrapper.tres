@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://c58j5olxw5fj0"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_xqcbi"]
+[ext_resource type="PackedScene" uid="uid://slv8bcflroyx" path="res://AllInOne/UpgradeTrees/RangerTree/MasterTrapper/MasterTrapper.tscn" id="2_b7add"]
 
 [resource]
 script = ExtResource("1_xqcbi")
+scene = ExtResource("2_b7add")
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

@@ -41,8 +41,12 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ikqmy"]
 
-[node name="RangersCrowSummon" type="Area2D" unique_id=741656926]
+[node name="RangersCrowSummon" type="Area2D" unique_id=741656926 node_paths=PackedStringArray("anim")]
 script = ExtResource("1_ikqmy")
+anim = NodePath("AnimatedSprite2D")
+orbit_distance = 50.0
+max_orbit_distance = 90.0
+min_orbit_distance = 30.0
 _damage = 25.0
 _range = 80.0
 _attackcooldown = 1.0
@@ -53,7 +57,7 @@ _weight = 1.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=646866390]
 sprite_frames = SubResource("SpriteFrames_y50is")
 autoplay = "default"
-frame_progress = 0.40277675
+frame_progress = 0.29558006
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=666770667]
 shape = SubResource("CircleShape2D_ikqmy")

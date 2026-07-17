@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://pybhvjjo3dcb"]
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_vvbhr"]
+[ext_resource type="PackedScene" uid="uid://s8k0s7qw5pwj" path="res://AllInOne/UpgradeTrees/RangerTree/HighlyActive/HighlyActive.tscn" id="2_wt61f"]
 
 [resource]
 script = ExtResource("1_vvbhr")
+scene = ExtResource("2_wt61f")
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

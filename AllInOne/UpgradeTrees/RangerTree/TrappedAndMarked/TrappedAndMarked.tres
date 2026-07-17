@@ -5,7 +5,6 @@
 [ext_resource type="Resource" uid="uid://bwe0vbaruos8r" path="res://AllInOne/UpgradeTrees/RangerTree/Arrows/Arrows.tres" id="3_p63cm"]
 [ext_resource type="PackedScene" uid="uid://dfg8n6lux202q" path="res://AllInOne/UpgradeTrees/RangerTree/TrappedAndMarked/TrappedAndMarked.tscn" id="4_kj6m3"]
 
-
 [resource]
 script = ExtResource("1_w1wt8")
 scene = ExtResource("4_kj6m3")

@@ -15,6 +15,7 @@ var attack_counter: int = 0
 @export var can_die_from_collision: bool = true
 @export var can_die_from_duration: bool = true
 
+var check_collision_stopwatch: float = 0
 
 func stats_changed():
 	apply_stats()
@@ -26,9 +27,24 @@ func _ready() -> void:
 	apply_stats()
 func _process(delta: float) -> void:
 	super(delta)
+	## Check Collisions
+	check_collision_stopwatch += delta
+	if check_collision_stopwatch >= 3:
+		check_collisions()
+		check_collision_stopwatch = 0
+	## Handle Attacked Elements
 	for element: AttackedObjectsElement in AttackedObjects:
 		if element._process(delta):
 			AttackedObjects.erase(element)
+## Check area/body that are overlapping
+func check_collisions():
+	var area = get_node(".") as Area2D
+	var collisions: Array[Node2D] = []
+	collisions.append_array(area.get_overlapping_areas())
+	collisions.append_array(area.get_overlapping_bodies())
+	for node in collisions:
+		if !have_attacked(node):
+			_on_body_entered(node)
 
 ## Return enemy within range, try to use detection_range by default
 func get_enemy_nearby(distance: float) -> Variant:

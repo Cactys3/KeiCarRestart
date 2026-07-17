@@ -18,7 +18,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hcxj8")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
@@ -37,7 +37,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sru54")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
@@ -49,7 +49,7 @@ height = 36.767403
 [node name="ScissorSwordSummon" type="Area2D" unique_id=810024965]
 script = ExtResource("1_hcxj8")
 orbit_distance = 50.0
-melee_attacks = true
+custom_melee_attacks = true
 must_aim_at_enemy_to_fire = false
 update_target = false
 status = SubResource("Resource_vg3fk")

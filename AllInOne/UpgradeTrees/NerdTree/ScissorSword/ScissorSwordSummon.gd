@@ -16,6 +16,7 @@ func _ready() -> void:
 	GameManager.instance.UpgradeCooldownFinished.connect(attack)
 func _process(delta: float) -> void:
 	super(delta)
+	global_position = player.global_position
 	process_swords(delta)
 	orbit_angle += delta
 	

@@ -93,7 +93,6 @@ func setup_can_attacks(enemies: bool, events: bool, player: bool, creations: boo
 	can_attack_player = player
 	can_attack_creations = creations
 
-
 ## Process
 func _process(delta: float) -> void:
 	if dead:
