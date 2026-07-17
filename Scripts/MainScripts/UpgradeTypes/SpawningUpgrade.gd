@@ -5,6 +5,8 @@ class_name SpawningUpgrade
 @export var enemy_kills_to_spawn: int = 0
 @export var spawn_on_reload: bool = false
 @export var spawn_every_x_reloads: int = 1
+@export var spawn_with_projectiles: bool = false
+@export var spawn_every_x_projectiles: int = 5
 @export var spawn_with_cd: bool = false
 @export var create_radial_ui_for_cd: bool = true
 @export var spawn_every_seconds: float = 0
@@ -16,6 +18,7 @@ class_name SpawningUpgrade
 @export var can_spawn_multiple: bool = true
 static var spawn_every_seconds_cd_reduction_factor: float = 1
 static var spawn_on_enemy_kills_reduction_factor: float = 1
+var projectiles_since_last_spawn: int = 0
 var reloads_since_last_spawn: int = 0
 var enemies_killed_since_spawn: int = 0
 var stopwatch: float = 0
@@ -55,6 +58,10 @@ func _process(delta: float) -> void:
 						cooldownUI.set_progress(stopwatch / spawn_every_seconds)
 				else:
 					cooldownUI_stopwatch += delta
+		if spawn_with_projectiles:
+			if projectiles_since_last_spawn >= spawn_every_x_projectiles:
+				projectiles_since_last_spawn -= spawn_every_x_projectiles
+				spawn()
 ## Enables the functionality of this upgrade
 func activate(new_player: Character):
 	if spawn_on_reload:
@@ -63,6 +70,8 @@ func activate(new_player: Character):
 		connect_enemy_killed = true
 	if spawn_with_cd && create_radial_ui_for_cd:
 		setup_cooldown_ui()
+	if spawn_with_projectiles:
+		connect_projectile_spawned = true
 	super(new_player)
 	spawn()
 func deactivate():
@@ -94,6 +103,9 @@ func reload(weapon: Weapon) -> void:
 func enemy_killed(enemy: Enemy, attack: Attack) -> void:
 	super(enemy, attack)
 	enemies_killed_since_spawn += 1
+func projectile_spawned(projectile: Projectile):
+	super(projectile)
+	projectiles_since_last_spawn += 1
 ## Overrides
 func get_spawning_position() -> Vector2:
 	var spawn_position = game_man.player.global_position + Vector2(randf_range(-spawn_radius, spawn_radius), randf_range(-spawn_radius, spawn_radius))

@@ -43,6 +43,12 @@ animations = [{
 
 [node name="RangersCrowSummon" type="Area2D" unique_id=741656926]
 script = ExtResource("1_ikqmy")
+_damage = 25.0
+_range = 80.0
+_attackcooldown = 1.0
+_velocity = 70.0
+_luck = 5.0
+_weight = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=646866390]
 sprite_frames = SubResource("SpriteFrames_y50is")

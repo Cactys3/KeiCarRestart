@@ -25,6 +25,11 @@ size = Vector2(18, 5)
 script = ExtResource("1_sfn1v")
 anim = NodePath("AnimatedSprite2D")
 homing = true
+_damage = 45.0
+_velocity = 80.0
+_piercing = 6.0
+_duration = 10.0
+_luck = 25.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=863123306]
 sprite_frames = SubResource("SpriteFrames_3xd07")

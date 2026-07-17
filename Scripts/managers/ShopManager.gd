@@ -97,13 +97,24 @@ const MECHA_HEALER = "Mecha Healer"
 ## Ranger Tree
 const ARROWS = "Arrows"
 const BEAR_TRAP = "Bear Trap"
+const BIRD_TRAINER = "Bird Trainer"
 const BLEED_BEARS_BLEED = "Bleed Bears Bleed"
 const BOSS_BANE = "Boss Bane"
 const DUEL_WIELDING = "Duel Wielding"
+const EMPOWERING_RELOAD = "Empowering Reload"
 const FLY_YOU_FOOLS = "Fly You Fools"
 const GIGANITFY = "Giganitfy"
+const HIGHLY_ACTIVE = "Highly Active"
+const MASTER_TRAPPER = "Master Trapper"
+const MULTISTRING = "Multistring"
+const QUALITY_IS_QUANTITY = "Quality is Quantity"
+const QUICKSAND = "Quicksand"
+const RANGERS_CROW = "Ranger's Crow"
+const RANGERS_FALCON = "Ranger's Falcon"
+const RANGERS_HAWK = "Ranger's Hawk"
+const SHROOM_TRAP = "Shroom Trap"
+const SOOTHING_RELOAD = "Soothing Reload"
 const TRAPPED_AND_MARKED = "Trapped And Marked"
-
 ## Weapon Scenes
 const BOXING_GLOVES_SCENE = preload("uid://bbw0s4nlfy63s")
 const PISTOL_SCENE = preload("uid://cjkad8i0d5u2g")
@@ -199,13 +210,26 @@ const KAMI_KAMI_SCENE = preload("uid://mlx10tww06ls")
 const MECHA_BUFFED_SCENE = preload("uid://c3qwt077ej2kb")
 const MECHA_HEALER_SCENE = preload("uid://b2qs0kvdfna4a")
 ## Ranger Tree
+## Ranger Tree
 const ARROWS_SCENE = preload("uid://bwe0vbaruos8r")
 const BEAR_TRAP_SCENE = preload("uid://g0v6sseax4ep")
+const BIRD_TRAINER_SCENE = preload("uid://cuymiw77wta5q")
 const BLEED_BEARS_BLEED_SCENE = preload("uid://co83ia2bt1jc0")
 const BOSS_BANE_SCENE = preload("uid://b87c1cbnx435j")
 const DUEL_WIELDING_SCENE = preload("uid://bc6jpsvr353fh")
+const EMPOWERING_RELOAD_SCENE = preload("uid://bcjpq32hcdmhc")
 const FLY_YOU_FOOLS_SCENE = preload("uid://cgwqvxfx1b1ro")
 const GIGANITFY_SCENE = preload("uid://djsypl1486fbs")
+const HIGHLY_ACTIVE_SCENE = preload("uid://pybhvjjo3dcb")
+const MASTER_TRAPPER_SCENE = preload("uid://c58j5olxw5fj0")
+const MULTISTRING_SCENE = preload("uid://32jern4wuqn8")
+const QUALITY_IS_QUANTITY_SCENE = preload("uid://c7ix8j83xl7vr")
+const QUICKSAND_SCENE = preload("uid://g16o1xprw7pu")
+const RANGERS_CROW_SCENE = preload("uid://djcjjh1y7h2yv")
+const RANGERS_FALCON_SCENE = preload("uid://bhjw8414fdfyx")
+const RANGERS_HAWK_SCENE = preload("uid://pc0reockf4ra")
+const SHROOM_TRAP_SCENE = preload("uid://dnmvrklxl7j3u")
+const SOOTHING_RELOAD_SCENE = preload("uid://bd13sfg0i734a")
 const TRAPPED_AND_MARKED_SCENE = preload("uid://cpw7ux7hbia5o")
 ## Arrays
 static var unlocked_projectiles_keys: Array [String] = []
@@ -330,11 +354,23 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	## Ranger Tree
 	ARROWS: ARROWS_SCENE,
 	BEAR_TRAP: BEAR_TRAP_SCENE,
+	BIRD_TRAINER: BIRD_TRAINER_SCENE,
 	BLEED_BEARS_BLEED: BLEED_BEARS_BLEED_SCENE,
 	BOSS_BANE: BOSS_BANE_SCENE,
 	DUEL_WIELDING: DUEL_WIELDING_SCENE,
+	EMPOWERING_RELOAD: EMPOWERING_RELOAD_SCENE,
 	FLY_YOU_FOOLS: FLY_YOU_FOOLS_SCENE,
 	GIGANITFY: GIGANITFY_SCENE,
+	HIGHLY_ACTIVE: HIGHLY_ACTIVE_SCENE,
+	MASTER_TRAPPER: MASTER_TRAPPER_SCENE,
+	MULTISTRING: MULTISTRING_SCENE,
+	QUALITY_IS_QUANTITY: QUALITY_IS_QUANTITY_SCENE,
+	QUICKSAND: QUICKSAND_SCENE,
+	RANGERS_CROW: RANGERS_CROW_SCENE,
+	RANGERS_FALCON: RANGERS_FALCON_SCENE,
+	RANGERS_HAWK: RANGERS_HAWK_SCENE,
+	SHROOM_TRAP: SHROOM_TRAP_SCENE,
+	SOOTHING_RELOAD: SOOTHING_RELOAD_SCENE,
 	TRAPPED_AND_MARKED: TRAPPED_AND_MARKED_SCENE
 	}
 const weapon_list: Dictionary [String, PackedScene] = {
