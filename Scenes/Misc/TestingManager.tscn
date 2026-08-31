@@ -6,12 +6,85 @@
 script = ExtResource("1_at5h4")
 
 [node name="Search" type="LineEdit" parent="." unique_id=409204572]
-offset_right = 324.0
+offset_right = 326.0
 offset_bottom = 21.0
 placeholder_text = "Search"
 
-[node name="Grid" type="GridContainer" parent="." unique_id=1113829076]
-offset_top = 21.0
-offset_right = 277.0
-offset_bottom = 252.0
-columns = 4
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1744588677]
+offset_top = 27.0
+offset_right = 1400.0
+offset_bottom = 670.0
+
+[node name="All" type="GridContainer" parent="HBoxContainer" unique_id=1113829076]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/All" unique_id=1194475942]
+layout_mode = 2
+text = "All"
+
+[node name="Blood" type="GridContainer" parent="HBoxContainer" unique_id=234958316]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/Blood" unique_id=1933218469]
+layout_mode = 2
+text = "Blood"
+
+[node name="Nerd" type="GridContainer" parent="HBoxContainer" unique_id=1065541719]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/Nerd" unique_id=1974746733]
+layout_mode = 2
+text = "Nerd"
+
+[node name="Gun" type="GridContainer" parent="HBoxContainer" unique_id=1515083101]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/Gun" unique_id=597119371]
+layout_mode = 2
+text = "Gun"
+
+[node name="Ghost" type="GridContainer" parent="HBoxContainer" unique_id=702390183]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/Ghost" unique_id=402019506]
+layout_mode = 2
+text = "Ghost"
+
+[node name="Egg" type="GridContainer" parent="HBoxContainer" unique_id=350708262]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/Egg" unique_id=2138242288]
+layout_mode = 2
+text = "Egg"
+
+[node name="Tank" type="GridContainer" parent="HBoxContainer" unique_id=774889596]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/Tank" unique_id=1842055927]
+layout_mode = 2
+text = "Tank"
+
+[node name="Ranger" type="GridContainer" parent="HBoxContainer" unique_id=113601912]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/Ranger" unique_id=2107783564]
+layout_mode = 2
+text = "Ranger"
+
+[node name="Unset" type="GridContainer" parent="HBoxContainer" unique_id=1962427809]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/Unset" unique_id=82029171]
+layout_mode = 2
+text = "Unset or Null"

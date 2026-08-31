@@ -8,6 +8,7 @@
 script = ExtResource("1_opth1")
 scene = ExtResource("2_86g43")
 upgrade_name = "Bloody Quiver"
+upgrade_tree = 1
 upgrade_description = "Your blood needle does more damage, applies more bleed, and is larger based on how many bleed procs since the last blood needle.
 Projectiles spawned by your upgrades apply bleed."
 upgrade_color = Color(0.69411767, 0, 0.22352941, 1)

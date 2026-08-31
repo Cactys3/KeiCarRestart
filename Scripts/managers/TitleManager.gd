@@ -327,4 +327,4 @@ func _on_choose_0_pressed(extra_arg_0: int) -> void:
 	pass # Replace with function body.
 
 func play_button_sound():
-	AudioManager.instance.play(AudioManager.instance.UI_PRESS, Vector2(0, 0))
+	pass##AudioManager.instance.play(AudioManager.instance.UI_PRESS, Vector2(0, 0))

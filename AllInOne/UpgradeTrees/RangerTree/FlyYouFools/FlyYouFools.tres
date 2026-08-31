@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_ypld3"]
 [ext_resource type="PackedScene" uid="uid://bo47otarfwvnt" path="res://AllInOne/UpgradeTrees/RangerTree/FlyYouFools/FlyYouFools.tscn" id="2_hdich"]
 
-
 [resource]
 script = ExtResource("1_ypld3")
 scene = ExtResource("2_hdich")
 upgrade_name = "Fly You Fools"
+upgrade_tree = 7
 upgrade_description = "Gain 20% movespeed for 3 seconds on reload"
 upgrade_rarity = 1
 gives_player_buff = true

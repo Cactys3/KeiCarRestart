@@ -6,4 +6,6 @@
 [resource]
 script = ExtResource("1_t61hq")
 scene = ExtResource("2_45t1o")
+upgrade_name = "Soothing Reload"
+upgrade_tree = 7
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

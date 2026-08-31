@@ -159,27 +159,25 @@ func attack_body(body: Node2D) -> void:
 	append_attack_element(body)
 	attack_counter += 1
 	var attack: Attack = null
+	var damage_offset: float = 1
+	## If multiple projectiles and is from player
+	if attack_source == Attack.AttackSources.player:
+		damage_offset -= Statics.additional_projectiles_damage_debuff
+	## If is clone, replace the default 1 with clone offset
+	if is_clone:
+		damage_offset += -1 + clone_offset
 	## Use prebuilt attack as 1st prio
 	if prebuilt_attack:
 		attack = prebuilt_attack
 	## Then check make_own_attack
 	elif make_own_attack:
-		if is_clone:
-			attack = make_attack(clone_offset)
-		else:
-			attack = make_attack(1)
+		attack = make_attack(damage_offset)
 	## Then request an attack from parent
 	elif is_instance_valid(parent):
-		if is_clone:
-			attack = make_parent_attack(clone_offset)
-		else:
-			attack = make_parent_attack(1)
+		attack = make_parent_attack(damage_offset)
 	## Lastly fallback on making own attack
 	else:
-		if is_clone:
-			attack = make_attack(clone_offset)
-		else:
-			attack = make_attack(1)
+		attack = make_attack(damage_offset)
 	if attack:
 		edit_attack_before_sending(attack)
 		body.damage(attack)

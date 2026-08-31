@@ -4,11 +4,11 @@
 [ext_resource type="Resource" uid="uid://g0v6sseax4ep" path="res://AllInOne/UpgradeTrees/RangerTree/BearTrap/BearTrap.tres" id="2_yya52"]
 [ext_resource type="PackedScene" uid="uid://dug1hiu476rf6" path="res://AllInOne/UpgradeTrees/RangerTree/BleedBearsBleed/BleedBearsBleed.tscn" id="3_bagi5"]
 
-
 [resource]
 script = ExtResource("1_6eei0")
 scene = ExtResource("3_bagi5")
 upgrade_name = "Bleed Bears Bleed"
+upgrade_tree = 7
 upgrade_description = "Your bear trap applies heavy bleed and immobilizes enemies for 3 seconds!
 Your traps do 10% more damage."
 upgrade_rarity = 2

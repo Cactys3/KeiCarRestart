@@ -34,6 +34,20 @@ const PROCRASTINATION = "Procrastination"
 const SCISSOR_SWORD = "ScissorSword"
 const SEASON_2 = "Season2"
 const STACKING_STACKS = "StackingStacks"
+## Gun Tree
+const COLLATTER = "Collater"
+const DOUBLE_TAPPER = "Double Tapper"
+const DOUBLER = "Doubler"
+const ELITE_RELOADER = "Elite Reloader"
+const ELITE_SNIPER = "Elite Sniper"
+const GUNNER = "Gunner"
+const LARGER = "Larger"
+const RELOADER = "Reloader"
+const RUN_N_GUNNER = "Run N' Gunner"
+const SAWN_OFFER = "Sawn Offer"
+const SHOOTER = "Shooter"
+const SHOTGUNNER = "Shotgunner"
+const SNIPER = "Sniper"
 ## Ghost Tree
 const FEAR = "Fear"
 const FEARY = "Feary"
@@ -149,6 +163,20 @@ const PROCRASTINATION_SCENE = preload("uid://dx6wgy5svc6kc")
 const SCISSOR_SWORD_SCENE = preload("uid://buhep55sdrfhg")
 const SEASON_2_SCENE = preload("uid://ddcrdjhonahcv")
 const STACKING_STACKS_SCENE = preload("uid://j60crhb84rib")
+## Gun Tree
+const COLLATTER_SCENE = preload("uid://bbfk1pjw6njcq")
+const DOUBLE_TAPPER_SCENE = preload("uid://u660hwlc234c")
+const DOUBLER_SCENE = preload("uid://c7003eqaba7i1")
+const ELITE_RELOADER_SCENE = preload("uid://di2lblspui8b")
+const ELITE_SNIPER_SCENE = preload("uid://c2g5gpafk3kj2")
+const GUNNER_SCENE = preload("uid://qa53sekpaxeg")
+const LARGER_SCENE = preload("uid://c5mxrb1yvpldj")
+const RELOADER_SCENE = preload("uid://8g0ffnflg303")
+const RUN_N_GUNNER_SCENE = preload("uid://dyb5hnmpei34g")
+const SAWN_OFFER_SCENE = preload("uid://b65xtxgjg303p")
+const SHOOTER_SCENE = preload("uid://bf2piulie2y2j")
+const SHOTGUNNER_SCENE = preload("uid://gtvp5nbu6s2p")
+const SNIPER_SCENE = preload("uid://cxs1shm5mrgni")
 ## Ghost Tree
 const FEAR_SCENE = preload("uid://cwxpg0qrpjk8k")
 const FEARY_SCENE = preload("uid://b3yf4m2mleant")
@@ -209,7 +237,6 @@ const FLAME_SPEWERS_SCENE = preload("uid://cxtb3irvno82o")
 const KAMI_KAMI_SCENE = preload("uid://mlx10tww06ls")
 const MECHA_BUFFED_SCENE = preload("uid://c3qwt077ej2kb")
 const MECHA_HEALER_SCENE = preload("uid://b2qs0kvdfna4a")
-## Ranger Tree
 ## Ranger Tree
 const ARROWS_SCENE = preload("uid://bwe0vbaruos8r")
 const BEAR_TRAP_SCENE = preload("uid://g0v6sseax4ep")
@@ -292,6 +319,20 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	SCISSOR_SWORD: SCISSOR_SWORD_SCENE,
 	SEASON_2: SEASON_2_SCENE,
 	STACKING_STACKS: STACKING_STACKS_SCENE,
+	## Gun Tree
+	COLLATTER: COLLATTER_SCENE,
+	DOUBLE_TAPPER: DOUBLE_TAPPER_SCENE,
+	DOUBLER: DOUBLER_SCENE,
+	ELITE_RELOADER: ELITE_RELOADER_SCENE,
+	ELITE_SNIPER: ELITE_SNIPER_SCENE,
+	GUNNER: GUNNER_SCENE,
+	LARGER: LARGER_SCENE,
+	RELOADER: RELOADER_SCENE,
+	RUN_N_GUNNER: RUN_N_GUNNER_SCENE,
+	SAWN_OFFER: SAWN_OFFER_SCENE,
+	SHOOTER: SHOOTER_SCENE,
+	SHOTGUNNER: SHOTGUNNER_SCENE,
+	SNIPER: SNIPER_SCENE,
 	## Fear Tree
 	FEAR: FEAR_SCENE,
 	FEARY: FEARY_SCENE,
@@ -308,26 +349,26 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	NURTURE: NURTURE_SCENE,
 	TRADITIONS: TRADITIONS_SCENE,
 	TWINS: TWINS_SCENE,
-	## Tank Tree
-	#AURA: AURA_SCENE,
-	#ELECTRIC_FENCE: ELECTRIC_FENCE_SCENE,
-	#HEALING_AURA: HEALING_AURA_SCENE,
-	#INFINITE_SHIELD: INFINITE_SHIELD_SCENE,
-	#LANCE_PROTECTOR: LANCE_PROTECTOR_SCENE,
-	#MORE_HP: MORE_HP_SCENE,
-	#MORE_HP_PLUS: MORE_HP_PLUS_SCENE,
-	#OFFENSIVE_DEFENSE: OFFENSIVE_DEFENSE_SCENE,
-	#QUICK_GETAWAY: QUICK_GETAWAY_SCENE,
-	#RUMP_ARMOR: RUMP_ARMOR_SCENE,
-	#SCALING_AURA: SCALING_AURA_SCENE,
-	#SHIELD: SHIELD_SCENE,
-	#SHIELD_PLUS: SHIELD_PLUS_SCENE,
-	#STATIKK_STRIKE: STATIKK_STRIKE_SCENE,
-	#STEEL_CREATIONS: STEEL_CREATIONS_SCENE,
-	#STEEL_SKIN: STEEL_SKIN_SCENE,
-	#STURDY: STURDY_SCENE,
-	#STURDY_PLUS: STURDY_PLUS_SCENE,
-	#VENGEFUL_AURA: VENGEFUL_AURA_SCENE,
+	# Tank Tree
+	AURA: AURA_SCENE,
+	ELECTRIC_FENCE: ELECTRIC_FENCE_SCENE,
+	HEALING_AURA: HEALING_AURA_SCENE,
+	INFINITE_SHIELD: INFINITE_SHIELD_SCENE,
+	LANCE_PROTECTOR: LANCE_PROTECTOR_SCENE,
+	MORE_HP: MORE_HP_SCENE,
+	MORE_HP_PLUS: MORE_HP_PLUS_SCENE,
+	OFFENSIVE_DEFENSE: OFFENSIVE_DEFENSE_SCENE,
+	QUICK_GETAWAY: QUICK_GETAWAY_SCENE,
+	RUMP_ARMOR: RUMP_ARMOR_SCENE,
+	SCALING_AURA: SCALING_AURA_SCENE,
+	SHIELD: SHIELD_SCENE,
+	SHIELD_PLUS: SHIELD_PLUS_SCENE,
+	STATIKK_STRIKE: STATIKK_STRIKE_SCENE,
+	STEEL_CREATIONS: STEEL_CREATIONS_SCENE,
+	STEEL_SKIN: STEEL_SKIN_SCENE,
+	STURDY: STURDY_SCENE,
+	STURDY_PLUS: STURDY_PLUS_SCENE,
+	VENGEFUL_AURA: VENGEFUL_AURA_SCENE,
 	## Mage Tree
 	#AZARATH: AZARATH_SCENE,
 	#BLUNT_MISSILE: BLUNT_MISSILE_SCENE,

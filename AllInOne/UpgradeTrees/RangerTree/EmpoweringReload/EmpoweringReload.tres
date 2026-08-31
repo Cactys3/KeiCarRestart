@@ -6,4 +6,6 @@
 [resource]
 script = ExtResource("1_wvsok")
 scene = ExtResource("2_b4rmq")
+upgrade_name = "Empowering Reload"
+upgrade_tree = 7
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

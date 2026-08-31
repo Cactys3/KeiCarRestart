@@ -7,6 +7,7 @@
 script = ExtResource("1_aygln")
 scene = ExtResource("2_b4vx2")
 upgrade_name = "Critical Bleed"
+upgrade_tree = 1
 upgrade_description = "Apply heavy (red and dripping text effect goes here)Bleed on critical hits from any source!"
 upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
 upgrade_rarity = 1

@@ -9,6 +9,7 @@
 script = ExtResource("1_w1wt8")
 scene = ExtResource("4_kj6m3")
 upgrade_name = "Trapped and Marked"
+upgrade_tree = 7
 upgrade_description = "When an enemy steps on a trap, shoot arrows at them!"
 upgrade_rarity = 2
 prerequisite_upgrades = Array[ExtResource("1_w1wt8")]([ExtResource("2_ryw8w"), ExtResource("3_p63cm")])

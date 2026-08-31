@@ -7,6 +7,7 @@
 script = ExtResource("1_50qa2")
 scene = ExtResource("2_kajf5")
 upgrade_name = "Anime"
+upgrade_tree = 2
 upgrade_description = "Everytime you finish an anime episode, create a catgirl creation that fights for you. 
 Finish an anime episode every 8 seconds. (this is a hobby)"
 upgrade_rarity = 1

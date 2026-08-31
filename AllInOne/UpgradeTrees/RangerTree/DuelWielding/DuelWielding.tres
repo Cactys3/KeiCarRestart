@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_i2322"]
 [ext_resource type="Resource" uid="uid://cpw7ux7hbia5o" path="res://AllInOne/UpgradeTrees/RangerTree/TrappedAndMarked/TrappedAndMarked.tres" id="2_7wtun"]
-
+[ext_resource type="PackedScene" uid="uid://bbwje2gfcypym" path="res://AllInOne/UpgradeTrees/RangerTree/DuelWielding/DuelWielding.tscn" id="3_4jwt5"]
 
 [resource]
 script = ExtResource("1_i2322")
+scene = ExtResource("3_4jwt5")
 upgrade_name = "Duel Wielding"
+upgrade_tree = 7
 upgrade_description = "Gain a duplicate copy of your main weapon!"
 upgrade_rarity = 3
 prerequisite_upgrades = Array[ExtResource("1_i2322")]([ExtResource("2_7wtun")])

@@ -6,4 +6,6 @@
 [resource]
 script = ExtResource("1_kskut")
 scene = ExtResource("2_5n4eb")
+upgrade_name = "Ranger's Crow"
+upgrade_tree = 7
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

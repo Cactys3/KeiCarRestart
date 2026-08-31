@@ -7,6 +7,7 @@
 script = ExtResource("1_cfb4i")
 scene = ExtResource("2_to68k")
 upgrade_name = "Blood Meter"
+upgrade_tree = 1
 upgrade_description = "Gain a blood meter.
 Your blood meter fills up with each bleed proc.
 Deal 20% more damage and gain 10% size at max blood!"

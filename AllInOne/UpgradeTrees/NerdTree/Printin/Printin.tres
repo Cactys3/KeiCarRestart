@@ -7,6 +7,7 @@
 script = ExtResource("1_04wca")
 scene = ExtResource("2_7ntei")
 upgrade_name = "Printin"
+upgrade_tree = 2
 upgrade_description = "Each time you finish a 3d print, spawn a toy land mine.
 Finish a 3d print every 10 seconds. (this is a hobby)"
 upgrade_rarity = 1

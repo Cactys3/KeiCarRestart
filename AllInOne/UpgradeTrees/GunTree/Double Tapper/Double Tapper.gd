@@ -13,7 +13,7 @@ func deactivate():
 	super()
 func edit_attack(attack: Attack) -> Attack:
 	## Damage reduce projectiles that can spawn multiple from main weapons
-	if attack.attack_type == Attack.AttackTypes.player_weapon_projectile:
+	if attack.attack_source == Attack.AttackSources.player && attack.attack_type == Attack.AttackTypes.projectile:
 		var should_edit: bool = false
 		var attacker = attack.attacker
 		if attacker is Projectile:

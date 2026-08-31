@@ -11,6 +11,7 @@
 script = ExtResource("1_8m6q1")
 scene = ExtResource("2_chocs")
 upgrade_name = "Hobbies"
+upgrade_tree = 2
 upgrade_description = "Each time you complete a hobby..."
 upgrade_rarity = 3
 prerequisite_upgrades = Array[ExtResource("1_8m6q1")]([ExtResource("2_byqlh"), ExtResource("3_tupc7"), ExtResource("4_ihhpu"), ExtResource("5_tupc7")])

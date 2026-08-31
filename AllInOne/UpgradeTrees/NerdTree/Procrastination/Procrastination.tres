@@ -7,6 +7,7 @@
 script = ExtResource("1_1a6k4")
 scene = ExtResource("2_at6lc")
 upgrade_name = "Procrastination"
+upgrade_tree = 2
 upgrade_description = "Each time you finish a homework problem, throw it at the nearest enemy.
 
 Finish a homework problem every 6 seconds. (this is a hobby)"

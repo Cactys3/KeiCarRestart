@@ -6,4 +6,6 @@
 [resource]
 script = ExtResource("1_8olhj")
 scene = ExtResource("2_t8rpj")
+upgrade_name = "Shroom Trap"
+upgrade_tree = 7
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

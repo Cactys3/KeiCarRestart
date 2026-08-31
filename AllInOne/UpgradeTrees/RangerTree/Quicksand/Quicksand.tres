@@ -6,4 +6,6 @@
 [resource]
 script = ExtResource("1_rmuuk")
 scene = ExtResource("2_ttwuk")
+upgrade_name = "Quicksand"
+upgrade_tree = 7
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

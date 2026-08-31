@@ -8,6 +8,7 @@
 script = ExtResource("1_yx1s1")
 scene = ExtResource("2_y1y7t")
 upgrade_name = "Blood Turrets"
+upgrade_tree = 1
 upgrade_description = "On reload, spawn a Bleeding Turret that spins, spewing blood, applying heavy bleed buildup!"
 upgrade_color = Color(0.69411767, 0, 0.22352941, 1)
 upgrade_image = ExtResource("3_v5bwy")

@@ -8,6 +8,7 @@
 script = ExtResource("1_pn3im")
 scene = ExtResource("3_c4jxu")
 upgrade_name = "Build Plate XL"
+upgrade_tree = 2
 upgrade_description = "Each time you finish a 3d print, spawn an unpainted figure."
 upgrade_rarity = 2
 prerequisite_upgrades = Array[ExtResource("1_pn3im")]([ExtResource("2_4hsqe")])

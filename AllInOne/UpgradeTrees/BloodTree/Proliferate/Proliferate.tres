@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_7oj7i"]
 [ext_resource type="PackedScene" uid="uid://ia7wibdf4j6e" path="res://AllInOne/UpgradeTrees/BloodTree/Proliferate/Proliferate.tscn" id="2_6b726"]
 
-
 [resource]
 script = ExtResource("1_7oj7i")
 scene = ExtResource("2_6b726")
 upgrade_name = "Proliferate"
+upgrade_tree = 1
 upgrade_description = "Your bleed sources apply 30% more bleed!
 Your bleed procs do 25% more damage!"
 upgrade_color = Color(0.69411767, 0, 0.22352941, 1)

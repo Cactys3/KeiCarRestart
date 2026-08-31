@@ -8,6 +8,7 @@
 script = ExtResource("1_uc5ho")
 scene = ExtResource("2_04xmb")
 upgrade_name = "Stacking Stacks"
+upgrade_tree = 2
 upgrade_description = "Gain a stacking buff whenever you finish a cooldown. Stack up to 100 times, stacks decay after 2 seconds.
 
 Gain 2% size for all spawns per stack."

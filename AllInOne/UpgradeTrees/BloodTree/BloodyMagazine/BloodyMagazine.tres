@@ -8,6 +8,7 @@
 script = ExtResource("1_l8lb2")
 scene = ExtResource("2_tqtpv")
 upgrade_name = "Bloody Magazine"
+upgrade_tree = 1
 upgrade_description = "Every 5 seconds, shoot out additional blood needles equal to the number of bleed procs in the last 5 seconds.
 Projectiles spawned by your upgrades apply bleed."
 upgrade_color = Color(0.69411767, 0, 0.22352941, 1)

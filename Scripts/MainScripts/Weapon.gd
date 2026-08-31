@@ -196,7 +196,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 		push_error("projectile null in attachment script")
 		return null
 	var new_bullet: Projectile = projectile.instantiate()
-	new_bullet.visible = false
+	#new_bullet.visible = false
 	## TODO: should we send enemy to projectile?
 	new_bullet.setup_projectile(self, get_attack_source(), null, new_direction)
 	new_bullet.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player, can_attack_creations)

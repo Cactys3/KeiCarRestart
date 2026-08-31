@@ -4,11 +4,11 @@
 [ext_resource type="Resource" uid="uid://e4ho6vfqngai" path="res://AllInOne/UpgradeTrees/BloodTree/CuttingStrikes/CuttingStrikes.tres" id="2_6scr7"]
 [ext_resource type="PackedScene" uid="uid://bmeq3115vg5fh" path="res://AllInOne/UpgradeTrees/BloodTree/Shark/Shark.tscn" id="3_o64ee"]
 
-
 [resource]
 script = ExtResource("1_yxqs2")
 scene = ExtResource("3_o64ee")
 upgrade_name = "Shark"
+upgrade_tree = 1
 upgrade_description = "Deal 20% more damage to enemies you have bleed!
 Heal 2% hp on bleed proc!"
 upgrade_color = Color(0.69411767, 0, 0.22352941, 1)

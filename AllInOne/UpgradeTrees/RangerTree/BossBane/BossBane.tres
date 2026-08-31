@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://dm8pxm11bmt3k" path="res://Scripts/MainScripts/UpgradeData.gd" id="1_ak72j"]
 [ext_resource type="PackedScene" uid="uid://cn1uhfen0fnat" path="res://AllInOne/UpgradeTrees/RangerTree/BossBane/BossBane.tscn" id="2_b2aoh"]
 
-
 [resource]
 script = ExtResource("1_ak72j")
 scene = ExtResource("2_b2aoh")
 upgrade_name = "Boss's Bane"
+upgrade_tree = 7
 upgrade_description = "On reload, shoot a black arrow at the strongest nearby enemy!"
 upgrade_rarity = 1
 spawns_projectile = true

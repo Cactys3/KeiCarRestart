@@ -6,4 +6,6 @@
 [resource]
 script = ExtResource("1_vvbhr")
 scene = ExtResource("2_wt61f")
+upgrade_name = "Highly Active"
+upgrade_tree = 7
 metadata/_custom_type_script = "uid://dm8pxm11bmt3k"

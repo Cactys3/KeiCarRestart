@@ -48,7 +48,9 @@ func _ready() -> void:
 			#print("Added Upgrade: ", upgrade.upgrade_name, ", At: ", ui.position)
 	for upgrade in list:
 		for prereq in upgrade.prerequisite_upgrades:
-			#print("Trying to find prereq:",  prereq.upgrade_name)
+			if !upgrades.has(prereq):
+				print("Can't find prereq:",  prereq.upgrade_name)
+				continue
 			var start = upgrades.get(prereq).position
 			var end = upgrades.get(upgrade).position
 			var line: Line2D = Line2D.new()

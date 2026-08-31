@@ -497,6 +497,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="UpgradesInteractiveDisplay" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1061954059 instance=ExtResource("13_u5ql4")]
+visible = false
 layout_mode = 0
 offset_left = 11.0
 offset_top = 193.0
@@ -516,18 +517,17 @@ vertical_alignment = 1
 
 [node name="UpgradeParent" type="GridContainer" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=584677558]
 layout_mode = 0
-offset_left = 1332.0
-offset_top = 59.0
-offset_right = 1926.0
-offset_bottom = 398.0
+offset_left = 590.0
+offset_top = 54.0
+offset_right = 1184.0
+offset_bottom = 393.0
 columns = 4
 
 [node name="TestingManager" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1798274506 node_paths=PackedStringArray("EnemyParent") instance=ExtResource("6_eeah7")]
-position = Vector2(1397, 422)
+position = Vector2(40, 185)
 EnemyParent = NodePath("../../../../../Window640/Offset/EnemyParent")
 
 [node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1841136718]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

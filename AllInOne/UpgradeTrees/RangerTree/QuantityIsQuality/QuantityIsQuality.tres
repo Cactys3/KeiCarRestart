@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://cioxrsjgwo60r" path="res://AllInOne/UpgradeTrees/RangerTree/QuantityIsQuality/QuantityIsQuality.tscn" id="2_deii2"]
 [ext_resource type="Resource" uid="uid://g0v6sseax4ep" path="res://AllInOne/UpgradeTrees/RangerTree/BearTrap/BearTrap.tres" id="2_dp7j8"]
 
-
 [resource]
 script = ExtResource("1_1nj35")
 scene = ExtResource("2_deii2")
 upgrade_name = "Quantity is Quality"
+upgrade_tree = 7
 upgrade_description = "On reload, spawn 3 additional bear traps!
 Your traps do 15% more damage!"
 upgrade_rarity = 2

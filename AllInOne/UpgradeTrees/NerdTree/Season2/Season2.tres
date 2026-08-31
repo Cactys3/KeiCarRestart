@@ -8,6 +8,7 @@
 script = ExtResource("1_ckda4")
 scene = ExtResource("3_qvwkq")
 upgrade_name = "Season 2"
+upgrade_tree = 2
 upgrade_description = "Everytime you finish an anime episode, create a catboy creation that fights for you."
 upgrade_rarity = 2
 prerequisite_upgrades = Array[ExtResource("1_ckda4")]([ExtResource("2_081bk")])

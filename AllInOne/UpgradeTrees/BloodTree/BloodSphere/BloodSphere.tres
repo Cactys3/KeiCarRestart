@@ -8,6 +8,7 @@
 script = ExtResource("1_y6ali")
 scene = ExtResource("2_g8qtv")
 upgrade_name = "Blood Sphere"
+upgrade_tree = 1
 upgrade_description = "Summon a blood sphere on reload that goes to the nearest enemy and explodes, applying extreme bleed.
 Your bleed sources apply 15% more bleed."
 upgrade_color = Color(0.69479764, 0, 0.22179353, 1)
