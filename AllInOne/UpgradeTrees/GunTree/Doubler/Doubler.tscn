@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://csatpi2rirhnh"]
 
+[ext_resource type="Script" uid="uid://cvq25w1h8miyu" path="res://AllInOne/UpgradeTrees/GunTree/Doubler/Doubler.gd" id="1_g0sfm"]
+
 [node name="Doubler" type="Node2D" unique_id=1666073964]
+script = ExtResource("1_g0sfm")

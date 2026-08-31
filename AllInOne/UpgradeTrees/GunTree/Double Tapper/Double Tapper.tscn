@@ -4,4 +4,3 @@
 
 [node name="DoubleTapper" type="Node2D" unique_id=1335559002]
 script = ExtResource("1_3j4i0")
-edits_attack = true

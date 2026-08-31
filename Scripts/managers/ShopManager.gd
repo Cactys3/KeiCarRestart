@@ -48,6 +48,8 @@ const SAWN_OFFER = "Sawn Offer"
 const SHOOTER = "Shooter"
 const SHOTGUNNER = "Shotgunner"
 const SNIPER = "Sniper"
+const TRICK_SHOTTER = "Trick Shotter"
+const TRIPLE_TAPPER = "Triple Tapper"
 ## Ghost Tree
 const FEAR = "Fear"
 const FEARY = "Feary"
@@ -177,6 +179,8 @@ const SAWN_OFFER_SCENE = preload("uid://b65xtxgjg303p")
 const SHOOTER_SCENE = preload("uid://bf2piulie2y2j")
 const SHOTGUNNER_SCENE = preload("uid://gtvp5nbu6s2p")
 const SNIPER_SCENE = preload("uid://cxs1shm5mrgni")
+const TRICK_SHOTTER_SCENE = preload("uid://dtelybtqloo15")
+const TRIPLE_TAPPER_SCENE = preload("uid://0pufg6st1oqc")
 ## Ghost Tree
 const FEAR_SCENE = preload("uid://cwxpg0qrpjk8k")
 const FEARY_SCENE = preload("uid://b3yf4m2mleant")
@@ -333,6 +337,8 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	SHOOTER: SHOOTER_SCENE,
 	SHOTGUNNER: SHOTGUNNER_SCENE,
 	SNIPER: SNIPER_SCENE,
+	TRICK_SHOTTER: TRICK_SHOTTER_SCENE,
+	TRIPLE_TAPPER: TRIPLE_TAPPER_SCENE,
 	## Fear Tree
 	FEAR: FEAR_SCENE,
 	FEARY: FEARY_SCENE,

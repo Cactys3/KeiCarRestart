@@ -44,9 +44,9 @@ var PISTOL: duple = duple.new("Pistol", ShopManager.PISTOL)
 var SHOTGUN: duple = duple.new("Shotgun", ShopManager.SHOTGUN)
 var SHURIKEN: duple = duple.new("Shuriken", ShopManager.SHURIKEN)
 ## Choice Variables
-var character: int = 0 ## Chosen character
+var character: int = 1 ## Chosen character
 var map: int = 1 ## Chosen map
-var weapon: int = 3 ## Chosen weapon
+var weapon: int = 1 ## Chosen weapon
 var ability1: AbilityData = null
 var ability2: AbilityData = null
 var ability3: AbilityData = null

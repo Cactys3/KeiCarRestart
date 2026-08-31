@@ -4,3 +4,4 @@
 
 [node name="EliteSniper" type="Node2D" unique_id=1205349680]
 script = ExtResource("1_saeof")
+edits_attack = true

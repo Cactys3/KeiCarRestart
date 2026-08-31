@@ -13,7 +13,8 @@ var game_man: GameManager:
 @export var can_be_knockbacked: bool = true
 @export var can_be_stunned: bool = true
 ## Stats
-@export var movespeed: float = 30:
+const default_movespeed: float = 30
+@export var movespeed: float = default_movespeed:
 	get():
 		return (movespeed + Statics.player_movespeed_buff) * Statics.player_movespeed_factor
 ## Max Health for the player
@@ -207,9 +208,10 @@ func handle_moving(delta) -> void:
 			anim.flip_h = true
 		if (sign(velocity.x) < 0):
 			anim.flip_h = false
-func damage(attack: Attack):
+## Send an attack to damage the player, returns if the player died from this attack
+func damage(attack: Attack) -> bool:
 	if GameInstance.is_game_over:
-		return
+		return false
 	## Pass attack through upgrades
 	if attack.attacker is Enemy:
 		attack = GameManager.instance.handle_incoming_attack(attack, attack.attacker, self)
@@ -241,12 +243,15 @@ func damage(attack: Attack):
 	if can_be_knockbacked && attack.get_knockback() != 0:
 		#print("knockback: ", (global_position - attack.position).normalized() * attack.get_knockback() * knockback_modifier, " vs velocity: ", velocity)
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.get_knockback() * knockback_modifier)
+	var died: bool = false
 	if game_man.curr_hp <= 0:
 		die(attack)
+		died = true
 	## This shit doesn't work for some fucked up reason when it's preloaded
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
 	dmg_text.setup_color(str(int(round(attack.get_damage()))), net_damage + 36, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), Color.RED)
+	return died
 ## Handles Revives and Events on player death
 func die(attack: Attack):
 	if !GameInstance.is_game_over:

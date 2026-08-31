@@ -118,9 +118,9 @@ func get_new_target():
 func die():
 	parent.active_creations.erase(self)
 	queue_free()
-func damage(attack: Attack):
+func damage(attack: Attack) -> bool:
 	if GameInstance.is_game_over || !can_be_damaged:
-		return
+		return false
 	## Consider Stance
 	var net_damage = attack.get_damage() - stance_stat
 	if GlobalStats.calculate_avoid_damage(Statics.creation_dodge_buff):
@@ -146,13 +146,16 @@ func damage(attack: Attack):
 	## Knockback is applied fully for 1 frame as the player's own movement code then overwrites it quickly on the following frames.
 	if can_be_knockedback && attack.get_knockback() != 0:
 		apply_knockback(attack.get_knockback() * knockback_modifier, attack.position)
+	var died: bool = false
 	if game_man.curr_hp <= 0:
 		game_man.CreationKilled.emit(self, attack)
 		die()
+		died = true
 	## This shit doesn't work for some fucked up reason when it's preloaded
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
 	dmg_text.setup_color(str(int(round(attack.get_damage()))), net_damage + 36, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), Color.RED)
+	return died
 func ProcessDirection(delta: float):
 	## Setup
 	direction = direction.normalized() 

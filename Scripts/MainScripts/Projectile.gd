@@ -39,7 +39,7 @@ var prebuilt_attack: Attack = null
 var death_method: Callable
 var specific_target: bool = false
 var keep_starting_direction_stopwatch: float = 0
-
+var current_damage_buff: float = 1
 ## Setup
 func _ready() -> void:
 	super()
@@ -159,13 +159,13 @@ func attack_body(body: Node2D) -> void:
 	append_attack_element(body)
 	attack_counter += 1
 	var attack: Attack = null
-	var damage_offset: float = 1
+	var damage_offset: float = current_damage_buff
 	## If multiple projectiles and is from player
-	if attack_source == Attack.AttackSources.player:
-		damage_offset -= Statics.additional_projectiles_damage_debuff
+	if attack_source == Attack.AttackSources.weapon:
+		damage_offset -= max(0, Statics.additional_projectiles_damage_debuff)
 	## If is clone, replace the default 1 with clone offset
 	if is_clone:
-		damage_offset += -1 + clone_offset
+		damage_offset = damage_offset * clone_offset
 	## Use prebuilt attack as 1st prio
 	if prebuilt_attack:
 		attack = prebuilt_attack
@@ -180,7 +180,13 @@ func attack_body(body: Node2D) -> void:
 		attack = make_attack(damage_offset)
 	if attack:
 		edit_attack_before_sending(attack)
-		body.damage(attack)
+		var killed: bool = body.damage(attack)
+		## Handle Piercing Damage Buff Augments
+		if Statics.projectile_pierce_damage_buff > 0:
+			if Statics.projectile_pierce_damage_buff_doubled_on_kill && killed:
+				current_damage_buff += Statics.projectile_pierce_damage_buff * 2
+			else:
+				current_damage_buff += Statics.projectile_pierce_damage_buff
 ## In-case overrides want to edit the attack
 func edit_attack_before_sending(attack: Attack):
 	pass

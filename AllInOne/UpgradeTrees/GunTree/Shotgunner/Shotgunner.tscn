@@ -4,3 +4,4 @@
 
 [node name="Shotgunner" type="Node2D" unique_id=1719754271]
 script = ExtResource("1_fhso2")
+edits_attack = true

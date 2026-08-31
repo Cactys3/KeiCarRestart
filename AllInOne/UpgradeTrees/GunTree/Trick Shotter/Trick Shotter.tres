@@ -7,6 +7,7 @@
 script = ExtResource("1_igluc")
 scene = ExtResource("2_2fcl6")
 upgrade_name = "Trickshotter"
+upgrade_tree = 3
 upgrade_description = "Your projectiles deal 10% more damage each time they pass through an enemy, doubled if they kill it"
 upgrade_rarity = 3
 gives_projectiles_stats = true

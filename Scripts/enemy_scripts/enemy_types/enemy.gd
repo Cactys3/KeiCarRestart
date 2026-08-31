@@ -740,9 +740,10 @@ func is_player_nearby(distance: float) -> bool:
 	if global_position.distance_to(player.global_position) <= distance:
 		return true
 	return false
-func damage(attack: Attack):
+## Pass an attack to damage the enemy, returns if the attack killed the enemy
+func damage(attack: Attack) -> bool:
 	if GameInstance.is_game_over || !ImReady:
-		return
+		return false
 	## Pass attack through upgrades
 	attack = GameManager.instance.handle_attack_enemy(attack, self)
 	## Apply Status Effect Changes (doesn't apply status effect effects yet)
@@ -813,7 +814,7 @@ func damage(attack: Attack):
 	if wet_damage > 0:
 		display_damage(wet_damage, Color.BLUE, attack.get_crit())
 	## Die.
-	check_death(attack)
+	return check_death(attack)
 
 func death_signal(attack: Attack):
 	GameManager.instance.EnemyKilled.emit(self, attack)
