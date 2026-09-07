@@ -52,7 +52,7 @@ func _ready() -> void:
 	max_enemies = default_max_enemies
 	win_time = 60 * 20
 	enemy_cooldown = 1
-	spawning_phase = -1
+	spawning_phase = 0
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide
 	
@@ -89,20 +89,20 @@ func phase_test():
 	print("PHASE TEST")
 	generic_phase_setup(1)
 	## Shape Event
-	#var event: EnemyEventSpawn = EnemyEventSpawn.new("Shape", ENEMY_SHAPE_EVENT, 1, true, 1)
-	#event.setup_shape(APPLE, 50, EnemyShapeSpawn.Shapes.star, 200, true)
-	#enemy_events.append(event)
-	## Enemies
-	#enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
-	#enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
-	#enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
-	#enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
-	#enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
-	#enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
-	#enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
-	## Bosses
-	#bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
-	#bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
+	var event: EnemyEventSpawn = EnemyEventSpawn.new("Shape", ENEMY_SHAPE_EVENT, 1, true, 1)
+	event.setup_shape(APPLE, 50, EnemyShapeSpawn.Shapes.star, 200, true)
+	enemy_events.append(event)
+	# Enemies
+	enemies.append(EnemySpawn.new(APPLE, 0.1, 1))
+	enemies.append(EnemySpawn.new(BANANA, 0.1, 1))
+	enemies.append(EnemySpawn.new(CARROT, 0.1, 1))
+	enemies.append(EnemySpawn.new(CHERRIES, 0.1, 1))
+	enemies.append(EnemySpawn.new(ORANGE, 0.1, 1))
+	enemies.append(EnemySpawn.new(PICKLE, 0.1, 1))
+	enemies.append(EnemySpawn.new(WATERMELON, 0.1, 1))
+	# Bosses
+	bosses.append(BossSpawn.new(-1, -1, DRAGONFRUIT, true, -1, -1))
+	bosses.append(BossSpawn.new(-1, -1, TOMATOE, true, -1, -1))
 
 func phase_one():
 	print("PHASE 1")
