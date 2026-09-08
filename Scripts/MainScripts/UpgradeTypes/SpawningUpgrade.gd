@@ -41,7 +41,7 @@ func _process(delta: float) -> void:
 				reloads_since_last_spawn -= spawn_every_x_reloads
 				spawn()
 		if spawn_with_cd:
-			stopwatch += delta
+			stopwatch = progress_stopwatch(stopwatch, delta)
 			var spawned: bool = false
 			if stopwatch >= (spawn_every_seconds * spawn_every_seconds_cd_reduction_factor):
 				spawn()
@@ -122,3 +122,5 @@ func setup_cooldown_ui():
 func kill_cooldown_ui():
 	if cooldownUI != null:
 		cooldownUI.kill()
+func progress_stopwatch(stopwatch: float, delta: float) -> float:
+	return stopwatch + (delta * Statics.upgrade_cooldown_rate)

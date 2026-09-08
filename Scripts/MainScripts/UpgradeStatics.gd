@@ -21,6 +21,8 @@ static var global_projectile_size_buff: float = 0
 
 ## General Upgrade Buffs
 static var upgrade_buff_duration_buff: float = 0 ## Duration of buffs applied by upgrades that are limited time
+static var upgrade_cooldown_rate: float = 1 ## Number of seconds added to cooldown stopwatch each second
+
 
 ## Status Buffs
 ## Increase debuff by x each proc
