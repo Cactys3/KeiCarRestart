@@ -34,6 +34,8 @@ const PROCRASTINATION = "Procrastination"
 const SCISSOR_SWORD = "ScissorSword"
 const SEASON_2 = "Season2"
 const STACKING_STACKS = "StackingStacks"
+const DOUBLE_TIME = "DoubleTime"
+const TRIPLE_TIME = "TripleTime"
 ## Gun Tree
 const COLLATTER = "Collater"
 const DOUBLE_TAPPER = "Double Tapper"
@@ -165,6 +167,8 @@ const PROCRASTINATION_SCENE = preload("uid://dx6wgy5svc6kc")
 const SCISSOR_SWORD_SCENE = preload("uid://buhep55sdrfhg")
 const SEASON_2_SCENE = preload("uid://ddcrdjhonahcv")
 const STACKING_STACKS_SCENE = preload("uid://j60crhb84rib")
+const DOUBLE_TIME_SCENE = preload("uid://b3dgtuffw8wda")
+const TRIPLE_TIME_SCENE = preload("uid://b6e8620nty8qc")
 ## Gun Tree
 const COLLATTER_SCENE = preload("uid://bbfk1pjw6njcq")
 const DOUBLE_TAPPER_SCENE = preload("uid://u660hwlc234c")
@@ -323,6 +327,8 @@ const upgrade_list: Dictionary [String, UpgradeData] = {
 	SCISSOR_SWORD: SCISSOR_SWORD_SCENE,
 	SEASON_2: SEASON_2_SCENE,
 	STACKING_STACKS: STACKING_STACKS_SCENE,
+	DOUBLE_TIME: DOUBLE_TIME_SCENE,
+	TRIPLE_TIME: TRIPLE_TIME_SCENE,
 	## Gun Tree
 	COLLATTER: COLLATTER_SCENE,
 	DOUBLE_TAPPER: DOUBLE_TAPPER_SCENE,

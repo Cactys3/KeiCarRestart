@@ -140,7 +140,7 @@ func damage(attack: Attack) -> bool:
 	if net_damage > 0:
 		game_man.damage_player(net_damage)
 	## Stun currently prevents the player from inputting movements, this means that the currently velocity (including knockback) will apply fully for the duration of the stun
-	if can_be_stunned && attack.stun != 0:
+	if can_be_stunned && attack.stun_duration != 0:
 		stun_time_left += attack.get_stun()
 		stunning = true
 	## Knockback is applied fully for 1 frame as the player's own movement code then overwrites it quickly on the following frames.

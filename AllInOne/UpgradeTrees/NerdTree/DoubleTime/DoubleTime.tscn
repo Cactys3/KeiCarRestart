@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bj3th23ghpf8o"]
+
+[ext_resource type="Script" uid="uid://cio8mte5dtt48" path="res://AllInOne/UpgradeTrees/NerdTree/DoubleTime/DoubleTime.gd" id="1_w0uk2"]
+
+[node name="DoubleTime" type="Node2D" unique_id=1778263142]
+script = ExtResource("1_w0uk2")
