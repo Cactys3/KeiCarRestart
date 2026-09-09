@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_rk8wj"]
 [ext_resource type="Texture2D" uid="uid://dnxosp62f661s" path="res://AllInOne/UpgradeTrees/TankTree/LanceProtector/LanceProtectorSummon.png" id="2_feuny"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_feuny"]
+size = Vector2(21, 3)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_feuny"]
 atlas = ExtResource("2_feuny")
 region = Rect2(576, 0, 64, 64)
@@ -13,23 +16,26 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_feuny")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_feuny"]
-size = Vector2(21, 3)
 
 [node name="LanceProjectile" type="Area2D" unique_id=695578732 node_paths=PackedStringArray("anim")]
 collision_layer = 4100
 collision_mask = 648
 script = ExtResource("1_rk8wj")
 anim = NodePath("AnimatedSprite2D")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=127233840]
-sprite_frames = SubResource("SpriteFrames_psmep")
+_damage = 40.0
+_velocity = 40.0
+_piercing = 10.0
+_duration = 20.0
+_luck = 4.0
+_weight = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=531138073]
 position = Vector2(13.5, -0.5)
 shape = SubResource("RectangleShape2D_feuny")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=127233840]
+sprite_frames = SubResource("SpriteFrames_psmep")

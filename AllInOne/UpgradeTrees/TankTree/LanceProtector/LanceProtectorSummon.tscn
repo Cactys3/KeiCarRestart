@@ -61,7 +61,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0ur5k")
 }],
-"loop": false,
+"loop": 0,
 "name": &"attack",
 "speed": 10.0
 }, {
@@ -75,16 +75,24 @@ animations = [{
 "duration": 0.5,
 "texture": SubResource("AtlasTexture_yxdmc")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
 
 [node name="LanceProtectorSummon" type="Area2D" unique_id=71003138 node_paths=PackedStringArray("anim")]
 script = ExtResource("1_dww5j")
+AimType = 6
+MovementType = 3
 anim = NodePath("AnimatedSprite2D")
 shoots_projectile = true
 projectile_scene = ExtResource("2_fxmhk")
+flip_left_right = true
+_range = 80.0
+_attackcooldown = 1.0
+_reloadtime = 1.0
+_ammo = 2.0
+_velocity = 40.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=521666162]
 sprite_frames = SubResource("SpriteFrames_3nvx1")

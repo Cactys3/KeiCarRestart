@@ -87,6 +87,7 @@ const NO_ANIMATION_NAME: String = "no animation"
 @export var damage_hitbox: Area2D 
 @export var health_hitbox: Area2D 
 @export var minion_block: CollisionShape2D
+const stun_on_knockback: float = 0.5
 ## Current values of each status that have been damaged into this enemy
 var burn: float = 0
 var frost: float = 0
@@ -331,6 +332,8 @@ func _physics_process(delta: float) -> void:
 		return
 	if !stunned:
 		movement_process(delta)
+	else:
+		linear_velocity = linear_velocity.move_toward(Vector2.ZERO, 500 * delta)
 	status_process(delta)
 ## Overriden by extender for custom enemy movement
 func movement_process(_delta: float) -> void:
@@ -806,6 +809,8 @@ func damage(attack: Attack) -> bool:
 			stunned = true
 			linear_velocity = Vector2.ZERO
 	if can_move && can_be_knockbacked && attack.get_knockback() != 0:
+		stun_time_left = stun_on_knockback ## TODO: stun?
+		stunned = true
 		apply_knockback(attack.position, attack.get_knockback())
 	if attack_damage > 0:
 		display_damage(attack_damage, attack.attack_color, attack.get_crit())

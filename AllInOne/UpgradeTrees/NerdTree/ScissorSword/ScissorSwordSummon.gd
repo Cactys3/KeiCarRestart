@@ -59,8 +59,6 @@ var max_angular_velocity: float = 10
 var queued_attacks: int = 0
 var checked_right_last: bool = false
 
-func shoot_projectile() -> Projectile:
-	return super()
 func melee_attack():
 	## Find an enemy
 	var avoided_list: Array[Enemy] = []

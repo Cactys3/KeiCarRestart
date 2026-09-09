@@ -146,7 +146,7 @@ attenuation = 7.779313e-05
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
 
 [node name="TestDummy" parent="Window640/Offset/EnemyParent" unique_id=394138288 instance=ExtResource("15_u5ql4")]
-position = Vector2(114, 117)
+position = Vector2(-64, 2)
 
 [node name="ProjectileParent" type="Node2D" parent="Window640/Offset" unique_id=1081666723]
 

@@ -34,7 +34,8 @@ func set_type(type: EggUpgrade.Versions):
 			anim.frame = EXTRA_FRAME
 			printerr("Trying to set Hatchling Summon Status Type but invalid type: ", type)
 ## Set the type of the dragon projectile we spawn
-func shoot_projectile() -> Projectile:
+func shoot_projectiles() -> Array[Projectile]:
 	var ret = super()
-	ret.set_type(status_type)
+	for projectile in ret:
+		projectile.set_type(status_type)
 	return ret
