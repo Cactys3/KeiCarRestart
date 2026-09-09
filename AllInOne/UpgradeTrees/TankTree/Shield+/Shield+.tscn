@@ -4,3 +4,4 @@
 
 [node name="Shield+" type="Node2D" unique_id=899832853]
 script = ExtResource("1_0flii")
+connect_player_maxhp_changed = true

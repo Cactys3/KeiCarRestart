@@ -26,6 +26,8 @@ var old_version_toggle: bool = false
 @export var expand_bar: bool = false
 @export var expand_bar_without_raising_max: bool = false
 @export var reset_on_full: bool = false
+@export var expand_bar_right: bool = true
+@export var starting_location: Vector2 = Vector2(INF, INF)
 @export_subgroup("Values")
 ## Multiplied to inputted values to transform them to size values
 @export var value_multiplier: float = 1
@@ -68,6 +70,8 @@ func _ready() -> void:
 	## Set Values
 	set_value(start_value)
 	set_max(start_max)
+	if starting_location != Vector2(INF, INF):
+		position = starting_location
 func _process(delta: float) -> void:
 	## Make sure sizes are correct
 	if bar_background.size.x != max_value:
@@ -155,6 +159,9 @@ func set_max(value: float) -> void:
 	else:
 		printerr("trying to set max_width lower than 1")
 func _set_max_width(value: float):
+	if expand_bar_right && max_value != value:
+		position += Vector2((value - max_value) / 2, 0)
+		print("Move: ", (value - max_value) / 2)
 	max_value = value
 	if old_version_toggle:
 		## Sets the background-parent, overall bar width (instead of bar-middle)

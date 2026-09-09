@@ -7,5 +7,7 @@ func _process(delta: float) -> void:
 func start_venging():
 	## Start attacking?
 	pass
-
+func start_scaling():
+	## Scale?
+	pass
 ## For sure has custom stuff

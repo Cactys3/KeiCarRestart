@@ -9,51 +9,97 @@ var game_man: GameManager:
 @export var pickup_range: CollisionShape2D
 @export var anim: AnimatedSprite2D
 @export var face_towards_velocity: bool = true
-@export var knockback_modifier: float = 1.2
+@export var knockback_modifier_base: float = 1.2
 @export var can_be_knockbacked: bool = true
 @export var can_be_stunned: bool = true
 ## Stats
 const default_movespeed: float = 30
-@export var movespeed: float = default_movespeed:
+var knockback_modifier: float = 1.2
+
+@export var movespeed_base: float = default_movespeed
+@export var health_base: float = 100
+@export var shield_base: float = 20
+@export var stance_base: float = 0
+@export var size_base: float = 1
+@export var xp_gain_base: float = 1
+@export var mogul_base: float = 1
+@export var regen_base: float = 3
+@export var lifesteal_base: float = 0
+@export var revives_base: float = 0
+@export var thorns_base: float = 0
+var movespeed: float = default_movespeed:
 	get():
-		return (movespeed + Statics.player_movespeed_buff) * Statics.player_movespeed_factor
-## Max Health for the player
-@export var health: float = 100:
-	get():
-		return health + GlobalStats.get_stat(GlobalStats.HP)
+		return (movespeed + Statics.player_movespeed_buff)
+var max_health: float = health_base:
 	set(value):
-		health = value
-		GameManager.instance.ui_man.set_max_hp(value)
-@export var shield: float = 20:
-	get():
-		return shield + GlobalStats.get_stat(GlobalStats.SHIELD)
+		var old_maxhealth: float = max_health
+		max_health = value
+		var difference: float = max_health - old_maxhealth
+		## If adding max hp, add health
+		if difference > 0:
+			game_man.curr_hp = game_man.curr_hp + difference
+		GameManager.instance.ui_man.set_max_hp(max_health)
+		## Emit Signal on actual max health change
+		if max_health != old_maxhealth:
+			game_man.PlayerMaxHealthChange.emit(max_health, old_maxhealth)
+var max_shield: float = shield_base:
 	set(value):
-		shield = value
-		GameManager.instance.ui_man.set_max_shield(value)
-@export var stance: float = 0:
+		var old_maxshield: float = max_shield
+		max_shield = value
+		var difference: float = max_shield - old_maxshield
+		## If adding max shield, add shield
+		if max_shield != old_maxshield:
+			pass
+		if difference > 0:
+			game_man.curr_shield = game_man.curr_shield + difference
+		GameManager.instance.ui_man.set_max_shield(max_shield)
+		## Emit Signal on actual shield change
+		if max_shield > old_maxshield:
+			game_man.PlayerShieldChanged.emit(max_shield, old_maxshield)
+var stance: float = 0:
 	get():
 		return stance + GlobalStats.get_stat(GlobalStats.STANCE)
-@export var size: float = 1:
+var size: float = 1:
 	get():
-		return (size + Statics.player_size_buff) * Statics.player_size_factor
-@export var xp_gain: float = 1:
+		return (size + Statics.player_size_buff)
+var xp_gain: float = 1:
 	get():
 		return xp_gain + GlobalStats.get_stat(GlobalStats.XP)
-@export var mogul: float = 1:
+var mogul: float = 1:
 	get():
 		return mogul + GlobalStats.get_stat(GlobalStats.MOGUL)
-@export var regen: float = 3:
+var regen: float = 3:
 	get():
 		return regen + GlobalStats.get_stat(GlobalStats.REGEN)
-@export var lifesteal: float = 0:
+var lifesteal: float = 0:
 	get():
 		return lifesteal + GlobalStats.get_stat(GlobalStats.LIFESTEAL)
-@export var thorns: float = 0:
+var thorns: float = 0:
 	get():
 		return thorns + GlobalStats.get_stat(GlobalStats.THORNS)
-@export var revives: float = 0:
+var revives: float = 0:
 	get():
 		return revives + GlobalStats.get_stat(GlobalStats.REVIES)
+
+func stats_changed():
+	## Set Max Stat Values
+	max_health = (health_base + Statics.player_hp_buff + GlobalStats.get_base_stat(GlobalStats.HP)) * GlobalStats.get_factor_stat(GlobalStats.HP)
+	movespeed = (movespeed_base + Statics.player_movespeed_buff + GlobalStats.get_base_stat(GlobalStats.MOVESPEED)) * GlobalStats.get_factor_stat(GlobalStats.MOVESPEED)
+	max_shield = (shield_base + Statics.player_shield_buff + GlobalStats.get_base_stat(GlobalStats.SHIELD)) * GlobalStats.get_factor_stat(GlobalStats.SHIELD)
+	stance = (stance_base + Statics.player_stance_buff + GlobalStats.get_base_stat(GlobalStats.STANCE)) * GlobalStats.get_factor_stat(GlobalStats.STANCE)
+	size = (size_base + Statics.player_size_buff + GlobalStats.get_base_stat(GlobalStats.SIZE)) * GlobalStats.get_factor_stat(GlobalStats.SIZE)
+	xp_gain = (xp_gain_base + Statics.player_xp_gain_buff + GlobalStats.get_base_stat(GlobalStats.XP)) * GlobalStats.get_factor_stat(GlobalStats.XP)
+	mogul = (mogul_base + Statics.player_mogul_buff + GlobalStats.get_base_stat(GlobalStats.MOGUL)) * GlobalStats.get_factor_stat(GlobalStats.MOGUL)
+	regen = (regen_base + Statics.player_regen_buff + GlobalStats.get_base_stat(GlobalStats.REGEN)) * GlobalStats.get_factor_stat(GlobalStats.REGEN)
+	lifesteal = (lifesteal_base + Statics.player_lifesteal_buff + GlobalStats.get_base_stat(GlobalStats.LIFESTEAL)) * GlobalStats.get_factor_stat(GlobalStats.LIFESTEAL)
+	thorns = (thorns_base + Statics.player_thorns_buff + GlobalStats.get_base_stat(GlobalStats.THORNS)) * GlobalStats.get_factor_stat(GlobalStats.THORNS)
+	revives = (revives_base + Statics.player_revives_buff + GlobalStats.get_base_stat(GlobalStats.REVIES)) * GlobalStats.get_factor_stat(GlobalStats.REVIES)
+	
+	## Change Current Values
+	pickup_range.shape.radius = (default_pickup_radius + Statics.player_magnetize_buff)
+	global_scale = Vector2(size, size)
+	knockback_modifier = knockback_modifier_base + Statics.player_knockback_resistance_buff
+
 ## Variables
 var can_be_damaged: bool = true
 var damageable_object: Node2D = self
@@ -130,12 +176,9 @@ func setup():
 		Ability2.setup(self, 2)
 	if has_ability3:
 		Ability3.setup(self, 3)
-func stats_changed():
-	# hp, size, xp gain, money gain, magentize etc
-	pickup_range.shape.radius = (default_pickup_radius + Statics.player_magnetize_buff) * Statics.player_magnetize_factor
-	global_scale = Vector2(size, size)
-	game_man.curr_hp = game_man.curr_hp ## checks maxhp to setup UI properly
-	game_man.shield = game_man.shield ## checks maxshield to setup UI properly
+
+func change_max_hp(change: float):
+	max_health = max_health + change
 func _process(_delta: float) -> void:
 	if GameInstance.is_game_over:
 		return
@@ -176,13 +219,13 @@ func _physics_process(delta: float) -> void:
 		last_known_velocity = velocity
 func handle_regens(delta: float) -> void:
 	## Regen shield if hasn't taken damage in awhile
-	if time_since_taken_damage >= shield_cooldown && game_man.shield < shield:
-		game_man.shield += 5 * delta
+	if time_since_taken_damage >= shield_cooldown && game_man.curr_shield < max_shield:
+		game_man.curr_shield += 5 * delta
 	## Regen happens once every second
 	regen_stopwatch += delta
 	if regen_stopwatch >= regen_cooldown:
 		regen_stopwatch = 0
-		if regen > 0 && game_man.curr_hp < health:
+		if regen > 0 && game_man.curr_hp < max_health:
 			game_man.heal_player(GlobalStats.calculate_regen(regen))
 func handle_moving(delta) -> void:
 	var is_moving = false
@@ -223,15 +266,15 @@ func damage(attack: Attack) -> bool:
 		game_man.PlayerDamaged.emit(self, attack)
 		time_since_taken_damage = 0
 	## Consider Sheild
-	if net_damage > 0 && game_man.shield > 0:
+	if net_damage > 0 && game_man.curr_shield > 0:
 		## Emit shield damaged for upgrades
-		game_man.PlayerShieldDamaged.emit(self, attack, min(net_damage, game_man.shield))
-		if (game_man.shield > net_damage):
-			game_man.shield -= net_damage
+		game_man.PlayerShieldDamaged.emit(self, attack, min(net_damage, game_man.curr_shield))
+		if (game_man.curr_shield > net_damage):
+			game_man.curr_shield -= net_damage
 			net_damage = 0
 		else:
-			net_damage -= game_man.shield
-			game_man.shield = 0
+			net_damage -= game_man.curr_shield
+			game_man.curr_shield = 0
 	## Consider HP
 	if net_damage > 0:
 		game_man.damage_player(net_damage)

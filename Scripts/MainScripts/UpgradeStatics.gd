@@ -39,17 +39,19 @@ static var burn_buff_factor: float = 1
 static var reload_spawns_count_buff: int = 0
 ## Player Buffs
 static var player_movespeed_buff: float = 0
-static var player_movespeed_factor: float = 1
 static var player_size_buff: float = 0
-static var player_size_factor: float = 1
-static var player_magnetize_buff: float = 1
-static var player_magnetize_factor: float = 1
+static var player_xp_gain_buff: float = 0
+static var player_magnetize_buff: float = 0
 static var player_ghostly_buff: float = 0
+static var player_mogul_buff: float = 0
 static var player_hp_buff: float = 0
 static var player_regen_buff: float = 0
+static var player_lifesteal_buff: float = 0
+static var player_thorns_buff: float = 0
 static var player_shield_buff: float = 0
+static var player_revives_buff: float = 0
 static var player_stance_buff: float = 0
-static var player_knockback_resistance_factor: float = 1
+static var player_knockback_resistance_buff: float = 0
 ## Trackers for specific Upgrades
 static var enemies_lose_health_while_feared: float = 0 # value > 0 means true
 static var bleeds_crit_on_enemy: float = 0 # value > 0 means true

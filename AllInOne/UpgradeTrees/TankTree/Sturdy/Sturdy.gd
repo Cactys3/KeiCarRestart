@@ -3,28 +3,12 @@ extends Upgrade
 #
 func activate(new_player: Character):
 	super(new_player)
-	Statics.player_knockback_resistance_factor += knockback_resist_buff
+	Statics.player_knockback_resistance_buff += knockback_resist_buff
 	Statics.player_stance_buff += stance_buff
 func deactivate():
 	super()
-	Statics.player_knockback_resistance_factor -= knockback_resist_buff
+	Statics.player_knockback_resistance_buff -= knockback_resist_buff
 	Statics.player_stance_buff -= stance_buff
-func edit_attack(attack: Attack) -> Attack:
-	return super(attack)
-func edit_attack_enemy(attack: Attack, enemy: Enemy) -> Attack:
-	return super(attack, enemy)
-func edit_stats():
-	super()
-func disable_upgrade(upgrade: Upgrade):
-	super(upgrade)
-func apply_buff():
-	super()
-func remove_buff():
-	super()
-func _process(delta: float) -> void:
-	super(delta)
-func upgrade_cooldown_finished(upgrade: Upgrade):
-	super(upgrade)
 
-const knockback_resist_buff: float = 0.2
+const knockback_resist_buff: float = 0.8
 const stance_buff: float = 5

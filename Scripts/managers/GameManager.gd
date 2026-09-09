@@ -53,9 +53,9 @@ var money_gain_modifier: float:
 		return max(0.1, 1 + (player.mogul - 1) / 100)
 
 var revives_used: int = 0
-var shield: float = 0:
+var curr_shield: float = 0:
 	set(value):
-		shield = value
+		curr_shield = value
 		ui_man.set_shield(value)
 var max_hp: float = 100:
 	set(value):
@@ -131,6 +131,7 @@ signal PlayerRevived(player: Character)
 signal PlayerKilled(player: Character, attack: Attack)
 signal PlayerHeal(hp_change: float, is_regen: bool)
 signal PlayerMaxHealthChange(new_maxhp: float, old_maxhp: float)
+signal PlayerShieldChanged(new_shield: float, old_shield: float)
 signal EventKilled(event: Event, attack: Attack)
 ## Stats
 signal StatsChanged
@@ -171,14 +172,15 @@ func setup(new_player: Character, starting_weapon: String, new_camera: Camera2D)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	EnemyKilled.connect(enemy_killed)
 	PlayerDamaged.connect(player_damaged)
+	StatsChanged.connect(player.stats_changed)
 func defer_once(starting_weapon: String):
 	call_deferred("defer_twice", starting_weapon)
 ## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
 func defer_twice(starting_weapon: String):
 	player.setup()
 	revives_used = 0
-	curr_hp = player.health
-	shield = player.shield
+	curr_hp = player.max_health
+	curr_shield = player.max_shield
 	level = 1
 	xp = 0
 	money = starting_money
@@ -346,7 +348,7 @@ func pause(value: bool):
 			get_tree().paused = false
 ## Signal Connections
 func enemy_killed(enemy: Enemy, attack: Attack):
-	if player.lifesteal > 0 && curr_hp < player.health:
+	if player.lifesteal > 0 && curr_hp < player.max_health:
 		heal_player(player.lifesteal)
 func player_damaged(playah: Character, attack: Attack):
 	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage") && "can_be_damaged" in attack.attacker && attack.attacker.get("can_be_damaged"):

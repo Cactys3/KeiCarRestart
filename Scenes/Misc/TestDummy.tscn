@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c7ml575wembpr" path="res://Scripts/enemy_scripts/enemy_types/test_dummy.gd" id="1_vdjik"]
 [ext_resource type="Texture2D" uid="uid://3qvsw4eqvmhy" path="res://Art/Enemies/TestDummy/TestDummy.png" id="2_330uj"]
 [ext_resource type="PackedScene" uid="uid://8gk2j7xci4du" path="res://Scenes/Misc/EntityParticles.tscn" id="3_330uj"]
+[ext_resource type="Script" uid="uid://c3vk5w78pssi3" path="res://Scripts/misc/HealthHitbox.gd" id="4_u7ysu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7ysu"]
 atlas = ExtResource("2_330uj")
@@ -14,7 +15,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u7ysu")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
@@ -22,23 +23,20 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_330uj"]
 size = Vector2(10, 27)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_330uj"]
-radius = 6.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u7ysu"]
 size = Vector2(12, 29)
 
-[node name="TestDummy" type="RigidBody2D" unique_id=394138288 node_paths=PackedStringArray("damage_hitbox")]
-collision_layer = 8
-collision_mask = 0
+[sub_resource type="CircleShape2D" id="CircleShape2D_330uj"]
+radius = 6.0
+
+[node name="TestDummy" type="RigidBody2D" unique_id=394138288]
 gravity_scale = 0.0
 script = ExtResource("1_vdjik")
 enemy_name = "Test Dummy"
 enemy_description = "Dummy to test on"
-damage_hitbox = NodePath("Damage_Hitbox")
 can_be_knockbacked = false
-base_movespeed = 0.0
 base_health = 300.0
+base_movespeed = 0.0
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="." unique_id=1794963131]
 sprite_frames = SubResource("SpriteFrames_r05m0")
@@ -51,20 +49,21 @@ offset = Vector2(0, -8.385)
 collision_layer = 16
 collision_mask = 130
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=826053689]
+[node name="Damage_Hitbox" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=826053689]
 position = Vector2(0, -6.5)
 shape = SubResource("RectangleShape2D_330uj")
 
-[node name="MinionBlock" type="Area2D" parent="." unique_id=1421807343]
+[node name="Health_Hitbox" type="Area2D" parent="." unique_id=1421807343]
 collision_layer = 32
 collision_mask = 32
+script = ExtResource("4_u7ysu")
 
-[node name="MinionBlock" type="CollisionShape2D" parent="MinionBlock" unique_id=792532649]
-position = Vector2(0, -6)
-shape = SubResource("CircleShape2D_330uj")
-
-[node name="Health_Hitbox" type="CollisionShape2D" parent="." unique_id=1546881312]
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_Hitbox" unique_id=1546881312]
 position = Vector2(0, -6.5)
 shape = SubResource("RectangleShape2D_u7ysu")
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=792532649]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_330uj")
 
 [connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]
