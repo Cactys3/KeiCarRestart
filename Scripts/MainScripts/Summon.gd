@@ -6,12 +6,12 @@ class_name Summon
 # Two modes? One whilst attacking enemy one whilst not attacking
 enum AimTypes{default, Unique, AtMouse, StaticRotation, Spinning, RandomEnemy, ClosestEnemy}
 enum MovementTypes{default, Unique, TowardsTarget, TowardsAim, Spinning, StaticSlot, OnPlayer}
-enum AttackTypes{AlwaysReady, PrimaryFire}
+enum AttackTypes{AlwaysReady, PrimaryFire, TargetInRange}
 @export var AimType: AimTypes = AimTypes.default
 @export var MovementType: MovementTypes = MovementTypes.default
 @export var AttackType: AttackTypes = AttackTypes.AlwaysReady
 @export var anim: AnimatedSprite2D 
-@export var aim_speed: float = 40
+@export var aim_speed: float = 10
 @export var spin_speed: float = 1
 @export var lerp_speed: float = 40
 @export var orbit_distance: float = 25
@@ -73,7 +73,19 @@ func _process(delta: float) -> void:
 		update_target_stopwatch += delta
 		if update_target_stopwatch >= update_target_cooldown:
 			update_target_stopwatch = 0
-			target = get_enemy_nearby(get_spawn_object_range())
+			set_target(get_enemy_nearby_avoid_attacked(get_spawn_object_range()))
+	## Handle Base 'ready to fire' logic
+	match AttackType:
+		AttackTypes.AlwaysReady:
+			ready_to_fire = true
+		AttackTypes.PrimaryFire:
+			if Input.is_action_just_pressed("M1"):
+				ready_to_fire = true
+		AttackTypes.TargetInRange:
+			if target && !attacking && target.global_position.distance_to(global_position) < get_spawn_object_range():
+				ready_to_fire = true
+			else:
+				ready_to_fire = false
 	## Handle Movement 
 	match MovementType:
 		MovementTypes.default:
@@ -139,7 +151,7 @@ func ProcessAimRandomEnemy(delta: float) -> void:
 		target = null
 	## Try to find target
 	if !target:
-		target = get_random_enemy_in_range_except_attacked(range_stat)
+		set_target(get_random_enemy_in_range_except_attacked(get_spawn_object_range()))
 	## Finish
 	if target:
 		## If Move Towards Aim
@@ -157,7 +169,7 @@ func ProcessAimClosestEnemy(delta: float) -> void:
 		target = null
 	## Try to find target
 	if !target:
-		target = get_enemy_nearby_except_attacked(range_stat)
+		set_target(get_enemy_nearby_avoid_attacked(get_spawn_object_range()))
 	## Finish
 	if target:
 		## If Move Towards Aim
@@ -195,7 +207,7 @@ func ProcessMovementTowardsTarget(delta: float) -> void:
 		target = null
 	## Try to find target
 	if !target:
-		target = get_enemy_nearby_except_attacked(range_stat)
+		set_target(get_enemy_nearby_avoid_attacked(get_spawn_object_range()))
 	## Backup is Spinning
 	if !target:
 		if !falling_back_to_spinning:
@@ -213,7 +225,8 @@ func MoveTowardsAimBackupProcess(delta: float) -> void:
 
 func RotateTowardsTarget(delta: float, target: Node2D) -> void:
 	## Track rotation in case of not using real rotation (for aiming detection)
-	current_rotation = position.angle_to_point(target.position)
+	#current_rotation = move_toward(current_rotation, position.angle_to_point(target.position), aim_speed * delta)
+	move_to_rotation(delta, position.angle_to_point(target.position))
 	if rotate_towards_velocity:
 		rotation = current_rotation
 	if flip_left_right:
@@ -233,11 +246,20 @@ func RotateTowardsPosition(new_position: Vector2, delta: float) -> void:
 	if attacking && lock_transform_while_attacking:
 		return
 	var angle = (new_position - global_position).normalized().angle()
-	rotation = lerp_angle(rotation, angle, aim_speed * delta)
+	#rotation = lerp_angle(rotation, angle, aim_speed * delta)
+	#rotation = move_toward(rotation, angle, aim_speed * delta)
+	move_to_rotation(delta, angle)
 	if flip_left_right:
 		## Looks better with angle (desired angle) instead of rotation (current angle)
 		anim.flip_v = cos(angle) < 0
- #TODO: try global_position instead of player.global_position for how weapon aiming looks
+func move_to_rotation(delta: float, new_rotation: float):
+	# If the difference is more than 180°, go the other way around
+	if new_rotation - current_rotation > PI:
+		new_rotation -= TAU
+	elif new_rotation - current_rotation < -PI:
+		new_rotation += TAU
+	current_rotation = move_toward(current_rotation, new_rotation, aim_speed * delta) 
+#TODO: try global_position instead of player.global_position for how weapon aiming looks
 ## Reset orbit_rotation to be the closest orbit to where we are 
 func RecalculateOrbitPosition():
 	var center: Vector2 = global_position  # or your stored orbit origin, if different
@@ -273,10 +295,12 @@ func attack():
 	## Reset Attack Timer
 	if use_attackcooldown_stat:
 		cooldown_timer = attackcooldown_stat
-	## Attack
+	## Attack (ready_to_fire = false if at least one attack goes through)
 	if shoots_projectile && !must_aim_at_enemy_to_fire || IsAimingAtEnemyWithinDegree(target, aiming_degree_leniency, rotation):
+		ready_to_fire = false
 		shoot_projectiles()
 	if custom_melee_attacks && !must_aim_at_enemy_to_melee || IsAimingAtEnemyWithinDegree(target, aiming_degree_leniency, rotation):
+		ready_to_fire = false
 		await melee_attack()
 	## Finish Attacking
 	attacking = false
@@ -333,21 +357,35 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	if projectile_scene == null || !is_instance_valid(projectile_scene):
 		push_error("projectile null in attachment script")
 		return null
-	var new_bullet: Projectile = projectile_scene.instantiate()
-	new_bullet.setup_projectile(self, get_attack_source(), target, new_direction)
-	new_bullet.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player, can_attack_creations)
-	GameManager.instance.projectile_parent.add_child(new_bullet)
-	new_bullet.global_position = new_position
-	new_bullet.rotation = new_direction.normalized().angle()
-	new_bullet.died.connect(projectile_died)
-	game_man.ProjectileShot.emit(self, new_bullet)
-	return new_bullet
+	var projectile: Projectile = projectile_scene.instantiate()
+	projectile.setup_projectile(self, get_attack_source(), target, new_direction)
+	projectile.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player, can_attack_creations)
+	GameManager.instance.projectile_parent.add_child(projectile)
+	projectile.global_position = new_position
+	projectile.rotation = new_direction.normalized().angle()
+	projectile.died.connect(projectile_died)
+	game_man.ProjectileShot.emit(self, projectile)
+	## After Setting Up
+	edit_projectile(projectile)
+	return projectile
+## Override to edit projectile after being made
+func edit_projectile(projectile: Projectile) -> void:
+	pass
 ## Called when projectile originating from this attachment dies
 func projectile_died(pos: Vector2, is_clone: bool):
 	pass
 func get_spawn_object_range():
 	return range_stat + Statics.summon_range_buff
 
+func set_target(new_target: Node2D):
+	target = new_target
+	if target != null:
+		if target.has_signal("death"):
+			target.death.connect(_on_target_died)
+
+func _on_target_died(target_position: Vector2):
+	if update_target:
+		set_target(get_enemy_nearby_avoid_attacked(get_spawn_object_range()))
 func _on_body_entered(body: Node2D) -> void:
 	super(body)
 
