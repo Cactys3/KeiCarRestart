@@ -7,7 +7,10 @@ func _process(delta: float) -> void:
 
 ## Called by upgrade, doesn't rely on cooldowns and other attack vars
 func throw_spear_at_enemy(enemy: Enemy):
-	pass ## TODO: throw spear
+	## TODO: Rotate towards enemy
+	## TODO: throw spear
+	## Make a queue of attacks?
+	pass
 
 ## TODO: Scale Stats with defense
 
