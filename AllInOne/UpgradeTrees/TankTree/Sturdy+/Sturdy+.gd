@@ -5,12 +5,12 @@ func activate(new_player: Character):
 	super(new_player)
 	Statics.player_knockback_resistance_buff -= knockback_resist_buff
 	Statics.player_stance_buff += stance_buff
-	Statics.changed_stats()
+	
 func deactivate():
 	super()
 	Statics.player_knockback_resistance_buff += knockback_resist_buff
 	Statics.player_stance_buff -= stance_buff
-	Statics.changed_stats()
+	
 
 const knockback_resist_buff: float = 0.4
 const stance_buff: float = 5

@@ -174,7 +174,6 @@ func ProcessAimClosestEnemy(delta: float) -> void:
 	if target:
 		## If Move Towards Aim
 		if MovementType == MovementTypes.TowardsAim:
-			print("TowardsAim Moving, ClosestEnemy Aiming")
 			MoveTowardsTarget(delta, target)
 		RotateTowardsTarget(delta, target)
 		falling_back_to_spinning = false
@@ -305,38 +304,35 @@ func attack():
 	## Finish Attacking
 	attacking = false
 func shoot_projectiles() -> Array[Projectile]:
+	var projectile_target = target
+	var projectile_count = count_stat + 1
+	if fire_towards_rotation:
+		projectile_target = null
 	if projectile_scene.instantiate().can_spawn_multiple:
-		print(count_stat)
-		return create_num_projectiles(count_stat + 1)
-	else:
-		return create_num_projectiles(1)
-	#if projectile_scene:
-		#var projectile: Projectile = projectile_scene.instantiate()
-		#GameManager.instance.projectile_parent.add_child(projectile)
-		#projectile.global_position = global_position
-		#if target:
-			#projectile.setup_projectile(self, get_attack_source(), target, target.global_position - global_position)
-		#else:
-			#projectile.setup_projectile(self, get_attack_source(), null, Vector2(cos(rotation), sin(rotation)))
-		#return projectile
-	#return null
+		projectile_count = 1
+	return create_num_projectiles(projectile_count, projectile_target)
 func melee_attack():
 	pass
 
+func post_damage_return(damage_return: Enemy.DamageReturn):
+	if lifesteal_stat > 0:
+		print("Heal: ", (lifesteal_stat / 100) * damage_return.attack_damage_dealt)
+		game_man.heal_player((lifesteal_stat / 100) * damage_return.attack_damage_dealt)
+	super(damage_return)
 ## Create and setup all the projectiles for an attack from this Weapon
-func create_num_projectiles(count: int) -> Array[Projectile]:
+func create_num_projectiles(count: int, projectile_target: Node2D) -> Array[Projectile]:
 	var ret: Array[Projectile]
 	var proj_offset: int = 0
 	## Create projectiles based on count with offset angles and position
 	for i in count:
 		var projectile_position: Vector2 = global_position
 		var projectile_direction: Vector2 
-		if fire_towards_rotation || !target:
+		if !projectile_target:
 			## Fire towards current rotation of the summon
 			projectile_direction = Weapon.get_inaccurate_direction(Vector2(cos(rotation), sin(rotation)), inaccuracy_stat)
 		else:
 			## Fire towards the target of the attack
-			projectile_direction = Weapon.get_inaccurate_direction(target.global_position - global_position, inaccuracy_stat)
+			projectile_direction = Weapon.get_inaccurate_direction(projectile_target.global_position - global_position, inaccuracy_stat)
 		## Make two projectiles with each offset value at -1 and +1 signs, then increase offset
 		if i % 2  == 0:
 			proj_offset += 1
@@ -350,15 +346,15 @@ func create_num_projectiles(count: int) -> Array[Projectile]:
 		#print("(" , snapped(x, 0.01), ", ", snapped(y, 0.01), "), Rot: ", snapped(rotation, 0.01))
 		projectile_direction = Vector2(x, y)
 		## Signal + init projectile
-		ret.append(init_projectile(projectile_position, projectile_direction))
+		ret.append(init_projectile(projectile_position, projectile_direction, projectile_target))
 	return ret
 ## Initializes and returns one projectile in the style of this attachment
-func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
+func init_projectile(new_position: Vector2, new_direction: Vector2, projectile_target: Node2D) -> Projectile:
 	if projectile_scene == null || !is_instance_valid(projectile_scene):
 		push_error("projectile null in attachment script")
 		return null
 	var projectile: Projectile = projectile_scene.instantiate()
-	projectile.setup_projectile(self, get_attack_source(), target, new_direction)
+	projectile.setup_projectile(self, get_attack_source(), projectile_target, new_direction)
 	projectile.setup_can_attacks(can_attack_enemies, can_attack_events, can_attack_player, can_attack_creations)
 	GameManager.instance.projectile_parent.add_child(projectile)
 	projectile.global_position = new_position
@@ -376,6 +372,7 @@ func projectile_died(pos: Vector2, is_clone: bool):
 	pass
 func get_spawn_object_range():
 	return range_stat + Statics.summon_range_buff
+
 
 func set_target(new_target: Node2D):
 	target = new_target

@@ -180,13 +180,17 @@ func attack_body(body: Node2D) -> void:
 		attack = make_attack(damage_offset)
 	if attack:
 		edit_attack_before_sending(attack)
-		var killed: bool = body.damage(attack)
+		var killed: bool = body.damage(attack).killed
 		## Handle Piercing Damage Buff Augments
 		if Statics.projectile_pierce_damage_buff > 0:
 			if Statics.projectile_pierce_damage_buff_doubled_on_kill && killed:
 				current_damage_buff += Statics.projectile_pierce_damage_buff * 2
 			else:
 				current_damage_buff += Statics.projectile_pierce_damage_buff
+func post_damage_return(damage_return: Enemy.DamageReturn):
+	if lifesteal_stat > 0:
+		game_man.heal_player((lifesteal_stat / 100) * damage_return.attack_damage_dealt)
+	super(damage_return)
 ## In-case overrides want to edit the attack
 func edit_attack_before_sending(attack: Attack):
 	pass

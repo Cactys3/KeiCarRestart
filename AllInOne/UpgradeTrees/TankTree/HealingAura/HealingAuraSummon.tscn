@@ -1,32 +1,79 @@
 [gd_scene format=3 uid="uid://dkt2dre3uo1ob"]
 
 [ext_resource type="Script" uid="uid://ds0mejg18a4qx" path="res://AllInOne/UpgradeTrees/TankTree/HealingAura/HealingAuraSummon.gd" id="1_nwpkh"]
-[ext_resource type="Texture2D" uid="uid://bp4polta0maja" path="res://AllInOne/UpgradeTrees/TankTree/HealingAura/HealingAuraSummon.png" id="2_rsvwr"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ckm4p"]
-atlas = ExtResource("2_rsvwr")
-region = Rect2(0, 0, 128, 128)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6rj5l"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ckm4p")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[ext_resource type="Texture2D" uid="uid://o2c6nn3piq5u" path="res://AllInOne/UpgradeTrees/TankTree/HealingAura/HealingAura.png" id="3_ckm4p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsvwr"]
 radius = 49.0
 
-[node name="HealingAuraSummon" type="Area2D" unique_id=759165408]
-script = ExtResource("1_nwpkh")
-AimType = 7
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rj5l"]
+atlas = ExtResource("3_ckm4p")
+region = Rect2(0, 256, 128, 128)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=861069306]
-sprite_frames = SubResource("SpriteFrames_6rj5l")
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xd07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rj5l")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1eqg"]
+atlas = ExtResource("3_ckm4p")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jq8tk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1eqg")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lotg8"]
+atlas = ExtResource("3_ckm4p")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6fhyq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lotg8")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="HealingAuraSummon" type="Area2D" unique_id=759165408 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_nwpkh")
+AimType = 1
+MovementType = 6
+anim = NodePath("AnimatedSprite2D")
+can_die_from_collision = false
+can_die_from_duration = false
+_damage = 15.0
+_lifesteal = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1665488675]
 shape = SubResource("CircleShape2D_rsvwr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=814764641]
+
+[node name="Outer" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=259234]
+sprite_frames = SubResource("SpriteFrames_3xd07")
+autoplay = "default"
+
+[node name="Inner" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=1181218732]
+sprite_frames = SubResource("SpriteFrames_jq8tk")
+autoplay = "default"
+
+[node name="Middle" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=1283778790]
+sprite_frames = SubResource("SpriteFrames_6fhyq")
+autoplay = "default"

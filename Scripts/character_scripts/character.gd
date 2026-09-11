@@ -251,16 +251,16 @@ func handle_moving(delta) -> void:
 		if (sign(velocity.x) < 0):
 			anim.flip_h = false
 ## Send an attack to damage the player, returns if the player died from this attack
-func damage(attack: Attack) -> bool:
+func damage(attack: Attack) -> Enemy.DamageReturn:
 	if GameInstance.is_game_over:
-		return false
+		return null
 	## Pass attack through upgrades
 	if attack.attacker is Enemy:
 		attack = GameManager.instance.handle_incoming_attack(attack, attack.attacker, self)
 	## Consider Stance
 	var total_damage_taken: float = attack.get_damage() - stance
 	var net_damage = total_damage_taken
-	print("Reduce Due To Stance: ", attack.get_damage(), " - ", stance, " net: ", net_damage)
+	#print("Reduce Due To Stance: ", attack.get_damage(), " - ", stance, " net: ", net_damage)
 	if GlobalStats.calculate_avoid_damage(GlobalStats.get_stat(GlobalStats.GHOSTLY)):
 		net_damage = 0
 	if net_damage > 0:
@@ -295,7 +295,7 @@ func damage(attack: Attack) -> bool:
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
 	dmg_text.setup_color(str(int(round(total_damage_taken))), total_damage_taken + 36, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), Color.RED)
-	return died
+	return Enemy.DamageReturn.new(died, total_damage_taken, total_damage_taken, 0, 0)
 ## Handles Revives and Events on player death
 func die(attack: Attack):
 	if !GameInstance.is_game_over:

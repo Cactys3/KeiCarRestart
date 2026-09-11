@@ -8,7 +8,7 @@ func deactivate():
 	super()
 	Statics.player_shield_buff -= shield_buff
 
-const shield_buff: float = 10
+const shield_buff: float = 20
 var target: Enemy
 ## On 
 func player_shield_damaged(character: Character, attack: Attack, shield_damage_amount: float):
@@ -17,6 +17,9 @@ func player_shield_damaged(character: Character, attack: Attack, shield_damage_a
 		target = enemy
 		spawn()
 	super(character, attack, shield_damage_amount)
+func initialize_projectile(projectile: Projectile) -> Projectile:
+	projectile._damage += player.max_shield
+	return super(projectile)
 ## Return the predetermined target that attacked our shield last
 func get_spawn_target() -> Node2D:
 	return target

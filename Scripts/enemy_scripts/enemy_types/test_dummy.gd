@@ -32,7 +32,7 @@ func death_signal(attack: Attack):
 
 var dps_array: Array[DPS]
 var damage_past_ten_sec: float = 0
-func damage(attack: Attack) -> bool:
+func damage(attack: Attack) -> DamageReturn:
 	var prehealth = curr_health
 	var ret = super(attack)
 	var posthealth = curr_health
@@ -56,7 +56,7 @@ func _process(delta) -> void:
 		for dps in dps_array:
 			average += dps.damage
 			count += 1
-			print("Num ", count, " is: ", dps.damage, " for total: ", average, " average: ", average / 10)
+			#print("Num ", count, " is: ", dps.damage, " for total: ", average, " average: ", average / 10)
 		furry(average / 10, Color.WHITE)
 		stopwatch = 0
 	else:
@@ -66,7 +66,7 @@ func furry(dps: float, color: Color):
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
 	var text: String = str("DPS: ", dps)
-	print("text: ", text, " dps, ", dps)
+	#print("text: ", text, " dps, ", dps)
 	var size: float = dps + randi_range(-5, 5)
 	var location: Vector2 = WindowManager.instance.convert_small_position(global_position - Vector2(0, 10))
 	var lifetime: float = 1

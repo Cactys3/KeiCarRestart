@@ -10,7 +10,13 @@ func throw_spear_at_enemy(enemy: Enemy):
 	## TODO: Rotate towards enemy
 	## TODO: throw spear
 	## Make a queue of attacks?
-	pass
+	print("Firing at enemy: ", enemy)
+	if enemy:
+		var projectiles = create_num_projectiles(count_stat + 1, enemy)
+		var index = 0
+		for projectile in projectiles:
+			print(projectile.spawn_name, ", ", index)
+			index += 1
 
 ## TODO: Scale Stats with defense
 

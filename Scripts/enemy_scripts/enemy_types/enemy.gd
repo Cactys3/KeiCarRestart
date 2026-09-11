@@ -87,7 +87,7 @@ const NO_ANIMATION_NAME: String = "no animation"
 @export var damage_hitbox: Area2D 
 @export var health_hitbox: Area2D 
 @export var minion_block: CollisionShape2D
-const stun_on_knockback: float = 0.5
+const stun_on_knockback_per_damage: float = 0.01
 ## Current values of each status that have been damaged into this enemy
 var burn: float = 0
 var frost: float = 0
@@ -744,9 +744,9 @@ func is_player_nearby(distance: float) -> bool:
 		return true
 	return false
 ## Pass an attack to damage the enemy, returns if the attack killed the enemy
-func damage(attack: Attack) -> bool:
+func damage(attack: Attack) -> DamageReturn:
 	if GameInstance.is_game_over || !ImReady:
-		return false
+		return null
 	## Pass attack through upgrades
 	attack = GameManager.instance.handle_attack_enemy(attack, self)
 	## Apply Status Effect Changes (doesn't apply status effect effects yet)
@@ -779,6 +779,7 @@ func damage(attack: Attack) -> bool:
 	var attack_percent: float = attack_true_damage / pre_reduction_damage
 	## Sum all attack damage values (Include flat and percent damage reductions)
 	var total_damage: float = get_damage_reduced_value(attack_true_damage + wet_true_damage + shock_true_damage)
+	
 	if total_damage > 0:
 		GameManager.instance.EnemyDamaged.emit(self, attack)
 		curr_health -= total_damage
@@ -809,7 +810,8 @@ func damage(attack: Attack) -> bool:
 			stunned = true
 			linear_velocity = Vector2.ZERO
 	if can_move && can_be_knockbacked && attack.get_knockback() != 0:
-		stun_time_left = stun_on_knockback ## TODO: stun?
+		stun_time_left = attack_damage * stun_on_knockback_per_damage ## Knockback stuns base on attack damage only
+		print("Stun = ", attack_damage, " * ", stun_on_knockback_per_damage, " = ", attack_damage * stun_on_knockback_per_damage)
 		stunned = true
 		apply_knockback(attack.position, attack.get_knockback())
 	if attack_damage > 0:
@@ -819,7 +821,7 @@ func damage(attack: Attack) -> bool:
 	if wet_damage > 0:
 		display_damage(wet_damage, Color.BLUE, attack.get_crit())
 	## Die.
-	return check_death(attack)
+	return DamageReturn.new(check_death(attack), total_damage, attack_true_damage, shock_damage, wet_damage) #check_death(attack)
 
 func death_signal(attack: Attack):
 	GameManager.instance.EnemyKilled.emit(self, attack)
@@ -869,3 +871,16 @@ func add_to_stats_list(list: GlobalStats.StatsList):
 	list.add_to_stat(GlobalStats.PIERCING, curr_piercing)
 	list.add_to_stat(GlobalStats.LUCK, curr_critchance)
 	list.add_to_stat(GlobalStats.CRITDAMAGE, curr_critdamage)
+
+class DamageReturn:
+	var killed: bool = false
+	var total_damage_dealt: float = 0
+	var attack_damage_dealt: float = 0
+	var shock_damage_dealt: float = 0
+	var wet_damage_dealt: float = 0
+	func _init(is_killed: bool, total_damage: float, attack_damage: float, shock_damage: float, wet_damage: float) -> void:
+		killed = is_killed
+		total_damage_dealt = total_damage
+		shock_damage_dealt = shock_damage
+		wet_damage_dealt = wet_damage
+		attack_damage_dealt = attack_damage

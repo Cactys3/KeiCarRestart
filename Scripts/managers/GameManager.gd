@@ -217,6 +217,7 @@ func add_upgrade(data: UpgradeData) -> void:
 	active_upgrades.append(upgrade)
 	ui_man.add_upgrade(upgrade)
 	upgrade.activate(player)
+	Statics.changed_stats()
 func add_weapon(weapon: Weapon) -> void:
 	weapon_list.append(weapon)
 	var temp_count: int = weapon_count

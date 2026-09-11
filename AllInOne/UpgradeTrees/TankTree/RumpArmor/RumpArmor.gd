@@ -14,11 +14,11 @@ func edit_incoming_attack(attack: Attack, enemy: Enemy, character: Character) ->
 	if enemy && character:
 		var character_velocity: Vector2 = character.last_known_velocity.normalized()
 		var enemy_facing: Vector2 = (character.global_position - enemy.global_position).normalized()
-		var enemy_is_behind: bool = character_velocity.dot(enemy_facing) <= 0
+		var enemy_is_behind: bool = character_velocity.dot(enemy_facing) > 0
 		if enemy_is_behind:
 			attack.temporary_factor_stats.add_to_stat(GlobalStats.DAMAGE, behind_damage_modifier)
 			if lance_protector_upgrade:
 				lance_protector_upgrade.throw_spear_at_enemy(enemy)
-		if character_velocity.length_squared() < 0.0:
-			printerr("Last known velocity is 0 when it shouldn't be right?")
+			else:
+				printerr("Lance Protector Upgrade Missing for Rump Armor Upgrade")
 	return super(attack, enemy, character)

@@ -118,9 +118,9 @@ func get_new_target():
 func die():
 	parent.active_creations.erase(self)
 	queue_free()
-func damage(attack: Attack) -> bool:
+func damage(attack: Attack) -> Enemy.DamageReturn:
 	if GameInstance.is_game_over || !can_be_damaged:
-		return false
+		return null
 	## Consider Stance
 	var net_damage = attack.get_damage() - stance_stat
 	if GlobalStats.calculate_avoid_damage(Statics.creation_dodge_buff):
@@ -155,7 +155,7 @@ func damage(attack: Attack) -> bool:
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
 	dmg_text.setup_color(str(int(round(attack.get_damage()))), net_damage + 36, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), Color.RED)
-	return died
+	return Enemy.DamageReturn.new(died, net_damage, net_damage, 0, 0)
 func ProcessDirection(delta: float):
 	## Setup
 	direction = direction.normalized() 
@@ -192,6 +192,12 @@ func attack_body(body: Node2D):
 		get_new_target()
 	if attack_counter > piercing_stat && can_die_from_collision:
 		die()
+func post_damage_return(damage_return: Enemy.DamageReturn):
+	if lifesteal_stat > 0:
+		heal_creation((lifesteal_stat / 100) * damage_return.attack_damage_dealt)
+	super(damage_return)
+func heal_creation(heal: float):
+	hp += min(hp_stat, heal)
 func apply_knockback(knockback: float, location: Vector2):
 	## Max 0.5 seconds of knockback
 	stun_time_left += min(0.1 + knockback / 100, max_knockback_time)

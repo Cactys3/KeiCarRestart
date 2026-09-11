@@ -23,7 +23,7 @@ func calculate_and_apply(max_hp: float):
 	## Add new
 	curr_buff_applied = hp_percent_buff * max_hp
 	Statics.player_shield_buff += curr_buff_applied
-	Statics.changed_stats()
+	
 
 func player_maxhp_changed(new_maxhp: float, old_maxhp: float):
 	print("Did it change? ", new_maxhp, " old ", old_maxhp)

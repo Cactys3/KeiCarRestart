@@ -1,18 +1,126 @@
 [gd_scene format=3 uid="uid://b3ilfxcfq7n0r"]
 
 [ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_mis86"]
+[ext_resource type="Texture2D" uid="uid://bddld7su3mgh3" path="res://AllInOne/UpgradeTrees/TankTree/ElectricFence/ShockProjectile.png" id="2_v5bhv"]
 
-[node name="ShockProjectile" type="Area2D" unique_id=2082232616 node_paths=PackedStringArray("anim")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0r1gu"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cis6o"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jnli"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30s13"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awgis"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_am265"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfa8t"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjn37"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhmdl"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7m4x"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8vy2"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oosyn"]
+atlas = ExtResource("2_v5bhv")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xd07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0r1gu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cis6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jnli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30s13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awgis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_am265")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfa8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjn37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhmdl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7m4x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8vy2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oosyn")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jq8tk"]
+size = Vector2(4, 17)
+
+[node name="ShockProjectile" type="Area2D" unique_id=1052976383 node_paths=PackedStringArray("anim")]
 collision_layer = 4100
 collision_mask = 648
 script = ExtResource("1_mis86")
-can_knockback = false
 anim = NodePath("AnimatedSprite2D")
-spawn_name = "Statikk Shock"
-can_atack_events = false
+can_move = false
+can_spawn_multiple = false
+die_on_anim_end = true
 can_die_from_collision = false
 can_die_from_duration = false
+_damage = 10.0
+_weight = -1.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=625973196]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
+sprite_frames = SubResource("SpriteFrames_3xd07")
+autoplay = "default"
+frame = 11
+frame_progress = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=709123963]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1754514067]
+position = Vector2(8, -0.99999994)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_jq8tk")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

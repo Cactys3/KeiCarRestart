@@ -82,6 +82,8 @@ func activate(new_player: Character):
 		game_man.UpgradeCooldownFinished.connect(upgrade_cooldown_finished)
 	if connect_player_maxhp_changed:
 		game_man.PlayerMaxHealthChange.connect(player_maxhp_changed)
+	if connect_player_shield_damaged:
+		game_man.PlayerShieldDamaged.connect(player_shield_damaged)
 	player = new_player
 	active = true
 ## disable and halt the functionality of this Equipment

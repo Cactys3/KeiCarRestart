@@ -152,9 +152,9 @@ func get_attack_source() -> Attack.AttackSources:
 	return Attack.AttackSources.hazard
 
 
-func damage(attack: Attack) -> bool:
+func damage(attack: Attack) -> Enemy.DamageReturn:
 	if GameInstance.is_game_over:
-		return false
+		return null
 	## Pass attack through upgrades (Can't because this is an event not an enemy)
 	#attack = GameManager.instance.handle_attack_enemy(attack, self)
 	## Apply Status Effect Changes (doesn't apply status effect effects yet)
@@ -224,7 +224,7 @@ func damage(attack: Attack) -> bool:
 	if wet_damage > 0:
 		display_damage(wet_damage, Color.BLUE, attack.get_crit(), attack.impact_location)
 	## Die.
-	return check_death(attack)
+	return Enemy.DamageReturn.new(check_death(attack), total_damage, attack_damage, shock_damage, wet_damage)
 
 func die():
 	if !dead:

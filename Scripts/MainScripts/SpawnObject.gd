@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 	super(delta)
 	## Check Collisions
 	check_collision_stopwatch += delta
-	if check_collision_stopwatch >= 3:
+	if check_collision_stopwatch >= attack_same_enemy_cooldown + 0.05:
 		check_collisions()
 		check_collision_stopwatch = 0
 	## Handle Attacked Elements
@@ -43,8 +43,8 @@ func check_collisions():
 	collisions.append_array(area.get_overlapping_areas())
 	collisions.append_array(area.get_overlapping_bodies())
 	for node in collisions:
-		if !have_attacked(node):
-			_on_body_entered(node)
+		print("Check Collision: ", node.name)
+		_on_body_entered(node)
 
 ## Return enemy within range, try to use detection_range by default
 func get_enemy_nearby(distance: float) -> Variant:
@@ -175,8 +175,10 @@ func can_attack(body: Node2D) -> bool:
 func attack_body(body: Node2D):
 	append_attack_element(body)
 	attack_counter += 1
-	body.damage(make_attack(1))
-
+	post_damage_return(body.damage(make_attack(1)))
+## Called after calling damage() on another node, implement lifesteal in overrides here
+func post_damage_return(damage_return: Enemy.DamageReturn):
+	pass
 var AttackedObjects: Array = []
 func have_attacked(node: Node) -> bool:
 	for element: AttackedObjectsElement in AttackedObjects:
