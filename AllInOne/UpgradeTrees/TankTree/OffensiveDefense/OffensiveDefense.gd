@@ -9,13 +9,14 @@ func deactivate():
 var last_heal: float = 1
 const heal_damage_multiplier: float = 4
 ## Spawn a projectile on regen
-func player_heal(heal: float, is_regen: bool):
+func player_heal(heal_amount: float, heal_type: GameManager.HealTypes):
 	## Damage an enemy based on heal
-	if is_regen:
-		last_heal = heal
+	if heal_type == GameManager.HealTypes.regen:
+		last_heal = heal_amount
 		spawn()
-	super(heal, is_regen)
+	super(heal_amount, heal_type)
 ## Pass in heal to the custom projectile script
 func initialize_projectile(projectile: Projectile) -> Projectile:
-	projectile.set_heal(last_heal)
+	projectile._damage += last_heal * 10
+	projectile._piercing += max(0, floor(player.regen / 5))
 	return super(projectile)

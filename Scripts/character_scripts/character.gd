@@ -67,7 +67,7 @@ var xp_gain: float = 1:
 var mogul: float = 1:
 	get():
 		return mogul + GlobalStats.get_stat(GlobalStats.MOGUL)
-var regen: float = 3:
+var regen: float = 0:
 	get():
 		return regen + GlobalStats.get_stat(GlobalStats.REGEN)
 var lifesteal: float = 0:
@@ -225,7 +225,7 @@ func handle_regens(delta: float) -> void:
 	if regen_stopwatch >= regen_cooldown:
 		regen_stopwatch = 0
 		if regen > 0 && game_man.curr_hp < max_health:
-			game_man.heal_player(GlobalStats.calculate_regen(regen))
+			game_man.heal_player(GlobalStats.calculate_regen(regen), GameManager.HealTypes.regen)
 func handle_moving(delta) -> void:
 	var is_moving = false
 	var directionX := Input.get_axis(InputManager.LEFT, InputManager.RIGHT)

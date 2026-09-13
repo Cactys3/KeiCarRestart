@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://b2jtrcri00jvh"]
 
 [ext_resource type="Script" uid="uid://naccpjxmht7a" path="res://AllInOne/UpgradeTrees/TankTree/VengefulAura/VengefulAura.gd" id="1_jto60"]
+[ext_resource type="PackedScene" uid="uid://0h6tam7v3ws1" path="res://AllInOne/UpgradeTrees/TankTree/VengefulAura/VengefulProjectile.tscn" id="2_g1svx"]
 
 [node name="VengefulAura" type="Node2D" unique_id=387553496]
 script = ExtResource("1_jto60")
+scene_to_spawn = ExtResource("2_g1svx")
+connect_player_damaged = true

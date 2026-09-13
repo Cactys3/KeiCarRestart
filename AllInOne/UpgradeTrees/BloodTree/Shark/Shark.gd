@@ -14,7 +14,7 @@ const heal_on_bleed: int = 3
 func _ready() -> void:
 	super()
 func bleed_proc(bleed_damage: float, enemy: Enemy):
-	game_man.heal_player(heal_on_bleed)
+	game_man.heal_player(heal_on_bleed, GameManager.HealTypes.heal)
 	super(bleed_damage, enemy)
 func edit_attack_enemy(attack: Attack, enemy: Enemy) -> Attack:
 	## More dmg if they're bleeding

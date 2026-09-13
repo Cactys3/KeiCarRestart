@@ -2,6 +2,8 @@ extends Node
 class_name GameManager
 
 const LEVEL_UP_UI = preload("uid://cykl0goweao0i")
+## Heal Types
+enum HealTypes {regen, heal, lifesteal}
 
 ## Single Instance Object
 static var instance: GameManager
@@ -129,7 +131,7 @@ signal PlayerShieldDamaged(player: Character, attack: Attack, shield_damage_amou
 signal PlayerDodged(player: Character, attack: Attack)
 signal PlayerRevived(player: Character)
 signal PlayerKilled(player: Character, attack: Attack)
-signal PlayerHeal(hp_change: float, is_regen: bool)
+signal PlayerHeal(heal_amount: float, heal_type: HealTypes)
 signal PlayerMaxHealthChange(new_maxhp: float, old_maxhp: float)
 signal PlayerShieldChanged(new_shield: float, old_shield: float)
 signal EventKilled(event: Event, attack: Attack)
@@ -328,9 +330,13 @@ func create_level_up_instance():
 	leveling_up = false
 func add_xp(added_xp: float):
 	xp += added_xp
-func heal_player(heal: float): 
+func heal_player(value: float, type: HealTypes): 
+	var heal: float = curr_hp
 	## Between 0 and missing health
-	curr_hp += clamp(heal, 0, max_hp - curr_hp)
+	curr_hp += clamp(value, 0, max_hp - curr_hp)
+	heal = curr_hp - heal
+	if heal > 0:
+		PlayerHeal.emit(heal, type)
 func damage_player(damage: float):
 	curr_hp -= damage
 func can_revive() -> int:
@@ -350,7 +356,7 @@ func pause(value: bool):
 ## Signal Connections
 func enemy_killed(enemy: Enemy, attack: Attack):
 	if player.lifesteal > 0 && curr_hp < player.max_health:
-		heal_player(player.lifesteal)
+		heal_player(player.lifesteal, HealTypes.lifesteal)
 func player_damaged(playah: Character, attack: Attack):
 	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage") && "can_be_damaged" in attack.attacker && attack.attacker.get("can_be_damaged"):
 		## Apply Thorns Damage to Attacker

@@ -4,3 +4,4 @@
 
 [node name="Aura" type="Node2D" unique_id=1911541688]
 script = ExtResource("1_ombxu")
+connect_player_damaged = true

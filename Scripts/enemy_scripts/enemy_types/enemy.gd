@@ -811,7 +811,7 @@ func damage(attack: Attack) -> DamageReturn:
 			linear_velocity = Vector2.ZERO
 	if can_move && can_be_knockbacked && attack.get_knockback() != 0:
 		stun_time_left = attack_damage * stun_on_knockback_per_damage ## Knockback stuns base on attack damage only
-		print("Stun = ", attack_damage, " * ", stun_on_knockback_per_damage, " = ", attack_damage * stun_on_knockback_per_damage)
+		#print("Stun = ", attack_damage, " * ", stun_on_knockback_per_damage, " = ", attack_damage * stun_on_knockback_per_damage)
 		stunned = true
 		apply_knockback(attack.position, attack.get_knockback())
 	if attack_damage > 0:

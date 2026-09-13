@@ -316,8 +316,8 @@ func melee_attack():
 
 func post_damage_return(damage_return: Enemy.DamageReturn):
 	if lifesteal_stat > 0:
-		print("Heal: ", (lifesteal_stat / 100) * damage_return.attack_damage_dealt)
-		game_man.heal_player((lifesteal_stat / 100) * damage_return.attack_damage_dealt)
+		#print("Heal: ", (lifesteal_stat / 100) * damage_return.attack_damage_dealt)
+		game_man.heal_player((lifesteal_stat / 100) * damage_return.attack_damage_dealt, GameManager.HealTypes.lifesteal)
 	super(damage_return)
 ## Create and setup all the projectiles for an attack from this Weapon
 func create_num_projectiles(count: int, projectile_target: Node2D) -> Array[Projectile]:

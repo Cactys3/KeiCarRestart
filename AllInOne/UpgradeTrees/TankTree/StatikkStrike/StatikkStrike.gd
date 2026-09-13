@@ -9,7 +9,7 @@ func deactivate():
 ## Gain chance to spread shock based on current shield value, scaling up to 100% chance
 var shock_chance: float:
 	get():
-		return clamp(GameManager.instance.shield, 0, 1)
+		return clamp(game_man.curr_shield, 0, 1)
 
 func shock_proc(shock_damage: float, enemy: Enemy):
 	if shock_chance > randf():

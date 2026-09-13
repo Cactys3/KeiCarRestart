@@ -51,6 +51,7 @@ func _ready() -> void:
 	super()
 	if randf() > 0.5:
 		clockwise = 1
+	add_to_group("creation")
 func setup(new_parent: Equipment, attack_source: Attack.AttackSources):
 	## Setup main variables
 	parent = new_parent
@@ -129,13 +130,13 @@ func damage(attack: Attack) -> Enemy.DamageReturn:
 	if net_damage > 0:
 		game_man.CreationDamaged.emit(self, attack)
 	## Consider Sheild
-	if net_damage > 0 && game_man.shield > 0:
-		if (game_man.shield > net_damage):
-			game_man.shield -= net_damage
+	if net_damage > 0 && game_man.curr_shield > 0:
+		if (game_man.curr_shield > net_damage):
+			game_man.curr_shield -= net_damage
 			net_damage = 0
 		else:
-			net_damage -= game_man.shield
-			game_man.shield = 0
+			net_damage -= game_man.curr_shield
+			game_man.curr_shield = 0
 	## Consider HP
 	if net_damage > 0:
 		game_man.damage_player(net_damage)
@@ -182,6 +183,8 @@ func get_can_attack_callable() -> Callable:
 	#return func(body: Node2D) -> bool:
 		#return !body.is_in_group("player") && "can_be_damaged" in body && body.get("can_be_damaged") && body.has_method("damage")
 func attack_body(body: Node2D):
+	if body is Creation:
+		print("Attacking My Friends!!! :( ")
 	append_attack_element(body)
 	attack_counter += 1
 	body.damage(make_attack(damage_multiplier))

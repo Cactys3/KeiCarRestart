@@ -22,18 +22,19 @@ animations = [{
 size = Vector2(11, 14)
 
 [node name="CatBoyCreation" type="Area2D" unique_id=1002864909]
-collision_layer = 512
-collision_mask = 136
+collision_layer = 516
+collision_mask = 648
 script = ExtResource("1_4d1sq")
 movement_type = 2
 acceleration = 0.5
 self_knockback_onhit = 100.0
 knockback_modifier = 1.5
+can_attack_events = false
 _damage = 65.0
 _range = 50.0
 _attackcooldown = 1.0
 _velocity = 75.0
-_piercing = 2.0
+_piercing = 4.0
 _duration = 15.0
 _weight = 1.5
 

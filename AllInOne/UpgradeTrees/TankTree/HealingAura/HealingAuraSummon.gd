@@ -32,5 +32,23 @@ func start_venging():
 	pass
 func start_scaling():
 	## Scale?
-	pass
+	update_buff()
+	GameManager.instance.StatsChanged.connect(update_buff)
 ## For sure has custom stuff
+
+var size_buff: float = 0
+var damage_buff: float = 0
+func update_buff():
+	## Each 100 hp over the first 100 is 100% more size
+	var new_size_buff: float = max(1, player.max_health - 75) / 100
+	var new_damage_buff: float = (player.regen / 2) + (player.max_shield / 8)
+	print(player.regen, " / 2 + ", player.max_shield, " / 20")
+	## Apply New Buff
+	_size += (new_size_buff - size_buff)
+	_damage += (new_damage_buff - damage_buff)
+	print("Size Change: ", (new_size_buff - size_buff), " Damage Change: ", new_damage_buff, " - ", damage_buff)
+	## Set Vars
+	size_buff = new_size_buff
+	damage_buff = new_damage_buff
+	## Stats Changed
+	stats_changed()

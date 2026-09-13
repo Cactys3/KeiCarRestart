@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://0h6tam7v3ws1"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_spck3"]
+[ext_resource type="Texture2D" uid="uid://c1whmumsiv2cu" path="res://AllInOne/UpgradeTrees/TankTree/VengefulAura/VengefulProjectile.png" id="2_ecv4y"]
+[ext_resource type="Script" uid="uid://bcdn24ajfblp2" path="res://Scripts/misc/RandomizeRotation.gd" id="3_ut8yl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ut8yl"]
+atlas = ExtResource("2_ecv4y")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slbwi"]
+atlas = ExtResource("2_ecv4y")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dghro"]
+atlas = ExtResource("2_ecv4y")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab2bl"]
+atlas = ExtResource("2_ecv4y")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvljo"]
+atlas = ExtResource("2_ecv4y")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_spck3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ut8yl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slbwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dghro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ab2bl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvljo")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slbwi"]
+radius = 5.060445
+height = 32.555138
+
+[node name="VengefulProjectile" type="Area2D" unique_id=1052976383 node_paths=PackedStringArray("anim")]
+collision_layer = 4100
+collision_mask = 648
+script = ExtResource("1_spck3")
+anim = NodePath("AnimatedSprite2D")
+can_move = false
+can_spawn_multiple = false
+die_on_anim_end = true
+can_die_from_collision = false
+can_die_from_duration = false
+_damage = 25.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
+sprite_frames = SubResource("SpriteFrames_spck3")
+autoplay = "default"
+frame = 4
+frame_progress = 1.0
+script = ExtResource("3_ut8yl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1754514067]
+position = Vector2(2, 3)
+rotation = 2.300344
+shape = SubResource("CapsuleShape2D_slbwi")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

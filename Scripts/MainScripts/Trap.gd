@@ -12,7 +12,6 @@ enum ActivationTypes{entered, timer, activation}
 @export var die_on_activation: bool = false
 var parent: StatsObject
 var source: Attack.AttackSources = Attack.AttackSources.unset
-var lifetime: float = 10
 var piercing: float = 0
 var dead: bool = false
 var stopwatch: float = 0
@@ -25,15 +24,11 @@ func _ready() -> void:
 	super()
 func _process(delta: float) -> void:
 	super(delta)
-	if can_die_from_duration && stopwatch >= lifetime:
-		die()
-	else:
-		stopwatch += delta
+	check_duration(delta)
 ## Setup trap to start
 func setup(new_parent: StatsObject, attack_source: Attack.AttackSources):
 	parent = new_parent
 	source = attack_source
-	lifetime = duration_stat + 1 ## +1 for making sure it appears for testing 
 	match activation_type:
 		ActivationTypes.entered:
 			pass
@@ -45,7 +40,7 @@ func setup(new_parent: StatsObject, attack_source: Attack.AttackSources):
 ## Carryout the functionality of the trap on activation
 func activate(body: Node2D):
 	print("activate")
-	if damage_enemy_on_entered_activation:
+	if damage_enemy_on_entered_activation && can_attack(body): ## TODO: Added can_attack here, check if that works for every trap
 		attack_body(body)
 		hit_enemy(body)
 	if sound_on_activate:
@@ -74,6 +69,11 @@ func hit_enemy(enemy: Node2D):
 	piercing += 1
 	if can_die_from_collision && piercing > piercing_stat:
 		die()
+func check_duration(delta: float):
+	if can_die_from_duration && stopwatch >= duration_stat:
+		die()
+	else:
+		stopwatch += delta
 ## Set Traps layer true
 func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
 	var area = get_node(".") as Area2D

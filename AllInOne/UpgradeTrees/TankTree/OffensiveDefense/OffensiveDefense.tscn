@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://cmsc5ca0lebs7"]
 
 [ext_resource type="Script" uid="uid://bu31h34h777v7" path="res://AllInOne/UpgradeTrees/TankTree/OffensiveDefense/OffensiveDefense.gd" id="1_vfjk0"]
+[ext_resource type="PackedScene" uid="uid://c3dddhcdciw6w" path="res://AllInOne/UpgradeTrees/TankTree/OffensiveDefense/HealingDamageProjectile.tscn" id="2_esnrv"]
 
 [node name="OffensiveDefense" type="Node2D" unique_id=1118566265]
 script = ExtResource("1_vfjk0")
+scene_to_spawn = ExtResource("2_esnrv")
 connect_player_heal = true

@@ -81,7 +81,7 @@ class DPS:
 	var countdown: float = 10
 	var array: Array
 	func _init(lifetime: float, new_damage: float, new_array: Array):
-		print("co: ", countdown)
+		#print("co: ", countdown)
 		countdown = lifetime
 		damage = new_damage
 	func process(delta: float):

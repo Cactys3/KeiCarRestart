@@ -200,7 +200,7 @@ static func calculate_avoid_damage(ghostly: float) -> bool:
 	return false
 	#return min(ghostly, 85) / 100 > randf()
 static func calculate_regen(regen: float) -> float:
-	return regen / 10
+	return regen
 static func calculate_spawning_cd(base_cd: float, difficulty: float) -> float:
 	## Can be at minimum half of normal cd
 	return max(base_cd - (difficulty / 100), base_cd / 2)

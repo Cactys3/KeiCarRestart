@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://c3dddhcdciw6w"]
+
+[ext_resource type="Script" uid="uid://bc53vjpcoi2la" path="res://Scripts/MainScripts/Projectile.gd" id="1_nk2at"]
+[ext_resource type="Texture2D" uid="uid://d4n2bw7dh3yjl" path="res://AllInOne/UpgradeTrees/TankTree/OffensiveDefense/HealingDamageProjectile.png" id="2_joh4e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yx7fn"]
+atlas = ExtResource("2_joh4e")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ad14v"]
+atlas = ExtResource("2_joh4e")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msk8d"]
+atlas = ExtResource("2_joh4e")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q72x3"]
+atlas = ExtResource("2_joh4e")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wicq2"]
+atlas = ExtResource("2_joh4e")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n2m13"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yx7fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ad14v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_msk8d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q72x3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wicq2")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_msitf"]
+size = Vector2(6, 18)
+
+[node name="HealingDamageProjectile" type="Area2D" unique_id=1052976383 node_paths=PackedStringArray("anim")]
+collision_layer = 4100
+collision_mask = 648
+script = ExtResource("1_nk2at")
+anim = NodePath("AnimatedSprite2D")
+_velocity = 40.0
+_duration = 15.0
+_weight = 1.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460497356]
+sprite_frames = SubResource("SpriteFrames_n2m13")
+autoplay = "default"
+frame_progress = 0.16604622
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1754514067]
+position = Vector2(-3, 5.9604645e-08)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_msitf")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

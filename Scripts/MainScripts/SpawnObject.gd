@@ -43,7 +43,7 @@ func check_collisions():
 	collisions.append_array(area.get_overlapping_areas())
 	collisions.append_array(area.get_overlapping_bodies())
 	for node in collisions:
-		print("Check Collision: ", node.name)
+		#print("Check Collision: ", node.name)
 		_on_body_entered(node)
 
 ## Return enemy within range, try to use detection_range by default
@@ -168,6 +168,8 @@ func can_attack(body: Node2D) -> bool:
 	if body.is_in_group("event") && !can_attack_events:
 		return false
 	if body.is_in_group("player") && !can_attack_player:
+		return false
+	if body.is_in_group("creation") && !can_attack_creations:
 		return false
 	## Have we attacked it
 	return !have_attacked(body)

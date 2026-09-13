@@ -1,7 +1,63 @@
 [gd_scene format=3 uid="uid://bld5yt6dhvc64"]
 
+[ext_resource type="Script" uid="uid://dehc07nkyfglc" path="res://AllInOne/UpgradeTrees/TankTree/SteelSkin/SteelSkinTrap.gd" id="1_g1qyg"]
+[ext_resource type="Texture2D" uid="uid://d4n2bw7dh3yjl" path="res://AllInOne/UpgradeTrees/TankTree/OffensiveDefense/HealingDamageProjectile.png" id="2_nqjvb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6pd63"]
+atlas = ExtResource("2_nqjvb")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmnxf"]
+atlas = ExtResource("2_nqjvb")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvbtw"]
+atlas = ExtResource("2_nqjvb")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bc04b"]
+atlas = ExtResource("2_nqjvb")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iuoxf"]
+atlas = ExtResource("2_nqjvb")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6gl66"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6pd63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmnxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvbtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bc04b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuoxf")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nxaux"]
+radius = 21.0
+
 [node name="SteelSkinTrap" type="Area2D" unique_id=1729151954]
+script = ExtResource("1_g1qyg")
+can_die_from_collision = false
+_damage = 1.0
+_duration = 0.1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=32335155]
+sprite_frames = SubResource("SpriteFrames_6gl66")
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1097685777]
+shape = SubResource("CircleShape2D_nxaux")

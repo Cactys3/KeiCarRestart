@@ -13,6 +13,8 @@ func make_aura_scaling():
 	aura_is_scaling = true
 	if grab_aura():
 		grab_aura().start_scaling()
+	else:
+		printerr("No Aura")
 var aura_is_vengeful: bool = false
 ## Called by vengefulaura
 func make_aura_vengeful():

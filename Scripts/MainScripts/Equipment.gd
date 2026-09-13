@@ -84,6 +84,12 @@ func activate(new_player: Character):
 		game_man.PlayerMaxHealthChange.connect(player_maxhp_changed)
 	if connect_player_shield_damaged:
 		game_man.PlayerShieldDamaged.connect(player_shield_damaged)
+	if connect_player_heal:
+		game_man.PlayerHeal.connect(player_heal)
+	if connect_creation_damaged:
+		game_man.CreationDamaged.connect(creation_damaged)
+	if connect_shock_proc:
+		game_man.ShockDamage.connect(shock_proc)
 	player = new_player
 	active = true
 ## disable and halt the functionality of this Equipment
@@ -209,7 +215,7 @@ func player_shield_damaged(character: Character, attack: Attack, shield_damage_a
 	pass
 func player_maxhp_changed(new_maxhp: float, old_maxhp: float):
 	pass
-func player_heal(heal: float, is_regen: bool):
+func player_heal(heal_amount: float, heal_type: GameManager.HealTypes):
 	pass
 func enemy_trapped(enemy: Enemy, trap: Trap):
 	pass
