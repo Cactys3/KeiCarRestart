@@ -187,7 +187,7 @@ func attack_body(body: Node2D):
 		print("Attacking My Friends!!! :( ")
 	append_attack_element(body)
 	attack_counter += 1
-	body.damage(make_attack(damage_multiplier))
+	post_damage_return(body.damage(make_attack(damage_multiplier)))
 	if self_knockback_onhit > 0 && can_be_knockedback:
 		apply_knockback(self_knockback_onhit * knockback_modifier, body.global_position)
 	if target == body:

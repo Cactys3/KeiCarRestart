@@ -14,7 +14,8 @@ var attack_counter: int = 0
 @export var attack_color: Color = Color.TRANSPARENT
 @export var can_die_from_collision: bool = true
 @export var can_die_from_duration: bool = true
-
+## Node that created this spawn object (if creator was created, it's a chain)
+var creator: Node2D
 var check_collision_stopwatch: float = 0
 
 func stats_changed():
@@ -180,7 +181,15 @@ func attack_body(body: Node2D):
 	post_damage_return(body.damage(make_attack(1)))
 ## Called after calling damage() on another node, implement lifesteal in overrides here
 func post_damage_return(damage_return: Enemy.DamageReturn):
-	pass
+	if creator && creator.has_method("creation_damage_return"):
+		creator.creation_damage_return(damage_return)
+		print("Post Damge")
+	else:
+		print("No parent")
+## Send damage return up the chain, upgrades will store the damage their children do
+func creation_damage_return(damage_return: Enemy.DamageReturn):
+	if creator && creator.has_method("creation_damage_return"):
+		creator.creation_damage_return(damage_return)
 var AttackedObjects: Array = []
 func have_attacked(node: Node) -> bool:
 	for element: AttackedObjectsElement in AttackedObjects:
@@ -204,7 +213,8 @@ func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
 	area.set_collision_mask_value(10, true)
 	area.body_entered.connect(_on_body_entered)
 	area.area_entered.connect(_on_body_entered)
-
+func set_creator(new_creator: Node2D):
+	creator = new_creator
 class AttackedObjectsElement:
 	var stopwatch: float = 0
 	var duration: float = 0

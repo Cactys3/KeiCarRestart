@@ -62,9 +62,7 @@ var while_attacking_locked_orbit: float
 @export var can_attack_player: bool = false
 @export var can_attack_creations: bool = false
 var attack_counter: int = 0
-var AttackedObjects: Array = []
-
-## Override
+var AttackedObjects: Array = []## Override
 func activate(new_player: Character):
 	super(new_player)
 	if get_parent():
@@ -332,6 +330,12 @@ func GetWeaponOffsetPosition(target_angle: float) -> Vector2:
 func reset_animation_when_finished():
 	await anim.animation_finished
 	anim.play(default_animation)
+## Creations send back their damage returns
+func creation_damage_return(damage_return: Enemy.DamageReturn):
+	total_damage += damage_return.total_damage_dealt
+	if damage_return.killed:
+		units_killed += 1
+	print("Damage: ", total_damage)
 
 ## Melees
 
@@ -343,9 +347,11 @@ func _on_body_entered(body: Node2D) -> void:
 	## Attempt to attack
 	if can_attack(body):
 		AttackedObjects.append(body)
-		body.damage(make_attack(MeleeDamageFactor))
+		post_damage_return(body.damage(make_attack(MeleeDamageFactor)))
 		if sound_on_melee_attack:
 			AudioManager.instance.play(sound_on_melee_attack, global_position)
+func post_damage_return(damage_return: Enemy.DamageReturn):
+	super(damage_return)
 ## Check if we can attack body using @export variables
 func can_attack(body: Node2D) -> bool: 
 	## Is it a valid node with required methods/variables

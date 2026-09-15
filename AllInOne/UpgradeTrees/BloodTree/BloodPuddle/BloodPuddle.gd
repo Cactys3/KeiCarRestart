@@ -17,7 +17,7 @@ func activate(body: Node2D):
 		attack.slow = 15 # 15% ms slow
 		attack.temporary_base_stats.set_stat(GlobalStats.BLEED_APPLY, bleed)
 		attack.temporary_base_stats.set_stat(GlobalStats.DAMAGE, 12)
-		body.damage(attack)
+		post_damage_return(body.damage(attack))
 		print("Attacked success")
 	if "bleed" in body:
 		body.bleed += bleed

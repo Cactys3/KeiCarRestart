@@ -9,7 +9,7 @@ func activate(body: Node2D):
 	## Assume body is enemy bc alrdy checked
 	## Damage Enemy
 	if body.has_method("damage"):
-		body.damage(make_attack(1))
+		post_damage_return(body.damage(make_attack(1)))
 	## Spawn Shards
 	var count = 1 + Statics.trap_count_buff + GlobalStats.get_stat(GlobalStats.COUNT)
 	var direction: Vector2 = Vector2(0, 0)

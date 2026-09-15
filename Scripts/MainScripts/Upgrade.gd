@@ -103,3 +103,9 @@ func get_attack_type() -> Attack.AttackTypes:
 	return Attack.AttackTypes.unset
 func get_attack_source() -> Attack.AttackSources:
 	return Attack.AttackSources.upgrade
+## Creations send back their damage returns
+func creation_damage_return(damage_return: Enemy.DamageReturn):
+	total_damage += damage_return.total_damage_dealt
+	if damage_return.killed:
+		units_killed += 1
+	print("Damage: ", total_damage)

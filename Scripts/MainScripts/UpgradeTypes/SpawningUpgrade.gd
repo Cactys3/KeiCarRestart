@@ -87,6 +87,7 @@ func spawn() -> void:
 ## Setup the object to spawn in the game (carryout spawning)
 func initialize_object(object: Node2D, parent: Node2D, spawn_position: Vector2) -> void:
 	parent.add_child(object)
+	object.set_creator(self)
 	object.global_position = spawn_position
 	edit_spawn_object(object)
 	on_spawn()

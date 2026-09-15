@@ -55,6 +55,7 @@ func apply_stats():
 ## Setup values generic for all BasicProjectile
 func setup_projectile(projectile_parent: StatsObject, projectile_attack_source: Attack.AttackSources, projectile_target: Node2D, starting_direction:Vector2): 
 	setup_collisions(true, false)
+	set_creator(projectile_parent)
 	parent = projectile_parent
 	target = projectile_target
 	attack_source = projectile_attack_source
@@ -180,7 +181,9 @@ func attack_body(body: Node2D) -> void:
 		attack = make_attack(damage_offset)
 	if attack:
 		edit_attack_before_sending(attack)
-		var killed: bool = body.damage(attack).killed
+		var damage_return: Enemy.DamageReturn = body.damage(attack)
+		post_damage_return(damage_return)
+		var killed: bool = damage_return.killed
 		## Handle Piercing Damage Buff Augments
 		if Statics.projectile_pierce_damage_buff > 0:
 			if Statics.projectile_pierce_damage_buff_doubled_on_kill && killed:
