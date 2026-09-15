@@ -108,4 +108,3 @@ func creation_damage_return(damage_return: Enemy.DamageReturn):
 	total_damage += damage_return.total_damage_dealt
 	if damage_return.killed:
 		units_killed += 1
-	print("Damage: ", total_damage)

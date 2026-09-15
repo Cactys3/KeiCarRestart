@@ -196,8 +196,6 @@ func attack_body(body: Node2D):
 	if attack_counter > piercing_stat && can_die_from_collision:
 		die()
 func post_damage_return(damage_return: Enemy.DamageReturn):
-	if lifesteal_stat > 0:
-		heal_creation((lifesteal_stat / 100) * damage_return.attack_damage_dealt)
 	super(damage_return)
 func heal_creation(heal: float):
 	hp += min(hp_stat, heal)

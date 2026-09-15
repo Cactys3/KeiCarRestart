@@ -191,7 +191,8 @@ func attack_body(body: Node2D) -> void:
 			else:
 				current_damage_buff += Statics.projectile_pierce_damage_buff
 func post_damage_return(damage_return: Enemy.DamageReturn):
-	if lifesteal_stat > 0:
+	## TODO: Do projectiles apply lifesteal? Only when from weapon?
+	if attack_source == Attack.AttackSources.weapon && lifesteal_stat > 0:
 		game_man.heal_player((lifesteal_stat / 100) * damage_return.attack_damage_dealt, GameManager.HealTypes.lifesteal)
 	super(damage_return)
 ## In-case overrides want to edit the attack

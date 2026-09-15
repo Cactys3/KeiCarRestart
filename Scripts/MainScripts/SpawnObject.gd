@@ -183,9 +183,6 @@ func attack_body(body: Node2D):
 func post_damage_return(damage_return: Enemy.DamageReturn):
 	if creator && creator.has_method("creation_damage_return"):
 		creator.creation_damage_return(damage_return)
-		print("Post Damge")
-	else:
-		print("No parent")
 ## Send damage return up the chain, upgrades will store the damage their children do
 func creation_damage_return(damage_return: Enemy.DamageReturn):
 	if creator && creator.has_method("creation_damage_return"):

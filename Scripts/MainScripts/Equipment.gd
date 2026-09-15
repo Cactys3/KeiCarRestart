@@ -241,12 +241,11 @@ func get_attack_position() -> Vector2:
 	return global_position
 
 func post_damage_return(damage_return: Enemy.DamageReturn):
-	if lifesteal_stat > 0:
-		game_man.heal_player((lifesteal_stat / 100) * damage_return.attack_damage_dealt, GameManager.HealTypes.lifesteal)
-		
+	total_damage += damage_return.total_damage_dealt
+	if damage_return.killed:
+		units_killed += 1
 ## Creations send back their damage returns
 func creation_damage_return(damage_return: Enemy.DamageReturn):
 	total_damage += damage_return.total_damage_dealt
 	if damage_return.killed:
 		units_killed += 1
-	print("Damage: ", total_damage)

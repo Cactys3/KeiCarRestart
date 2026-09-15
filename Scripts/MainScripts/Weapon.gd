@@ -332,11 +332,7 @@ func reset_animation_when_finished():
 	anim.play(default_animation)
 ## Creations send back their damage returns
 func creation_damage_return(damage_return: Enemy.DamageReturn):
-	total_damage += damage_return.total_damage_dealt
-	if damage_return.killed:
-		units_killed += 1
-	print("Damage: ", total_damage)
-
+	super(damage_return)
 ## Melees
 
 ## entered body/area with melee attack, Make sure to use this instead of 'body_entered'
@@ -351,6 +347,9 @@ func _on_body_entered(body: Node2D) -> void:
 		if sound_on_melee_attack:
 			AudioManager.instance.play(sound_on_melee_attack, global_position)
 func post_damage_return(damage_return: Enemy.DamageReturn):
+	## Lifesteal happens for weapons, not all Equiptment, so don't do it in super()
+	if lifesteal_stat > 0:
+		game_man.heal_player((lifesteal_stat / 100) * damage_return.attack_damage_dealt, GameManager.HealTypes.lifesteal)
 	super(damage_return)
 ## Check if we can attack body using @export variables
 func can_attack(body: Node2D) -> bool: 
