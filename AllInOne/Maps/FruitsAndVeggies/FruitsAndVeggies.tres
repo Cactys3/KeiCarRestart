@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MapData" format=3 uid="uid://ccidnfrdxi1ap"]
+
+[ext_resource type="Script" uid="uid://dc4a27qhw4vul" path="res://Scripts/MainScripts/MapData.gd" id="1_5y7ag"]
+[ext_resource type="PackedScene" uid="uid://d1aircl33de7m" path="res://AllInOne/Maps/FruitsAndVeggies/FruitsAndVeggies.tscn" id="1_ikx43"]
+
+[resource]
+script = ExtResource("1_5y7ag")
+map_name = "Fruits & Veggies"
+map_description = "A Land Full of Juice"
+map_scene = ExtResource("1_ikx43")
+metadata/_custom_type_script = "uid://dc4a27qhw4vul"

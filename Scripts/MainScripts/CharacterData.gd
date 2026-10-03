@@ -5,3 +5,4 @@ class_name CharacterData
 @export var character_description: String = "unset"
 @export var character_scene: PackedScene
 @export var abilities: Array[AbilityData]
+@export var icon: Texture2D

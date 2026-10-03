@@ -15,11 +15,15 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="KeiCarRestart"
-run/main_scene="uid://usy5uswcsdkg"
+run/main_scene="uid://c4ebub4hryjom"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=240
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
+
+[autoload]
+
+AudioManager="*uid://b5s22yev5207a"
 
 [debug]
 
@@ -31,8 +35,8 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
-window/size/viewport_width=3480
-window/size/viewport_height=2160
+window/size/viewport_width=2560
+window/size/viewport_height=1440
 window/energy_saving/keep_screen_on=false
 window/stretch/scale_mode="integer"
 window/vsync/vsync_mode=0

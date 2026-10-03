@@ -1,5 +1,5 @@
 extends Node2D
-class_name AudioManager
+#class_name AudioManager
 ## Each sound is an export variable i make of a custom class (not necessarily an export of 'AudioManager'
 ## Setup specifics of the sound (randomness, specific audio file, audio name, etc) inside the export
 ## Keep track of playing statistics (num of times currently playin the sound effect) inside that variable

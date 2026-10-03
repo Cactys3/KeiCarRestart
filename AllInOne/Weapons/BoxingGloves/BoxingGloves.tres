@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cq5nhmlksnt4w"]
+
+[ext_resource type="Script" uid="uid://cghcbpavcesuj" path="res://Scripts/MainScripts/WeaponData.gd" id="1_drqiy"]
+[ext_resource type="Texture2D" uid="uid://b4f6rn5tmnbd5" path="res://AllInOne/Weapons/BoxingGloves/BoxingGlovesIcon.png" id="1_ya50w"]
+[ext_resource type="PackedScene" uid="uid://bbw0s4nlfy63s" path="res://AllInOne/Weapons/BoxingGloves/BoxingGloves.tscn" id="2_qod0r"]
+
+[resource]
+script = ExtResource("1_drqiy")
+weapon_name = "Boxing Gloves"
+weapon_description = "Powerful fire fist"
+weapon_scene = ExtResource("2_qod0r")
+icon = ExtResource("1_ya50w")
+metadata/_custom_type_script = "uid://cghcbpavcesuj"

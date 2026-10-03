@@ -1,0 +1,338 @@
+[gd_scene format=3 uid="uid://c4ebub4hryjom"]
+
+[ext_resource type="Texture2D" uid="uid://cc8nm3jti725f" path="res://AllInOne/UI/Titlescreen/Outlines/StartBackground.png" id="1_t8enk"]
+[ext_resource type="Script" uid="uid://cipg42pewyygy" path="res://AllInOne/UI/Titlescreen/Titlescreen.gd" id="1_t15am"]
+[ext_resource type="Texture2D" uid="uid://bqfajmeakunda" path="res://AllInOne/UI/Titlescreen/Outlines/SelectionBackground.png" id="2_rb85a"]
+[ext_resource type="Texture2D" uid="uid://ivqxljtwxfmn" path="res://AllInOne/UI/Titlescreen/MapSelectionBackground.png" id="3_03vfd"]
+[ext_resource type="Texture2D" uid="uid://yuk3btwijdrf" path="res://AllInOne/UI/Titlescreen/Outlines/UnselectedButtonBorder.png" id="3_t8enk"]
+[ext_resource type="Script" uid="uid://b71rwgtnec8na" path="res://AllInOne/UI/Titlescreen/Outlines/ButtonOutline.gd" id="4_4288j"]
+[ext_resource type="Texture2D" uid="uid://duf4wmeo5kexg" path="res://AllInOne/UI/Titlescreen/Outlines/SelectedButtonBorder.png" id="5_rb85a"]
+[ext_resource type="Texture2D" uid="uid://py648okcqjnl" path="res://AllInOne/UI/Titlescreen/Outlines/L_UnHoveredButtonBorder.png" id="6_t8enk"]
+[ext_resource type="Texture2D" uid="uid://jpkgndci8buw" path="res://AllInOne/UI/Titlescreen/Outlines/L_HoveredButtonBorder.png" id="7_rb85a"]
+[ext_resource type="Script" uid="uid://bhlx828415cbc" path="res://AllInOne/UI/Titlescreen/TitleClouds.gd" id="8_rb85a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_03vfd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jq8tk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dwbtc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6fhyq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h83rl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0ogg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t7n2i"]
+
+[node name="Titlescreen" type="Control" unique_id=1738980017]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t15am")
+
+[node name="Background" type="Control" parent="." unique_id=456383875]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SelectionsPage" type="Control" parent="." unique_id=451228774]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SelectionBackground" type="TextureRect" parent="SelectionsPage" unique_id=2133657686]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rb85a")
+
+[node name="CharacterSelection" type="GridContainer" parent="SelectionsPage" unique_id=471194366]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -643.0
+offset_top = -290.0
+offset_right = -643.0
+offset_bottom = -290.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 7
+
+[node name="WeaponSelection" type="GridContainer" parent="SelectionsPage" unique_id=1932921754]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -643.0
+offset_top = -290.0
+offset_right = -643.0
+offset_bottom = -290.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 7
+
+[node name="MapSelectionParent" type="TextureRect" parent="SelectionsPage" unique_id=1200548800]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 219.0
+offset_right = 1081.0
+offset_bottom = 695.0
+texture = ExtResource("3_03vfd")
+stretch_mode = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SelectionsPage/MapSelectionParent" unique_id=2128742104]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.067067064
+anchor_top = 0.09033614
+anchor_right = 0.9219219
+anchor_bottom = 0.8655462
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/scrollbar_h_separation = 50
+theme_override_styles/focus = SubResource("StyleBoxEmpty_03vfd")
+horizontal_scroll_mode = 4
+vertical_scroll_mode = 0
+scroll_horizontal_by_default = true
+metadata/_edit_use_anchors_ = true
+
+[node name="MapSelection" type="HBoxContainer" parent="SelectionsPage/MapSelectionParent/ScrollContainer" unique_id=637147071]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="StartPage" type="Control" parent="." unique_id=88851692]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartBackground" type="TextureRect" parent="StartPage" unique_id=1224160579]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_t8enk")
+
+[node name="Clouds" type="Control" parent="StartPage" unique_id=2048449617]
+anchors_preset = 0
+offset_left = -619.0
+offset_top = 322.0
+offset_right = -579.0
+offset_bottom = 362.0
+script = ExtResource("8_rb85a")
+
+[node name="PlayOutline" type="TextureRect" parent="StartPage" unique_id=671682420]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -272.5
+offset_top = -525.0
+offset_right = 272.5
+offset_bottom = -363.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("6_t8enk")
+stretch_mode = 5
+script = ExtResource("4_4288j")
+unhovered_texture = ExtResource("6_t8enk")
+hovered_texture = ExtResource("7_rb85a")
+
+[node name="PlayButton" type="Button" parent="StartPage/PlayOutline" unique_id=643956445]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.25
+offset_right = -0.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
+theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
+text = "Play"
+
+[node name="PlayOutlineAlt" type="TextureRect" parent="StartPage" unique_id=1113721606]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -188.875
+offset_top = -537.0
+offset_right = 188.875
+offset_bottom = -365.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_t8enk")
+stretch_mode = 5
+script = ExtResource("4_4288j")
+unhovered_texture = ExtResource("3_t8enk")
+hovered_texture = ExtResource("5_rb85a")
+
+[node name="PlayButton" type="Button" parent="StartPage/PlayOutlineAlt" unique_id=2090009310]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.25
+offset_right = -0.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
+theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
+text = "Play
+"
+
+[node name="CollectionOutline" type="TextureRect" parent="StartPage" unique_id=207802829]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -272.5
+offset_top = -349.0
+offset_right = 272.5
+offset_bottom = -187.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("6_t8enk")
+stretch_mode = 5
+script = ExtResource("4_4288j")
+unhovered_texture = ExtResource("6_t8enk")
+hovered_texture = ExtResource("7_rb85a")
+
+[node name="CollectionButton" type="Button" parent="StartPage/CollectionOutline" unique_id=922151554]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.25
+offset_right = -0.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
+theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
+text = "Collection"
+
+[node name="SettingsOutline" type="TextureRect" parent="StartPage" unique_id=2108666352]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -272.5
+offset_top = -172.0
+offset_right = 272.5
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("6_t8enk")
+stretch_mode = 5
+script = ExtResource("4_4288j")
+unhovered_texture = ExtResource("6_t8enk")
+hovered_texture = ExtResource("7_rb85a")
+
+[node name="SettingsButton" type="Button" parent="StartPage/SettingsOutline" unique_id=805201957]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
+theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
+text = "Settings"
+
+[node name="GameTitle" type="Label" parent="StartPage" unique_id=1519181844]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -291.0
+offset_right = 288.0
+offset_bottom = -189.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.69411767, 0, 0, 1)
+theme_override_font_sizes/font_size = 256
+text = "KeiKarReStar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="StartPage/PlayOutline/PlayButton" to="." method="press_play"]
+[connection signal="pressed" from="StartPage/CollectionOutline/CollectionButton" to="." method="press_collection"]
+[connection signal="pressed" from="StartPage/SettingsOutline/SettingsButton" to="." method="press_settings"]

@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://usy5uswcsdkg"]
 
 [ext_resource type="Script" uid="uid://dlqvwknfyt7ay" path="res://Scripts/managers/TitleManager.gd" id="1_bgkhj"]
-[ext_resource type="PackedScene" uid="uid://b5s22yev5207a" path="res://Scenes/Managers/AudioManager.tscn" id="2_cieon"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bgkhj"]
 font_size = 128
 
-[node name="TitleScene" type="Node2D" unique_id=1080031361]
+[node name="TitleScene(OLD)" type="Node2D" unique_id=1080031361]
 position = Vector2(1897, 640)
 
 [node name="TitleManager" type="Node" parent="." unique_id=1619080067 node_paths=PackedStringArray("main", "settings", "collection", "shop", "page_title", "button_back", "character_selection", "abilities_selection", "map_selection", "weapon_selection", "text_character", "text_ability1", "text_ability2", "text_ability3", "text_map", "text_weapon", "achievement_parent", "weapon_parent", "item_parent", "weapon_select_parent", "map_select_parent", "character_select_parent", "abilities_select_parent")]
@@ -36,8 +35,6 @@ map_select_parent = NodePath("../Map_Selection/ScrollContainer/GridContainer")
 character_select_parent = NodePath("../Character_Selection/ScrollContainer/GridContainer")
 abilities_select_parent = NodePath("../Ability_Selection/ScrollContainer/GridContainer")
 
-[node name="AudioManager" parent="." unique_id=845473939 instance=ExtResource("2_cieon")]
-
 [node name="Always_Active" type="Node2D" parent="." unique_id=1877056058]
 position = Vector2(-386, 0)
 
@@ -57,10 +54,10 @@ horizontal_alignment = 1
 
 [node name="Quickstart" type="Button" parent="Always_Active" unique_id=3074576]
 custom_minimum_size = Vector2(400, 150)
-offset_left = 1241.0
-offset_top = 423.0
-offset_right = 1897.0
-offset_bottom = 606.0
+offset_left = -1132.0
+offset_top = -273.0
+offset_right = -476.0
+offset_bottom = -90.0
 theme_override_font_sizes/font_size = 128
 text = "Quickstart"
 

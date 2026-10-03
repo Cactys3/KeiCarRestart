@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MapData" format=3 uid="uid://6rr4rk82t1jk"]
+
+[ext_resource type="Script" uid="uid://dc4a27qhw4vul" path="res://Scripts/MainScripts/MapData.gd" id="1_4iqxk"]
+[ext_resource type="PackedScene" uid="uid://bi0s6cycq17p5" path="res://Scenes/Main/TestInstance.tscn" id="1_dc37u"]
+
+[resource]
+script = ExtResource("1_4iqxk")
+map_name = "Test Instance"
+map_description = "For Testing"
+map_scene = ExtResource("1_dc37u")
+metadata/_custom_type_script = "uid://dc4a27qhw4vul"

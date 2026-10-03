@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MapData" format=3 uid="uid://bdfkg05dhqxwy"]
+
+[ext_resource type="Script" uid="uid://dc4a27qhw4vul" path="res://Scripts/MainScripts/MapData.gd" id="1_4vuba"]
+[ext_resource type="PackedScene" uid="uid://coilw1f24ow0b" path="res://AllInOne/Maps/DarkForest/DarkForest.tscn" id="1_ph88s"]
+
+[resource]
+script = ExtResource("1_4vuba")
+map_name = "Dark Forest"
+map_description = "A Spoooooky Foresstttt...."
+map_scene = ExtResource("1_ph88s")
+metadata/_custom_type_script = "uid://dc4a27qhw4vul"

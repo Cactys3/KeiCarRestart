@@ -6,10 +6,12 @@
 [ext_resource type="Resource" uid="uid://cnckhxhliuqrx" path="res://AllInOne/Characters/Lily/LilyFlurryAbility/FurryPunches.tres" id="2_ux74o"]
 [ext_resource type="Resource" uid="uid://cgvnmsyqjuh43" path="res://AllInOne/Characters/Lily/LilyDashAbility/LilyDash.tres" id="3_waph1"]
 [ext_resource type="Resource" uid="uid://ccdsfh81no8co" path="res://AllInOne/Characters/Lily/LilyStanceAbility/BoxingStance.tres" id="4_waph1"]
+[ext_resource type="Texture2D" uid="uid://b78rmvx3t3mil" path="res://AllInOne/Characters/Lily/LilyIcon.png" id="6_dykri"]
 
 [resource]
 script = ExtResource("2_ir4i0")
 character_name = "Lily"
 character_scene = ExtResource("2_t8g8i")
 abilities = Array[ExtResource("1_ir4i0")]([ExtResource("2_ux74o"), ExtResource("3_waph1"), ExtResource("4_waph1")])
+icon = ExtResource("6_dykri")
 metadata/_custom_type_script = "uid://benf0nvrsvam7"

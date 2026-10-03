@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://65cjo6i823vw" path="res://Scripts/MainScripts/AbilityData.gd" id="1_7xjxv"]
 [ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://AllInOne/Characters/Webfisher/Webfisher.tscn" id="2_hh0xy"]
 [ext_resource type="Script" uid="uid://benf0nvrsvam7" path="res://Scripts/MainScripts/CharacterData.gd" id="2_wswkh"]
+[ext_resource type="Texture2D" uid="uid://c0sm2mcsukyca" path="res://AllInOne/Characters/Webfisher/WebfisherIcon.png" id="3_hh0xy"]
 
 [resource]
 script = ExtResource("2_wswkh")
 character_name = "Webfisher"
 character_scene = ExtResource("2_hh0xy")
+icon = ExtResource("3_hh0xy")
 metadata/_custom_type_script = "uid://benf0nvrsvam7"

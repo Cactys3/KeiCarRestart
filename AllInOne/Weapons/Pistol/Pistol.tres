@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cekjsgpmxcbxn"]
+
+[ext_resource type="Script" uid="uid://cghcbpavcesuj" path="res://Scripts/MainScripts/WeaponData.gd" id="1_hotqy"]
+[ext_resource type="Texture2D" uid="uid://co3l31e16bbi7" path="res://AllInOne/Weapons/Pistol/PistolIcon.png" id="1_q44jy"]
+[ext_resource type="PackedScene" uid="uid://cjkad8i0d5u2g" path="res://AllInOne/Weapons/Pistol/Pistol.tscn" id="2_j5q83"]
+
+[resource]
+script = ExtResource("1_hotqy")
+weapon_name = "Pistol"
+weapon_scene = ExtResource("2_j5q83")
+icon = ExtResource("1_q44jy")
+metadata/_custom_type_script = "uid://cghcbpavcesuj"

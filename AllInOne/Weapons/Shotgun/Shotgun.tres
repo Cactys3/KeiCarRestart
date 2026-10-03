@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://b1piik111lyye"]
+
+[ext_resource type="Texture2D" uid="uid://fyf7vwem7qj3" path="res://AllInOne/Weapons/Shotgun/ShotgunIcon.png" id="1_j13yw"]
+[ext_resource type="Script" uid="uid://cghcbpavcesuj" path="res://Scripts/MainScripts/WeaponData.gd" id="1_k553n"]
+[ext_resource type="PackedScene" uid="uid://cjdtr6rhq2yso" path="res://AllInOne/Weapons/Shotgun/Shotgun.tscn" id="2_8k8b5"]
+
+[resource]
+script = ExtResource("1_k553n")
+weapon_name = "Shotgun"
+weapon_scene = ExtResource("2_8k8b5")
+icon = ExtResource("1_j13yw")
+metadata/_custom_type_script = "uid://cghcbpavcesuj"

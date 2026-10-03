@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MapData" format=3 uid="uid://6qybeb73ksh0"]
+
+[ext_resource type="PackedScene" uid="uid://bqc6xaum4ppcs" path="res://AllInOne/Maps/Hell/Hell.tscn" id="1_730oc"]
+[ext_resource type="Script" uid="uid://dc4a27qhw4vul" path="res://Scripts/MainScripts/MapData.gd" id="1_oydmp"]
+
+[resource]
+script = ExtResource("1_oydmp")
+map_name = "Hell"
+map_description = "The Underworld"
+map_scene = ExtResource("1_730oc")
+metadata/_custom_type_script = "uid://dc4a27qhw4vul"

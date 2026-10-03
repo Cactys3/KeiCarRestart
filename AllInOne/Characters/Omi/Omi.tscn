@@ -23,11 +23,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7xadt"]
 size = Vector2(10, 23)
 
-[node name="Character" type="CharacterBody2D" unique_id=1197695872 groups=["player"]]
+[node name="Character" type="CharacterBody2D" unique_id=1197695872 node_paths=PackedStringArray("pickup_range", "anim") groups=["player"]]
 collision_layer = 2
 collision_mask = 64
 platform_on_leave = 2
 script = ExtResource("1_hvmwy")
+pickup_range = NodePath("pickup_range/CollisionShape2D")
+anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=564162239 node_paths=PackedStringArray("Target")]
 sprite_frames = SubResource("SpriteFrames_hvmwy")
