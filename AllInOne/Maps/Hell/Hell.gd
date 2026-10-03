@@ -58,9 +58,8 @@ func _ready() -> void:
 	
 	## Setup Events
 	
-	
 	## Setups Phases
-	phases.append(SpawningPhase.new("test", 60, phase_test))
+	#phases.append(SpawningPhase.new("test", 60, phase_test))
 	phases.append(SpawningPhase.new("1", 60, phase_one))
 	phases.append(SpawningPhase.new("2", 60, phase_two))
 	phases.append(SpawningPhase.new("3", 60, phase_three))

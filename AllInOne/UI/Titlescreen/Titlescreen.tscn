@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://jpkgndci8buw" path="res://AllInOne/UI/Titlescreen/Outlines/L_HoveredButtonBorder.png" id="7_rb85a"]
 [ext_resource type="PackedScene" uid="uid://7agjses182bt" path="res://AllInOne/UI/Titlescreen/SelectionOptions/SelectionOption.tscn" id="7_ybvak"]
 [ext_resource type="Script" uid="uid://bhlx828415cbc" path="res://AllInOne/UI/Titlescreen/TitleClouds.gd" id="8_rb85a"]
+[ext_resource type="Texture2D" uid="uid://ck01i55vg4og6" path="res://AllInOne/UI/Titlescreen/Outlines/Neutral_LargeButtonOutline.png" id="13_wlr2a"]
+[ext_resource type="Texture2D" uid="uid://b2mh2tfuhkb0r" path="res://AllInOne/UI/Titlescreen/Outlines/Hovered_LargeButtonOutline.png" id="14_464df"]
+[ext_resource type="Texture2D" uid="uid://dax87r6a4px6x" path="res://AllInOne/UI/Titlescreen/Outlines/Pressed_LargeButtonOutline.png" id="15_m40aa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_03vfd"]
 
@@ -451,11 +454,12 @@ offset_right = 272.5
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("6_t8enk")
+texture = ExtResource("13_wlr2a")
 stretch_mode = 5
 script = ExtResource("4_4288j")
-unhovered_texture = ExtResource("6_t8enk")
-hovered_texture = ExtResource("7_rb85a")
+unhovered_texture = ExtResource("13_wlr2a")
+hovered_texture = ExtResource("14_464df")
+pressed_texture = ExtResource("15_m40aa")
 
 [node name="SettingsButton" type="Button" parent="StartPage/SettingsOutline" unique_id=805201957]
 layout_mode = 1
