@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://5bemj3sw565b"]
+
+[ext_resource type="Texture2D" uid="uid://c7cfhi6ltknxs" path="res://AllInOne/UI/TabScreen/UpgradeSheet/Background_AugmentSheet.png" id="1_lynk3"]
+[ext_resource type="Script" uid="uid://c8usxkrwiuo2d" path="res://AllInOne/UI/TabScreen/UpgradeSheet/upgrade_sheet.gd" id="2_7watb"]
+[ext_resource type="Texture2D" uid="uid://dlqv52xxlrmnp" path="res://AllInOne/UI/TabScreen/PullTab.png" id="3_7watb"]
+[ext_resource type="Script" uid="uid://0vwy7cdrliav" path="res://AllInOne/UI/TabScreen/UpgradeSheet/pull_tab.gd" id="4_wqale"]
+[ext_resource type="Texture2D" uid="uid://d31nmwkkxnllr" path="res://AllInOne/UI/TabScreen/Hovered_PullTab.png" id="5_wqale"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nvand"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7watb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wqale"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6o508"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6gl75"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4enf0"]
+font_size = 48
+font_color = Color(0.94956845, 0.24816209, 0.22725073, 1)
+shadow_color = Color(0.25882354, 0, 0, 0.54901963)
+
+[node name="AugmentSheet" type="TextureRect" unique_id=588283242]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_lynk3")
+stretch_mode = 3
+script = ExtResource("2_7watb")
+
+[node name="PullTab" type="TextureRect" parent="." unique_id=695079044]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0476191
+anchor_top = 0.5
+anchor_right = 1.0476191
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -22.5
+offset_bottom = 22.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_7watb")
+stretch_mode = 3
+script = ExtResource("4_wqale")
+standard_texture = ExtResource("3_7watb")
+hover_texture = ExtResource("5_wqale")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="PullTab" unique_id=968086301]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nvand")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_7watb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_wqale")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6o508")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6gl75")
+toggle_mode = true
+metadata/_edit_use_anchors_ = true
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1532652585]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.034391534
+anchor_top = 0.107714705
+anchor_right = 0.91798943
+anchor_bottom = 0.9694323
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 9
+theme_override_constants/v_separation = 17
+columns = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="." unique_id=989083059]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37301588
+anchor_top = 0.020378457
+anchor_right = 0.6269841
+anchor_bottom = 0.05676856
+offset_left = -24.0
+offset_right = 24.0
+offset_bottom = 13.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.98698705, 0.5184064, 0.47105622, 1)
+theme_override_colors/font_shadow_color = Color(0.43529412, 0.05882353, 0.05882353, 0.5137255)
+theme_override_font_sizes/font_size = 32
+text = "Upgrades"
+label_settings = SubResource("LabelSettings_4enf0")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true

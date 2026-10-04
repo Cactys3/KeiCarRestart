@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dsiu75ja376tn"]
+
+[ext_resource type="Texture2D" uid="uid://cq8tuuk8eo251" path="res://AllInOne/UI/TabScreen/CharacterSheet/Background_CharacterSheet.png" id="1_0tli3"]
+[ext_resource type="Texture2D" uid="uid://dlqv52xxlrmnp" path="res://AllInOne/UI/TabScreen/PullTab.png" id="2_0ic1d"]
+[ext_resource type="Script" uid="uid://cruoccc0w33cc" path="res://AllInOne/UI/TabScreen/CharacterSheet/character_sheet.gd" id="2_p017l"]
+[ext_resource type="Script" uid="uid://0vwy7cdrliav" path="res://AllInOne/UI/TabScreen/UpgradeSheet/pull_tab.gd" id="3_goprm"]
+[ext_resource type="Texture2D" uid="uid://d31nmwkkxnllr" path="res://AllInOne/UI/TabScreen/Hovered_PullTab.png" id="4_goprm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p017l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85deb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pnh3m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eugbl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jilyv"]
+
+[node name="CharacterSheet" type="TextureRect" unique_id=918288923]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_0tli3")
+stretch_mode = 3
+script = ExtResource("2_p017l")
+
+[node name="PullTab" type="TextureRect" parent="." unique_id=700438959]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.03448276
+anchor_top = 0.5
+anchor_right = -0.03448276
+anchor_bottom = 0.5
+offset_top = -22.5
+offset_right = 18.0
+offset_bottom = 22.5
+grow_vertical = 2
+texture = ExtResource("2_0ic1d")
+stretch_mode = 3
+flip_h = true
+script = ExtResource("3_goprm")
+standard_texture = ExtResource("2_0ic1d")
+hover_texture = ExtResource("4_goprm")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="PullTab" unique_id=44323220]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_p017l")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_85deb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pnh3m")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_eugbl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jilyv")
+toggle_mode = true
+metadata/_edit_use_anchors_ = true

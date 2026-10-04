@@ -1,6 +1,6 @@
 extends Node
 #class_name TitleManager
-@onready var audio_manager: AudioManager = $"../AudioManager"
+@onready var audio_manager: AudioManager = AudioManager
 ## Selections
 @onready var character_selection: GridContainer = $SelectionsPage/CharacterSelection
 @onready var weapon_selection: GridContainer = $SelectionsPage/WeaponSelection
@@ -66,10 +66,10 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	
 	var window = get_window()
-	## Set to saved screen size
+	## Set to desired game resolution (scales titlescreen from 1440p)
 	window.size = Vector2(1920, 1080)
 	## Setup Titlescreen window settings (make sure to resetup when changing to game scene)
-	window.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	window.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	window.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL
 	window.move_to_center()
 	
@@ -122,7 +122,6 @@ func save():
 	Save.load_file(0)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(previous_screens)
 	pass
 ### UI Code
 ## Return to previous screen

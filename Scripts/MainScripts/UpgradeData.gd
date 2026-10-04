@@ -6,7 +6,28 @@ class_name UpgradeData
 @export var upgrade_tree: UpgradeTrees = UpgradeTrees.unset
 enum UpgradeTrees {unset, blood, nerd, gun, ghost, egg, tank, ranger}
 @export_multiline("Description") var upgrade_description: String
-@export var upgrade_color: Color = Color.DARK_SLATE_BLUE
+@export var upgrade_color: Color = Color.TRANSPARENT:
+	get():
+		if upgrade_color == Color.TRANSPARENT:
+			match upgrade_tree:
+				UpgradeTrees.blood:
+					return Color.RED
+				UpgradeTrees.nerd:
+					return Color.DEEP_SKY_BLUE
+				UpgradeTrees.gun:
+					return Color.SADDLE_BROWN
+				UpgradeTrees.ghost:
+					return Color.LIGHT_STEEL_BLUE
+				UpgradeTrees.egg:
+					return Color.BEIGE
+				UpgradeTrees.tank:
+					return Color.FOREST_GREEN
+				UpgradeTrees.ranger:
+					return Color.CHARTREUSE
+				_:
+					return Color.BLACK
+		else:
+			return upgrade_color
 @export var upgrade_image: Texture2D 
 @export var upgrade_rarity: Upgrade.UpgradeRarities = Upgrade.UpgradeRarities.unset
 @export var prerequisite_upgrades: Array[UpgradeData]

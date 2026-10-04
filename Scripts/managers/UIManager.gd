@@ -1,5 +1,8 @@
 extends Control
 class_name UIManager
+## Sheets
+@export var upgrade_sheet: UpgradeSheet
+@export var character_sheet: CharacterSheet
 ## Tutorial Or Stats
 @export var stats: Control
 @export var tutorial: Control
@@ -230,6 +233,8 @@ func add_upgrade(upgrade: Upgrade):
 		label.text = upgrade.item_name
 	upgrade_parent.add_child(image)
 	image.add_child(label)
+	## Add the real upgrade UI
+	upgrade_sheet.add_upgrade(upgrade.data)
 func _on_tutorial_or_stats_pressed() -> void:
 	tutorial_or_stats = !tutorial_or_stats
 	if tutorial_or_stats:
