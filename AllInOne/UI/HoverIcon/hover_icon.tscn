@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://b70ahdnm01jkq"]
+
+[ext_resource type="Script" uid="uid://34pwogp3w78t" path="res://AllInOne/UI/HoverIcon/hover_icon.gd" id="1_qwlt4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lgedt"]
+font_color = Color(0.810035, 0, 0.16230962, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgedt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dcvs3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l0iw7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x8ted"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6iabj"]
+
+[node name="HoverIcon" type="TextureRect" unique_id=989240199]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 3
+script = ExtResource("1_qwlt4")
+custom_text_on_hover = "Custom Tech"
+
+[node name="InsideRect" type="TextureRect" parent="." unique_id=961108690]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch_mode = 5
+
+[node name="LabelBackground" type="TextureRect" parent="." unique_id=2120478348]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="LabelBackground" unique_id=1913013821]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = -6.5
+offset_right = 33.0
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Custom Text"
+label_settings = SubResource("LabelSettings_lgedt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=1284369725]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lgedt")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dcvs3")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_l0iw7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_x8ted")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6iabj")

@@ -14,4 +14,5 @@ character_name = "Lily"
 character_scene = ExtResource("2_t8g8i")
 abilities = Array[ExtResource("1_ir4i0")]([ExtResource("2_ux74o"), ExtResource("3_waph1"), ExtResource("4_waph1")])
 icon = ExtResource("6_dykri")
+character_sheet_icon = ExtResource("6_dykri")
 metadata/_custom_type_script = "uid://benf0nvrsvam7"

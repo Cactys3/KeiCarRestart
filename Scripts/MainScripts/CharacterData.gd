@@ -6,3 +6,4 @@ class_name CharacterData
 @export var character_scene: PackedScene
 @export var abilities: Array[AbilityData]
 @export var icon: Texture2D
+@export var character_sheet_icon: Texture2D

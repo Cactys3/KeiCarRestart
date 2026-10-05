@@ -100,9 +100,6 @@ var money: float = 0: ## Current Money Held
 var difficulty: float:
 	get():
 		return GlobalStats.get_stat(GlobalStats.DIFFICULTY)
-var luck: float:
-	get():
-		return GlobalStats.get_stat(GlobalStats.LUCK)
 ## Enabled when typing so keybinds should be disabled
 var typing_disable_keybinds: bool = false
 var paused: bool = false ## Is Game Instance Paused or Not
@@ -175,6 +172,7 @@ func setup(new_player: Character, starting_weapon: String, new_camera: Camera2D)
 	EnemyKilled.connect(enemy_killed)
 	PlayerDamaged.connect(player_damaged)
 	StatsChanged.connect(player.stats_changed)
+	StatsChanged.connect(ui_man.stats_changed)
 func defer_once(starting_weapon: String):
 	call_deferred("defer_twice", starting_weapon)
 ## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)

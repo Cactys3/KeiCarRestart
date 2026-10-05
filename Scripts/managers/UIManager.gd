@@ -32,6 +32,9 @@ var tutorial_or_stats: bool = true
 ## Other
 @export var hud: HUD
 var enabled: bool = true
+var game_man: GameManager:
+	get():
+		return GameManager.instance
 signal delete_proximity
 func _ready() -> void:
 	call_deferred("_connect_signals")
@@ -253,3 +256,18 @@ func setup_cooldown_ui(is_upgrade: bool, is_ability: bool, text_on_hover: String
 		hud.add_ability_cooldown_ui(cooldownUI)
 	cooldownUI.setup(text_on_hover, color, thumbnail)
 	return cooldownUI
+
+func stats_changed():
+	character_sheet.set_stat(GlobalStats.HP, str(roundi(game_man.max_hp)))
+	character_sheet.set_stat(GlobalStats.MOVESPEED, str(roundi(game_man.player.movespeed)))
+	character_sheet.set_stat(GlobalStats.SHIELD, str(roundi(game_man.player.max_shield)))
+	character_sheet.set_stat(GlobalStats.LUCK, str(roundi(game_man.player.luck)))
+	character_sheet.set_stat(GlobalStats.MOGUL, str(roundi(game_man.player.mogul)))
+	character_sheet.set_stat(GlobalStats.XP, str(roundi(game_man.player.xp_gain)))
+	character_sheet.set_stat(GlobalStats.THORNS, str(roundi(game_man.player.thorns)))
+	character_sheet.set_stat(GlobalStats.STANCE, str(roundi(game_man.player.stance)))
+	character_sheet.set_stat(GlobalStats.MAGNETIZE, str(roundi(game_man.player.magnetize)))
+	character_sheet.set_stat(GlobalStats.REVIES, str(roundi(game_man.player.revives)))
+	character_sheet.set_stat(GlobalStats.REGEN, str(roundi(game_man.player.regen)))
+	character_sheet.set_stat(GlobalStats.GHOSTLY, str(roundi(game_man.player.ghostly)))
+	character_sheet.set_stat(GlobalStats.DIFFICULTY, str(roundi(game_man.difficulty)))

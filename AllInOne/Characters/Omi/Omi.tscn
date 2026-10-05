@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dwcpl5iaqxdq1" path="res://AllInOne/Characters/Omi/Omi.gd" id="1_hvmwy"]
 [ext_resource type="Texture2D" uid="uid://dqhxk5yx6vofc" path="res://AllInOne/Characters/Omi/Omi.png" id="2_hvmwy"]
+[ext_resource type="Resource" uid="uid://bkf2gykr0mhbs" path="res://AllInOne/Characters/Omi/Omi.tres" id="2_upqpd"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_f5chu"]
 [ext_resource type="Shape2D" uid="uid://oflj7l4b866g" path="res://AllInOne/GenericObjects/CharacterPickupRangeShape.tres" id="4_6evda"]
 
@@ -28,6 +29,7 @@ collision_layer = 2
 collision_mask = 64
 platform_on_leave = 2
 script = ExtResource("1_hvmwy")
+data = ExtResource("2_upqpd")
 pickup_range = NodePath("pickup_range/CollisionShape2D")
 anim = NodePath("AnimatedSprite2D")
 

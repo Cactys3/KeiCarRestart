@@ -175,6 +175,7 @@ func setup_instance(base_scene) -> GameInstance:
 	#print("Creating instance with Map: " + maps[map].key + ", Char: " + characters[character].key)
 	var game_instance: GameInstance = get_instance()
 	var chosen_character: Character = get_character()
+	chosen_character.data = characters[character]
 	chosen_character.set_abilities(ability1, ability2, ability3)
 	var chosen_weapon: String = get_weapon()
 	base_scene.add_child(game_instance)

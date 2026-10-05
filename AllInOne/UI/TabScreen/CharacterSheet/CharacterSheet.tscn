@@ -5,6 +5,20 @@
 [ext_resource type="Script" uid="uid://cruoccc0w33cc" path="res://AllInOne/UI/TabScreen/CharacterSheet/character_sheet.gd" id="2_p017l"]
 [ext_resource type="Script" uid="uid://0vwy7cdrliav" path="res://AllInOne/UI/TabScreen/UpgradeSheet/pull_tab.gd" id="3_goprm"]
 [ext_resource type="Texture2D" uid="uid://d31nmwkkxnllr" path="res://AllInOne/UI/TabScreen/Hovered_PullTab.png" id="4_goprm"]
+[ext_resource type="PackedScene" uid="uid://b70ahdnm01jkq" path="res://AllInOne/UI/HoverIcon/hover_icon.tscn" id="6_85deb"]
+[ext_resource type="Texture2D" uid="uid://dlq474up2h3ix" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/MovespeedIcon.png" id="7_pnh3m"]
+[ext_resource type="Texture2D" uid="uid://ui3l4ww5l8j1" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/HealthIcon.png" id="8_eugbl"]
+[ext_resource type="Texture2D" uid="uid://dbp2xsy1lqftp" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/ShieldIcon.png" id="9_jilyv"]
+[ext_resource type="Texture2D" uid="uid://dwkd178jfemrj" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/LuckIcon.png" id="10_lcear"]
+[ext_resource type="Texture2D" uid="uid://ciw44k3iu74tm" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/MogulIcon.png" id="11_fud60"]
+[ext_resource type="Texture2D" uid="uid://bem5q3qehq1ll" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/ThornsIcon.png" id="12_h60fb"]
+[ext_resource type="Texture2D" uid="uid://qh5mw34da2v6" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/XpIcon.png" id="12_jolih"]
+[ext_resource type="Texture2D" uid="uid://ct3d5twn4g3qe" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/StanceIcon.png" id="12_kxcle"]
+[ext_resource type="Texture2D" uid="uid://ddc31f8cfg5t1" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/MagnetizeIcon.png" id="14_fuvd7"]
+[ext_resource type="Texture2D" uid="uid://5adefi4qjcfj" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/RevivesIcon.png" id="15_042vw"]
+[ext_resource type="Texture2D" uid="uid://lxfntb74ukea" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/RegenIcon.png" id="16_224j4"]
+[ext_resource type="Texture2D" uid="uid://cpgjxqiisvbop" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/GhostlyIcon.png" id="18_bkwct"]
+[ext_resource type="Texture2D" uid="uid://c4w6t11xnbqy2" path="res://AllInOne/UI/TabScreen/CharacterSheet/StatIcons/DifficultyIcon_Easy.png" id="19_ywu3f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p017l"]
 
@@ -15,6 +29,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eugbl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jilyv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pnh3m"]
 
 [node name="CharacterSheet" type="TextureRect" unique_id=918288923]
 offset_right = 40.0
@@ -56,3 +72,325 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_eugbl")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jilyv")
 toggle_mode = true
 metadata/_edit_use_anchors_ = true
+
+[node name="Health" parent="." unique_id=1110849983 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = -81.5
+offset_top = -299.0
+offset_right = -39.5
+offset_bottom = -257.0
+texture = ExtResource("8_eugbl")
+custom_text_on_hover = "Health"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_offsets_right = true
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("8_eugbl")
+
+[node name="Label" type="Label" parent="Health" unique_id=647752290]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.2142857
+anchor_top = 0.32142857
+anchor_right = -1.2142857
+anchor_bottom = 0.32142857
+offset_right = 40.0
+offset_bottom = 13.0
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Movespeed" parent="." unique_id=989240199 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = -82.0
+offset_top = -252.5
+offset_right = -40.0
+offset_bottom = -210.5
+texture = ExtResource("7_pnh3m")
+custom_text_on_hover = "Movespeed"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_offsets_right = true
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("7_pnh3m")
+
+[node name="Label" type="Label" parent="Movespeed" unique_id=1383200124]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.2142857
+anchor_top = 0.32142857
+anchor_right = -1.2142857
+anchor_bottom = 0.32142857
+offset_right = 40.0
+offset_bottom = 13.0
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Shield" parent="." unique_id=1208673464 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = -82.0
+offset_top = -205.5
+offset_right = -40.0
+offset_bottom = -163.5
+texture = ExtResource("9_jilyv")
+custom_text_on_hover = "Shield"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_offsets_right = true
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("9_jilyv")
+
+[node name="Label" type="Label" parent="Shield" unique_id=1722859736]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.2142857
+anchor_top = 0.32142857
+anchor_right = -1.2142857
+anchor_bottom = 0.32142857
+offset_right = 40.0
+offset_bottom = 13.0
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Stance" parent="." unique_id=97117546 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = -82.0
+offset_top = -158.5
+offset_right = -40.0
+offset_bottom = -116.5
+texture = ExtResource("12_kxcle")
+custom_text_on_hover = "Stance"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_offsets_right = true
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("12_kxcle")
+
+[node name="Label" type="Label" parent="Stance" unique_id=681442299]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.2142857
+anchor_top = 0.32142857
+anchor_right = -1.2142857
+anchor_bottom = 0.32142857
+offset_right = 40.0
+offset_bottom = 13.0
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Regen" parent="." unique_id=979694179 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = -82.0
+offset_top = -111.5
+offset_right = -40.0
+offset_bottom = -69.5
+texture = ExtResource("16_224j4")
+custom_text_on_hover = "Regen"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_offsets_right = true
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("16_224j4")
+
+[node name="Label" type="Label" parent="Regen" unique_id=740758313]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.2142857
+anchor_top = 0.32142857
+anchor_right = -1.2142857
+anchor_bottom = 0.32142857
+offset_right = 40.0
+offset_bottom = 13.0
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Luck" parent="." unique_id=512426499 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = -82.0
+offset_top = -64.5
+offset_right = -40.0
+offset_bottom = -22.5
+texture = ExtResource("10_lcear")
+custom_text_on_hover = "Luck"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_offsets_right = true
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("10_lcear")
+
+[node name="Label" type="Label" parent="Luck" unique_id=1872100719]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.2142857
+anchor_top = 0.32142857
+anchor_right = -1.2142857
+anchor_bottom = 0.32142857
+offset_right = 40.0
+offset_bottom = 13.0
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="XP" parent="." unique_id=152125878 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = -82.0
+offset_top = -16.5
+offset_right = -40.0
+offset_bottom = 25.5
+texture = ExtResource("12_jolih")
+custom_text_on_hover = "Xp Gain"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_offsets_right = true
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("12_jolih")
+
+[node name="Label" type="Label" parent="XP" unique_id=654700364]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.2142857
+anchor_top = 0.32142857
+anchor_right = -1.2142857
+anchor_bottom = 0.32142857
+offset_right = 40.0
+offset_bottom = 13.0
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Mogul" parent="." unique_id=1266923078 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = 92.0
+offset_top = -298.5
+offset_right = 134.0
+offset_bottom = -256.5
+texture = ExtResource("11_fud60")
+custom_text_on_hover = "Mogul"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("11_fud60")
+
+[node name="Label" type="Label" parent="Mogul" unique_id=1321689206]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.2857143
+anchor_top = 0.23809524
+anchor_right = 1.2857143
+anchor_bottom = 0.23809524
+offset_right = 40.0
+offset_bottom = 13.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Magnetize" parent="." unique_id=1572304277 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = 92.0
+offset_top = -251.5
+offset_right = 134.0
+offset_bottom = -209.5
+texture = ExtResource("14_fuvd7")
+custom_text_on_hover = "Magnetize
+(Pickup Range)"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("14_fuvd7")
+
+[node name="Label" type="Label" parent="Magnetize" unique_id=2062466525]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.2857143
+anchor_top = 0.23809524
+anchor_right = 1.2857143
+anchor_bottom = 0.23809524
+offset_right = 40.0
+offset_bottom = 13.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Ghostly" parent="." unique_id=1849333135 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = 92.0
+offset_top = -204.5
+offset_right = 134.0
+offset_bottom = -162.5
+texture = ExtResource("18_bkwct")
+custom_text_on_hover = "Ghostly"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("18_bkwct")
+
+[node name="Label" type="Label" parent="Ghostly" unique_id=1587309325]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.2857143
+anchor_top = 0.23809524
+anchor_right = 1.2857143
+anchor_bottom = 0.23809524
+offset_right = 40.0
+offset_bottom = 13.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Thorns" parent="." unique_id=490559259 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = 92.0
+offset_top = -157.5
+offset_right = 134.0
+offset_bottom = -115.5
+texture = ExtResource("12_h60fb")
+custom_text_on_hover = "Thorns"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("12_h60fb")
+
+[node name="Label" type="Label" parent="Thorns" unique_id=976657688]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.2857143
+anchor_top = 0.23809524
+anchor_right = 1.2857143
+anchor_bottom = 0.23809524
+offset_right = 40.0
+offset_bottom = 13.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Revives" parent="." unique_id=1274836997 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = 92.0
+offset_top = -110.5
+offset_right = 134.0
+offset_bottom = -68.5
+texture = ExtResource("15_042vw")
+custom_text_on_hover = "Revives"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("15_042vw")
+
+[node name="Label" type="Label" parent="Revives" unique_id=762322765]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.2857143
+anchor_top = 0.23809524
+anchor_right = 1.2857143
+anchor_bottom = 0.23809524
+offset_right = 40.0
+offset_bottom = 13.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Difficulty" parent="." unique_id=839799553 instance=ExtResource("6_85deb")]
+layout_mode = 1
+offset_left = 92.0
+offset_top = -63.5
+offset_right = 134.0
+offset_bottom = -21.5
+texture = ExtResource("19_ywu3f")
+custom_text_on_hover = "Difficulty"
+custom_text_label_settings = SubResource("LabelSettings_pnh3m")
+text_self_modulate = Color(0.69411767, 0, 0, 1)
+standard_border = ExtResource("19_ywu3f")
+
+[node name="Label" type="Label" parent="Difficulty" unique_id=1034201104]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.2857143
+anchor_top = 0.23809524
+anchor_right = 1.2857143
+anchor_bottom = 0.23809524
+offset_right = 40.0
+offset_bottom = 13.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CharacterPortrait" type="TextureRect" parent="." unique_id=460805545]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 97.0
+offset_right = 332.0
+offset_bottom = 188.0
+stretch_mode = 3

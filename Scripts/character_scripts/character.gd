@@ -5,6 +5,7 @@ const POPUP_TEXT = preload("uid://brldrnbhcexcm")
 var game_man: GameManager:
 	get():
 		return GameManager.instance
+var data: CharacterData
 @export var character_name: String = "Character"
 @export var pickup_range: CollisionShape2D
 @export var anim: AnimatedSprite2D
@@ -25,6 +26,9 @@ const default_movespeed: float = 30
 @export var lifesteal_base: float = 0
 @export var revives_base: float = 0
 @export var thorns_base: float = 0
+@export var ghostly_base: float = 0
+@export var luck_base: float = 0
+@export var magnetize_base: float = 0
 var knockback_modifier: float = knockback_modifier_base
 var movespeed: float = default_movespeed:
 	get():
@@ -79,7 +83,15 @@ var thorns: float = 0:
 var revives: float = 0:
 	get():
 		return revives + GlobalStats.get_stat(GlobalStats.REVIES)
-
+var luck: float = 0:
+	get():
+		return luck + GlobalStats.get_stat(GlobalStats.LUCK)
+var ghostly: float = 0:
+	get():
+		return ghostly + GlobalStats.get_stat(GlobalStats.GHOSTLY)
+var magnetize: float = 0:
+	get():
+		return magnetize + GlobalStats.get_stat(GlobalStats.MAGNETIZE)
 func stats_changed():
 	## Set Max Stat Values
 	max_health = (health_base + Statics.player_hp_buff + GlobalStats.get_base_stat(GlobalStats.HP)) * GlobalStats.get_factor_stat(GlobalStats.HP)

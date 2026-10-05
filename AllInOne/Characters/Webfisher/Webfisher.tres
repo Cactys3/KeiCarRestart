@@ -10,4 +10,5 @@ script = ExtResource("2_wswkh")
 character_name = "Webfisher"
 character_scene = ExtResource("2_hh0xy")
 icon = ExtResource("3_hh0xy")
+character_sheet_icon = ExtResource("3_hh0xy")
 metadata/_custom_type_script = "uid://benf0nvrsvam7"
