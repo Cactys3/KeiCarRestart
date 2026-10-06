@@ -541,6 +541,8 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
 text = "QuickStart"
 
+[node name="Node" type="Node" parent="." unique_id=1965695328]
+
 [connection signal="pressed" from="SelectionsPage/BackOutline/BackButton" to="." method="press_back"]
 [connection signal="pressed" from="SelectionsPage/PowersOutline/PowersButton" to="." method="press_powers"]
 [connection signal="pressed" from="SelectionsPage/EmbarkOutline/Button" to="." method="press_start_game"]

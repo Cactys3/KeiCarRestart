@@ -47,7 +47,7 @@ const ITEM_DROP = preload("uid://d3v2pdpqpmvpe")
 static var drop_chance_powerup: float = 0.01:
 	get():
 		if GameManager.instance:
-			return calculate_powerup_drop_chance(drop_chance_powerup, GameManager.instance.luck)
+			return calculate_powerup_drop_chance(drop_chance_powerup, GameManager.instance.player.luck)
 		else:
 			return calculate_powerup_drop_chance(drop_chance_powerup, 0)
 static var next_enemy_drops_powerup: bool = false
@@ -57,7 +57,7 @@ var enemies_per_powerup: int = 150
 static var drop_chance_component: float = 0.01:
 	get():
 		if GameManager.instance:
-			return calculate_component_drop_chance(drop_chance_component, GameManager.instance.luck)
+			return calculate_component_drop_chance(drop_chance_component, GameManager.instance.player.luck)
 		else:
 			return calculate_component_drop_chance(drop_chance_component, 0)
 static var next_enemy_drops_component: bool = false
@@ -496,7 +496,7 @@ static func drop_chest(drop_title: String, handle_id: int, attachment_id: int, p
 static func drop_powerup(location: Vector2):
 	pass#var drop: ItemDrop = ITEM_DROP.instantiate() # TODO: make powerups
 	#drop.setup_item(ShopManager.make_itemUI(component))
-	#GameManager.instance.xp_parent.add_child(drop)
+	#game_man.xp_parent.add_child(drop)
 	#drop.global_position = location
 ## Calculates chance for enemy to drop a component
 static func calculate_component_drop_chance(drop_chance: float, luck: float) -> float:

@@ -16,6 +16,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="KeiCarRestart"
 run/main_scene="uid://c4ebub4hryjom"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="KeiKarRestar"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=240
 boot_splash/use_filter=false

@@ -98,6 +98,8 @@ const boss = "Boss"
 const lose = "Lose"
 const win = "Win"
 
+const save_file_name: String = "CombatGame_save"
+
 ## Updates data in runtime variables, will be saved to file once save function is called
 static func update_runtime_data(slot: int, data_name: String, data_value):
 	var found = false
@@ -166,10 +168,14 @@ static func load_data(slot: int, data_name: String) -> Variant:
 	return null
 ## Creates new save file at Slot, Overwrites any existing file
 static func create_file(slot: int):
+	check_create_save_folders()
 	if FileAccess.file_exists(get_filepath(slot)):
 		push_warning("Overwriting existing file on Slot: " + str(slot)) ## TODO: Popup/Ask Player to Confirm
 	var base_text = generate_save_file(slot)
 	var file = FileAccess.open(get_filepath(slot) , FileAccess.WRITE)
+	var error: Error = FileAccess.get_open_error()
+	if error != Error.OK:
+		push_error("Error Creating Save File: ", error_string(error))
 	file.store_string(base_text)
 	file.close()
 ## Saves the data currently in the Save variables to the specified file. Will overwrite.
@@ -178,6 +184,9 @@ static func save_file(slot: int):
 		var file = FileAccess.open(get_filepath(slot) , FileAccess.WRITE)
 		print(generate_save_file(slot))
 		file.store_string(generate_save_file(slot))
+		var error: Error = FileAccess.get_open_error()
+		if error != Error.OK:
+			printerr("Error Saving Save File: ", error_string(error))
 		file.close()
 	else:
 		push_error("Trying to save File: " + str(slot) + ", but doesn't exist")
@@ -226,6 +235,7 @@ static func load_file(slot: int):
 		printerr("Trying to load File: " + str(slot) + ", but doesn't exist")
 ## Creates save file with currently variable values
 static func generate_save_file(slot: int) -> String:
+	check_create_save_folders()
 	var output = ""
 	var metadata = {"save_date": Time.get_datetime_string_from_system(), "game_version": 0.0, "save_slot": str(slot), "OS": OS.get_name()}
 	output += DICTIONARY_HEADER + "MetaData" + ":\n"
@@ -242,7 +252,12 @@ static func generate_save_file(slot: int) -> String:
 	return output
 ## Returns String of filepath for slot num
 static func get_filepath(slot: int) -> String:
-	return OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP) + "/CombatGame-test_save_data" + str(slot) + ".json"
+	if OS.has_feature("linux"):
+		return get_save_dir() + "/" + save_file_name + str(slot) + ".json"
+	else:
+		print(OS.get_name())
+	## For Testing, savev file on desktop:
+	return OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP) + "/" + save_file_name + str(slot) + ".json"
 ## Adds data to place where it should be
 static func add_key(slot: int, key: String, value, lines: Array[String]) -> Array[String]:
 	return lines
@@ -261,3 +276,16 @@ static func unlock_achievement(achievement_const: String):
 ## Returns if save data exists at that slot number
 static func check_save_data(slot: int) -> bool:
 	return FileAccess.file_exists(get_filepath(slot))
+## Create Saves inside a save folder
+static func get_save_dir() -> String:
+	return OS.get_user_data_dir() + "/saves"
+## Check/Create if save folder exists
+static func check_create_save_folders() -> bool:
+	var dir := get_save_dir()
+	if DirAccess.dir_exists_absolute(dir):
+		return true
+	var err := DirAccess.make_dir_recursive_absolute(dir)
+	if err != OK:
+		push_error("Error Creating Save Folder: ", error_string(err))
+		return false
+	return true
