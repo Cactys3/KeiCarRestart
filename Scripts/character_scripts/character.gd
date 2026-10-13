@@ -179,7 +179,8 @@ func set_abilities(ability1_data: AbilityData, ability2_data: AbilityData, abili
 func setup():
 	## Initialize Stats
 	stats_changed()
-	GameManager.instance.StatsChanged.connect(stats_changed)
+	if !GameManager.instance.StatsChanged.is_connected(stats_changed):
+		GameManager.instance.StatsChanged.connect(stats_changed)
 	## Setup Abilities
 	if has_ability1:
 		Ability1.setup(self, 1)

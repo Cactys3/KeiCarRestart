@@ -445,7 +445,7 @@ func status_process(delta: float) -> void:
 func check_death(attack: Attack) -> bool:
 	if curr_health <= 0:
 		death_signal(attack)
-		die()
+		call_deferred("die")
 		return true
 	return false
 
@@ -688,7 +688,7 @@ func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 		if die_after_attack_count != -1:
 			attack_count += 1
 			if attack_count >= die_after_attack_count:
-				die()
+				call_deferred("die")
 func attack_body(target: Node2D):
 	var damage_percent: float = 1
 	## Deal less damage to fellow enemies

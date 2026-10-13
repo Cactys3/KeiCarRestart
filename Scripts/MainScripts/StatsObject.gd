@@ -462,7 +462,7 @@ func _get_weight_stat():
 		Attack.AttackTypes.summon:
 			ret = (ret + Statics.summon_weight_buff + Statics.spawn_weight_buff) * Statics.summon_weight_factor * Statics.spawn_weight_factor
 		Attack.AttackTypes.unset:
-			push_error("Unset Attack type When Accessing Stats")
+			push_error("unset 'attack_type'")
 	return ret
 func _get_attackcooldown_stat():
 	var ret = (GlobalStats.get_base_stat(GlobalStats.ATTACKCOOLDOWN) + _attackcooldown) * GlobalStats.get_factor_stat(GlobalStats.ATTACKCOOLDOWN)
@@ -489,7 +489,7 @@ func _get_attackcooldown_stat():
 		Attack.AttackTypes.summon:
 			ret = (ret + Statics.summon_attackcooldown_buff + Statics.spawn_attackcooldown_buff) * Statics.summon_attackcooldown_factor * Statics.spawn_attackcooldown_factor
 		Attack.AttackTypes.unset:
-			push_error("Unset Attack type When Accessing Stats")
+			push_error("Unset 'attack_type' while accessing stats, node: ", name)
 	return ret
 func _get_reloadtime_stat():
 	var ret = (GlobalStats.get_base_stat(GlobalStats.RELOADTIME) + _reloadtime) * GlobalStats.get_factor_stat(GlobalStats.RELOADTIME)

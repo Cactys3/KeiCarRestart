@@ -29,7 +29,7 @@ var player: Character
 signal AbilityFinished(ability: Ability)
 ## Make sure to override to set correct type
 func get_attack_type() -> Attack.AttackTypes:
-	return Attack.AttackTypes.unset
+	return Attack.AttackTypes.misc
 func get_attack_source() -> Attack.AttackSources:
 	return Attack.AttackSources.ability
 func _ready() -> void:

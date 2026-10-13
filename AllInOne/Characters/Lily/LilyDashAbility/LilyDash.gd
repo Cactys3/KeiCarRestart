@@ -1,7 +1,7 @@
 extends Ability
 ## Make sure to override to set correct type
 func get_attack_type() -> Attack.AttackTypes:
-	return Attack.AttackTypes.unset
+	return Attack.AttackTypes.misc
 ## Can Trigger while player being stunned
 func can_trigger() -> bool:
 	return !on_cooldown && !paused_until_ability_finish && !player.stunning

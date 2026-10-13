@@ -197,7 +197,7 @@ func append_attack_element(node: Node):
 	AttackedObjects.append(AttackedObjectsElement.new(node, attack_same_enemy_cooldown))
 ## If self is an Area2D, setup collision mask/layer
 func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
-	var area = get_node(".") as Area2D
+	var area: Area2D = get_node(".") as Area2D
 	area.set_collision_layer_value(1, false)
 	area.set_collision_mask_value(1, false)
 	## From Enemy or Player
@@ -208,8 +208,10 @@ func setup_collisions(is_player_weapons: bool, is_enemy_weapons: bool):
 	area.set_collision_mask_value(4, true)
 	area.set_collision_mask_value(8, true)
 	area.set_collision_mask_value(10, true)
-	area.body_entered.connect(_on_body_entered)
-	area.area_entered.connect(_on_body_entered)
+	if !area.body_entered.is_connected(_on_body_entered):
+		area.body_entered.connect(_on_body_entered)
+	if !area.area_entered.is_connected(_on_body_entered):
+		area.area_entered.connect(_on_body_entered)
 func set_creator(new_creator: Node2D):
 	creator = new_creator
 class AttackedObjectsElement:
