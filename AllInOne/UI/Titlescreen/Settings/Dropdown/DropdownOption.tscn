@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://8vxefhf8mbw0"]
+
+[ext_resource type="Texture2D" uid="uid://dkj8ddwlrcoul" path="res://AllInOne/UI/Titlescreen/Settings/Dropdown/TempDropdownBackground.png" id="1_po87r"]
+[ext_resource type="Script" uid="uid://dqs7yse0vdi6n" path="res://AllInOne/UI/Titlescreen/Settings/Dropdown/DropdownOption.gd" id="2_45anx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3xd07"]
+font_size = 32
+font_color = Color(0.9999439, 0.6953243, 0.6469772, 1)
+
+[node name="TextureRect" type="TextureRect" unique_id=1695535609]
+offset_right = 48.0
+offset_bottom = 33.0
+texture = ExtResource("1_po87r")
+stretch_mode = 3
+script = ExtResource("2_45anx")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="." unique_id=1762955234]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.029411765
+anchor_right = 1.0
+anchor_bottom = 0.9705882
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Option"
+label_settings = SubResource("LabelSettings_3xd07")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

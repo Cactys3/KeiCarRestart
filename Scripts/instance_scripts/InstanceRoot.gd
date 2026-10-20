@@ -1,7 +1,9 @@
 extends Node2D
+class_name InstanceRoot
 
 var instance: GameInstance
 
+@export var window_manager: WindowManager
 @export var camera: Camera2D
 @export var game_man: GameManager
 @export var ui_man: UIManager

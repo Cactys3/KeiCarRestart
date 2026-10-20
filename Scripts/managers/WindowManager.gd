@@ -4,10 +4,8 @@ class_name WindowManager
 @onready var UiWindow: Window = $"../Window1920"
 @onready var Game_Offset: Node2D = $"../Window640/Offset"
 @onready var UI_Offset: Control = $"../Window1920/Offset"
-var curr_size: Vector2
-var player:
-	get():
-		return GameManager.instance.player
+var curr_resolution_size: Vector2
+var curr_window_mode: Settings.WindowModes
 static var session_start_time = null
 static var instance: WindowManager
 ## Game has to start in 4k or sm high resolution or else it doesn't work (can't set to resolutions higher than starting resolution)
@@ -15,6 +13,9 @@ static var instance: WindowManager
 ## Windows themselves automatically scale up according to their settings
 static var CurrentMonitorSize 
 signal ProgramSizedChanged
+func setup(size: Vector2i, mode: Settings.WindowModes):
+	curr_resolution_size = size
+	curr_window_mode = mode
 func _ready() -> void:
 	if instance:
 		printerr("ERROR, MULTIPLE WINDOW MANAGERS")
@@ -22,24 +23,21 @@ func _ready() -> void:
 	if session_start_time == null:
 		session_start_time = Time.get_datetime_string_from_system()
 	get_tree().root.size_changed.connect(_center_subwindows)
-	var testing = true
+	var testing = false
 	if testing: 
+		pass
 		## Start Windowed 1080p for Testing
-		set_program_size(Vector2(1920, 1080), false)
+		set_program_size(Vector2(1920, 1080), Settings.WindowModes.borderless)
 	else:
 		## Get Monitor Resolution and start in that
 		var main_monitor = DisplayServer.screen_get_usable_rect(0).size
 		var current_monitor = DisplayServer.screen_get_usable_rect(DisplayServer.window_get_current_screen()).size
+		print("Starting Monitor Size: ", current_monitor)
 		CurrentMonitorSize = current_monitor
-		set_program_size(round_to_integer_scaling(current_monitor, true), false)
+		#set_program_size(round_to_integer_scaling(current_monitor, true), false)
+		set_program_size(curr_resolution_size, curr_window_mode)
 	for i in 11:
 		await get_tree().process_frame
-	if testing:
-		GameWindow.position = Vector2i.ZERO
-		UiWindow.position = Vector2i.ZERO
-		Game_Offset.position = Vector2(58, 274)
-		UI_Offset.position = Vector2(58, 274)
-		
 const BASE_SIZE := Vector2i(640, 360)
 func round_to_integer_scaling(size: Vector2i, nearest: bool) -> Vector2i:
 	var scale_factor: float = minf(float(size.x) / BASE_SIZE.x, float(size.y) / BASE_SIZE.y)
@@ -47,9 +45,9 @@ func round_to_integer_scaling(size: Vector2i, nearest: bool) -> Vector2i:
 	integer_scale = maxi(integer_scale, 1)
 	return BASE_SIZE * integer_scale
 ## Changes the Game's screensize to parameters and updates scene subwindows aswell
-func set_program_size(size: Vector2i, fullscreen: bool):
+func set_program_size(size: Vector2i, mode: Settings.WindowModes):
 	## Set Fullscreen/Windowed first, else it bugs out
-	if fullscreen:
+	if mode == Settings.WindowModes.fullscreen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 		## Don't use given size as we are going fullscreen (use monitor size)
 		size = DisplayServer.screen_get_size(DisplayServer.window_get_current_screen())
@@ -67,7 +65,7 @@ func set_program_size(size: Vector2i, fullscreen: bool):
 	UiWindow.size = size
 	## Center after changing size
 	var window_position: Vector2i = DisplayServer.screen_get_position(DisplayServer.window_get_current_screen())
-	if !fullscreen:
+	if mode != Settings.WindowModes.fullscreen:
 		## Account for Decorations? This is like the titlebar?
 		#var decor := DisplayServer.window_get_size_with_decorations() - DisplayServer.window_get_size()
 		## Centers Window (gipity)
@@ -81,13 +79,11 @@ func set_program_size(size: Vector2i, fullscreen: bool):
 	GameWindow.position = (root_size - GameWindow.size) / 2.0
 	UiWindow.position = (root_size - UiWindow.size) / 2.0
 	
-	## Keep track of curr size
-	curr_size = size
 	## Let everyone know
 	ProgramSizedChanged.emit()
 	var testing = false
 	if testing:
-		print("Size: ", size, " Fullscreen: ", fullscreen, " Root: ", root_size, " GameWindow pos: ", GameWindow.position, " UiWindow pos: ", UiWindow.position)
+		#print("Size: ", size, " Fullscreen: ", fullscreen, " Root: ", root_size, " GameWindow pos: ", GameWindow.position, " UiWindow pos: ", UiWindow.position)
 		print("size param: ", size)
 		print("root size: ", get_tree().root.size, " DS window size: ", DisplayServer.window_get_size())
 		print("GameWindow size: ", GameWindow.size, " content_scale: ", GameWindow.content_scale_size)
@@ -102,33 +98,35 @@ var curr: int = 2
 func _process(delta: float) -> void:
 	if !instance:
 		instance = self
-	if Input.is_action_just_pressed("Test1"):
-		_on_pressed()
-	if Input.is_action_just_pressed("left"):
-		GameWindow.position += Vector2i(10, 0)
-	if Input.is_action_just_pressed("right"):
-		GameWindow.position += Vector2i(-10, 0)
-	if Input.is_action_just_pressed("up"):
-		GameWindow.position += Vector2i(0, 10)
-	if Input.is_action_just_pressed("down"):
-		GameWindow.position += Vector2i(0, -10)
-	print(GameWindow.position, " And ", UiWindow.position, "+ ", Game_Offset.global_position, " and ", UI_Offset.global_position)
+	var testing = false
+	if testing:
+		if Input.is_action_just_pressed("Test1"):
+			_on_pressed()
+		if Input.is_action_just_pressed("left"):
+			GameWindow.position += Vector2i(10, 0)
+		if Input.is_action_just_pressed("right"):
+			GameWindow.position += Vector2i(-10, 0)
+		if Input.is_action_just_pressed("up"):
+			GameWindow.position += Vector2i(0, 10)
+		if Input.is_action_just_pressed("down"):
+			GameWindow.position += Vector2i(0, -10)
+		print(GameWindow.position, " And ", UiWindow.position, "+ ", Game_Offset.global_position, " and ", UI_Offset.global_position)
 func _center_subwindows() -> void:
 	var root_size := Vector2i(get_tree().root.size)
 	GameWindow.position = (root_size - GameWindow.size) / 2.0
 	UiWindow.position = (root_size - UiWindow.size) / 2.0
-	print("recenter root: ", root_size, " pos: ", GameWindow.position)
+	#print("recenter root: ", root_size, " pos: ", GameWindow.position)
 func _on_pressed() -> void:
 	#print("Changed Resolution from: " + str(curr))
 	match curr:
 		1:
-			set_program_size(Vector2(1920, 1080), false)
+			set_program_size(Vector2(1920, 1080), Settings.get_window_mode())
 			curr = 2
 		2:
-			set_program_size(Vector2(2560, 1440), true)
+			set_program_size(Vector2(2560, 1440), Settings.get_window_mode())
 			curr = 3
 		3:
-			set_program_size(Vector2(1280, 720), false)
+			set_program_size(Vector2(1280, 720), Settings.get_window_mode())
 			curr = 1
 	
 	#print("To: " + str(get_tree().root.size.y))
@@ -137,7 +135,7 @@ func convert_small_position(position: Vector2) -> Vector2:
 	var small_size = Vector2(GameWindow.content_scale_size)  # 640x360
 	var large_size = Vector2(UiWindow.content_scale_size)
 	# Get the vector from player to the position
-	var offset_from_player = Vector2(position) - player.global_position
+	var offset_from_player = Vector2(position) - GameManager.instance.player.global_position
 	# Convert to normalized coordinates
 	var normalized_offset = offset_from_player / small_size
 	# Scale to large window coordinates
@@ -161,7 +159,7 @@ func convert_large_position(position: Vector2) -> Vector2:
 	# Scale to small window coordinates
 	var scaled_offset = normalized_offset * small_size
 	# Apply the scaled offset from the player position
-	var pos_in_small = player.global_position + scaled_offset
+	var pos_in_small = GameManager.instance.player.global_position + scaled_offset
 	#print("Large->Small: position: " + str(position) + ", player_position: " + str(player.global_position) + ", large_size: " + str(large_size) + ", small_size: " + str(small_size) + ", large_center: " + str(large_center) + ", offset_from_center: " + str(offset_from_center) + ", normalized_offset: " + str(normalized_offset) + ", scaled_offset: " + str(scaled_offset) + ", pos_in_small: " + str(pos_in_small))
 	return pos_in_small
 

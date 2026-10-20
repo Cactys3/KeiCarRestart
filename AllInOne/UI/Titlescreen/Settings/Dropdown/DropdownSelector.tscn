@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://ckl045o526bf0"]
+
+[ext_resource type="Texture2D" uid="uid://dkj8ddwlrcoul" path="res://AllInOne/UI/Titlescreen/Settings/Dropdown/TempDropdownBackground.png" id="1_b63lu"]
+[ext_resource type="Script" uid="uid://b77g5pv1tpcmf" path="res://AllInOne/UI/Titlescreen/Settings/Dropdown/DropdownSelector.gd" id="1_xmef0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_b63lu"]
+font_size = 32
+font_color = Color(0.9999439, 0.6953243, 0.6469772, 1)
+
+[node name="DropdownSelector" type="TextureRect" unique_id=1485316705]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.5
+offset_right = 24.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_b63lu")
+stretch_mode = 3
+script = ExtResource("1_xmef0")
+
+[node name="Label" type="Label" parent="." unique_id=1267955362]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.073529385
+anchor_right = 1.0
+anchor_bottom = 0.9264706
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.69411767, 0.64705884, 1)
+text = "a"
+label_settings = SubResource("LabelSettings_b63lu")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

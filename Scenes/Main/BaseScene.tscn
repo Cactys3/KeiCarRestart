@@ -62,9 +62,10 @@ font_size = 64
 font_size = 32
 font_color = Color(0.8089983, 0.8089983, 0.8089982, 1)
 
-[node name="GameInstance" type="Node2D" unique_id=704490697 node_paths=PackedStringArray("camera", "game_man", "ui_man", "background_parent", "event_foreground_parent", "event_background_parent", "enemy_parent", "xp_parent", "character_parent", "ability_parent", "weapon_parent", "spawn_area", "spawn_deadzone")]
+[node name="GameInstance" type="Node2D" unique_id=704490697 node_paths=PackedStringArray("window_manager", "camera", "game_man", "ui_man", "background_parent", "event_foreground_parent", "event_background_parent", "enemy_parent", "xp_parent", "character_parent", "ability_parent", "weapon_parent", "spawn_area", "spawn_deadzone")]
 process_mode = 3
 script = ExtResource("1_eeah7")
+window_manager = NodePath("WindowManager")
 camera = NodePath("Window640/Offset/CharacterParent/Camera2D")
 game_man = NodePath("Window1920/Offset/GameManager")
 ui_man = NodePath("Window1920/Offset/UIManager")

@@ -14,8 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://ck01i55vg4og6" path="res://AllInOne/UI/Titlescreen/Outlines/Neutral_LargeButtonOutline.png" id="13_wlr2a"]
 [ext_resource type="Texture2D" uid="uid://b2mh2tfuhkb0r" path="res://AllInOne/UI/Titlescreen/Outlines/Hovered_LargeButtonOutline.png" id="14_464df"]
 [ext_resource type="Texture2D" uid="uid://dax87r6a4px6x" path="res://AllInOne/UI/Titlescreen/Outlines/Pressed_LargeButtonOutline.png" id="15_m40aa"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_03vfd"]
+[ext_resource type="Texture2D" uid="uid://njrmft51eo30" path="res://AllInOne/UI/Titlescreen/Outlines/SettingsBackground.png" id="15_wlr2a"]
+[ext_resource type="PackedScene" uid="uid://ckl045o526bf0" path="res://AllInOne/UI/Titlescreen/Settings/Dropdown/DropdownSelector.tscn" id="16_464df"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jq8tk"]
 
@@ -28,6 +28,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0ogg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t7n2i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_03vfd"]
 
 [node name="Titlescreen" type="Control" unique_id=1738980017]
 layout_mode = 3
@@ -46,252 +48,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SelectionsPage" type="Control" parent="." unique_id=451228774]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SelectionBackground" type="TextureRect" parent="SelectionsPage" unique_id=2133657686]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_rb85a")
-
-[node name="CharacterSelection" type="GridContainer" parent="SelectionsPage" unique_id=471194366]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -643.0
-offset_top = -290.0
-offset_right = -643.0
-offset_bottom = -290.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 7
-
-[node name="WeaponSelection" type="GridContainer" parent="SelectionsPage" unique_id=1932921754]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -643.0
-offset_top = -290.0
-offset_right = -643.0
-offset_bottom = -290.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 7
-
-[node name="MapSelectionParent" type="TextureRect" parent="SelectionsPage" unique_id=1200548800]
-layout_mode = 0
-offset_left = 194.0
-offset_top = 343.0
-offset_right = 1193.0
-offset_bottom = 819.0
-texture = ExtResource("3_03vfd")
-stretch_mode = 5
-
-[node name="ScrollContainer" type="ScrollContainer" parent="SelectionsPage/MapSelectionParent" unique_id=2128742104]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.067067064
-anchor_top = 0.09033614
-anchor_right = 0.9219219
-anchor_bottom = 0.8655462
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/scrollbar_h_separation = 50
-theme_override_styles/focus = SubResource("StyleBoxEmpty_03vfd")
-horizontal_scroll_mode = 4
-vertical_scroll_mode = 0
-scroll_horizontal_by_default = true
-metadata/_edit_use_anchors_ = true
-
-[node name="MapSelection" type="HBoxContainer" parent="SelectionsPage/MapSelectionParent/ScrollContainer" unique_id=637147071]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="BackOutline" type="TextureRect" parent="SelectionsPage" unique_id=134621844]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.057421874
-anchor_top = 0.9361111
-anchor_right = 0.057421874
-anchor_bottom = 0.9361111
-offset_top = -162.0
-offset_right = 359.0
-grow_vertical = 0
-texture = ExtResource("3_t8enk")
-stretch_mode = 5
-script = ExtResource("4_4288j")
-unhovered_texture = ExtResource("3_t8enk")
-hovered_texture = ExtResource("5_rb85a")
-metadata/_edit_use_anchors_ = true
-
-[node name="BackButton" type="Button" parent="SelectionsPage/BackOutline" unique_id=8672788]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.25
-offset_right = -0.25
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
-theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
-theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
-theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
-theme_override_font_sizes/font_size = 128
-theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
-text = "Back"
-
-[node name="PowersOutline" type="TextureRect" parent="SelectionsPage" unique_id=808354838]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.96835935
-anchor_top = 0.031944446
-anchor_right = 0.96835935
-anchor_bottom = 0.031944446
-offset_left = -359.0
-offset_bottom = 162.0
-grow_horizontal = 0
-texture = ExtResource("3_t8enk")
-stretch_mode = 5
-script = ExtResource("4_4288j")
-unhovered_texture = ExtResource("3_t8enk")
-hovered_texture = ExtResource("5_rb85a")
-metadata/_edit_use_anchors_ = true
-
-[node name="PowersButton" type="Button" parent="SelectionsPage/PowersOutline" unique_id=1987123151]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.25
-offset_right = -0.25
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
-theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
-theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
-theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
-theme_override_font_sizes/font_size = 128
-theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
-text = "Powers"
-
-[node name="EmbarkOutline" type="TextureRect" parent="SelectionsPage" unique_id=1706428082]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.20820312
-anchor_top = 0.9361111
-anchor_right = 0.20820312
-anchor_bottom = 0.9361111
-offset_top = -162.0
-offset_right = 359.0
-grow_vertical = 0
-texture = ExtResource("3_t8enk")
-stretch_mode = 5
-script = ExtResource("4_4288j")
-unhovered_texture = ExtResource("3_t8enk")
-hovered_texture = ExtResource("5_rb85a")
-metadata/_edit_use_anchors_ = true
-
-[node name="Button" type="Button" parent="SelectionsPage/EmbarkOutline" unique_id=823135220]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.25
-offset_right = -0.25
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
-theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
-theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
-theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
-theme_override_font_sizes/font_size = 128
-theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
-text = "Embark"
-
-[node name="WeaponOption" parent="SelectionsPage" unique_id=2107749267 instance=ExtResource("7_ybvak")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.42734376
-anchor_top = 0.92777777
-anchor_right = 0.42734376
-anchor_bottom = 0.92777777
-offset_left = 0.0
-offset_top = -128.0
-offset_right = 128.0
-offset_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="CharacterOption" parent="SelectionsPage" unique_id=1596977841 instance=ExtResource("7_ybvak")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.365625
-anchor_top = 0.92777777
-anchor_right = 0.365625
-anchor_bottom = 0.92777777
-offset_left = 0.0
-offset_top = -128.0
-offset_right = 128.0
-offset_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="CurrencyLabel" type="Label" parent="SelectionsPage" unique_id=1138817476]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.81171876
-anchor_top = 0.05
-anchor_right = 0.81171876
-anchor_bottom = 0.05
-offset_left = -96.0
-offset_bottom = 102.0
-grow_horizontal = 0
-theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
-theme_override_font_sizes/font_size = 128
-text = "0¥"
-metadata/_edit_use_anchors_ = true
-
 [node name="StartPage" type="Control" parent="." unique_id=88851692]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -541,12 +299,368 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
 text = "QuickStart"
 
+[node name="SelectionsPage" type="Control" parent="." unique_id=451228774]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SelectionBackground" type="TextureRect" parent="SelectionsPage" unique_id=2133657686]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rb85a")
+
+[node name="CharacterSelection" type="GridContainer" parent="SelectionsPage" unique_id=471194366]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -643.0
+offset_top = -290.0
+offset_right = -643.0
+offset_bottom = -290.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 7
+
+[node name="WeaponSelection" type="GridContainer" parent="SelectionsPage" unique_id=1932921754]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -643.0
+offset_top = -290.0
+offset_right = -643.0
+offset_bottom = -290.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 7
+
+[node name="MapSelectionParent" type="TextureRect" parent="SelectionsPage" unique_id=1200548800]
+layout_mode = 0
+offset_left = 194.0
+offset_top = 343.0
+offset_right = 1193.0
+offset_bottom = 819.0
+texture = ExtResource("3_03vfd")
+stretch_mode = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SelectionsPage/MapSelectionParent" unique_id=2128742104]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.067067064
+anchor_top = 0.09033614
+anchor_right = 0.9219219
+anchor_bottom = 0.8655462
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/scrollbar_h_separation = 50
+theme_override_styles/focus = SubResource("StyleBoxEmpty_03vfd")
+horizontal_scroll_mode = 4
+vertical_scroll_mode = 0
+scroll_horizontal_by_default = true
+metadata/_edit_use_anchors_ = true
+
+[node name="MapSelection" type="HBoxContainer" parent="SelectionsPage/MapSelectionParent/ScrollContainer" unique_id=637147071]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="BackOutline" type="TextureRect" parent="SelectionsPage" unique_id=134621844]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.057421874
+anchor_top = 0.9361111
+anchor_right = 0.057421874
+anchor_bottom = 0.9361111
+offset_top = -162.0
+offset_right = 359.0
+grow_vertical = 0
+texture = ExtResource("3_t8enk")
+stretch_mode = 5
+script = ExtResource("4_4288j")
+unhovered_texture = ExtResource("3_t8enk")
+hovered_texture = ExtResource("5_rb85a")
+metadata/_edit_use_anchors_ = true
+
+[node name="BackButton" type="Button" parent="SelectionsPage/BackOutline" unique_id=8672788]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.25
+offset_right = -0.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
+theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
+text = "Back"
+
+[node name="PowersOutline" type="TextureRect" parent="SelectionsPage" unique_id=808354838]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.96835935
+anchor_top = 0.031944446
+anchor_right = 0.96835935
+anchor_bottom = 0.031944446
+offset_left = -359.0
+offset_bottom = 162.0
+grow_horizontal = 0
+texture = ExtResource("3_t8enk")
+stretch_mode = 5
+script = ExtResource("4_4288j")
+unhovered_texture = ExtResource("3_t8enk")
+hovered_texture = ExtResource("5_rb85a")
+metadata/_edit_use_anchors_ = true
+
+[node name="PowersButton" type="Button" parent="SelectionsPage/PowersOutline" unique_id=1987123151]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.25
+offset_right = -0.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
+theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
+text = "Powers"
+
+[node name="EmbarkOutline" type="TextureRect" parent="SelectionsPage" unique_id=1706428082]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.20820312
+anchor_top = 0.9361111
+anchor_right = 0.20820312
+anchor_bottom = 0.9361111
+offset_top = -162.0
+offset_right = 359.0
+grow_vertical = 0
+texture = ExtResource("3_t8enk")
+stretch_mode = 5
+script = ExtResource("4_4288j")
+unhovered_texture = ExtResource("3_t8enk")
+hovered_texture = ExtResource("5_rb85a")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="SelectionsPage/EmbarkOutline" unique_id=823135220]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.25
+offset_right = -0.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
+theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
+text = "Embark"
+
+[node name="WeaponOption" parent="SelectionsPage" unique_id=2107749267 instance=ExtResource("7_ybvak")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.42734376
+anchor_top = 0.92777777
+anchor_right = 0.42734376
+anchor_bottom = 0.92777777
+offset_left = 0.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="CharacterOption" parent="SelectionsPage" unique_id=1596977841 instance=ExtResource("7_ybvak")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.365625
+anchor_top = 0.92777777
+anchor_right = 0.365625
+anchor_bottom = 0.92777777
+offset_left = 0.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="CurrencyLabel" type="Label" parent="SelectionsPage" unique_id=1138817476]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.81171876
+anchor_top = 0.05
+anchor_right = 0.81171876
+anchor_bottom = 0.05
+offset_left = -96.0
+offset_bottom = 102.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
+theme_override_font_sizes/font_size = 128
+text = "0¥"
+metadata/_edit_use_anchors_ = true
+
+[node name="SettingsPage" type="Control" parent="." unique_id=1660577035]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="SettingsPage" unique_id=1780951039]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_wlr2a")
+
+[node name="BackOutline" type="TextureRect" parent="SettingsPage" unique_id=49355415]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.84882814
+anchor_top = 0.12847222
+anchor_right = 0.84882814
+anchor_bottom = 0.12847222
+offset_top = -162.0
+offset_right = 359.0
+grow_vertical = 0
+texture = ExtResource("3_t8enk")
+stretch_mode = 5
+script = ExtResource("4_4288j")
+unhovered_texture = ExtResource("3_t8enk")
+hovered_texture = ExtResource("5_rb85a")
+metadata/_edit_use_anchors_ = true
+
+[node name="BackButton" type="Button" parent="SettingsPage/BackOutline" unique_id=394556894]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.25
+offset_right = -0.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.74509805, 0.73333335, 0.75686276, 1)
+theme_override_colors/font_focus_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_pressed_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_colors/font_hover_color = Color(0.8901961, 0.8901961, 0.8901961, 1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jq8tk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dwbtc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6fhyq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h83rl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_j0ogg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t7n2i")
+text = "Back"
+
+[node name="GameTitle" type="Label" parent="SettingsPage" unique_id=549741851]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1133.0
+offset_top = -648.0
+offset_right = -365.0
+offset_bottom = -445.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9473286, 0.00071960286, 0.0003950572, 1)
+theme_override_font_sizes/font_size = 256
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Selectors" type="Control" parent="SettingsPage" unique_id=1994830635]
+anchors_preset = 0
+offset_left = 201.0
+offset_top = 394.0
+offset_right = 241.0
+offset_bottom = 434.0
+
+[node name="ResolutionSelector" parent="SettingsPage/Selectors" unique_id=1485316705 instance=ExtResource("16_464df")]
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 76.0
+offset_right = 128.0
+offset_bottom = 144.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="WindowModeSelector" parent="SettingsPage/Selectors" unique_id=1083608286 instance=ExtResource("16_464df")]
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 128.0
+offset_bottom = 68.0
+grow_horizontal = 1
+grow_vertical = 1
+
 [node name="Node" type="Node" parent="." unique_id=1965695328]
 
-[connection signal="pressed" from="SelectionsPage/BackOutline/BackButton" to="." method="press_back"]
-[connection signal="pressed" from="SelectionsPage/PowersOutline/PowersButton" to="." method="press_powers"]
-[connection signal="pressed" from="SelectionsPage/EmbarkOutline/Button" to="." method="press_start_game"]
 [connection signal="pressed" from="StartPage/PlayOutline/PlayButton" to="." method="press_play"]
 [connection signal="pressed" from="StartPage/CollectionOutline/CollectionButton" to="." method="press_collection"]
 [connection signal="pressed" from="StartPage/SettingsOutline/SettingsButton" to="." method="press_settings"]
 [connection signal="pressed" from="StartPage/QuickStartOutline/QuickStartButton" to="." method="_quickstart"]
+[connection signal="pressed" from="SelectionsPage/BackOutline/BackButton" to="." method="press_back"]
+[connection signal="pressed" from="SelectionsPage/PowersOutline/PowersButton" to="." method="press_powers"]
+[connection signal="pressed" from="SelectionsPage/EmbarkOutline/Button" to="." method="press_start_game"]
+[connection signal="pressed" from="SettingsPage/BackOutline/BackButton" to="." method="press_back"]

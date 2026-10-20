@@ -10,12 +10,26 @@ extends Node
 @onready var start_game_button: TextureRect = $SelectionsPage/EmbarkOutline
 @onready var character_option: TextureRect = $SelectionsPage/CharacterOption
 @onready var weapon_option: TextureRect = $SelectionsPage/WeaponOption
+## Settings
+@onready var resolution_selector: DropdownSelector = $SettingsPage/Selectors/ResolutionSelector
+@onready var window_mode_selector: DropdownSelector = $SettingsPage/Selectors/WindowModeSelector
 
 ## Pages
 @onready var start_page: Control = $StartPage
-var settings_page: Control
+@onready var settings_page: Control = $SettingsPage
 var collections_page: Control
 @onready var selections_page: Control = $SelectionsPage
+
+const RESOLUTION_360P: String = "360p"
+const RESOLUTION_720P: String = "720p"
+const RESOLUTION_1080P: String = "1080p"
+const RESOLUTION_1440P: String = "1440p"
+const RESOLUTION_4K: String = "2160p/4k"
+const BORDERLESS: String = "borderless"
+const FULLSCREEN: String = "fullscreen"
+const WINDOWED: String = "windowed"
+
+
 
 const SELECTION_OPTION = preload("uid://7agjses182bt")
 const MAP_OPTION = preload("uid://dhecocpqq2dd7")
@@ -23,7 +37,7 @@ const MAP_OPTION = preload("uid://dhecocpqq2dd7")
 enum screens {title, settings, collection, map, character, weapon, abilities}
 var current_screen: screens = screens.title
 var previous_screens: Array[screens]
-
+var settings_setup: bool = false
 static var file_slot: int = 0
 const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
 ## Instances
@@ -146,6 +160,13 @@ func press_play() -> void:
 ## Go to Settings
 func press_settings() -> void:
 	play_button_sound()
+	set_page(settings_page)
+	changed_screens(screens.settings)
+	if !settings_setup:
+		settings_setup = true
+		## TODO: Grab starting resolution from save file?
+		resolution_selector.setup(self, RESOLUTION_1080P, [RESOLUTION_360P, RESOLUTION_720P, RESOLUTION_1080P, RESOLUTION_1440P, RESOLUTION_4K])
+		window_mode_selector.setup(self, WINDOWED, [BORDERLESS, FULLSCREEN, WINDOWED])
 ## Go to Collection
 func press_collection() -> void:
 	play_button_sound()
@@ -163,9 +184,11 @@ func press_start_game():
 	get_tree().paused = true
 	get_tree().current_scene.queue_free()
 	
-	var base_scene: Node2D = load(BaseScene).instantiate()
+	var base_scene: InstanceRoot = load(BaseScene).instantiate()
 	var instance: GameInstance = setup_instance(base_scene)
 	audio_manager.reparent(base_scene)
+	## Setup the resolution/window mode based on settings to keep it the same as titlescreen (This happens before windowmanager's ready() right?)
+	base_scene.window_manager.setup(Settings.get_resolution(), Settings.get_window_mode())
 	
 	get_tree().root.add_child(base_scene)
 	get_tree().current_scene = base_scene
@@ -224,6 +247,7 @@ func set_weapon(index: int):
 func set_page(page: Control):
 	start_page.visible = false
 	selections_page.visible = false
+	settings_page.visible = false
 	if page != null:
 		page.visible = true
 func set_selection(selection: Control):
@@ -291,3 +315,64 @@ func _on_choose_0_pressed(extra_arg_0: int) -> void:
 
 func play_button_sound():
 	pass##AudioManager.instance.play(AudioManager.instance.UI_PRESS, Vector2(0, 0))
+
+func dropdown_selected(selector: DropdownSelector, option: String):
+	match selector:
+		resolution_selector:
+			## Set resolution in settings for the game and update current titlescreen res
+			match option:
+				RESOLUTION_360P:
+					Settings.set_resolution(Settings.Resolutions._360)
+					set_titlescreen_resolution(Vector2i(640, 360))
+				RESOLUTION_720P:
+					Settings.set_resolution(Settings.Resolutions._720)
+					set_titlescreen_resolution(Vector2i(1280, 720))
+				RESOLUTION_1080P:
+					Settings.set_resolution(Settings.Resolutions._1080)
+					set_titlescreen_resolution(Vector2i(1920, 1080))
+				RESOLUTION_1440P:
+					Settings.set_resolution(Settings.Resolutions._1440)
+					set_titlescreen_resolution(Vector2i(2560, 1440))
+				RESOLUTION_4K:
+					Settings.set_resolution(Settings.Resolutions._2160)
+					set_titlescreen_resolution(Vector2i(3840, 2160))
+				_:
+					printerr("Selected Option that doesn't exist for resolution: ", option)
+		window_mode_selector:
+			## Make sure window/borderless mode use resolution and fullscreen does not
+			match option:
+				BORDERLESS:
+					Settings.set_window_mode(Settings.WindowModes.borderless)
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+					DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+					set_titlescreen_resolution(Settings.get_resolution())
+					center_titlescreen()
+				FULLSCREEN:
+					Settings.set_window_mode(Settings.WindowModes.fullscreen)
+					DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+				WINDOWED:
+					Settings.set_window_mode(Settings.WindowModes.windowed)
+					DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+					set_titlescreen_resolution(Settings.get_resolution())
+					center_titlescreen()
+				_:
+					printerr("Selected Option that doesn't exist for window mode: ", option)
+		_:
+			printerr("Selected Selector that doesn't exist: ", option)
+func set_titlescreen_resolution(resolution: Vector2i):
+	match Settings.get_window_mode():
+		Settings.WindowModes.fullscreen:
+			pass
+		Settings.WindowModes.borderless:
+			get_window().size = resolution
+			center_titlescreen()
+		Settings.WindowModes.windowed:
+			get_window().size = resolution
+			center_titlescreen()
+func center_titlescreen():
+	var screen: int = DisplayServer.window_get_current_screen()
+	var screen_position: Vector2i = DisplayServer.screen_get_position(screen)
+	var screen_size: Vector2i = DisplayServer.screen_get_size(screen)
+	DisplayServer.window_set_position(screen_position + (screen_size - get_window().size) / 2)

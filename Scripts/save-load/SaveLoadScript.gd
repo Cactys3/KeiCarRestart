@@ -1,5 +1,4 @@
 extends Node
-class_name Save
 const DICTIONARY_HEADER: String = "#DICT: "
 const VARIABLE_HEADER: String = "\tVAR - "
 const VARIABLE_VALUE_SPLIT: String = ": "
